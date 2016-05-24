@@ -6,6 +6,20 @@ angular.module('developerMaze').controller('firstCtl',function( $scope , server)
 	// }).error(function(data){
 	// 	console.log(data);
 	// });
+	$scope.user = {
+      email: '',
+      password: ''
+    };
+
+    $scope.submitLogin = function(){
+
+    	console.log($scope.user.email);
+    	console.log($scope.user.password);
+    };
+
+    // $scope.sliderImage = 'images/img4.jpg';
+
 
 
 })
+

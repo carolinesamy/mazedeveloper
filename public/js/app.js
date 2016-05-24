@@ -1,4 +1,4 @@
-angular.module('developerMaze',['ngRoute']);
+angular.module('developerMaze',['ngRoute','ui.bootstrap']);
 
 angular.module('developerMaze').config(function($routeProvider){
 

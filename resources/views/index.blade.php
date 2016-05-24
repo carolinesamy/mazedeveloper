@@ -12,7 +12,9 @@
     <script src="js/ui-bootstrap-tpls-1.3.3.min.js"></script>
 	
 	<script src="js/app.js"></script>
-	<script src="js/controller.js"></script>
+	<script src="js/homecontroller.js"></script>
+	<script src="js/questionscontroller.js"></script>
+
 	<script src="js/factory.js"></script>
 
 	

@@ -4,7 +4,12 @@ angular.module('developerMaze').config(function($routeProvider){
 
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
-		controller:'firstCtl'
+		controller:'homeCtl'
+	})
+
+	.when('/questions',{
+		templateUrl:'templates/views/questions.html',
+		controller:'questionsCtl'
 	})
 
 	

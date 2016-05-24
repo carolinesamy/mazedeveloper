@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('firstCtl',function( $scope , server){
+angular.module('developerMaze').controller('homeCtl',function( $scope , server){
 
 
 	// server.connect('tracks','GET').success(function(data){

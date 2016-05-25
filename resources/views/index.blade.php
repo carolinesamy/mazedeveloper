@@ -25,7 +25,8 @@
 	<script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
 	<script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 
-	
+	<meta name="csrf-token" value="<?= csrf_token() ?>">
+
 </head>
 
 <body>

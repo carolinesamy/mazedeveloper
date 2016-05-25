@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('homeCtl',function( $scope , server){
+angular.module('developerMaze').controller('homeCtl',function( $scope , server , $rootScope){
 
 
 	// server.connect('tracks','GET').success(function(data){
@@ -6,18 +6,16 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server){
 	// }).error(function(data){
 	// 	console.log(data);
 	// });
+  
+
 	$scope.user = {
       email: '',
-      password: ''
+      password: '',
+      notifications :0
     };
 
-    $scope.submitLogin = function(){
 
-    	console.log($scope.user.email);
-    	console.log($scope.user.password);
-    };
-
-    // $scope.sliderImage = 'images/img4.jpg';
+    
 
 
 

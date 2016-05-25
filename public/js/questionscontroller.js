@@ -1,8 +1,10 @@
-angular.module('developerMaze').controller('questionsCtl',function( $scope , server){
+angular.module('developerMaze').controller('questionsCtl',function( $scope ,$rootScope , server){
 
 	$scope.user = {
-		notifications :0
-	};
+      email: '',
+      password: '',
+      notifications :0
+    };
 
 	
 	$scope.courses =['PHP','Laravel','AngularJS','Bootstrap','Django','Rails','mySQL'];

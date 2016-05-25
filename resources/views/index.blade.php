@@ -14,6 +14,7 @@
 	<script src="js/app.js"></script>
 	<script src="js/homecontroller.js"></script>
 	<script src="js/questionscontroller.js"></script>
+	<script src="js/headercontroller.js"></script>
 
 	<script src="js/factory.js"></script>
 

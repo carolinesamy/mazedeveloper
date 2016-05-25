@@ -19,7 +19,7 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
         // console.log({{ csrf_token() }});
         $http({
             method: 'POST',
-            url: 'http://localhost:8000/post_to_me',
+            url: 'http://localhost:8000/login',
             data: {
                 'user':$scope.user ,
                

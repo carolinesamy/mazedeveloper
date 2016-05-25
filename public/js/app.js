@@ -1,3 +1,10 @@
+/*Angular component:Module
+**Author:
+**name:developerMaze
+**desc:
+**dep:
+*/
+
 angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror']);
 
 angular.module('developerMaze').config(function($routeProvider){

@@ -24,6 +24,14 @@ class StudentsTableSeeder extends Seeder
 
 
         ));
+
+        DB::table('tags')->insert(array(
+            array('tag_name'=>'java'),
+            array('tag_name'=>'php'),
+
+
+
+        ));
         DB::table('branches')->insert(array(
             array('branch_name'=>'Alex'),
             array('branch_name'=>'cairo'),
@@ -48,7 +56,20 @@ class StudentsTableSeeder extends Seeder
 
 
         ));
+        DB::table('instructors')->insert(array(
+            array('sfull_name'=>'noha','email'=>'noha@gmail.com','password'=>bcrypt('123456'),'type'=>'internal',),
+            array('sfull_name'=>'peter','email'=>'peter@gmail.com','password'=>bcrypt('123456'),'type'=>'internal',),
 
+
+        ));
+
+        DB::table('notifications')->insert(array(
+            array('content'=>'you have one question','type'=>'test'),
+        ));
+
+        DB::table('questions')->insert(array(
+            array('content'=>'you have one question','type'=>'test'),
+        ));
 
     }
 }

@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('image')->nullable();
-            $table->dateTime('time');
+            $table->dateTime('time')->nullable();
 
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');

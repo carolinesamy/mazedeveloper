@@ -28,6 +28,7 @@ class StudentController extends Controller
            {
                 echo "YOU ARE LOGIN";
                echo $student;
+
            }
             else
             {

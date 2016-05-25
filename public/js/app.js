@@ -1,4 +1,4 @@
-angular.module('developerMaze',['ngRoute','ui.bootstrap']);
+angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror']);
 
 angular.module('developerMaze').config(function($routeProvider){
 
@@ -10,6 +10,11 @@ angular.module('developerMaze').config(function($routeProvider){
 	.when('/questions',{
 		templateUrl:'templates/views/questions.html',
 		controller:'questionsCtl'
+	})
+
+	.when('/question',{
+		templateUrl:'templates/views/question.html',
+		controller:'questionCtl'
 	})
 
 	

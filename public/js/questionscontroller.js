@@ -1,11 +1,15 @@
-angular.module('developerMaze').controller('questionsCtl',function( $scope , server){
+angular.module('developerMaze').controller('questionsCtl',function( $scope , $location, $rootScope , server){
 
+	//logged-in user
 	$scope.user = {
-		notifications :0
-	};
+      email: '',
+      password: '',
+      notifications :0
+    };
 
-	
+	//user's courses
 	$scope.courses =['PHP','Laravel','AngularJS','Bootstrap','Django','Rails','mySQL'];
+	//recent questions in his courses
 	$scope.questions = [
 		{
 		'id':1,
@@ -25,5 +29,6 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope , ser
 		'answers':3,
 		'content':"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
 		}
-	]
+	];
+
 })

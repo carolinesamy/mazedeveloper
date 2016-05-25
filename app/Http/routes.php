@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/test', function () {
+    return view('test');
+});
+Route::post('/test','StudentController@login' );
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

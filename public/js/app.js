@@ -17,6 +17,5 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionCtl'
 	})
 
-	
-	
+
 })

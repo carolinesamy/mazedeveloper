@@ -10,6 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
 
 Route::get('/', function () {
     return view('index');
@@ -20,4 +23,14 @@ Route::get('/test', function () {
 Route::post('/test','StudentController@login' );
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');
+
+Route::post('/post_to_me',function(Request $request){
+    $user=$request->input('user');
+    // dd(Request::all()['name'])
+    // echo $user['email'];
+    return $user;
+    // echo "you entered ".$user;
+});
+
+// Route::post('/post_to_me','AuthController@login');

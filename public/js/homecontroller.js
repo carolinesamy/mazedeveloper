@@ -7,7 +7,7 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
 	// 	console.log(data);
 	// });
   
-
+	//logged-in user
 	$scope.user = {
       email: '',
       password: '',

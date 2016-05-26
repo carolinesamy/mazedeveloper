@@ -1,12 +1,5 @@
-angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http){
-
-
-	// server.connect('tracks','GET').success(function(data){
-	// 	console.log(data);
-	// }).error(function(data){
-	// 	console.log(data);
-	// });
-  
+'use strict';
+angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http,$location,sessionService){
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -14,23 +7,5 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
       notifications :0
     };
 
-    $scope.sendData = function(loginForm) {
-        // $scope.token= CSRF_TOKEN;
-        // console.log({{ csrf_token() }});
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8000/post_to_me',
-            data: {
-                'user':$scope.user         
-            }
-        }).success(function(res){
-        	$rootScope.mysession=res;
-            console.log($rootScope.mysession);
-        }).error(function(err){
-            console.log(err);
-        })
-    };
-
-
-})
+});
 

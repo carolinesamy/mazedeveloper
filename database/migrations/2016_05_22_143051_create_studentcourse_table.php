@@ -12,13 +12,14 @@ class CreateStudentcourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_course', function (Blueprint $table) {
+        Schema::create('student_courses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
 
             $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses');
+
             $table->enum('privilege', ['notify','dislike','delete']);
 
             $table->timestamps();
@@ -32,6 +33,6 @@ class CreateStudentcourseTable extends Migration
      */
     public function down()
     {
-        Schema::drop('student_course');
+        Schema::drop('student_courses');
     }
 }

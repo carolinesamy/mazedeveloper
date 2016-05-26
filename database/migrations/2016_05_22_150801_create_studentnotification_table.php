@@ -12,7 +12,7 @@ class CreateStudentnotificationTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_notification', function (Blueprint $table) {
+        Schema::create('student_notifications', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('student_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateStudentnotificationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('student_notification');
+        Schema::drop('student_notifications');
     }
 }

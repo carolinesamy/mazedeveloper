@@ -12,7 +12,7 @@ class CreateTrackintakeTable extends Migration
      */
     public function up()
     {
-        Schema::create('track_intake', function (Blueprint $table) {
+        Schema::create('track_intakes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('intake_id')->unsigned();
             $table->foreign('intake_id')->references('id')->on('intakes');
@@ -32,6 +32,6 @@ class CreateTrackintakeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('track_intake');
+        Schema::drop('track_intakes');
     }
 }

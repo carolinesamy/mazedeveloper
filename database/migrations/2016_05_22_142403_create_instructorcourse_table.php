@@ -12,7 +12,7 @@ class CreateInstructorcourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('instuctor_course', function (Blueprint $table) {
+        Schema::create('instructor_courses', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('instructor_id')->unsigned();
@@ -20,6 +20,7 @@ class CreateInstructorcourseTable extends Migration
 
             $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses');
+
             $table->date('teach_years')->nullable();
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ class CreateInstructorcourseTable extends Migration
      */
     public function down()
     {
-        Schema::drop('instuctor_course');
+        Schema::drop('instructor_courses');
     }
 }

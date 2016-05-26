@@ -14,6 +14,7 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="jquery/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/bootstrap/css/simple-sidebar.css" rel="stylesheet">
 
     <!--bootstrap UI-->
     <script src="js/ui-bootstrap-tpls-1.3.3.min.js"></script>

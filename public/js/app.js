@@ -17,6 +17,11 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionCtl'
 	})
 
+	.when('/chat',{
+		templateUrl:'templates/views/chat.html',
+		controller:'questionCtl'
+	})
+
 	
 	
 })

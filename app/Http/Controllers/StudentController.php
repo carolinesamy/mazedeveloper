@@ -36,6 +36,7 @@ class StudentController extends Controller
             {
                 return "Mesh 3alya da e7na AMC2";
 
+
             }
 
 

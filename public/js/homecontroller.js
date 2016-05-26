@@ -1,12 +1,5 @@
-angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http){
-
-
-	// server.connect('tracks','GET').success(function(data){
-	// 	console.log(data);
-	// }).error(function(data){
-	// 	console.log(data);
-	// });
-  
+'use strict';
+angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http,$location,sessionService){
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -14,9 +7,5 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
       notifications :0
     };
 
-    
-
-
-
-})
+});
 

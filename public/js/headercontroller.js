@@ -1,6 +1,7 @@
-angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,$location){
+'use strict';
 
-    console.log($rootScope.currentuser);
+angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
+
     $scope.question = {
       'title':'',
       'content':''
@@ -33,28 +34,29 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             method: 'POST',
             url: 'http://localhost:8000/login',
             data: {
-                'user':$scope.user ,
+                'user':$scope.user
                
             }
         }).success(function(res){
-
+            sessionService.set('user',res.id);
             $rootScope.currentuser = res;
             $('#myModal').modal('hide');
             $location.url('/questions');
-            console.log($rootScope.currentuser+" logged in");
 
         }).error(function(err){
             console.log(err);
+            $location.path('/');
         });
       }
-      
- 	
     };
 
     $scope.logout = function(){
+        sessionService.destroy('user');
 
-      $rootScope.currentuser = null;
-      $('#logoutModal').modal('hide');
+        $rootScope.currentuser = null;
+        $('#logoutModal').modal('hide');
+        $location.path('/');
+
     };
 
 

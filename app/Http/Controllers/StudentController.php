@@ -34,7 +34,7 @@ class StudentController extends Controller
            }
             else
             {
-                echo "Mesh 3alya da e7na AMC2";
+                return "Mesh 3alya da e7na AMC2";
 
             }
 

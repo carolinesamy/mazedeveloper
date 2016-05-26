@@ -23,3 +23,6 @@ Route::get('/test', function () {
 Route::post('/login','StudentController@login' );
 
 Route::get('/accept','AnswerController@accept_answer');
+
+Route::get('/unaccept','AnswerController@unaccept_answer');
+

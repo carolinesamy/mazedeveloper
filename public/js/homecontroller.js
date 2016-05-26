@@ -21,11 +21,11 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
             method: 'POST',
             url: 'http://localhost:8000/post_to_me',
             data: {
-                'user':$scope.user ,
-               
+                'user':$scope.user         
             }
         }).success(function(res){
-            console.log(res);
+        	$rootScope.mysession=res;
+            console.log($rootScope.mysession);
         }).error(function(err){
             console.log(err);
         })

@@ -1,5 +1,7 @@
 angular.module('developerMaze').controller('questionsCtl',function( $scope , $location, $rootScope , server){
 
+	
+
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -8,7 +10,24 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope , $lo
     };
 
 	//user's courses
-	$scope.courses =['PHP','Laravel','AngularJS','Bootstrap','Django','Rails','mySQL'];
+	$scope.courses =[
+	{
+		course_name:'PHP',
+	 	course_id:1
+	},
+	{
+		course_name:'Laravel',
+	 	course_id:2
+	},
+	{
+		course_name:'AngularJS',
+	 	course_id:4
+	},
+	{
+		course_name:'Bootstrap',
+	 	course_id:5
+	},
+	];
 	//recent questions in his courses
 	$scope.questions = [
 		{

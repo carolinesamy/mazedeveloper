@@ -3,19 +3,40 @@
 
 <div class="container">
 <div class="row">	
-	<div class="thumbnail" align="center">
+	<div class="thumbnail" >
 		<h3>{{question.title}}</h3>
 		<h4>{{question.content}}</h4>
-		<div class="form-horizontal row">
-			<div class="form-group">
-			    <div class="col-sm-2">
-			    	<button class="btn btn-default">Add Comment</button>
-			    </div>
-			    <div class="col-sm-9">
-			      <input type="text" class="form-control" id="comment" placeholder="Enter Your Comment Here..">
-			    </div>
-			</div>
-		</div>
+		<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-10">
+						<div class="thumbnail" ng-repeat='comment in comments'>
+							<div class="row">
+								<div class="col-md-10">
+									<h4>By: {{comment.user_name}}</h4>
+								</div>
+								<div class="col-md-2">
+									<h6>{{comment.time}}</h6>
+								</div>				
+							</div>
+							<h5>{{comment.content}}</h5>
+							
+							
+						</div>
+						<div class="form-horizontal row">
+								<div class="form-group">
+								    <div class="col-sm-2">
+								    	<button class="btn btn-default">Add Comment</button>
+								    </div>
+								    <div class="col-sm-9">
+								      <input type="text" class="form-control" id="comment" placeholder="Enter Your Comment..">
+								    </div>
+								</div>
+						</div>
+						
+					</div>
+
+				</div>
+		
 	</div>
 </div>
 
@@ -60,7 +81,7 @@
 								      <input type="text" class="form-control" id="reply" placeholder="Enter Your Reply..">
 								    </div>
 								</div>
-							</div>
+						</div>
 						
 					</div>
 
@@ -72,9 +93,11 @@
 
 <div class="thumbnail">
 	<h4>Add Your Answer:</h4>
-	<ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText'></ui-codemirror>
+	<ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror>
 	
 </div>
 
 </div>
+
+
 

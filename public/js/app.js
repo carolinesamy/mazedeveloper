@@ -24,5 +24,12 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionCtl'
 	})
 
+	.when('/course',{
+		templateUrl:'templates/views/course.html',
+		controller:'courseCtl'
+	})
+	
+
+	
 
 })

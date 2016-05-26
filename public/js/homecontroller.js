@@ -14,22 +14,22 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
       notifications :0
     };
 
-    $scope.sendData = function(loginForm) {
-        // $scope.token= CSRF_TOKEN;
-        // console.log({{ csrf_token() }});
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8000/login',
-            data: {
-                'user':$scope.user ,
+    // $scope.sendData = function(loginForm) {
+    //     // $scope.token= CSRF_TOKEN;
+    //     // console.log({{ csrf_token() }});
+    //     $http({
+    //         method: 'POST',
+    //         url: 'http://localhost:8000/login',
+    //         data: {
+    //             'user':$scope.user ,
                
-            }
-        }).success(function(res){
-            console.log(res);
-        }).error(function(err){
-            console.log(err);
-        })
-    };
+    //         }
+    //     }).success(function(res){
+    //         console.log(res);
+    //     }).error(function(err){
+    //         console.log(err);
+    //     })
+    // };
     
 
 

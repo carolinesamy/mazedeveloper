@@ -1,5 +1,7 @@
 angular.module('developerMaze').controller('questionCtl',function( $scope ,$rootScope , server){
 
+	
+
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -62,4 +64,25 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 		}
 	];
 
+	$scope.comments = [
+		{
+		'id':1,
+		'content':"senectus et netus et malesuada fames ac turpis egestas.",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'christina',
+		},
+		{
+		'id':2,
+		'content':"ames ac turpis egestas. Vestibulum ",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'caroline',
+		}
+	];
+
+
+
+
 })
+
+
+

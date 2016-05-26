@@ -7,7 +7,7 @@
   	<div class="col-sm-3">
   		<div class="list-group pull-right" style="width: 250px;">
   			<h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
-			<a href="#" class="list-group-item" ng-repeat='course in courses' style="text-align: center;">{{course}}</a>		  	  
+			<a href="#/course?id={{course.course_id}}" class="list-group-item" ng-repeat='course in courses' style="text-align: center;">{{course.course_name}}</a>		  	  
 		</div>
   	</div>
 
@@ -25,12 +25,16 @@
 				<div class="thumbnail">
 				    <div class="caption">
 				        <h3>{{question.title}}</h3>
-				        <h4 style="
-							     white-space: nowrap;
-							     overflow: hidden;
-							     text-overflow: ellipsis;">
-						{{question.content}}</h4>
-				        <p><a href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
+				        <div hm-read-more
+					        hm-text="{{question.content}}" 
+					        hm-limit="100" 
+					        hm-more-text="read more" 
+					        hm-less-text="read less"
+					        hm-dots-class="dots"
+					        hm-link-class="links">
+						</div>
+				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
+
 				        
 				    </div>
 				</div>
@@ -41,12 +45,6 @@
   </div>
   <br/>
 
-  <div class="row">
-  
-  	
 
-  	<div class="col-sm-9"></div>
-
-    </div>
 
 </div>

@@ -20,17 +20,6 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return view('test');
 });
-Route::post('/test','StudentController@login' );
-Route::auth();
+Route::post('/login','StudentController@login' );
 
-// Route::get('/home', 'HomeController@index');
-
-Route::post('/post_to_me',function(Request $request){
-    $user=$request->input('user');
-    // dd(Request::all()['name'])
-    // echo $user['email'];
-    return $user;
-    // echo "you entered ".$user;
-});
-
-// Route::post('/post_to_me','AuthController@login');
+Route::get('/accept','AnswerController@accept_answer');

@@ -20,14 +20,17 @@ class StudentController extends Controller
 
         public function login(Request $request)
         {
-            $email=$request->input('email');
-            $password=$request->input('password');
+            $user=$request->input('user');
+
+            $password=$user['password'];
+            $email=$user['email'];
+
             $student= Student::where('email',$email)->first();
-            //echo $student;
            if ($student->password == $password)
            {
-                echo "YOU ARE LOGIN";
-               echo $student;
+               // echo "YOU ARE LOGIN";
+               return $student;
+
            }
             else
             {

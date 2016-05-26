@@ -18,6 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->dateTime('time')->nullable();
+            $table->boolean('solved');
+
 
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');

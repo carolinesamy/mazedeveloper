@@ -12,7 +12,7 @@ class CreateInstructornotificationTable extends Migration
      */
     public function up()
     {
-        Schema::create('instructor_notification', function (Blueprint $table) {
+        Schema::create('instructor_notifications', function (Blueprint $table) {
             $table->increments('id');
 
 
@@ -33,6 +33,6 @@ class CreateInstructornotificationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('instructor_notification');
+        Schema::drop('instructor_notifications');
     }
 }

@@ -35,6 +35,11 @@
 	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script src="bower_components/angular-read-more/dist/readmore.min.js"></script>
 
+	<!--Angular Trix -->
+	<link rel="stylesheet" type="text/css" href="bower_components/trix/dist/trix.css">
+	<script src="bower_components/trix/dist/trix.js"></script>
+	<script src="bower_components/angular-trix/dist/angular-trix.min.js"></script>
+
 </head>
 
 <body>

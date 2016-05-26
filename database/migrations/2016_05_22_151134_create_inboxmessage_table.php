@@ -12,7 +12,7 @@ class CreateInboxmessageTable extends Migration
      */
     public function up()
     {
-        Schema::create('inbox_message', function (Blueprint $table) {
+        Schema::create('inbox_messages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('file_name');
 
@@ -32,6 +32,6 @@ class CreateInboxmessageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('inbox_message');
+        Schema::drop('inbox_messages');
     }
 }

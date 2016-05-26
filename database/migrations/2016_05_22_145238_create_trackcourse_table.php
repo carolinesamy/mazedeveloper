@@ -12,7 +12,7 @@ class CreateTrackcourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('track_course', function (Blueprint $table) {
+        Schema::create('track_courses', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('track_id')->unsigned();
@@ -32,6 +32,6 @@ class CreateTrackcourseTable extends Migration
      */
     public function down()
     {
-        Schema::drop('track_course');
+        Schema::drop('track_courses');
     }
 }

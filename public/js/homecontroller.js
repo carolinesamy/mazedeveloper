@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('homeCtl',function( $scope , server , $rootScope,$http){
+angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http){
 
 
 	// server.connect('tracks','GET').success(function(data){
@@ -13,6 +13,7 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
       password: '',
       notifications :0
     };
+
     $scope.sendData = function(loginForm) {
         // $scope.token= CSRF_TOKEN;
         // console.log({{ csrf_token() }});
@@ -29,6 +30,7 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , server ,
             console.log(err);
         })
     };
+
 
 })
 

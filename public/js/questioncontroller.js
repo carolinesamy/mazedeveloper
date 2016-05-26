@@ -21,7 +21,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 		'id':1,
 		'title':"HTML tags doesn't work",
 		'content':"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-		'answers':20
+		'answers':20,
+		'solved':0
 		};
 	//questions' answers
 	$scope.answers = [
@@ -32,7 +33,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 		'image':'',
 		'like': 5,
 		'dislike': 1,
-		'accepted':1,
+		'accepted':0,
 		'user_name':'Aya',
 		'user_image':''
 		},
@@ -78,6 +79,22 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 		'user_name':'caroline',
 		}
 	];
+
+	$scope.acceptAnswer = function(answer_id,index){
+
+		//this block of code will be in http request success function
+		$scope.answers[index]['accepted'] = 1;
+		$scope.question['solved'] = 1;
+
+	};
+
+	$scope.unacceptAnswer = function(answer_id,index){
+
+		//this block of code will be in http request success function
+		$scope.answers[index]['accepted'] = 0;
+		$scope.question['solved'] = 0;
+
+	}
 
 
 

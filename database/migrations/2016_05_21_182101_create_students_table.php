@@ -26,6 +26,7 @@ class CreateStudentsTable extends Migration
 
             $table->integer('track_id')->unsigned();
             $table->foreign('track_id')->references('id')->on('tracks');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

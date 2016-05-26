@@ -1,3 +1,10 @@
+/*Angular component:Module
+**Author:
+**name:developerMaze
+**desc:
+**dep:
+*/
+
 angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror']);
 
 angular.module('developerMaze').config(function($routeProvider){
@@ -17,11 +24,12 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionCtl'
 	})
 
-	.when('/chat',{
-		templateUrl:'templates/views/chat.html',
-		controller:'questionCtl'
+	.when('/course',{
+		templateUrl:'templates/views/course.html',
+		controller:'courseCtl'
 	})
+	
 
 	
-	
+
 })

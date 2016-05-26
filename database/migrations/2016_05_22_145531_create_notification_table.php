@@ -17,7 +17,7 @@ class CreateNotificationTable extends Migration
 
             $table->text('content');
             $table->string('type');
-            $table->dateTime('time');
+            $table->dateTime('time')->nullable();
             $table->timestamps();
         });
     }

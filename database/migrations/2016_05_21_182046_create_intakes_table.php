@@ -14,7 +14,7 @@ class CreateIntakesTable extends Migration
     {
         Schema::create('intakes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('inatke_number')->unique();
+            $table->integer('intake_number')->unique();
 
             $table->timestamps();
         });

@@ -341,6 +341,20 @@ class Builder
     }
 
     /**
+     * Get a generator for the given query.
+     *
+     * @return \Generator
+     */
+    public function cursor()
+    {
+        $builder = $this->applyScopes();
+
+        foreach ($builder->query->cursor() as $record) {
+            yield $this->model->newFromBuilder($record);
+        }
+    }
+
+    /**
      * Chunk the results of the query.
      *
      * @param  int  $count
@@ -559,9 +573,15 @@ class Builder
             return $values;
         }
 
-        $column = $this->model->getUpdatedAtColumn();
+        if (count($this->getQuery()->joins) > 0) {
+            $column = $this->model->getQualifiedUpdatedAtColumn();
+        } else {
+            $column = $this->model->getUpdatedAtColumn();
+        }
 
-        return Arr::add($values, $column, $this->model->freshTimestampString());
+        return array_merge($values, [
+            $column => $this->model->freshTimestampString(),
+        ]);
     }
 
     /**
@@ -1026,7 +1046,9 @@ class Builder
 
             call_user_func($constraints, $query);
 
-            $this->selectSub($query->getQuery(), snake_case($name).'_count');
+            $this->mergeModelDefinedRelationWheresToHasQuery($query, $relation);
+
+            $this->selectSub($query->toBase(), snake_case($name).'_count');
         }
 
         return $this;

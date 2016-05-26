@@ -7,7 +7,10 @@ angular.module('developerMaze').controller('courseCtl',function( $scope ,$http, 
         $scope.state = !$scope.state;
     };
 
-    
+    $scope.course = {
+        'course_name':'php',
+        'course_id':2
+    }
 
 
 })

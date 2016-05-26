@@ -1,6 +1,30 @@
-angular.module('developerMaze').controller('headerCtl',function( $scope ,$http, server , $rootScope){
+angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,$location){
 
     console.log($rootScope.currentuser);
+    $scope.question = {
+      'title':'',
+      'content':''
+    }
+
+    $scope.notifications = [
+      {
+        'id':1,
+        'user':'aya',
+        'content':'answered your question'
+      },
+      {
+        'id':2,
+        'user':'caroline',
+        'content':'replied to your answer'
+      },
+      {
+        'id':4,
+        'user':'merna',
+        'content':'accept your answer'
+      },
+    ];
+
+    $scope.user.notification = $scope.notifications.length;
 
     $scope.sendData = function(valid){
       if(valid){
@@ -16,6 +40,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope ,$http, 
 
             $rootScope.currentuser = res;
             $('#myModal').modal('hide');
+            $location.url('/questions');
             console.log($rootScope.currentuser+" logged in");
 
         }).error(function(err){
@@ -32,6 +57,17 @@ angular.module('developerMaze').controller('headerCtl',function( $scope ,$http, 
       $('#logoutModal').modal('hide');
     };
 
+
+    $scope.askQuestion = function(){
+
+      console.log($scope.question.title);
+      $('#askModal').modal('hide');
+      $scope.question = {
+      'title':'',
+      'content':''
+    }
+
+    }
 
 
 

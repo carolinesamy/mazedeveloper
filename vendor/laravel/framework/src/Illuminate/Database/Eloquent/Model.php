@@ -1787,6 +1787,16 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     }
 
     /**
+     * Get the fully qualified "updated at" column.
+     *
+     * @return string
+     */
+    public function getQualifiedUpdatedAtColumn()
+    {
+        return $this->getTable().'.'.$this->getUpdatedAtColumn();
+    }
+
+    /**
      * Get a fresh timestamp for the model.
      *
      * @return \Carbon\Carbon
@@ -2125,6 +2135,10 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     public function makeVisible($attributes)
     {
         $this->hidden = array_diff($this->hidden, (array) $attributes);
+
+        if (! empty($this->visible)) {
+            $this->addVisible($attributes);
+        }
 
         return $this;
     }
@@ -3034,11 +3048,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     public function replicate(array $except = null)
     {
-        $except = $except ?: [
+        $defaults = [
             $this->getKeyName(),
             $this->getCreatedAtColumn(),
             $this->getUpdatedAtColumn(),
         ];
+
+        $except = $except ? array_unique(array_merge($except, $defaults)) : $defaults;
 
         $attributes = Arr::except($this->attributes, $except);
 

@@ -12,7 +12,7 @@ class CreateBranchTable extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('branchs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('branch_name');
 
@@ -27,6 +27,6 @@ class CreateBranchTable extends Migration
      */
     public function down()
     {
-        Schema::drop('branches');
+        Schema::drop('branchs');
     }
 }

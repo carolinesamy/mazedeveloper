@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->integer('points');
+            $table->dateTime('last_hit');
 
             $table->integer('intake_id')->unsigned();
             $table->foreign('intake_id')->references('id')->on('intakes');

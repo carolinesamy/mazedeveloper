@@ -50,14 +50,14 @@ class StudentsTableSeeder extends Seeder
 
 
         DB::table('students')->insert(array(
-            array('sfull_name'=>'john','email'=>'john@clivern.com','password'=>bcrypt('123456'),'points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456'),
-            array('sfull_name'=>'aya','email'=>'aya@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'1234745'),
+            array('sfull_name'=>'john','email'=>'john@clivern.com','password'=>bcrypt('123456'),'points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456','last_hit'=>'2016-05-22 05:22:22'),
+            array('sfull_name'=>'aya','email'=>'aya@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'1234745','last_hit'=>'2016-06-22 05:22:22'),
 
 
         ));
         DB::table('instructors')->insert(array(
-            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>bcrypt('123456'),'type'=>'internal'),
-            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>bcrypt('123456'),'type'=>'internal'),
+            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
 
 
         ));
@@ -69,8 +69,8 @@ class StudentsTableSeeder extends Seeder
         ));
 
         DB::table('questions')->insert(array(
-            array('title'=>'how to test?','content'=>'you have one question','time'=>'2016-05-18 05:22:22','student_id'=>'1'),
-            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','time'=>'2016-05-18 09:22:22','student_id'=>'2'),
+            array('title'=>'how to test?','content'=>'you have one question','time'=>'2016-05-18 05:22:22','student_id'=>'1','solved'=>'0'),
+            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','time'=>'2016-05-18 09:22:22','student_id'=>'2','solved'=>'0'),
 
         ));
         DB::table('answers')->insert(array(

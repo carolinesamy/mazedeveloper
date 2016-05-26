@@ -12,11 +12,11 @@ class CreateBrancestracksTable extends Migration
      */
     public function up()
     {
-        Schema::create('branches_tracks', function (Blueprint $table) {
+        Schema::create('track_branchs', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('branch_id')->unsigned();
-            $table->foreign('branch_id')->references('id')->on('branches');
+            $table->foreign('branch_id')->references('id')->on('branchs');
 
             $table->integer('track_id')->unsigned();
             $table->foreign('track_id')->references('id')->on('tracks');
@@ -32,6 +32,6 @@ class CreateBrancestracksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('branches_tracks');
+        Schema::drop('track_branchs');
     }
 }

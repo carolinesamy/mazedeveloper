@@ -5,7 +5,7 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror']);
+angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror','angularTrix']);
 
 angular.module('developerMaze').config(function($routeProvider){
 

@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('image')->nullable();
-            $table->dateTime('time')->nullable();
+            $table->dateTime('time')->useCurrent();
             $table->boolean('solved');
 
 

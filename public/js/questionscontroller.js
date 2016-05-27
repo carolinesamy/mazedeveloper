@@ -1,6 +1,5 @@
-angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
-	
+angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
 	//logged-in user
 	$scope.user = {
@@ -61,6 +60,17 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		}).success(function(res){
 			//handle the returned data here
 			console.log(res);
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+	$scope.requestAsk=function(){
+		$http({
+			method: 'GET',
+			url: 'http://localhost:8000/gettags',
+		}).success(function(res){
+			console.log(res);
+			$scope.tags=res;
 		}).error(function(err){
 			console.log(err);
 		});

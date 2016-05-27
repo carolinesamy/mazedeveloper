@@ -31,15 +31,14 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.sendData = function(valid){
       if(valid){
-
         $http({
             method: 'POST',
             url: 'http://localhost:8000/login',
             data: {
                 'user':$scope.user
-               
             }
         }).success(function(res){
+
             console.log(res.user['id']);
             sessionService.set('user',res.user['id']);
             $rootScope.currentuser = res;
@@ -81,7 +80,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 //'course_id':$scope.question.course,
                 //'tag_id':$scope.question.tag,
                 'course_id':1,
+<<<<<<< HEAD
+                'tag_id':[2,3,1],
+=======
                 'tag_id':[2,1],
+>>>>>>> 1f5735ef1688ba4c08085f6050c696ba9baca33e
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){
@@ -100,9 +103,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     };
 
-    $scope.requestAsk=function(){
-        console.log('tags request will be here');
-    }
 
 
 })

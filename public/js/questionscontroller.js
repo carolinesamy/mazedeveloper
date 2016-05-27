@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('questionsCtl',function( $scope , sessionService,$location, $rootScope , server){
+angular.module('developerMaze').controller('questionsCtl',function( $scope , $http ,sessionService,$location, $rootScope , server){
 
 	
 
@@ -53,7 +53,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope , ses
 	$scope.requestData=function(){
 		//console.log('hello from controller');
 		$http({
-			method: 'POST',
+			method: 'GET',
 			url: 'http://localhost:8000/getuserdata',
 			data: {
 				'user': sessionService.get('user')
@@ -61,6 +61,17 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope , ses
 		}).success(function(res){
 			//handle the returned data here
 			console.log(res);
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+	$scope.requestAsk=function(){
+		$http({
+			method: 'GET',
+			url: 'http://localhost:8000/gettags',
+		}).success(function(res){
+			console.log(res);
+			$scope.tags=res;
 		}).error(function(err){
 			console.log(err);
 		});

@@ -77,10 +77,10 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'title':$scope.question.title,
                 'content':$scope.question.content,
                 'image':'',
-                //'course':$scope.question.course,
-                //'tags':$scope.question.tag,
-                'course':1,
-                'tags':[2,3,1],
+                //'course_id':$scope.question.course,
+                //'tag_id':$scope.question.tag,
+                'course_id':1,
+                'tag_id':[2,3,1],
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){

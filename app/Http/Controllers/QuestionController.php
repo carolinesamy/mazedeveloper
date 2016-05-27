@@ -21,8 +21,9 @@ class QuestionController extends Controller
         $content=$request->input('content');
         $image=$request->input('image');
         $student_id=$request->input('student_id');
-        $tag_id=1;
-        //$course_id=$request->input('course_id');
+        //**** join by names****//
+        $tag_id=$request->input('tag_id');
+        $course_id=$request->input('course_id');
 
         echo $title;
         //*********** take data from anguler reqest => laravel => to me ***************
@@ -36,20 +37,31 @@ class QuestionController extends Controller
                 'image'=>$image,
                 'student_id'=>$student_id,
                 'time'=>$date,
+                'course_id'=>$course_id,
             ]
         );
-        $insert2=DB::table('question_tags')->insertGetID(
-          [
-              'question_id'=>$insert,
-              'tag_id'=>$tag_id,
-          ]
-        );
-        if ($insert==1)
+        
+        foreach($tag_id as $tag)
         {
+            DB::table('question_tags')->insertGetID(
+                [
+                    'question_id'=>$insert,
+                    'tag_id'=>$tag,
+                ]
+            );
 
         }
-        //********** insert data into questions table
 
+        if ($insert > 0 )
+        {
+            return "true";
+
+        }
+        else
+        {
+            return "false";
+        }
+        //********** insert data into questions table
 
     }
 }

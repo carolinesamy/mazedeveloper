@@ -29,7 +29,10 @@ class StudentController extends Controller
            if ($student->password == $password)
            {
                // echo "YOU ARE LOGIN";
-               $rett=array(
+               $rett=array
+               (
+                   'user'=> array
+                   (
                    'id'=>$student->id,
                    'email'=>$student->email,
                    'sfull_name'=>$student->sfull_name,
@@ -37,22 +40,28 @@ class StudentController extends Controller
                    'track_id'=>$student->track_id,
                    'points'=>$student->points,
                    'intake_id'=>$student->intake_id,
-
-
+                   ),
+                   'message'=>'login'
                );
-               return $rett;
+
 
            }
             elseif($student->password != $password)
             {
-                $error_msg="invalid password";
+                $rett=array('message'=>'password');
             }
             else
             {
-                $error_msg="invalid email";
+                $rett=array('message'=>'email');
             }
 
-
+            return $rett;
         }
+
+    public function gethomeuserdata(Request $request)
+    {
+        //return to anqular request user data to show
+
+    }
 
    }

@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('questionsCtl',function( $scope , sessionService,$location, $rootScope , server){
+angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
 	
 
@@ -53,7 +53,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope , ses
 	$scope.requestData=function(){
 		//console.log('hello from controller');
 		$http({
-			method: 'POST',
+			method: 'GET',
 			url: 'http://localhost:8000/getuserdata',
 			data: {
 				'user': sessionService.get('user')

@@ -40,7 +40,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                
             }
         }).success(function(res){
-            sessionService.set('user',res.id);
+            console.log(res.user['id']);
+            sessionService.set('user',res.user['id']);
             $rootScope.currentuser = res;
             $('#myModal').modal('hide');
             $location.url('/questions');
@@ -77,10 +78,10 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'title':$scope.question.title,
                 'content':$scope.question.content,
                 'image':'',
-                //'course':$scope.question.course,
-                //'tags':$scope.question.tag,
-                'course':1,
-                'tags':[2,3,1],
+                //'course_id':$scope.question.course,
+                //'tag_id':$scope.question.tag,
+                'course_id':1,
+                'tag_id':[2,1],
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){

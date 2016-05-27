@@ -31,17 +31,15 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.sendData = function(valid){
       if(valid){
-
         $http({
             method: 'POST',
             url: 'http://localhost:8000/login',
             data: {
                 'user':$scope.user
-               
             }
         }).success(function(res){
-            sessionService.set('user',res.id);
-            $rootScope.currentuser = res;
+            sessionService.set('user',res.user.id);
+            $rootScope.currentuser = res.user;
             $('#myModal').modal('hide');
             $location.url('/questions');
         }).error(function(err){
@@ -99,9 +97,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     };
 
-    $scope.requestAsk=function(){
-        console.log('tags request will be here');
-    }
 
 
 })

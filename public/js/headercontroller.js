@@ -45,6 +45,20 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             $('#myModal').modal('hide');
             $location.url('/questions');
 
+            $rett=array
+                (
+                    'user'=> array
+                (
+                    'id'=>$student->id,
+                'email'=>$student->email,
+                'sfull_name'=>$student->sfull_name,
+                'image'=>$student->image,
+                'track_id'=>$student->track_id,
+                'points'=>$student->points,
+                'intake_id'=>$student->intake_id,
+            ),
+            'message'=>'login'
+            );
         }).error(function(err){
             console.log(err);
             $location.path('/');
@@ -63,21 +77,25 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
 
     $scope.askQuestion = function(){
+
         //
         //console.log($scope.question.title);
         //    console.log($scope.question.content);
         //   console.log(sessionService.get('user'));
 
+       console.log($scope.question.content);
       $('#askModal').modal('hide');
         $http({
             method: 'POST',
             url: 'http://localhost:8000/ask',
             data: {
-                //'title':$scope.question.title,
-                //'content':$scope.question.content,
-                'title':'static title',
-                'content':'static content',
+                'title':$scope.question.title,
+                'content':$scope.question.content,
                 'image':'',
+                //'course':$scope.question.course,
+                //'tags':$scope.question.tag,
+                'course':1,
+                'tags':[2,3,1],
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){
@@ -94,8 +112,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             'student_id':''
         };
 
-    }
+    };
 
+    $scope.requestAsk=function(){
+        console.log('tags request will be here');
+    }
 
 
 })

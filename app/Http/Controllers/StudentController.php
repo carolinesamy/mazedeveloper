@@ -26,6 +26,7 @@ class StudentController extends Controller
             $email=$user['email'];
 
             $student= Student::where('email',$email)->first();
+
            if ($student->password == $password)
            {
                // echo "YOU ARE LOGIN";

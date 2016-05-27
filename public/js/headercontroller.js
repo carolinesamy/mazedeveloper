@@ -70,6 +70,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
       console.log($scope.question.content);
 
+
       $('#askModal').modal('hide');
         $http({
             method: 'POST',

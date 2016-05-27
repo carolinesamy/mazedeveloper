@@ -26,3 +26,6 @@ Route::get('/accept','AnswerController@accept_answer');
 
 Route::get('/unaccept','AnswerController@unaccept_answer');
 
+Route::post('/ask','QuestionController@add_question');
+
+

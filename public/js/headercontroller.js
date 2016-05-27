@@ -62,7 +62,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.askQuestion = function(){
 
-      console.log($scope.question.title);
+      console.log($scope.question.content);
       $('#askModal').modal('hide');
       $scope.question = {
       'title':'',

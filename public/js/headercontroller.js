@@ -39,11 +39,22 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
         }).success(function(res){
 
-            console.log(res.user['id']);
-            sessionService.set('user',res.user['id']);
-            $rootScope.currentuser = res;
-            $('#myModal').modal('hide');
-            $location.url('/questions');
+            if(res.message=='password'){
+                console.log('pssword invalid');
+                $location.path('/');
+            }
+            else if (res.message=='email'){
+                console.log('email invalid');
+                $location.path('/');
+            }
+            else if(res.message=='login') {
+                console.log(res.user['id']);
+                sessionService.set('user', res.user['id']);
+                sessionService.set('type',res.type);
+                $rootScope.currentuser = res;
+                $('#myModal').modal('hide');
+                $location.url('/questions');
+            }
         }).error(function(err){
             console.log(err);
             $location.path('/');
@@ -53,6 +64,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.logout = function(){
         sessionService.destroy('user');
+        sessionService.destroy('type');
         $rootScope.currentuser = null;
         $('#logoutModal').modal('hide');
         $location.path('/');

@@ -29,16 +29,30 @@ class StudentController extends Controller
            if ($student->password == $password)
            {
                // echo "YOU ARE LOGIN";
-               return $student;
+               $rett=array(
+                   'id'=>$student->id,
+                   'email'=>$student->email,
+                   'sfull_name'=>$student->sfull_name,
+                   'image'=>$student->image,
+                   'track_id'=>$student->track_id,
+                   'points'=>$student->points,
+                   'intake_id'=>$student->intake_id,
+
+
+               );
+               return $rett;
 
            }
+            elseif($student->password != $password)
+            {
+                $error_msg="invalid password";
+            }
             else
             {
-                return "Mesh 3alya da e7na AMC2";
-
-
+                $error_msg="invalid email";
             }
 
 
         }
+
    }

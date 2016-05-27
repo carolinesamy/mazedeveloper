@@ -69,8 +69,8 @@ class StudentsTableSeeder extends Seeder
         ));
 
         DB::table('questions')->insert(array(
-            array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','solved'=>'0'),
-            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','time'=>'2016-05-18 09:22:22','student_id'=>'2','solved'=>'0'),
+            array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'0'),
+            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
 
         ));
         DB::table('answers')->insert(array(

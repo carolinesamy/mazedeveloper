@@ -29,3 +29,8 @@ Route::get('/unaccept','AnswerController@unaccept_answer');
 Route::post('/ask','QuestionController@add_question');
 
 
+//**by caroline *** after login go to home to show couses && questions
+Route::get('/getuserdata','StudentController@gethomeuserdata');
+
+
+

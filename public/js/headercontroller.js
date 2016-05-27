@@ -44,21 +44,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             $rootScope.currentuser = res;
             $('#myModal').modal('hide');
             $location.url('/questions');
-
-            $rett=array
-                (
-                    'user'=> array
-                (
-                    'id'=>$student->id,
-                'email'=>$student->email,
-                'sfull_name'=>$student->sfull_name,
-                'image'=>$student->image,
-                'track_id'=>$student->track_id,
-                'points'=>$student->points,
-                'intake_id'=>$student->intake_id,
-            ),
-            'message'=>'login'
-            );
         }).error(function(err){
             console.log(err);
             $location.path('/');

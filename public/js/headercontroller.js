@@ -24,6 +24,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       },
     ];
 
+    $scope.courses = ['PHP','Bootstrap','Django','Java'];
+
     $scope.user.notification = $scope.notifications.length;
 
     $scope.sendData = function(valid){

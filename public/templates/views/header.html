@@ -16,7 +16,7 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search or Ask" ng-model="question.title">
         </div>
-        <button class="btn btn-default" data-toggle="modal" data-target="#askModal">Ask</button>
+        <button class="btn btn-default" data-toggle="modal" ng-click="requestAsk()" data-target="#askModal">Ask</button>
       </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
@@ -136,9 +136,7 @@
               <label for="content" class="col-sm-2 control-label">Question Content</label>
               <div class="col-sm-10">
 
-                <trix-editor style='height: 300px;' angular-trix ng-model="question.content" ></trix-editor>
-
-
+                <trix-editor style='height: 300px;' angular-trix ng-model="question.content" class="trix-content">
                 </trix-editor>
               </div>
             </div>
@@ -147,7 +145,7 @@
               <label for="course"  class="col-sm-2 control-label">Select Course</label>
               <div class="col-sm-10">
               <select class="form-control" id="course">
-                <option ng-repeat='course in courses'>{{course}}</option>
+                <option ng-repeat='course in courses' ng-model="question.course">{{course}}</option>
               </select>
               </div>
             </div>
@@ -155,7 +153,11 @@
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
+<<<<<<< HEAD
                 <input type="text" class="form-control">
+=======
+                <input type="text" class="form-control" ng-model="question.tag"></input>
+>>>>>>> 8c94f4f4df29a99b62094bbb01d46c07046e8401
               </div>
             </div>
 

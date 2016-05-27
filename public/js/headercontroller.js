@@ -31,20 +31,30 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.sendData = function(valid){
       if(valid){
-
         $http({
             method: 'POST',
             url: 'http://localhost:8000/login',
             data: {
                 'user':$scope.user
-               
             }
         }).success(function(res){
-            sessionService.set('user',res.id);
-            $rootScope.currentuser = res;
-            $('#myModal').modal('hide');
-            $location.url('/questions');
 
+            if(res.message=='password'){
+                console.log('pssword invalid');
+                $location.path('/');
+            }
+            else if (res.message=='email'){
+                console.log('email invalid');
+                $location.path('/');
+            }
+            else if(res.message=='login') {
+                console.log(res.user['id']);
+                sessionService.set('user', res.user['id']);
+                sessionService.set('type',res.type);
+                $rootScope.currentuser = res;
+                $('#myModal').modal('hide');
+                $location.url('/questions');
+            }
         }).error(function(err){
             console.log(err);
             $location.path('/');
@@ -54,7 +64,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.logout = function(){
         sessionService.destroy('user');
-
+        sessionService.destroy('type');
         $rootScope.currentuser = null;
         $('#logoutModal').modal('hide');
         $location.path('/');
@@ -63,24 +73,25 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
 
     $scope.askQuestion = function(){
+
         //
         //console.log($scope.question.title);
         //    console.log($scope.question.content);
         //   console.log(sessionService.get('user'));
 
-      console.log($scope.question.content);
-
-
+       console.log($scope.question.content);
       $('#askModal').modal('hide');
         $http({
             method: 'POST',
             url: 'http://localhost:8000/ask',
             data: {
-                //'title':$scope.question.title,
-                //'content':$scope.question.content,
-                'title':'static title',
-                'content':'static content',
+                'title':$scope.question.title,
+                'content':$scope.question.content,
                 'image':'',
+                //'course_id':$scope.question.course,
+                //'tag_id':$scope.question.tag,
+                'course_id':1,
+                'tag_id':[2,1],
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){
@@ -97,7 +108,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             'student_id':''
         };
 
-    }
+    };
 
 
 

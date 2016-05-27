@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Answer;
 use App\Question;
 
@@ -14,7 +15,6 @@ class AnswerController extends Controller
     public function accept_answer(Request $request){
 
         $id=$request->input('id');
-//            echo "id = ".$id;
         $answer=Answer::find($id);
         $question=Question::find($answer->question_id);
 
@@ -24,12 +24,9 @@ class AnswerController extends Controller
             $answer->save();
             $question->solved=1;
             $question->save();
-//            echo "the accepted".$answer->accepted;
-//            echo "the solved".$question->solved;
             return "true";
         }
         else{
-//            echo "error";
             return "false";
         }
 
@@ -37,7 +34,6 @@ class AnswerController extends Controller
     public function unaccept_answer(Request $request){
 
         $id=$request->input('id');
-//            echo "id = ".$id;
         $answer=Answer::find($id);
         $question=Question::find($answer->question_id);
 
@@ -47,14 +43,10 @@ class AnswerController extends Controller
             $answer->save();
             $question->solved=0;
             $question->save();
-//            echo "the accepted".$answer->accepted;
-//            echo "the solved".$question->solved;
 
             return "true";
         }
         else{
-//            echo "error";
-
             return "false";
         }
 

@@ -25,6 +25,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       },
     ];
 
+    $scope.courses = ['PHP','Bootstrap','Django','Java'];
+
     $scope.user.notification = $scope.notifications.length;
 
     $scope.sendData = function(valid){
@@ -61,13 +63,36 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
 
     $scope.askQuestion = function(){
+        //
+        //console.log($scope.question.title);
+        //    console.log($scope.question.content);
+        //   console.log(sessionService.get('user'));
 
-      console.log($scope.question.title);
       $('#askModal').modal('hide');
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/ask',
+            data: {
+                //'title':$scope.question.title,
+                //'content':$scope.question.content,
+                'title':'static title',
+                'content':'static content',
+                'image':'',
+                'student_id':sessionService.get('user')
+            }
+        }).success(function(res){
+            $('#myModal').modal('hide');
+            console.log(res);
+
+        }).error(function(err){
+            console.log(err);
+        });
       $scope.question = {
-      'title':'',
-      'content':''
-    }
+            'title':'',
+            'content':'',
+            'image':'',
+            'student_id':''
+        };
 
     }
 

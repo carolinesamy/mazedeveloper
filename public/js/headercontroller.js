@@ -2,6 +2,8 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
+    $rootScope.currentuser = sessionService.get('user');
+
     $scope.question = {
       'title':'',
       'content':''
@@ -80,7 +82,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         //   console.log(sessionService.get('user'));
 
        console.log($scope.question.content);
-      $('#askModal').modal('hide');
         $http({
             method: 'POST',
             url: 'http://localhost:8000/ask',
@@ -95,7 +96,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){
-            $('#myModal').modal('hide');
+            $('#askModal').modal('hide');
             console.log(res);
 
         }).error(function(err){

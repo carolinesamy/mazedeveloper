@@ -144,8 +144,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
-	$scope.addAnswer=function(){
-		if($scope.answer_content) {/** if answer is not empty**/
+	$scope.addAnswer=function(valid){
+
+		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
@@ -177,9 +178,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				console.log(err);
 			});
 		}
-		else {/** answer is empty **/
-			console.log('please enter answer before submit');
-		}
+		
 	};
 
 

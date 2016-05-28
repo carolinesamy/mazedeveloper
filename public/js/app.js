@@ -9,6 +9,7 @@ angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror','angula
 
 angular.module('developerMaze').config(function($routeProvider){
 
+
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
 		controller:'homeCtl'
@@ -16,16 +17,40 @@ angular.module('developerMaze').config(function($routeProvider){
 
 	.when('/questions',{
 		templateUrl:'templates/views/questions.html',
+		resolve:{
+		        "check":function($location,$rootScope){ 
+		          
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');    //redirect user to home.
+		            }
+		        }
+		    },
 		controller:'questionsCtl'
 	})
 
 	.when('/question',{
 		templateUrl:'templates/views/question.html',
+		resolve:{
+		        "check":function($location,$rootScope){ 
+		          
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');    //redirect user to home.
+		            }
+		        }
+		    },
 		controller:'questionCtl'
 	})
 
 	.when('/course',{
 		templateUrl:'templates/views/course.html',
+		resolve:{
+		        "check":function($location,$rootScope){ 
+		          
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');    //redirect user to home.
+		            }
+		        }
+		    },
 		controller:'courseCtl'
 	})
 	
@@ -33,3 +58,4 @@ angular.module('developerMaze').config(function($routeProvider){
 	
 
 })
+

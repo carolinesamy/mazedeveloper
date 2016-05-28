@@ -2,6 +2,8 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
+    $rootScope.currentuser = sessionService.get('user');
+
     $scope.question = {
       'title':'',
       'content':''
@@ -39,11 +41,22 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
         }).success(function(res){
 
-            console.log(res.user['id']);
-            sessionService.set('user',res.user['id']);
-            $rootScope.currentuser = res;
-            $('#myModal').modal('hide');
-            $location.url('/questions');
+            if(res.message=='password'){
+                console.log('pssword invalid');
+                $location.path('/');
+            }
+            else if (res.message=='email'){
+                console.log('email invalid');
+                $location.path('/');
+            }
+            else if(res.message=='login') {
+                console.log(res.user['id']);
+                sessionService.set('user', res.user['id']);
+                sessionService.set('type',res.type);
+                $rootScope.currentuser = res;
+                $('#myModal').modal('hide');
+                $location.url('/questions');
+            }
         }).error(function(err){
             console.log(err);
             $location.path('/');
@@ -53,7 +66,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.logout = function(){
         sessionService.destroy('user');
-
+        sessionService.destroy('type');
         $rootScope.currentuser = null;
         $('#logoutModal').modal('hide');
         $location.path('/');
@@ -69,7 +82,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         //   console.log(sessionService.get('user'));
 
        console.log($scope.question.content);
-      $('#askModal').modal('hide');
         $http({
             method: 'POST',
             url: 'http://localhost:8000/ask',
@@ -80,13 +92,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 //'course_id':$scope.question.course,
                 //'tag_id':$scope.question.tag,
                 'course_id':1,
-
-
                 'tag_id':[2,1],
                 'student_id':sessionService.get('user')
             }
         }).success(function(res){
-            $('#myModal').modal('hide');
+            $('#askModal').modal('hide');
             console.log(res);
 
         }).error(function(err){

@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('questionCtl',function( $scope ,$rootScope , server){
+angular.module('developerMaze').controller('questionCtl',function( $scope ,$rootScope ,$http, server){
 
 	
 
@@ -83,16 +83,43 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 	$scope.acceptAnswer = function(answer_id,index){
 
 		//this block of code will be in http request success function
-		$scope.answers[index]['accepted'] = 1;
-		$scope.question['solved'] = 1;
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/accept',
+			data: {
+				'id':1
+				//'id':answer_id
+
+			}
+		}).success(function(res){
+			console.log(res);
+			$scope.answers[index]['accepted'] = 1;
+			$scope.question['solved'] = 1;
+		}).error(function(err){
+			console.log(err);
+		});
 
 	};
 
 	$scope.unacceptAnswer = function(answer_id,index){
 
 		//this block of code will be in http request success function
-		$scope.answers[index]['accepted'] = 0;
-		$scope.question['solved'] = 0;
+
+		$http({
+			method:'POST',
+			url: 'http://localhost:8000/unaccept',
+			data: {
+				'id':1
+				//'id':answer_id
+			}
+		}).success(function(res){
+			console.log(res);
+			$scope.answers[index]['accepted'] = 0;
+			$scope.question['solved'] = 0;
+		}).error(function(err){
+			console.log(err);
+		});
 
 	}
 

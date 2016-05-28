@@ -132,13 +132,17 @@ class StudentController extends Controller
                 ])
                 ->select(DB::raw('count(*) as count'))
                 ->get();
-            
+            $courses=DB::table('courses')
+                ->join('student_courses','courses.id','=','student_courses.course_id')
+                ->where('student_courses.student_id','=',$user_id)
+                ->select('courses.id','courses.course_name')
+                ->get();
         }
 
 
         $notification_num=$notification[0]->count;
 
-        return $notification_num;
+        return $courses;
 
 
 

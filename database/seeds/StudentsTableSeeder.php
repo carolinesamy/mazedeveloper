@@ -50,14 +50,14 @@ class StudentsTableSeeder extends Seeder
 
 
         DB::table('students')->insert(array(
-            array('sfull_name'=>'john','email'=>'john@clivern.com','password'=>bcrypt('123456'),'points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456','last_hit'=>'2016-05-22 05:22:22'),
+            array('sfull_name'=>'john','email'=>'john@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456','last_hit'=>'2016-05-22 05:22:22'),
             array('sfull_name'=>'aya','email'=>'aya@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'1234745','last_hit'=>'2016-06-22 05:22:22'),
 
 
         ));
         DB::table('instructors')->insert(array(
-            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
-            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
 
 
         ));

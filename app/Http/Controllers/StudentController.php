@@ -12,7 +12,8 @@ use App\StudentNotification;
 use App\Answer;
 use App\Question;
 use App\Instructor;
-
+use App\Student;
+use DB;
 
 class StudentController extends Controller
 {
@@ -99,9 +100,38 @@ class StudentController extends Controller
             return $rett;
         }
 
+
+//                ->join('StudentNotification', function ($join) {
+//                    $join->on('notifications.id', '=', 'student_notifications.student_id')
+//                        ->where([
+//                            ['notifications.id',$user_id],
+//                            ['notifications.time','>',$last_hit],
+//                        ]);
+//                })
+
     public function gethomeuserdata(Request $request)
     {
         //return to anqular request user data to show
+        $user_id=$request->input('id');
+        $user_type=$request->input('type');
+
+        //->select(DB::raw('count(*) as user_count, status'))
+        if($user_type == 'student')
+        {
+            $last_hit = DB::table('students')
+                ->select('last_hit')
+                ->where('id', '=', $user_id)->first();
+
+            $users = DB::table('notifications')
+                ->join('StudentNotification', 'notifications.id', '=', 'student_notifications.student_id')
+                ->where([
+                    ['notifications.id',$user_id ],
+                    ['notifications.time','>',$last_hit],
+                ])
+
+                ->get()->count();
+        }
+        
 
     }
 

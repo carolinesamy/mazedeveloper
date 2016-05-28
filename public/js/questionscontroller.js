@@ -56,7 +56,8 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			method: 'GET',
 			url: 'http://localhost:8000/getuserdata',
 			data: {
-				'user': sessionService.get('user')
+				'user': sessionService.get('user'),
+				'type':sessionService.get('type')
 			}
 		}).success(function(res){
 			//handle the returned data here

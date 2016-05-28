@@ -114,8 +114,8 @@
 
 <div class="thumbnail">
 	<!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
-	<trix-editor style='height: 300px;' ng-model='answer_content'></trix-editor>
-	<button class="btn btn-default">Add Answer</button>
+	<trix-editor style='height: 300px;' angular-trix ng-model='answer_content'></trix-editor>
+	<button class="btn btn-default" ng-click="addAnswer()">Add Answer</button>
 	
 </div>
 

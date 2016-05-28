@@ -1,7 +1,7 @@
 
 angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
-	
+
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -77,7 +77,11 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		});
 	}
 	$scope.requestData();
-	//$scope.requestAsk();
+
+	// $scope.moreDetails = function(question_id){
+	// 	console.log(question_id);
+	// 	$location('/question');
+	// }
 
 
 })

@@ -8,7 +8,6 @@ use App\Http\Requests;
 
 use App\Http\Controllers\Controller;
 
-use App\Student;
 use App\StudentNotification;
 use App\Answer;
 use App\Question;

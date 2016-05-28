@@ -33,7 +33,7 @@ angular.module('developerMaze').config(function($routeProvider){
 		        "check":function($location,$rootScope,sessionService){ 
     				$rootScope.currentuser = sessionService.get('user');	          	
 		            if(!($rootScope.currentuser)){ 
-		                $location.path('/');    //redirect user to home.
+		                $location.path('/'); 
 		            }
 		        }
 		    },
@@ -46,7 +46,7 @@ angular.module('developerMaze').config(function($routeProvider){
 		        "check":function($location,$rootScope,sessionService){ 
     				$rootScope.currentuser = sessionService.get('user');	          	
 		            if(!($rootScope.currentuser)){ 
-		                $location.path('/');    //redirect user to home.
+		                $location.path('/');
 		            }
 		        }
 		    },

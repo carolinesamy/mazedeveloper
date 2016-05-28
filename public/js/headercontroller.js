@@ -2,7 +2,6 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
-    $rootScope.currentuser = sessionService.get('user');
 
     $scope.question = {
       'title':'',

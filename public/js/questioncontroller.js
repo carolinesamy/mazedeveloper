@@ -1,7 +1,8 @@
-angular.module('developerMaze').controller('questionCtl',function( $scope ,$rootScope ,$http, server,$routeParams){
+angular.module('developerMaze').controller('questionCtl',function( $scope ,sessionService ,$rootScope ,$http, server,$routeParams){
 
 	
 	 console.log($routeParams.id);
+	$rootScope.question_id=$routeParams.id;
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -121,12 +122,44 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,$root
 			console.log(err);
 		});
 
+	};
+
+	$scope.addAnswer=function(){
+		if(sessionService.get('type')=='student')
+		{
+			var key='student_id';
+		}
+		else
+		{
+			var key='instructor_id';
+		}
+
+		arr={
+			'content':$scope.answer_content,
+			'image':'',
+			'question_id':$rootScope.question_id,
+			'key':sessionService.get('user')
+		};
+		console.log(arr);
+		//$http({
+		//	method:'GET',
+		//	url: 'http://localhost:8000/add-answer',
+		//	data: {
+		//		'content':$scope.answer_content,
+		//		'image':'',
+		//		'question_id':$rootScope.question_id,
+		//		key:sessionService.get('user')
+		//	}
+		//}).success(function(res){
+		//	console.log(res);
+		//	$scope.answers[index]['accepted'] = 0;
+		//	$scope.question['solved'] = 0;
+		//}).error(function(err){
+		//	console.log(err);
+		//});
 	}
 
-
-
-
-})
+});
 
 
 

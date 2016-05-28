@@ -12,6 +12,8 @@ use App\Student;
 use App\StudentNotification;
 use App\Answer;
 use App\Question;
+use App\Instructor;
+
 
 class StudentController extends Controller
 {
@@ -26,33 +28,73 @@ class StudentController extends Controller
             $email=$user['email'];
 
             $student= Student::where('email',$email)->first();
-           if ($student->password == $password)
-           {
-               // echo "YOU ARE LOGIN";
-               $rett=array
-               (
-                   'user'=> array
-                   (
-                   'id'=>$student->id,
-                   'email'=>$student->email,
-                   'sfull_name'=>$student->sfull_name,
-                   'image'=>$student->image,
-                   'track_id'=>$student->track_id,
-                   'points'=>$student->points,
-                   'intake_id'=>$student->intake_id,
-                   ),
-                   'message'=>'login'
-               );
 
-
-           }
-            elseif($student->password != $password)
+            if (count($student))
             {
-                $rett=array('message'=>'password');
+                if ($student->password == $password)
+                {
+                    // echo "YOU ARE LOGIN";
+                    $rett=array
+                    (
+                        'user'=> array
+                        (
+                            'id'=>$student->id,
+                            'email'=>$student->email,
+                            'sfull_name'=>$student->sfull_name,
+                            'image'=>$student->image,
+                            'track_id'=>$student->track_id,
+                            'points'=>$student->points,
+                            'intake_id'=>$student->intake_id,
+                        ),
+                        'message'=>'login',
+                        'type'=>'student'
+                    );
+
+
+                }
+                elseif($student->password != $password)
+                {
+                    $rett=array('message'=>'password');
+                }
+//                else{
+//                    $rett=array('message'=>'email');
+//                }
             }
+
             else
             {
-                $rett=array('message'=>'email');
+                $instructor= Instructor::where('email',$email)->first();
+
+                if (count($instructor)){
+                    if ($instructor->password == $password)
+                    {
+                        // echo "YOU ARE LOGIN";
+                        $rett=array
+                        (
+                            'user'=> array
+                            (
+                                'id'=>$instructor->id,
+                                'email'=>$instructor->email,
+                                'ifull_name'=>$instructor->ifull_name,
+                                'image'=>$instructor->image,
+                                'points'=>$instructor->points,
+                            ),
+                            'message'=>'login',
+                            'type'=>'instructor'
+                        );
+
+
+                    }
+                    elseif($instructor->password != $password)
+                    {
+                        $rett=array('message'=>'password');
+                    }
+                }
+
+                else{
+                    $rett=array('message'=>'email');
+                }
+
             }
 
             return $rett;

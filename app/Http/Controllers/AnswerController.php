@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 use App\Answer;
 use App\Question;
+use DateTime;
+use DB;
 
+use App\Instructor;
+use App\Student;
 class AnswerController extends Controller
 {
     //
@@ -54,6 +59,56 @@ class AnswerController extends Controller
 
     public function add_answer(Request $request)
     {
-        return $request->input('answer');
+        $answersdata=$request->input('answer');
+        $content=$answersdata['content'];
+        $image=$answersdata['image'];
+        $question_id=$answersdata['question_id'];
+        $user_id=$answersdata['id'];
+        $user_type=$answersdata['type'];
+
+        $now = new DateTime();
+        $date=$now->format('Y-m-d H:i:s');
+
+        if ($user_type == 'student')
+        {
+            $insert= DB::table('answers')->insertGetId(
+                [
+                    'content' => $content,
+                    'image'=>$image,
+                    'student_id'=>$user_id,
+                    'time'=>$date,
+                    'question_id'=>$question_id,
+                ]
+            );
+
+        }
+        else
+        {
+            $insert= DB::table('answers')->insertGetId(
+                [
+                    'content' => $content,
+                    'image'=>$image,
+                    'instructor_id'=>$user_id,
+                    'time'=>$date,
+                    'question_id'=>$question_id,
+                ]
+            );
+
+        }
+
+        //*********** take data from anguler reqest => laravel => to me ***************
+
+        if ($insert > 0 )
+        {
+            return "true";
+
+        }
+        else
+        {
+            return "false";
+        }
+
+
+
     }
 }

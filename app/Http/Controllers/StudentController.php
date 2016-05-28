@@ -119,23 +119,26 @@ class StudentController extends Controller
 
         if($user_type == 'student')
         {
-//            $last_hit = DB::table('students')
-//                ->select('last_hit')
-//                ->where('id', '=', $user_id)->first();
+
             $last_hit= Student::select('last_hit')->where('id',$user_id)->first();
 
-            $users = DB::table('notifications')
-                ->join('student_notifications', 'notifications.id', '=', 'student_notifications.student_id')
+
+
+            $notification = DB::table('notifications')
+                ->join('student_notifications', 'notifications.id', '=', 'student_notifications.notification_id')
                 ->where([
-                    ['notifications.id',$user_id ],
-                    ['notifications.time','>',$last_hit],
-                    //['ABS(TIMESTAMPDIFF(MINUTE, datetime, ?)) <= 1', [$last_hit]],
+                    ['student_notifications.student_id','=',$user_id ],
+                    ['notifications.time','>',$last_hit->last_hit],
                 ])
-                ->select(DB::raw('count(*)'))
+                ->select(DB::raw('count(*) as count'))
                 ->get();
+            
         }
 
-        return $users;
+
+        $notification_num=$notification[0]->count;
+
+        return $notification_num;
 
 
 

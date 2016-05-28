@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
 
             $table->string('course_name');
             $table->text('description');
-            $table->integer('max_points');
+            $table->integer('max_points')->default('0');
             $table->string('chat_filename');
 
             $table->integer('category_id')->unsigned();

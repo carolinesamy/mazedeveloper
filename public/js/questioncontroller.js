@@ -145,7 +145,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'type':'instructor'
 			};
 		}
-		console.log(arr);
+		//console.log(arr);
 		$http({
 			method:'POST',
 			url: 'http://localhost:8000/addanswer',

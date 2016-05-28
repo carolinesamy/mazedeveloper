@@ -18,17 +18,17 @@ class CreateAnswersTable extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->dateTime('time');
-            $table->integer('likes');
-            $table->integer('dislikes');
-            $table->boolean('accepted');
+            $table->integer('likes')->default('0');
+            $table->integer('dislikes')->default('0');
+            $table->boolean('accepted')->default('0');
 
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');
 
-            $table->integer('student_id')->unsigned();
+            $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->integer('instructor_id')->unsigned();
+            $table->integer('instructor_id')->unsigned()->nullable();
             $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->timestamps();
         });

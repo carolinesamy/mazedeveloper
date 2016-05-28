@@ -145,8 +145,15 @@ class StudentController extends Controller
                 ->join('student_courses','questions.course_id','=','student_courses.course_id')
                 ->where('student_courses.student_id','=',$user_id)
                 ->select('questions.id','questions.content','questions.title','questions.time','questions.solved')
+                ->orderBy('questions.time','desc')->take(10)
                 ->get();
-            //$latest_follow_question=DB::raw("select ");
+
+            $latest_all_question=DB::table('questions')
+                // ->join('answers','questions.id','=','answers.question_id')
+               // ->join('answers','questions.id','=','answers.question_id')
+                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
+                ->orderBy('questions.time','desc')->take(10)
+                ->get();
 
         }
 
@@ -154,7 +161,7 @@ class StudentController extends Controller
         $notification_num=$notification[0]->count;
 
 
-        return $latest_follow_question;
+        return $latest_all_question;
 
 
 

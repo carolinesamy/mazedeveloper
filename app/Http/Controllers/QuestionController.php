@@ -64,11 +64,13 @@ class QuestionController extends Controller
         //********** insert data into questions table
 
     }
-    public function question_search(Request $request)
-    {
 
 
-
+    public function get_question(Request $request){
+        return $request->input('id');
     }
 
+    public function complete(Request $request){
+        return $request->input('sentance');
+    }
 }

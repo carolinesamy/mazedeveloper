@@ -66,17 +66,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			console.log(err);
 		});
 	}
-	$scope.requestAsk=function(){
-		$http({
-			method: 'GET',
-			url: 'http://localhost:8000/gettags',
-		}).success(function(res){
-			console.log(res);
-			$scope.tags=res;
-		}).error(function(err){
-			console.log(err);
-		});
-	}
+	
 	$scope.requestData();
 
 	// $scope.moreDetails = function(question_id){

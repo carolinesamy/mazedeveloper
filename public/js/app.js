@@ -11,6 +11,14 @@ angular.module('developerMaze').config(function($routeProvider){
 
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
+		resolve:{
+		        "check":function($location,$rootScope,sessionService){ 
+    				$rootScope.currentuser = sessionService.get('user');	          	
+		            if($rootScope.currentuser){ 
+		                $location.path('/questions');    //redirect user to home.
+		            }
+		        }
+		    },
 		controller:'homeCtl'
 	})
 

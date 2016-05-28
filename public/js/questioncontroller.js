@@ -1,7 +1,8 @@
 angular.module('developerMaze').controller('questionCtl',function( $scope ,$rootScope ,$http, server,$routeParams){
 
 	
-	 console.log($routeParams.id);
+	console.log($routeParams.id);
+	
 	//logged-in user
 	$scope.user = {
       email: '',

@@ -41,6 +41,11 @@
 	<script src="bower_components/trix/dist/trix.js"></script>
 	<script src="bower_components/angular-trix/dist/angular-trix.min.js"></script>
 
+	<!--auto complete scripts-->
+    <link rel="stylesheet" href="css/autocomplete.css">
+    <script type="text/javascript" src="js/autocomplete.js"></script>
+
+
 </head>
 
 <body>

@@ -131,7 +131,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'content':$scope.answer_content,
 				'image':'',
 				'question_id':$rootScope.question_id,
-				'student_id':sessionService.get('user')
+				'id':sessionService.get('user'),
+				'type':'student'
 			};
 		}
 		else
@@ -140,7 +141,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'content':$scope.answer_content,
 				'image':'',
 				'question_id':$rootScope.question_id,
-				'instructor_id':sessionService.get('user')
+				'id':sessionService.get('user'),
+				'type':'instructor'
 			};
 		}
 		console.log(arr);

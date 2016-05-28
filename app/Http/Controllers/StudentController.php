@@ -23,6 +23,7 @@ class StudentController extends Controller
         public function login(Request $request)
         {
             $user=$request->input('user');
+            Request::all();
 
             $password=$user['password'];
             $email=$user['email'];
@@ -137,12 +138,23 @@ class StudentController extends Controller
                 ->where('student_courses.student_id','=',$user_id)
                 ->select('courses.id','courses.course_name')
                 ->get();
+
+            $latest_follow_question=DB::table('questions')
+               // ->join('answers','questions.id','=','answers.question_id')
+
+                ->join('student_courses','questions.course_id','=','student_courses.course_id')
+                ->where('student_courses.student_id','=',$user_id)
+                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved')
+                ->get();
+            //$latest_follow_question=DB::raw("select ");
+
         }
 
 
         $notification_num=$notification[0]->count;
 
-        return $courses;
+
+        return $latest_follow_question;
 
 
 

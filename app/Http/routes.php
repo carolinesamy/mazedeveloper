@@ -36,6 +36,6 @@ Route::post('/getuserdata','StudentController@gethomeuserdata');
 
 Route::get('/gettags','TagController@get_tag');
 Route::post('/addanswer','AnswerController@add_answer');
-Route::post('/questiondetails','QuestionController@question_details');
+Route::post('/questionsearch','QuestionController@question_search');
 
 

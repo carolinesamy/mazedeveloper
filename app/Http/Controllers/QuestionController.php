@@ -64,8 +64,9 @@ class QuestionController extends Controller
         //********** insert data into questions table
 
     }
-    public function question_details(Request $request)
+    public function question_search(Request $request)
     {
+
 
 
     }

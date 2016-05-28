@@ -1,7 +1,7 @@
 
 angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
-	
+
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -56,7 +56,8 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			method: 'GET',
 			url: 'http://localhost:8000/getuserdata',
 			data: {
-				'user': sessionService.get('user')
+				'user': sessionService.get('user'),
+				'type':sessionService.get('type')
 			}
 		}).success(function(res){
 			//handle the returned data here
@@ -77,7 +78,11 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		});
 	}
 	$scope.requestData();
-	//$scope.requestAsk();
+
+	// $scope.moreDetails = function(question_id){
+	// 	console.log(question_id);
+	// 	$location('/question');
+	// }
 
 
 })

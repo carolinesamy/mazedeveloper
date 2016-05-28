@@ -127,36 +127,36 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	$scope.addAnswer=function(){
 		if(sessionService.get('type')=='student')
 		{
-			var key='student_id';
+			arr={
+				'content':$scope.answer_content,
+				'image':'',
+				'question_id':$rootScope.question_id,
+				'id':sessionService.get('user'),
+				'type':'student'
+			};
 		}
 		else
 		{
-			var key='instructor_id';
+			arr={
+				'content':$scope.answer_content,
+				'image':'',
+				'question_id':$rootScope.question_id,
+				'id':sessionService.get('user'),
+				'type':'instructor'
+			};
 		}
-
-		arr={
-			'content':$scope.answer_content,
-			'image':'',
-			'question_id':$rootScope.question_id,
-			'key':sessionService.get('user')
-		};
 		console.log(arr);
-		//$http({
-		//	method:'GET',
-		//	url: 'http://localhost:8000/add-answer',
-		//	data: {
-		//		'content':$scope.answer_content,
-		//		'image':'',
-		//		'question_id':$rootScope.question_id,
-		//		key:sessionService.get('user')
-		//	}
-		//}).success(function(res){
-		//	console.log(res);
-		//	$scope.answers[index]['accepted'] = 0;
-		//	$scope.question['solved'] = 0;
-		//}).error(function(err){
-		//	console.log(err);
-		//});
+		$http({
+			method:'POST',
+			url: 'http://localhost:8000/addanswer',
+			data: {
+				answer:arr
+			}
+		}).success(function(res){
+			console.log(res);
+		}).error(function(err){
+			console.log(err);
+		});
 	}
 
 });

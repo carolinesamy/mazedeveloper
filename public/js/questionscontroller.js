@@ -1,6 +1,7 @@
 
 angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
+	
 	//logged-in user
 	$scope.user = {
       email: '',

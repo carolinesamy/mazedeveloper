@@ -3,6 +3,24 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	
 	 console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
+
+	/*** get question data **/
+
+	$scope.get_question_data=function(){
+		$http({
+			method:'POST',
+			url: 'http://localhost:8000/questiondata',
+			data: {
+				id:$rootScope.question_id
+			}
+		}).success(function(res){
+			console.log(res);
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+	$scope.get_question_data();
+
 	//logged-in user
 	$scope.user = {
       email: '',
@@ -125,39 +143,43 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	};
 
 	$scope.addAnswer=function(){
-		if(sessionService.get('type')=='student')
-		{
-			arr={
-				'content':$scope.answer_content,
-				'image':'',
-				'question_id':$rootScope.question_id,
-				'id':sessionService.get('user'),
-				'type':'student'
-			};
-		}
-		else
-		{
-			arr={
-				'content':$scope.answer_content,
-				'image':'',
-				'question_id':$rootScope.question_id,
-				'id':sessionService.get('user'),
-				'type':'instructor'
-			};
-		}
-		console.log(arr);
-		$http({
-			method:'POST',
-			url: 'http://localhost:8000/addanswer',
-			data: {
-				answer:arr
+		if($scope.answer_content) {/** if answer is not empty**/
+			if (sessionService.get('type') == 'student') {
+				arr = {
+					'content': $scope.answer_content,
+					'image': '',
+					'question_id': $rootScope.question_id,
+					'id': sessionService.get('user'),
+					'type': 'student'
+				};
 			}
-		}).success(function(res){
-			console.log(res);
-		}).error(function(err){
-			console.log(err);
-		});
-	}
+			else {
+				arr = {
+					'content': $scope.answer_content,
+					'image': '',
+					'question_id': $rootScope.question_id,
+					'id': sessionService.get('user'),
+					'type': 'instructor'
+				};
+			}
+			//console.log(arr);
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/addanswer',
+				data: {
+					answer: arr
+				}
+			}).success(function (res) {
+				console.log(res);
+			}).error(function (err) {
+				console.log(err);
+			});
+		}
+		else {/** answer is empty **/
+			console.log('please enter answer before submit');
+		}
+	};
+
 
 });
 

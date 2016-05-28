@@ -30,7 +30,7 @@ Route::post('/ask','QuestionController@add_question');
 
 
 //**by caroline *** after login go to home to show couses && questions
-Route::get('/getuserdata','StudentController@gethomeuserdata');
+Route::post('/getuserdata','StudentController@gethomeuserdata');
 
 
 

@@ -112,26 +112,32 @@ class StudentController extends Controller
     public function gethomeuserdata(Request $request)
     {
         //return to anqular request user data to show
-        $user_id=$request->input('id');
+        $user_id=$request->input('user');
         $user_type=$request->input('type');
 
         //->select(DB::raw('count(*) as user_count, status'))
+
         if($user_type == 'student')
         {
-            $last_hit = DB::table('students')
-                ->select('last_hit')
-                ->where('id', '=', $user_id)->first();
+//            $last_hit = DB::table('students')
+//                ->select('last_hit')
+//                ->where('id', '=', $user_id)->first();
+            $last_hit= Student::select('last_hit')->where('id',$user_id)->first();
 
             $users = DB::table('notifications')
-                ->join('StudentNotification', 'notifications.id', '=', 'student_notifications.student_id')
+                ->join('student_notifications', 'notifications.id', '=', 'student_notifications.student_id')
                 ->where([
                     ['notifications.id',$user_id ],
                     ['notifications.time','>',$last_hit],
+                    //['ABS(TIMESTAMPDIFF(MINUTE, datetime, ?)) <= 1', [$last_hit]],
                 ])
-
-                ->get()->count();
+                ->select(DB::raw('count(*)'))
+                ->get();
         }
-        
+
+        return $users;
+
+
 
     }
 

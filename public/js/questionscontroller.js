@@ -53,7 +53,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 	$scope.requestData=function(){
 		//console.log('hello from controller');
 		$http({
-			method: 'GET',
+			method: 'POST',
 			url: 'http://localhost:8000/getuserdata',
 			data: {
 				'user': sessionService.get('user'),

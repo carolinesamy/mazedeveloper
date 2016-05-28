@@ -56,8 +56,8 @@ class StudentsTableSeeder extends Seeder
 
         ));
         DB::table('instructors')->insert(array(
-            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
-            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>bcrypt('123456'),'type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
 
 
         ));

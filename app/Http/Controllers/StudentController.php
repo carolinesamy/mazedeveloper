@@ -64,6 +64,7 @@ class StudentController extends Controller
             else
             {
                 $instructor= Instructor::where('email',$email)->first();
+                
                 if (count($instructor)){
                     if ($instructor->password == $password)
                     {

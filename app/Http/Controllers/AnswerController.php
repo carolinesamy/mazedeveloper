@@ -51,4 +51,9 @@ class AnswerController extends Controller
         }
 
     }
+
+    public function add_answer(Request $request)
+    {
+        return $request->input('answer');
+    }
 }

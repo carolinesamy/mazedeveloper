@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image')->nullable();
-            $table->integer('points');
+            $table->integer('points')->default('0');
             $table->dateTime('last_hit');
 
             $table->integer('intake_id')->unsigned();

@@ -2,16 +2,17 @@
 <div ng-include = "'templates/views/header.html'"></div>
 
 
-<div class="container" ng-if='currentuser'>
+<div class="container" >
   <div class="row">
-  	<div class="col-sm-3">
-  		<div class="list-group pull-right" style="width: 250px;">
+ 
+  	<div class="col-sm-2">
+  		<div class="list-group pull-right" >
   			<h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
 			<a href="#/course?id={{course.course_id}}" class="list-group-item" ng-repeat='course in courses' style="text-align: center;">{{course.course_name}}</a>		  	  
 		</div>
   	</div>
 
-  	<div class="col-sm-9">
+  	<div class="col-sm-10">
   		<div class="row">	  	
 		    <div class="btn-group" data-toggle="buttons">
 			  <label class="btn btn-default active">
@@ -33,13 +34,13 @@
 				        <h3>{{question.title}}</h3>
 				        <div hm-read-more
 					        hm-text="{{question.content}}" 
-					        hm-limit="100" 
+					        hm-limit="300" 
 					        hm-more-text="read more" 
 					        hm-less-text="read less"
 					        hm-dots-class="dots"
 					        hm-link-class="links">
 						</div>
-				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
+				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answers}}</h5> </p>
 
 				        
 				    </div>
@@ -50,7 +51,14 @@
 
   </div>
   <br/>
-
+	
 
 
 </div>
+
+
+
+
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>

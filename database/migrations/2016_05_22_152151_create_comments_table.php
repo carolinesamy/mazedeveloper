@@ -20,10 +20,10 @@ class CreateCommentsTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');
 
-            $table->integer('student_id')->unsigned();
+            $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->integer('instructor_id')->unsigned();
+            $table->integer('instructor_id')->unsigned()->nullable();
             $table->foreign('instructor_id')->references('id')->on('instructors');
 
             $table->timestamps();

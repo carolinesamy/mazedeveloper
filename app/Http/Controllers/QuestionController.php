@@ -64,4 +64,17 @@ class QuestionController extends Controller
         //********** insert data into questions table
 
     }
+
+
+    public function get_question(Request $request){
+        return $request->input('id');
+    }
+
+    public function complete(Request $request){
+        $text=$request->input('sentance');
+
+        $question_titles= Question::select('title')->where('title','like',$text."%")->get();
+
+        return $question_titles;
+    }
 }

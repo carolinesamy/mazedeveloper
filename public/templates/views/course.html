@@ -1,45 +1,66 @@
-<div  class="sidebar" sidebar-directive="state">
-        <a href="#/course" id="navigation-toggle" ng-click="toggleState()">Navigation</a>
-            <div class="navigation thumbnail" >
-				<div ng-include = "'templates/views/chat.html'"></div>               
-            </div>
+<!--Header-->
+<div ng-include = "'templates/views/header.html'"></div>
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-3">
+        <div class="list-group pull-right" style="width: 250px;">
+            <h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
+            <span ng-repeat='course in courses'>
+            <a href="#/course?id={{course.course_id}}" class="list-group-item"  style="text-align: center;" ng-if='course.course_id != course_id'>{{course.course_name}}</a> 
+
+            <a href="#/course?id={{course.course_id}}" class="list-group-item active"  style="text-align: center;" ng-if='course.course_id == course_id'>{{course.course_name}}</a>           
+            </span>
+        </div>
     </div>
 
-<style>
+    <div class="col-sm-9">
+        <div class="row">       
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default active">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> All Questions
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Answered Questions
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="options" id="option3" autocomplete="off"> un-answered Questions
+              </label>
+            </div>
+        </div>
+        <br/>
+        <div class="row"  ng-repeat='question in questions track by $index'>
+                  
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>{{question.title}}</h3>
+                        <div hm-read-more
+                            hm-text="{{question.content}}" 
+                            hm-limit="100" 
+                            hm-more-text="read more" 
+                            hm-less-text="read less"
+                            hm-dots-class="dots"
+                            hm-link-class="links">
+                        </div>
+                        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
 
-.sidebar {
-    position : absolute;
-    top : 0;
-    left : -160px;;
-    transition : 100ms left;
-}
-#navigation-toggle {
-        position : absolute;
-        left : 160px;
-        background : rgba(3,159,244,.95);
-        color : white;
-        text-decoration : none;
-        padding : 20px;
-}
-.show {
-    left : 0;
-}
-.navigation {
-    list-style : none;
-    padding : 0;
-    margin : 0;
-}
-.navigation-items a {
-    display : block;
-    background-color : #444;
-    color : white;
-    line-height : 2em;
-    text-decoration : none;
-    padding : 10px 30px;
-    width : 100px;
+                        
+                    </div>
+                </div>
+            
+        </div>
+    </div>
 
-}
-.navigation-items a:hover {
-    background-color : #222;
-}
-</style>
+  </div>
+  <br/>
+
+</div>
+
+
+
+
+
+
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>

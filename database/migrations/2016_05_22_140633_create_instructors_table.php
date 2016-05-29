@@ -19,7 +19,6 @@ class CreateInstructorsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image')->nullable();
-            $table->integer('points');
             $table->dateTime('last_hit');
             $table->enum('type', ['internal', 'external','consultant']);
 

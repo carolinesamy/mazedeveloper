@@ -2,11 +2,16 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
-    $rootScope.currentuser = sessionService.get('user');
 
     $scope.question = {
       'title':'',
       'content':''
+    }
+
+    $scope.user = {
+        'user_name':'',
+        'user_id':1,
+        'notification':0
     }
 
     $scope.notifications = [
@@ -74,44 +79,66 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     };
 
 
-    $scope.askQuestion = function(){
+    $scope.askQuestion = function(valid){
 
-        //
-        //console.log($scope.question.title);
-        //    console.log($scope.question.content);
-        //   console.log(sessionService.get('user'));
+        console.log($scope.selected_tags);
+        if(valid){
+            $http({
+                method: 'POST',
+                url: 'http://localhost:8000/ask',
+                data: {
+                    'title':$scope.question.title,
+                    'content':$scope.question.content,
+                    'image':'',
+                    //'course_id':$scope.question.course,
+                    //'tag_id':$scope.question.tag,
+                    'course_id':1,
+                    'tag_id':[2,1],
+                    'student_id':sessionService.get('user')
+                }
+            }).success(function(res){
+                $('#askModal').modal('hide');
+                console.log(res);
 
-       console.log($scope.question.content);
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8000/ask',
-            data: {
-                'title':$scope.question.title,
-                'content':$scope.question.content,
+            }).error(function(err){
+                console.log(err);
+            });
+          $scope.question = {
+                'title':'',
+                'content':'',
                 'image':'',
-                //'course_id':$scope.question.course,
-                //'tag_id':$scope.question.tag,
-                'course_id':1,
-                'tag_id':[2,1],
-                'student_id':sessionService.get('user')
-            }
-        }).success(function(res){
-            $('#askModal').modal('hide');
-            console.log(res);
+                'student_id':''
+            };
+        }
+    };
 
+    $scope.requestAsk=function(){
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8000/gettags',
+        }).success(function(res){
+            console.log(res);
+            $scope.tags=res;
         }).error(function(err){
             console.log(err);
         });
-      $scope.question = {
-            'title':'',
-            'content':'',
-            'image':'',
-            'student_id':''
-        };
+    }
 
+    $scope.autoComplete=function(){
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/complete',
+            data: {
+                'sentance':$scope.question.title
+            }
+        }).success(function(res){
+            console.log(res);
+        }).error(function(err){
+            console.log(err);
+        });
     };
 
 
 
-})
+});
 

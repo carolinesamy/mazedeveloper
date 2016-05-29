@@ -70,12 +70,18 @@ class QuestionController extends Controller
 /**take from angular side :
     question id && question updated data*/
 
-        $question_id=$request->input('id');
-        $title=$request->input('title');
-        $content=$request->input('content');
-        $image=$request->input('image');
+//        $question_id=$request->input('id');
+//        $title=$request->input('title');
+//        $content=$request->input('content');
+//        $image=$request->input('image');
+//
+//        $tag_id=$request->input('tag_id');
+        $question_id=1;
+        $title="ana el title";
+        $content="ana el content";
+        $image="ana el image";
 
-        $tag_id=$request->input('tag_id');
+        $tag_id=[2,1];
 
         $now = new DateTime();
         $date=$now->format('Y-m-d H:i:s');
@@ -89,6 +95,7 @@ class QuestionController extends Controller
                 'image'=>$image,
                 'time'=>$date,
             ]);
+
         // delete old tags to insert new tags**
         DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
 

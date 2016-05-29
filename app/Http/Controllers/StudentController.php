@@ -102,14 +102,6 @@ class StudentController extends Controller
         }
 
 
-//                ->join('StudentNotification', function ($join) {
-//                    $join->on('notifications.id', '=', 'student_notifications.student_id')
-//                        ->where([
-//                            ['notifications.id',$user_id],
-//                            ['notifications.time','>',$last_hit],
-//                        ]);
-//                })
-
     public function gethomeuserdata(Request $request)
     {
         //return to anqular request user data to show
@@ -289,5 +281,6 @@ class StudentController extends Controller
 
 
     }
+
 
    }

@@ -139,6 +139,11 @@ class StudentsTableSeeder extends Seeder
             array('question_id'=>'1','tag_id'=>'2'),
 
         ));
+        DB::table('likes')->insert(array(
+            array('id'=>'1','type'=>'student','answer_id'=>'1'),
+            array('id'=>'1','type'=>'instructor','answer_id'=>'1'),
+
+        ));
 
     }
 }

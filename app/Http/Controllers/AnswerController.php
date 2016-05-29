@@ -111,11 +111,15 @@ class AnswerController extends Controller
         $content=$answersdata['content'];
         $image=$answersdata['image'];
 
+//        $answer_id=1;
+//        $content="opaa allaaa";
+//        $image='p5';
+
         $now = new DateTime();
         $date=$now->format('Y-m-d H:i:s');
 
 
-            $insert= DB::table('answers')
+            $update= DB::table('answers')
                 ->where('id', $answer_id)
                 ->update(
                 [
@@ -124,6 +128,100 @@ class AnswerController extends Controller
                     'time'=>$date,
                 ]
             );
+        if ($update > 0) {
+            return "true";
+
+        } else {
+            return "false";
+        }
+
+    }
+
+    public function like_action(Request $request)
+    {
+//        $answer_id=$request->input('id');
+//        $user_type=$request->input('type');
+
+        $answer_id=1;
+        $user_type="student";
+
+        DB::table('answers')
+            ->where('id', $answer_id)
+            ->increment('likes');
+
+
+        $user_id= Answer::select('student_id')->where('id',$answer_id)->first();
+
+
+
+        $insert=DB::table('likes')->insertGetId(
+            [
+                'id'=>$user_id->student_id,
+                'answer_id'=>$answer_id,
+                'type'=>$user_type,
+            ]
+        );
+        if ($user_type == 'student')
+        {
+            DB::table('students')
+                ->where('id', $user_id)
+                ->increment('points');
+
+
 
         }
+        else
+        {
+            DB::table('students')
+                ->where('id', $user_id)
+                ->increment('points',5);
+
+        }
+
+
+        print_r($user_id->student_id) ;
+
+
+
+    }
+
+    public function dislike_action(Request $request)
+    {
+//        $answer_id=$request->input('id');
+//        $user_type=$request->input('type');
+        $answer_id=2;
+        $user_type="instructor";
+
+        DB::table('answers')
+            ->where('id', $answer_id)
+            ->decrement('likes');
+
+        $user_id= Answer::select('student_id')->where('id',$answer_id)->first();
+
+
+        $update= DB::table('likes')
+            ->where([
+                ['answer_id','=',$answer_id ],
+                ['id','=',$user_id],
+                ['type','=',$user_type,],
+            ])
+            ->update(['like' => 0]);
+
+        if ($user_type == 'student')
+        {
+            DB::table('students')
+                ->where('id', $user_id)
+                ->decrement('points');
+
+        }
+        else
+        {
+            DB::table('students')
+                ->where('id', $user_id)
+                ->decrement('points',5);
+
+        }
+
+
+    }
 }

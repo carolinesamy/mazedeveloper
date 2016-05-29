@@ -44,11 +44,13 @@ Route::post('/complete','QuestionController@complete');
 
 
 //**by caroline *** routes for edit question && edit answer
+
 Route::post('/editquestion','QuestionController@edit_question');
+
 Route::post('/editanswer','AnswerController@edit_answer');
 
-Route::post('/likeaction','StudentController@like_action');
-Route::post('/dislikeaction','StudentController@dislike_action');
+Route::post('/likeaction','AnswerController@like_action');
+Route::post('/dislikeaction','AnswerController@dislike_action');
 
 
 

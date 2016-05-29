@@ -76,7 +76,7 @@
 
 					</div>
 					<div class="col-md-1">
-						<button class="btn btn-default" ng-click="editAnswer(answer.id)">edit answer</button>
+						<button class="btn btn-default" ng-click="editAnswer(answer.answer_id)">edit answer</button>
 					</div>
 				</div>
 
@@ -85,19 +85,19 @@
 
 				<div class="row">
 					<div class="col-sm-2">
-						<h3><a class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.id)">{{answer.likes}}</a> <a class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.id)">{{answer.dislikes}}</a></h3>
+						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{answer.likes}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{answer.dislikes}}</a></h3>
 
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
 						<div class="radio">
-					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.id,$index)'></label>
+					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.answer_id,$index)'></label>
 					    </div>
 					</div>
 
 					<div class="col-sm-1" ng-if='question.solved == 1'>
 						<div class="radio">
-					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.id,$index)' checked='true'></label>
+					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.answer_id,$index)' checked='true'></label>
 
 
 					    </div>
@@ -125,7 +125,7 @@
 						<div class="form-horizontal row">
 								<div class="form-group">
 								    <div class="col-sm-2">
-								    	<button class="btn btn-default" ng-click="addReply(answer.id,my_reply)">Add Reply</button>
+								    	<button class="btn btn-default" ng-click="addReply(answer.answer_id,my_reply)">Add Reply</button>
 								    </div>
 								    <div class="col-sm-9">
 								      <input type="text" class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply">

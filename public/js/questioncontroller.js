@@ -119,6 +119,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			url: 'http://localhost:8000/accept',
 			data: {
 				//'id':1
+
 				'id':answer_id,
 				'user_id': sessionService.get('user'),
 				'type': sessionService.get('type')
@@ -146,6 +147,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'id':answer_id,
 				'user_id': sessionService.get('user'),
 				'type': sessionService.get('type')
+
 			}
 		}).success(function(res){
 			console.log(res);
@@ -327,26 +329,26 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 
 	$scope.like=function(answer_id){
-		data={
-			'answer_id': answer_id,
-				'user_id': sessionService.get('user'),
-				'type': sessionService.get('type')
-		};
-		console.log(data);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/likeaction',
-		//	data: {
-		//			'answer_id': answer_id,
-		//			'user_id': sessionService.get('user'),
-		//			'type': sessionService.get('type')
-		//	}
-		//}).success(function(res){
-		//	console.log(res);
-        //
-		//}).error(function(err){
-		//	console.log(err);
-		//});
+		// data={
+		// 	'answer_id': answer_id,
+		// 		'user_id': sessionService.get('user'),
+		// 		'type': sessionService.get('type')
+		// };
+		// console.log(data);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/likeaction',
+			data: {
+					'answer_id': answer_id,
+					'user_id': sessionService.get('user'),
+					'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+        
+		}).error(function(err){
+			console.log(err);
+		});
 	};
 
 	$scope.dislike=function(answer_id){

@@ -67,53 +67,43 @@ class QuestionController extends Controller
 
     public function edit_question(Request $request)
     {
+/**take from angular side :
+    question id && question updated data*/
 
-        $question_id=$request->input('title');
+        $question_id=$request->input('id');
         $title=$request->input('title');
         $content=$request->input('content');
         $image=$request->input('image');
-        $student_id=$request->input('student_id');
-        //**** join by names****//
-        $tag_id=$request->input('tag_id');
-        $course_id=$request->input('course_id');
 
-        echo $title;
-        //*********** take data from anguler reqest => laravel => to me ***************
+        $tag_id=$request->input('tag_id');
+
         $now = new DateTime();
-//        $date = $now->getTimezone();
         $date=$now->format('Y-m-d H:i:s');
-        $insert= DB::table('questions')->insertGetId(
-            [
+
+        //start update data in question table*****
+        $update=DB::table('questions')
+            ->where('id', $question_id)
+            ->update([
                 'title' => $title,
                 'content' => $content,
                 'image'=>$image,
-                'student_id'=>$student_id,
                 'time'=>$date,
-                'course_id'=>$course_id,
-            ]
-        );
+            ]);
+        // delete old tags to insert new tags**
+        DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
 
         foreach($tag_id as $tag)
         {
             DB::table('question_tags')->insertGetID(
                 [
-                    'question_id'=>$insert,
+                    'question_id'=>$question_id,
                     'tag_id'=>$tag,
                 ]
             );
 
         }
 
-        if ($insert > 0 )
-        {
-            return "true";
 
-        }
-        else
-        {
-            return "false";
-        }
-        //********** insert data into questions table
 
     }
 

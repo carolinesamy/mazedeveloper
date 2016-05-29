@@ -25,7 +25,7 @@
         <!-- Trigger the modal with a link -->
       <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' >Login</a></li>
       <li ng-if='currentuser'>
-         <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown"><span class="badge ">{{user.notification}}</span><span class="glyphicon glyphicon-bell "></span></button>
+         <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown"><span class="badge ">{{numOfnotification}}</span><span class="glyphicon glyphicon-bell "></span></button>
           <ul class="dropdown-menu">
             <li ng-repeat='notification in notifications'><a href="#">{{notification.user}} {{notification.content}}</a></li>
           </ul>
@@ -149,10 +149,10 @@
 
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Select Course</label>
-              <div class="col-sm-10">
-              <select class="form-control" id="course">
-                <option ng-repeat='course in courses' ng-model="question.course">{{course}}</option>
-              </select>
+              <div class="col-sm-10">             
+                <select class="form-control" ng-model="question.course" ng-options="course.id as course.course_name for course in courses" required name="course"></select>
+                <p ng-if="AskForm.course.$error.required&&submitted" class="text-danger" >Select Course..</p>
+
               </div>
             </div>
 

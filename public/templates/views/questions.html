@@ -8,7 +8,8 @@
   	<div class="col-sm-2">
   		<div class="list-group pull-right" >
   			<h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
-			<a href="#/course?id={{course.course_id}}" class="list-group-item" ng-repeat='course in courses' style="text-align: center;">{{course.course_name}}</a>		  	  
+			<a href="#/course?id={{course.id}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a>		  
+
 		</div>
   	</div>
 

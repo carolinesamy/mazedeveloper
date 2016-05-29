@@ -52,13 +52,15 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
             else if(res.message=='login') {
                 //console.log(res.user);
-                $scope.user ={
+
+                sessionService.set('user', res.user['id']);
+                sessionService.set('type',res.type);
+
+                $rootScope.currentuser ={
                     'name': res.user['sfull_name'],
                     'id': res.user['id']
                 }
-                sessionService.set('user', res.user['id']);
-                sessionService.set('type',res.type);
-                $rootScope.currentuser = res.user;
+
                 $('#myModal').modal('hide');
                 $location.url('/questions');
             }
@@ -90,9 +92,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'title':$scope.question.title,
                     'content':$scope.question.content,
                     'image':'',
-                    //'course_id':$scope.question.course,
-                    //'tag_id':$scope.question.tag,
-                    'course_id':1,
+                    'course_id':$scope.question.course,
                     'tag_id':$scope.question.tags,
                     'student_id':sessionService.get('user')
                 }

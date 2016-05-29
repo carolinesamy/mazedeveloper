@@ -3,24 +3,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 
 	//user's courses
-	// $scope.courses =[
-	// {
-	// 	course_name:'PHP',
-	//  	course_id:1
-	// },
-	// {
-	// 	course_name:'Laravel',
-	//  	course_id:2
-	// },
-	// {
-	// 	course_name:'AngularJS',
-	//  	course_id:4
-	// },
-	// {
-	// 	course_name:'Bootstrap',
-	//  	course_id:5
-	// },
-	// ];
+	// $scope.courses =[{"id":"1","course_name":"php"},{"id":"2","course_name":"java"}];
 	// //recent questions in his courses
 	// $scope.questions = [
 	// 	{
@@ -44,7 +27,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 	// ];
 
 	$scope.requestData=function(){
-		//console.log('hello from controller');
+
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/getuserdata',
@@ -55,6 +38,10 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		}).success(function(res){
 			//handle the returned data here
 			console.log(res);
+			$rootScope.courses = JSON.parse(res.user['course_data']);
+			$rootScope.questions = JSON.parse(res.user['latest_follow_question']);
+			$rootScope.numOfnotification = res.user['notification_num'];
+
 		}).error(function(err){
 			console.log(err);
 		});

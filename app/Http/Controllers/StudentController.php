@@ -23,7 +23,7 @@ class StudentController extends Controller
         public function login(Request $request)
         {
             $user=$request->input('user');
-            Request::all();
+            //Request::all();
 
             $password=$user['password'];
             $email=$user['email'];

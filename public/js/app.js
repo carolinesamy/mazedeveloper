@@ -14,10 +14,7 @@ angular.module('developerMaze').config(function($routeProvider){
 		resolve:{
 		        "check":function($rootScope,sessionService){ 
 
-    				$rootScope.currentuser = {
-    					'id': sessionService.get('user'),
-    					'type': sessionService.get('type')
-    				};   					          			            
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
 		        }
 		    },
 		controller:'homeCtl'
@@ -28,10 +25,8 @@ angular.module('developerMaze').config(function($routeProvider){
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				
-    				$rootScope.currentuser = {
-    					'id': sessionService.get('user'),
-    					'type': sessionService.get('type')
-    				} 	          	
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				 	          	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/');    //redirect user to home.
 		            }
@@ -45,10 +40,8 @@ angular.module('developerMaze').config(function($routeProvider){
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				
-    				$rootScope.currentuser = {
-    					'id': sessionService.get('user'),
-    					'type': sessionService.get('type')
-    				} 	          	
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				 	          	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/'); 
 		            }
@@ -62,10 +55,8 @@ angular.module('developerMaze').config(function($routeProvider){
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				
-    				$rootScope.currentuser = {
-    					'id': sessionService.get('user'),
-    					'type': sessionService.get('type')
-    				} 	          	
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				        	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/');
 		            }

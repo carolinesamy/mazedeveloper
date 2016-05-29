@@ -4,7 +4,7 @@
 <div class="container" >
 <div class="row">	
 	<div class="thumbnail" >
-<<<<<<< HEAD
+
 	<div class="row">
 		<div class="col-sm-11">
 			<h3>{{question.question_title}}</h3>
@@ -24,17 +24,7 @@
 			<h5>{{question.question_time}}<br/> by: {{question.student_name}}<br/>Points:{{question.student_points}}</h5>
 		</div>
 	</div>
-=======
-		<div class="row">
-			<div class="col-sm-9">
-				<h3>{{question.title}}</h3>
-			</div>
-			<div class="col-sm-3">
-				<button class="btn btn-default" ng-click="editQuestion()">edit question</button>
-			</div>
-		</div>
-		<h4>{{question.content}}</h4>
->>>>>>> 03a8e7598e89abcff54d0933ae2e1b45aa280ccb
+
 		<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-10">
@@ -80,30 +70,21 @@
 					<div class="col-md-10">
 						<h4>By: {{answer.student_name}}</h4>
 					</div>
-<<<<<<< HEAD
+
 					<div class="col-md-2">
 						<h6>{{answer.answer_time}}</h6>
-=======
-					<div class="col-md-1">
-						<h6>{{answer.time}}</h6>
->>>>>>> 03a8e7598e89abcff54d0933ae2e1b45aa280ccb
+
 					</div>
 					<div class="col-md-1">
 						<button class="btn btn-default" ng-click="editAnswer(answer.id)">edit answer</button>
 					</div>
 				</div>
-<<<<<<< HEAD
+
 				<h5>{{answer.answer_content}}</h5>
 				<div class="row">
 					<div class="col-sm-2">
 						<h3><span class="glyphicon glyphicon-thumbs-up">{{answer.likes}}</span> <span class="glyphicon glyphicon-thumbs-down">{{answer.dislikes}}</span></h3>
-=======
-				<h5>{{answer.content}}</h5>
 
-				<div class="row">
-					<div class="col-sm-2">
-						<h3><a class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.id)">{{answer.like}}</a> <a class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.id)">{{answer.dislike}}</a></h3>
->>>>>>> 03a8e7598e89abcff54d0933ae2e1b45aa280ccb
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>

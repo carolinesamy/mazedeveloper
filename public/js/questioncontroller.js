@@ -12,10 +12,13 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			method:'POST',
 			url: 'http://localhost:8000/questiondata',
 			data: {
-				id:$rootScope.question_id
+				'id':$rootScope.question_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
 			}
 		}).success(function(res){
 			console.log(res);
+			$rootScope.answers=res.answer;
 		}).error(function(err){
 			console.log(err);
 		});
@@ -182,6 +185,178 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		}
 		
 	};
+
+	$scope.editAnswer=function(answer_id){
+		//console.log($scope.image_path);
+
+			if (sessionService.get('type') == 'student') {
+				arr = {
+					'content': $scope.answer_content,
+					'image': $scope.image_path,
+					'question_id': $rootScope.question_id,
+					'answer_id':answer_id,
+					'id': sessionService.get('user'),
+					'type': 'student'
+				};
+			}
+			else {
+				arr = {
+					'content': $scope.answer_content,
+					'image': $scope.image_path,
+					'question_id': $rootScope.question_id,
+					'id': sessionService.get('user'),
+					'type': 'instructor'
+				};
+			}
+			console.log(arr);
+			//$http({
+			//	method: 'POST',
+			//	url: 'http://localhost:8000/editanswer',
+			//	data: {
+			//		answer: arr
+			//	}
+			//}).success(function (res) {
+			//	console.log(res);
+			//}).error(function (err) {
+			//	console.log(err);
+			//});
+
+	};
+
+	$scope.addComment=function(){
+
+		if (sessionService.get('type') == 'student') {
+			arr = {
+				'content': $scope.comment,
+				'question_id': $rootScope.question_id,
+				'user_id': sessionService.get('user'),
+				'type': 'student'
+			};
+		}
+		else {
+			arr = {
+				'content': $scope.comment,
+				'question_id': $rootScope.question_id,
+				'user_id': sessionService.get('user'),
+				'type': 'instructor'
+			};
+		}
+		console.log(arr);
+		//$http({
+		//	method: 'POST',
+		//	url: 'http://localhost:8000/questioncomment',
+		//	data: {
+		//		comment: arr
+		//	}
+		//}).success(function (res) {
+		//	console.log(res);
+		//}).error(function (err) {
+		//	console.log(err);
+		//});
+
+	};
+
+	$scope.editQuestion = function(valid){
+		console.log($scope.selected_tags);
+		if(valid){
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/editquestion',
+				data: {
+					'title':$scope.question.title,
+					'content':$scope.question.content,
+					'image':'',
+					//'course_id':$scope.question.course,
+					//'tag_id':$scope.question.tag,
+					'course_id':1,
+					'tag_id':[2,1],
+					'student_id':sessionService.get('user')
+				}
+			}).success(function(res){
+				$('#askModal').modal('hide');
+				console.log(res);
+
+			}).error(function(err){
+				console.log(err);
+			});
+			$scope.question = {
+				'title':'',
+				'content':'',
+				'image':'',
+				'student_id':''
+			};
+		}
+	};
+
+	$scope.addReply=function(answer_id,reply){
+		data={
+			'content': reply,
+			'answer_id': answer_id,
+			'user_id': sessionService.get('user'),
+			'type': sessionService.get('type')
+		};
+		console.log(data);
+		//$http({
+		//	method: 'POST',
+		//	url: 'http://localhost:8000/answerreply',
+		//	data: {
+		//		'reply': {
+		//			'content': reply,
+		//			'answer_id': answer_id,
+		//			'user_id': sessionService.get('user'),
+		//			'type': sessionService.get('type')
+		//		}
+		//	}
+		//}).success(function(res){
+		//	console.log(res);
+        //
+		//}).error(function(err){
+		//	console.log(err);
+		//});
+	};
+
+
+	$scope.like=function(answer_id){
+		data={
+			'answer_id': answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+		};
+		console.log(data);
+		//$http({
+		//	method: 'POST',
+		//	url: 'http://localhost:8000/likeaction',
+		//	data: {
+		//			'answer_id': answer_id,
+		//			'user_id': sessionService.get('user'),
+		//			'type': sessionService.get('type')
+		//	}
+		//}).success(function(res){
+		//	console.log(res);
+        //
+		//}).error(function(err){
+		//	console.log(err);
+		//});
+	};
+
+	$scope.dislike=function(answer_id){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/dislikeaction',
+			data: {
+				'answer_id': answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+
+		}).error(function(err){
+			console.log(err);
+		});
+	};
+
 
 
 });

@@ -4,6 +4,12 @@
 	<!--angular scripts-->
 	<script src="js/angular.min.js"></script>
 	<script src="js/angular-route.min.js"></script>
+	
+	<!--Angular-read-more module-->
+	<script src="bower_components/angular-read-more/dist/readmore.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
 	<script src="js/app.js"></script>
 	<script src="js/sessionService.js"></script>
 	<script src="js/homecontroller.js"></script>
@@ -32,9 +38,6 @@
 
 	<meta name="csrf-token" value="<?= csrf_token() ?>">
 
-	<!--Angular-read-more module-->
-	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-	<script src="bower_components/angular-read-more/dist/readmore.min.js"></script>
 
 	<!--Angular Trix -->
 	<link rel="stylesheet" type="text/css" href="bower_components/trix/dist/trix.css">
@@ -45,14 +48,23 @@
     <link rel="stylesheet" href="css/autocomplete.css">
     <script type="text/javascript" src="js/autocomplete.js"></script>
 
-    
+    <script src='bower_components/angular-file-model/angular-file-model.js'></script>
+
+    <!-- Basic stylesheet -->
+	<link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+
+	 <!-- Default Theme -->
+	<link rel="stylesheet" href="owl-carousel/owl.theme.css">
+
+	<!-- Include js plugin -->
+	<script src="owl-carousel/owl.carousel.js"></script>
 
 
 </head>
 
 <body>
 <div class="container">
-<div ng-view></div>
+	<div ng-view></div>
 </div>
 </body>
 

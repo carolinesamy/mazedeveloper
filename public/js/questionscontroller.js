@@ -69,10 +69,6 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 	
 	$scope.requestData();
 
-	// $scope.moreDetails = function(question_id){
-	// 	console.log(question_id);
-	// 	$location('/question');
-	// }
 
 
 })

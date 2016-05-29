@@ -33,13 +33,13 @@
 				        <h3>{{question.title}}</h3>
 				        <div hm-read-more
 					        hm-text="{{question.content}}" 
-					        hm-limit="100" 
+					        hm-limit="300" 
 					        hm-more-text="read more" 
 					        hm-less-text="read less"
 					        hm-dots-class="dots"
 					        hm-link-class="links">
 						</div>
-				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
+				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answers}}</h5> </p>
 
 				        
 				    </div>
@@ -54,3 +54,10 @@
 
 
 </div>
+
+
+
+
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>

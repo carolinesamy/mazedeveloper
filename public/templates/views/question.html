@@ -4,8 +4,27 @@
 <div class="container" >
 <div class="row">	
 	<div class="thumbnail" >
-		<h3>{{question.title}}</h3>
-		<h4>{{question.content}}</h4>
+
+	<div class="row">
+		<div class="col-sm-11">
+			<h3>{{question.question_title}}</h3>
+		</div>
+		<div class="col-sm-1">
+			<h1 ng-if='question.solved == 1' class="text-success"><span class="glyphicon glyphicon-ok"></span></h1>							
+		</div>
+	</div>
+	<div class='row'>
+		<div class="col-sm-12">
+			<p>{{question.question_content}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9"></div>
+		<div class="col-sm-3">
+			<h5>{{question.question_time}}<br/> by: {{question.student_name}}<br/>Points:{{question.student_points}}</h5>
+		</div>
+	</div>
+
 		<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-10">
@@ -14,9 +33,10 @@
 								<div class="col-md-10">
 									<h4>By: {{comment.user_name}}</h4>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-1">
 									<h6>{{comment.time}}</h6>
-								</div>				
+								</div>
+
 							</div>
 							<h5>{{comment.content}}</h5>
 							
@@ -25,10 +45,10 @@
 						<div class="form-horizontal row">
 								<div class="form-group">
 								    <div class="col-sm-2">
-								    	<button class="btn btn-default">Add Comment</button>
+								    	<button class="btn btn-default" ng-click="addComment()">Add Comment</button>
 								    </div>
 								    <div class="col-sm-9">
-								      <input type="text" class="form-control" id="comment" placeholder="Enter Your Comment..">
+								      <input type="text" class="form-control" id="comment" placeholder="Enter Your Comment.." ng-model="comment">
 								    </div>
 								</div>
 						</div>
@@ -48,16 +68,25 @@
 			<div class="caption">
 				<div class="row">
 					<div class="col-md-10">
-						<h4>By: {{answer.user_name}}</h4>
+						<h4>By: {{answer.student_name}}</h4>
 					</div>
+
 					<div class="col-md-2">
-						<h6>{{answer.time}}</h6>
+						<h6>{{answer.answer_time}}</h6>
+
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-default" ng-click="editAnswer(answer.id)">edit answer</button>
 					</div>
 				</div>
-				<h5>{{answer.content}}</h5>
+
+				<h5>{{answer.answer_content}}</h5>
+
+
 				<div class="row">
 					<div class="col-sm-2">
-						<h3><span class="glyphicon glyphicon-thumbs-up">{{answer.like}}</span> <span class="glyphicon glyphicon-thumbs-down">{{answer.dislike}}</span></h3>
+						<h3><a class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.id)">{{answer.likes}}</a> <a class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.id)">{{answer.dislikes}}</a></h3>
+
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
@@ -96,10 +125,10 @@
 						<div class="form-horizontal row">
 								<div class="form-group">
 								    <div class="col-sm-2">
-								    	<button class="btn btn-default">Add Reply</button>
+								    	<button class="btn btn-default" ng-click="addReply(answer.id,my_reply)">Add Reply</button>
 								    </div>
 								    <div class="col-sm-9">
-								      <input type="text" class="form-control" id="reply" placeholder="Enter Your Reply..">
+								      <input type="text" class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply">
 								    </div>
 								</div>
 						</div>

@@ -49,6 +49,8 @@ class StudentController extends Controller
                         'message'=>'login',
                         'type'=>'student',
                     );
+                    session(['user_id'=>$student->id]);
+                    session(['type'=>'student']);
 
 
 
@@ -84,6 +86,9 @@ class StudentController extends Controller
                             'message'=>'login',
                             'type'=>'instructor'
                         );
+                        session(['user_id'=>$instructor->id]);
+                        session(['type'=>'instructor']);
+
 
 
                     }
@@ -99,196 +104,196 @@ class StudentController extends Controller
 
             }
 
+
             return $rett;
         }
 
-
-//                ->join('StudentNotification', function ($join) {
-//                    $join->on('notifications.id', '=', 'student_notifications.student_id')
-//                        ->where([
-//                            ['notifications.id',$user_id],
-//                            ['notifications.time','>',$last_hit],
-//                        ]);
-//                })
 
     public function gethomeuserdata(Request $request)
     {
         //return to anqular request user data to show
         $user_id=$request->input('user');
+        //$user_id=2;
         $user_type=$request->input('type');
-
-        //->select(DB::raw('count(*) as user_count, status'))
-
-        if($user_type == 'student')
+        if (session('user_id') == $user_id &&session('type') == $user_type)
         {
+            //->select(DB::raw('count(*) as user_count, status'))
 
-            $last_hit= Student::select('last_hit')->where('id',$user_id)->first();
-
-
-
-            $notification = DB::table('notifications')
-                ->join('student_notifications', 'notifications.id', '=', 'student_notifications.notification_id')
-                ->where([
-                    ['student_notifications.student_id','=',$user_id ],
-                    ['notifications.time','>',$last_hit->last_hit],
-                ])
-                ->select(DB::raw('count(*) as count'))
-                ->get();
-            $courses=DB::table('courses')
-                ->join('student_courses','courses.id','=','student_courses.course_id')
-                ->where('student_courses.student_id','=',$user_id)
-                ->select('courses.id','courses.course_name')
-                ->get();
-            $i=0;
-            foreach($courses as $course)
+            if($user_type == 'student')
             {
 
+                $last_hit= Student::select('last_hit')->where('id',$user_id)->first();
 
-                $arr[$i]['id']=$course->id;
-                $arr[$i]['course_name']=$course->course_name;
-                $i++;
+
+
+                $notification = DB::table('notifications')
+                    ->join('student_notifications', 'notifications.id', '=', 'student_notifications.notification_id')
+                    ->where([
+                        ['student_notifications.student_id','=',$user_id ],
+                        ['notifications.time','>',$last_hit->last_hit],
+                    ])
+                    ->select(DB::raw('count(*) as count'))
+                    ->get();
+                $courses=DB::table('courses')
+                    ->join('student_courses','courses.id','=','student_courses.course_id')
+                    ->where('student_courses.student_id','=',$user_id)
+                    ->select('courses.id','courses.course_name')
+                    ->get();
+                $i=0;
+                foreach($courses as $course)
+                {
+
+
+                    $arr[$i]['id']=$course->id;
+                    $arr[$i]['course_name']=$course->course_name;
+                    $i++;
+                }
+                $user_courses=json_encode($arr);
+
+
+
+                $latest_follow_question=DB::table('questions')
+                    // ->join('answers','questions.id','=','answers.question_id')
+
+                    ->join('student_courses','questions.course_id','=','student_courses.course_id')
+                    ->where('student_courses.student_id','=',$user_id)
+                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
+                    ->orderBy('questions.time','desc')->take(10)
+                    ->get();
+
+                $i=0;
+                foreach($latest_follow_question as $question)
+                {
+
+
+                    $arr[$i]['id']=$question->id;
+                    $arr[$i]['content']=$question->content;
+                    $arr[$i]['title']=$question->title;
+                    $arr[$i]['solved']=$question->solved;
+                    $arr[$i]['privilege']=$question->privilege;
+
+                    $i++;
+                }
+                $user_latest_follow_question=json_encode($arr);
+
+                $latest_all_question=DB::table('questions')
+                    // ->join('answers','questions.id','=','answers.question_id')
+                    // ->join('answers','questions.id','=','answers.question_id')
+                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
+                    ->orderBy('questions.time','desc')->take(10)
+                    ->get();
+                $i=0;
+                foreach($latest_all_question as $question)
+                {
+
+
+                    $arr[$i]['id']=$question->id;
+                    $arr[$i]['content']=$question->content;
+                    $arr[$i]['title']=$question->title;
+                    $arr[$i]['solved']=$question->solved;
+                    $i++;
+                }
+                $user_latest_all_question=json_encode($arr);
+
             }
-            $user_courses=json_encode($arr);
-
-
-
-            $latest_follow_question=DB::table('questions')
-               // ->join('answers','questions.id','=','answers.question_id')
-
-                ->join('student_courses','questions.course_id','=','student_courses.course_id')
-                ->where('student_courses.student_id','=',$user_id)
-                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
-                ->orderBy('questions.time','desc')->take(10)
-                ->get();
-
-            $i=0;
-            foreach($latest_follow_question as $question)
+            else
             {
 
+                $last_hit= Instructor::select('last_hit')->where('id',$user_id)->first();
 
-                $arr[$i]['id']=$question->id;
-                $arr[$i]['content']=$question->content;
-                $arr[$i]['title']=$question->title;
-                $arr[$i]['solved']=$question->solved;
-                $arr[$i]['privilege']=$question->privilege;
 
-                $i++;
+
+                $notification = DB::table('notifications')
+                    ->join('instructor_notifications', 'notifications.id', '=', 'instructor_notifications.notification_id')
+                    ->where([
+                        ['instructor_notifications.instructor_id','=',$user_id ],
+                        ['notifications.time','>',$last_hit->last_hit],
+                    ])
+                    ->select(DB::raw('count(*) as count'))
+                    ->get();
+                $courses=DB::table('courses')
+                    ->join('instructor_courses','courses.id','=','instructor_courses.course_id')
+                    ->where('instructor_courses.instructor_id','=',$user_id)
+                    ->select('courses.id','courses.course_name')
+                    ->get();
+
+                $i=0;
+                foreach($courses as $course)
+                {
+
+
+                    $arr[$i]['id']=$course->id;
+                    $arr[$i]['course_name']=$course->course_name;
+                    $i++;
+                }
+                $user_courses=json_encode($arr);
+
+                $latest_follow_question=DB::table('questions')
+                    // ->join('answers','questions.id','=','answers.question_id')
+
+                    ->join('instructor_courses','questions.course_id','=','instructor_courses.course_id')
+                    ->where('instructor_courses.instructor_id','=',$user_id)
+                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved')
+                    ->orderBy('questions.time','desc')->take(10)
+                    ->get();
+
+                $i=0;
+                foreach($latest_follow_question as $question)
+                {
+
+
+                    $arr[$i]['id']=$question->id;
+                    $arr[$i]['content']=$question->content;
+                    $arr[$i]['title']=$question->title;
+                    $arr[$i]['solved']=$question->solved;
+                    $i++;
+                }
+                $user_latest_follow_question=json_encode($arr);
+
+                $latest_all_question=DB::table('questions')
+                    // ->join('answers','questions.id','=','answers.question_id')
+                    // ->join('answers','questions.id','=','answers.question_id')
+                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
+                    ->orderBy('questions.time','desc')->take(10)
+                    ->get();
+
+                $i=0;
+                foreach($latest_all_question as $question)
+                {
+
+
+                    $arr[$i]['id']=$question->id;
+                    $arr[$i]['content']=$question->content;
+                    $arr[$i]['title']=$question->title;
+                    $arr[$i]['solved']=$question->solved;
+                    $i++;
+                }
+                $user_latest_all_question=json_encode($arr);
+
             }
-            $user_latest_follow_question=json_encode($arr);
 
-            $latest_all_question=DB::table('questions')
-                // ->join('answers','questions.id','=','answers.question_id')
-               // ->join('answers','questions.id','=','answers.question_id')
-                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
-                ->orderBy('questions.time','desc')->take(10)
-                ->get();
-            $i=0;
-            foreach($latest_all_question as $question)
-            {
-
-
-                $arr[$i]['id']=$question->id;
-                $arr[$i]['content']=$question->content;
-                $arr[$i]['title']=$question->title;
-                $arr[$i]['solved']=$question->solved;
-                $i++;
-            }
-            $user_latest_all_question=json_encode($arr);
-
-        }
-        else
-        {
-
-            $last_hit= Instructor::select('last_hit')->where('id',$user_id)->first();
-
-
-
-            $notification = DB::table('notifications')
-                ->join('instructor_notifications', 'notifications.id', '=', 'instructor_notifications.notification_id')
-                ->where([
-                    ['instructor_notifications.instructor_id','=',$user_id ],
-                    ['notifications.time','>',$last_hit->last_hit],
-                ])
-                ->select(DB::raw('count(*) as count'))
-                ->get();
-            $courses=DB::table('courses')
-                ->join('instructor_courses','courses.id','=','instructor_courses.course_id')
-                ->where('instructor_courses.instructor_id','=',$user_id)
-                ->select('courses.id','courses.course_name')
-                ->get();
-
-            $i=0;
-            foreach($courses as $course)
-            {
-
-
-                $arr[$i]['id']=$course->id;
-                $arr[$i]['course_name']=$course->course_name;
-                $i++;
-            }
-            $user_courses=json_encode($arr);
-
-            $latest_follow_question=DB::table('questions')
-                // ->join('answers','questions.id','=','answers.question_id')
-
-                ->join('instructor_courses','questions.course_id','=','instructor_courses.course_id')
-                ->where('instructor_courses.instructor_id','=',$user_id)
-                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved')
-                ->orderBy('questions.time','desc')->take(10)
-                ->get();
-
-            $i=0;
-            foreach($latest_follow_question as $question)
-            {
-
-
-                $arr[$i]['id']=$question->id;
-                $arr[$i]['content']=$question->content;
-                $arr[$i]['title']=$question->title;
-                $arr[$i]['solved']=$question->solved;
-                $i++;
-            }
-            $user_latest_follow_question=json_encode($arr);
-
-            $latest_all_question=DB::table('questions')
-                // ->join('answers','questions.id','=','answers.question_id')
-                // ->join('answers','questions.id','=','answers.question_id')
-                ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
-                ->orderBy('questions.time','desc')->take(10)
-                ->get();
-
-            $i=0;
-            foreach($latest_all_question as $question)
-            {
-
-
-                $arr[$i]['id']=$question->id;
-                $arr[$i]['content']=$question->content;
-                $arr[$i]['title']=$question->title;
-                $arr[$i]['solved']=$question->solved;
-                $i++;
-            }
-            $user_latest_all_question=json_encode($arr);
-
-        }
-
-        $rett=array
-        (
-            'user'=> array
+            $rett=array
             (
-                'notification_num'=>$notification[0]->count,
-                'course_data'=>$user_courses,
-                'follow_courses'=>$user_latest_follow_question,
-                'all_courses'=>$user_latest_all_question,
+                'user'=> array
+                (
+                    'notification_num'=>$notification[0]->count,
+                    'course_data'=>$user_courses,
+                    'latest_follow_question'=>$user_latest_follow_question,
+                    'latest_all_question'=>$user_latest_all_question,
 
-            ),
+                ),
 
-        );
+            );
 
-        return $rett;
+            return $rett;
+
+        }
+
+
 
 
 
     }
+
 
    }

@@ -3,31 +3,38 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-sm-3">
-        <div class="list-group pull-right" style="width: 250px;">
+   
+
+    <div class="col-sm-2">
+            <div class="list-group pull-right">
             <h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
             <span ng-repeat='course in courses'>
-            <a href="#/course?id={{course.course_id}}" class="list-group-item"  style="text-align: center;" ng-if='course.course_id != course_id'>{{course.course_name}}</a> 
+            <a href="#/course?id={{course.id}}" class="list-group-item"  style="text-align: center;" ng-if='course.id != course_id'>{{course.course_name}}</a> 
 
-            <a href="#/course?id={{course.course_id}}" class="list-group-item active"  style="text-align: center;" ng-if='course.course_id == course_id'>{{course.course_name}}</a>           
+            <a href="#/course?id={{course.id}}" class="list-group-item active"  style="text-align: center;" ng-if='course.id == course_id'>{{course.course_name}}</a>       
             </span>
         </div>
     </div>
 
-    <div class="col-sm-9">
-        <div class="row">       
-            <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default active">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked> All Questions
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" name="options" id="option2" autocomplete="off"> Answered Questions
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" name="options" id="option3" autocomplete="off"> un-answered Questions
-              </label>
+    <div class="col-sm-10">
+        <div class="row">
+        <div class="col-sm-6"></div>
+            <div class="col-sm-6">      
+
+                <div class="btn-group" data-toggle="buttons">
+                  <label >
+                    <a href="#/questions" class="btn btn-default"> All Questions</a>
+                  </label>
+                  <label >
+                    <a href="#" class="btn btn-default"> Answered Questions</a>
+                  </label>
+                  <label >
+                    <a href="#" class="btn btn-default"> un-answered Questions</a>
+                  </label>
+                </div>
             </div>
         </div>
+      
         <br/>
         <div class="row"  ng-repeat='question in questions track by $index'>
                   

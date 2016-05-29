@@ -1,45 +1,39 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
 
-
-<div class="container" >
-  <div class="row">
+<div class="container">
+	
+<div class="row">
 
   	<div class="col-sm-2">
-  	<a href="#/allquestions" class="btn btn-default">Other Courses' Questions</a>
-  		<div class="list-group pull-right" >
-  			<h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
-			<a href="#/course?id={{course.id}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a>		  
-
-		</div>
+  		
   	</div>
 
   	<div class="col-sm-10">
-  		<div class="row">
+  		<div class="row">	
   		<div class="col-sm-6"></div>
   			<div class="col-sm-6">	  	
+		    <div class="btn-group" data-toggle="buttons">
+			  <label >
+			    <a href="#/questions" class="btn btn-default"> All Questions</a>
+			  </label>
+			  <label >
+			    <a href="#" class="btn btn-default"> Answered Questions</a>
+			  </label>
+			  <label >
+			    <a href="#" class="btn btn-default"> un-answered Questions</a>
+			  </label>
 
-			    <div class="btn-group" data-toggle="buttons">
-				  <label >
-				    <a href="#/questions" class="btn btn-default"> All Questions</a>
-				  </label>
-				  <label >
-				    <a href="#" class="btn btn-default"> Answered Questions</a>
-				  </label>
-				  <label >
-				    <a href="#" class="btn btn-default"> un-answered Questions</a>
-				  </label>
-				</div>
+			</div>
 			</div>
 	    </div>
-	  
 	    <br/>
-	    <div class="row"  ng-repeat='question in questions track by $index'>
+	    <div class="row"  ng-repeat='question in allquestions track by $index'>
 				  
 				<div class="thumbnail">
 				    <div class="col-sm-10">
 
-				        <h3>{{question.title}}</h3>
+				        <h3>{{question.title}} "{{question.course_name}}"</h3>
 				        <div hm-read-more
 					        hm-text="{{question.content}}" 
 					        hm-limit="250" 
@@ -59,19 +53,13 @@
 
 				        
 				    </div>
-				</div>
 	    	
 	    </div>
     </div>
 
   </div>
-  <br/>
-	
+
 </div>
-
-
-
-
 
 <!--Footer-->
 <div ng-include = "'templates/views/footer.html'"></div>

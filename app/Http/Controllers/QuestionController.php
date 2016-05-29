@@ -66,7 +66,33 @@ class QuestionController extends Controller
     }
 
     public function get_question(Request $request){
-        return $request->input('id');
+        $question_id=$request->input('id');
+        $questions = DB::table('questions')->get();
+//        $data = DB::table('questions')
+//            ->join('students', 'questions.student_id', '=', 'students.id')
+//            ->join('answers', 'questions.student_id', '=', 'answers.student_id')
+//            ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
+//            ->select('questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name', 'students.image','students.points','answers.*','instructors.ifull_name','instructors.image','instructors.points as instructorPoints')
+//            ->get();
+
+        /** question with user data ***/
+        $questiondata = DB::table('questions')
+                ->join('students','questions.student_id', '=', 'students.id')
+                ->select('questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
+                ->get();
+        /** answers with the data of the person who asks **/
+        $answerdata =DB::table('questions')
+                ->join('answers','questions.id', '=', 'answers.question_id')
+                ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
+                ->join('students','answers.student_id', '=', 'students.id')
+                ->select('answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image','instructors.points as instructor_points')
+                ->get();
+//        return $request->input('id');
+        $response =array(
+            'question'=>$questiondata,
+            'answer'=>$answerdata
+        );
+        return $response;
     }
 
     public function complete(Request $request){

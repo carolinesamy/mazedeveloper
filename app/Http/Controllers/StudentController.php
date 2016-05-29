@@ -102,14 +102,6 @@ class StudentController extends Controller
         }
 
 
-//                ->join('StudentNotification', function ($join) {
-//                    $join->on('notifications.id', '=', 'student_notifications.student_id')
-//                        ->where([
-//                            ['notifications.id',$user_id],
-//                            ['notifications.time','>',$last_hit],
-//                        ]);
-//                })
-
     public function gethomeuserdata(Request $request)
     {
         //return to anqular request user data to show
@@ -277,8 +269,8 @@ class StudentController extends Controller
             (
                 'notification_num'=>$notification[0]->count,
                 'course_data'=>$user_courses,
-                'follow_courses'=>$user_latest_follow_question,
-                'all_courses'=>$user_latest_all_question,
+                'latest_follow_question'=>$user_latest_follow_question,
+                'latest_all_question'=>$user_latest_all_question,
 
             ),
 
@@ -289,5 +281,6 @@ class StudentController extends Controller
 
 
     }
+
 
    }

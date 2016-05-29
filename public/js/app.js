@@ -35,6 +35,21 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionsCtl'
 	})
 
+	.when('/allquestions',{
+		templateUrl:'templates/views/allquestions.html',
+		resolve:{
+		        "check":function($location,$rootScope,sessionService){ 
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				 	          	
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');    //redirect user to home.
+		            }
+		        }
+		    },
+		controller:'questionsCtl'
+	})
+
 	.when('/question',{
 		templateUrl:'templates/views/question.html',
 		resolve:{

@@ -145,12 +145,13 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	};
 
 	$scope.addAnswer=function(valid){
+		console.log($scope.image_path);
 
 		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': '',
+					'image': $scope.image_path,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -159,7 +160,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					'image': '',
+					'image': $scope.image_path,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'

@@ -59,12 +59,18 @@
 	<!-- Include js plugin -->
 	<script src="owl-carousel/owl.carousel.js"></script>
 
-
+<style type="text/css">
+	body{
+overflow-x:hidden;
+}
+</style>
 </head>
 
 <body>
-<div class="container">
+<div >
+
 	<div ng-view></div>
+	
 </div>
 </body>
 

@@ -1,6 +1,10 @@
 angular.module('developerMaze').controller('questionCtl',function( $scope ,sessionService ,$rootScope ,$http, server,$routeParams){
 
-	
+		$scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        mode: 'xml',
+    };
 
 	 console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
@@ -15,12 +19,40 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				id:$rootScope.question_id
 			}
 		}).success(function(res){
-			console.log(res);
+			console.log(res.answer);
+
+			$rootScope.question = res.question[0];
+			$rootScope.answers = res.answer;
+
+
 		}).error(function(err){
 			console.log(err);
 		});
 	}
 	$scope.get_question_data();
+
+	$scope.requestData=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/getuserdata',
+			data: {
+				'user': sessionService.get('user'),
+				'type':sessionService.get('type')
+			}
+		}).success(function(res){
+			//handle the returned data here
+			$rootScope.courses = JSON.parse(res.user['course_data']);
+			$rootScope.questions = JSON.parse(res.user['latest_follow_question']);
+			$rootScope.allquestions = JSON.parse(res.user['latest_all_question']);
+			$rootScope.numOfnotification = res.user['notification_num'];
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+	
+	$scope.requestData();
 
 
 	//logged-in user
@@ -30,11 +62,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
  //      notifications :0
  //    };
 
-    $scope.editorOptions = {
-        lineWrapping : true,
-        lineNumbers: true,
-        mode: 'xml',
-    };
+    
 
 	// //details of this question 
 	// $scope.question = 

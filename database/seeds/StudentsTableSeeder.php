@@ -81,7 +81,10 @@ class StudentsTableSeeder extends Seeder
 
         DB::table('questions')->insert(array(
             array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'0'),
-            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
+            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1'),
+            array('title'=>'null pointer exception..','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
+            array('title'=>'how to install laravel 5.2 ?','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'1','course_id'=>'1'),
+
 
         ));
         DB::table('answers')->insert(array(
@@ -153,6 +156,9 @@ class StudentsTableSeeder extends Seeder
         DB::table('question_tags')->insert(array(
             array('question_id'=>'1','tag_id'=>'1'),
             array('question_id'=>'1','tag_id'=>'2'),
+            array('question_id'=>'2','tag_id'=>'3'),
+            array('question_id'=>'2','tag_id'=>'4'),
+
 
         ));
 

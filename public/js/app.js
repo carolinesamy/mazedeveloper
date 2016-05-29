@@ -5,12 +5,18 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ui.bootstrap','ui.codemirror','angularTrix']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model']);
 
 angular.module('developerMaze').config(function($routeProvider){
 
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
+		resolve:{
+		        "check":function($rootScope,sessionService){ 
+
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+		        }
+		    },
 		controller:'homeCtl'
 	})
 
@@ -18,7 +24,9 @@ angular.module('developerMaze').config(function($routeProvider){
 		templateUrl:'templates/views/questions.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
-    				$rootScope.currentuser = sessionService.get('user');	          	
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				 	          	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/');    //redirect user to home.
 		            }
@@ -31,7 +39,9 @@ angular.module('developerMaze').config(function($routeProvider){
 		templateUrl:'templates/views/question.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
-    				$rootScope.currentuser = sessionService.get('user');	          	
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				 	          	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/'); 
 		            }
@@ -44,7 +54,9 @@ angular.module('developerMaze').config(function($routeProvider){
 		templateUrl:'templates/views/course.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
-    				$rootScope.currentuser = sessionService.get('user');	          	
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				        	
 		            if(!($rootScope.currentuser)){ 
 		                $location.path('/');
 		            }

@@ -1,6 +1,7 @@
 angular.module('developerMaze').controller('questionCtl',function( $scope ,sessionService ,$rootScope ,$http, server,$routeParams){
 
 	
+
 	 console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
 
@@ -20,6 +21,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		});
 	}
 	$scope.get_question_data();
+
 
 	//logged-in user
 	$scope.user = {
@@ -142,12 +144,15 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
-	$scope.addAnswer=function(){
-		if($scope.answer_content) {/** if answer is not empty**/
+
+	$scope.addAnswer=function(valid){
+		console.log($scope.image_path);
+
+		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': '',
+					'image': $scope.image_path,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -156,7 +161,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					'image': '',
+					'image': $scope.image_path,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
@@ -175,9 +180,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				console.log(err);
 			});
 		}
-		else {/** answer is empty **/
-			console.log('please enter answer before submit');
-		}
+		
 	};
 
 

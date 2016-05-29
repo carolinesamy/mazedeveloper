@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->dateTime('time')->nullable();
-            $table->boolean('solved');
+            $table->boolean('solved')->default('0');
 
 
             $table->integer('course_id')->unsigned();

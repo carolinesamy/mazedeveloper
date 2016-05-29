@@ -36,7 +36,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
         mode: 'xml',
     };
 
-	//details of this question 
+	// //details of this question 
 	// $scope.question = 
 	// 	{
 	// 	'id':1,

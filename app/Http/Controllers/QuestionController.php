@@ -65,6 +65,48 @@ class QuestionController extends Controller
 
     }
 
+    public function edit_question(Request $request)
+    {
+/**take from angular side :
+    question id && question updated data*/
+
+        $question_id=$request->input('id');
+        $title=$request->input('title');
+        $content=$request->input('content');
+        $image=$request->input('image');
+
+        $tag_id=$request->input('tag_id');
+
+        $now = new DateTime();
+        $date=$now->format('Y-m-d H:i:s');
+
+        //start update data in question table*****
+        $update=DB::table('questions')
+            ->where('id', $question_id)
+            ->update([
+                'title' => $title,
+                'content' => $content,
+                'image'=>$image,
+                'time'=>$date,
+            ]);
+        // delete old tags to insert new tags**
+        DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
+
+        foreach($tag_id as $tag)
+        {
+            DB::table('question_tags')->insertGetID(
+                [
+                    'question_id'=>$question_id,
+                    'tag_id'=>$tag,
+                ]
+            );
+
+        }
+
+
+
+    }
+
 
     public function get_question(Request $request){
         $question_id=$request->input('id');
@@ -98,4 +140,5 @@ class QuestionController extends Controller
 
         return $question_titles;
     }
+
 }

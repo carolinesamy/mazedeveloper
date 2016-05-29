@@ -277,8 +277,8 @@ class StudentController extends Controller
             (
                 'notification_num'=>$notification[0]->count,
                 'course_data'=>$user_courses,
-                'follow_courses'=>$user_latest_follow_question,
-                'all_courses'=>$user_latest_all_question,
+                'latest_follow_question'=>$user_latest_follow_question,
+                'latest_all_question'=>$user_latest_all_question,
 
             ),
 

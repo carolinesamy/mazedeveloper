@@ -65,6 +65,58 @@ class QuestionController extends Controller
 
     }
 
+    public function edit_question(Request $request)
+    {
+
+        $question_id=$request->input('title');
+        $title=$request->input('title');
+        $content=$request->input('content');
+        $image=$request->input('image');
+        $student_id=$request->input('student_id');
+        //**** join by names****//
+        $tag_id=$request->input('tag_id');
+        $course_id=$request->input('course_id');
+
+        echo $title;
+        //*********** take data from anguler reqest => laravel => to me ***************
+        $now = new DateTime();
+//        $date = $now->getTimezone();
+        $date=$now->format('Y-m-d H:i:s');
+        $insert= DB::table('questions')->insertGetId(
+            [
+                'title' => $title,
+                'content' => $content,
+                'image'=>$image,
+                'student_id'=>$student_id,
+                'time'=>$date,
+                'course_id'=>$course_id,
+            ]
+        );
+
+        foreach($tag_id as $tag)
+        {
+            DB::table('question_tags')->insertGetID(
+                [
+                    'question_id'=>$insert,
+                    'tag_id'=>$tag,
+                ]
+            );
+
+        }
+
+        if ($insert > 0 )
+        {
+            return "true";
+
+        }
+        else
+        {
+            return "false";
+        }
+        //********** insert data into questions table
+
+    }
+
 
     public function get_question(Request $request){
         return $request->input('id');
@@ -77,4 +129,5 @@ class QuestionController extends Controller
 
         return $question_titles;
     }
+
 }

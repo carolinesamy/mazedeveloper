@@ -28,6 +28,9 @@ class StudentsTableSeeder extends Seeder
         DB::table('tags')->insert(array(
             array('tag_name'=>'java'),
             array('tag_name'=>'php'),
+            array('tag_name'=>'angularJS'),
+            array('tag_name'=>'bootstrap'),
+            array('tag_name'=>'HTML')
 
         ));
         DB::table('branchs')->insert(array(
@@ -45,6 +48,11 @@ class StudentsTableSeeder extends Seeder
         DB::table('courses')->insert(array(
             array('course_name'=>'php','description'=>'test test','max_points'=>'100','chat_filename'=>'jhk','category_id'=>'1'),
             array('course_name'=>'java','description'=>'test test','max_points'=>'75','chat_filename'=>'jhk','category_id'=>'2'),
+            array('course_name'=>'bootstrap','description'=>'test test','max_points'=>'75','chat_filename'=>'jhk','category_id'=>'2'),
+            array('course_name'=>'python','description'=>'test test','max_points'=>'75','chat_filename'=>'jhk','category_id'=>'2'),
+            array('course_name'=>'angularJS','description'=>'test test','max_points'=>'75','chat_filename'=>'jhk','category_id'=>'2'),
+
+
 
         ));
 
@@ -66,12 +74,17 @@ class StudentsTableSeeder extends Seeder
         DB::table('notifications')->insert(array(
             array('content'=>'you have one question','type'=>'question','time'=>'2016-05-22 05:22:22'),
             array('content'=>'you have one answer','type'=>'answer','time'=>'2016-05-22 09:22:22'),
+            array('content'=>'eng.noha liked your answer','type'=>'answer','time'=>'2016-05-23 05:22:22'),
+            array('content'=>'you have one question','type'=>'answer','time'=>'2016-05-23 09:23:22'),
 
         ));
 
         DB::table('questions')->insert(array(
             array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'0'),
-            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
+            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1'),
+            array('title'=>'null pointer exception..','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
+            array('title'=>'how to install laravel 5.2 ?','content'=>'you opa alalllaaaa','student_id'=>'2','solved'=>'1','course_id'=>'1'),
+
 
         ));
         DB::table('answers')->insert(array(
@@ -102,6 +115,9 @@ class StudentsTableSeeder extends Seeder
         DB::table('student_courses')->insert(array(
             array('student_id'=>'1','course_id'=>'1','privilege'=>'notify'),
             array('student_id'=>'1','course_id'=>'2','privilege'=>'dislike'),
+            array('student_id'=>'1','course_id'=>'3','privilege'=>'dislike'),
+            array('student_id'=>'1','course_id'=>'4','privilege'=>'dislike'),
+
 
         ));
 
@@ -132,11 +148,17 @@ class StudentsTableSeeder extends Seeder
         DB::table('student_notifications')->insert(array(
             array('student_id'=>'1','notification_id'=>'1'),
             array('student_id'=>'1','notification_id'=>'2'),
+            array('student_id'=>'1','notification_id'=>'3'),
+            array('student_id'=>'2','notification_id'=>'4'),
+
 
         ));
         DB::table('question_tags')->insert(array(
             array('question_id'=>'1','tag_id'=>'1'),
             array('question_id'=>'1','tag_id'=>'2'),
+            array('question_id'=>'2','tag_id'=>'3'),
+            array('question_id'=>'2','tag_id'=>'4'),
+
 
         ));
         DB::table('likes')->insert(array(

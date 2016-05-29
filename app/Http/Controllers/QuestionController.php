@@ -70,12 +70,18 @@ class QuestionController extends Controller
 /**take from angular side :
     question id && question updated data*/
 
-        $question_id=$request->input('id');
-        $title=$request->input('title');
-        $content=$request->input('content');
-        $image=$request->input('image');
+//        $question_id=$request->input('id');
+//        $title=$request->input('title');
+//        $content=$request->input('content');
+//        $image=$request->input('image');
+//
+//        $tag_id=$request->input('tag_id');
+        $question_id=1;
+        $title="ana el title";
+        $content="ana el content";
+        $image="ana el image";
 
-        $tag_id=$request->input('tag_id');
+        $tag_id=[2,1];
 
         $now = new DateTime();
         $date=$now->format('Y-m-d H:i:s');
@@ -89,6 +95,7 @@ class QuestionController extends Controller
                 'image'=>$image,
                 'time'=>$date,
             ]);
+
         // delete old tags to insert new tags**
         DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
 
@@ -110,6 +117,8 @@ class QuestionController extends Controller
 
     public function get_question(Request $request){
         $question_id=$request->input('id');
+        $user_id=$request->input('type');
+        $type=$request->input('type');
         $questions = DB::table('questions')->get();
 
         /** question with user data ***/
@@ -123,12 +132,28 @@ class QuestionController extends Controller
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
-                ->select('answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
+                ->select('answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
 //        return $request->input('id');
+//        $check=DB::table('likes')
+//            ->join('answers','answers.id','=','likes.answer_id')
+//            ->where('id', '=', $user_id)
+//            ->and('type','=',$type)
+//            ->and('answer_id','=',answers.id)
+//            ->exists();
+//        if($check){
+//            $likes=DB::table('likes')
+//                ->join('answers','answers.id','=','likes.answer_id')
+//                ->where('id', '=', $user_id)
+//                ->and('type','=',$type)
+//                ->and('answer_id','=',answers.id)
+//                ->select('likes.answer_id as liked_answer_id','likes.like');
+//        }
+
         $response =array(
             'question'=>$questiondata,
-            'answer'=>$answerdata
+            'answer'=>$answerdata,
+//            'likes'=>$likes
         );
         return $response;
     }

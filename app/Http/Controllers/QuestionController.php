@@ -21,47 +21,52 @@ class QuestionController extends Controller
         $content=$request->input('content');
         $image=$request->input('image');
         $student_id=$request->input('student_id');
-        //**** join by names****//
+        $user_type=$request->input('type');
         $tag_id=$request->input('tag_id');
         $course_id=$request->input('course_id');
 
-        echo $title;
-        //*********** take data from anguler reqest => laravel => to me ***************
-        $now = new DateTime();
-//        $date = $now->getTimezone();
-        $date=$now->format('Y-m-d H:i:s');
-       $insert= DB::table('questions')->insertGetId(
-            [
-                'title' => $title,
-                'content' => $content,
-                'image'=>$image,
-                'student_id'=>$student_id,
-                'time'=>$date,
-                'course_id'=>$course_id,
-            ]
-        );
-        
-        foreach($tag_id as $tag)
+        if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            DB::table('question_tags')->insertGetID(
+            $now = new DateTime();
+//        $date = $now->getTimezone();
+            $date=$now->format('Y-m-d H:i:s');
+            $insert= DB::table('questions')->insertGetId(
                 [
-                    'question_id'=>$insert,
-                    'tag_id'=>$tag,
+                    'title' => $title,
+                    'content' => $content,
+                    'image'=>$image,
+                    'student_id'=>$student_id,
+                    'time'=>$date,
+                    'course_id'=>$course_id,
                 ]
             );
 
+            foreach($tag_id as $tag)
+            {
+                DB::table('question_tags')->insertGetID(
+                    [
+                        'question_id'=>$insert,
+                        'tag_id'=>$tag,
+                    ]
+                );
+
+            }
+
+            if ($insert > 0 )
+            {
+                return "true";
+
+            }
+            else
+            {
+                return "false";
+            }
+            //********** insert data into questions table
+
+
         }
 
-        if ($insert > 0 )
-        {
-            return "true";
-
-        }
-        else
-        {
-            return "false";
-        }
-        //********** insert data into questions table
+        //*********** take data from anguler reqest => laravel => to me ***************
 
     }
 
@@ -70,45 +75,52 @@ class QuestionController extends Controller
 /**take from angular side :
     question id && question updated data*/
 
-//        $question_id=$request->input('id');
-//        $title=$request->input('title');
-//        $content=$request->input('content');
-//        $image=$request->input('image');
+        $student_id=$request->input('student_id');
+        $user_type=$request->input('type');
+        $question_id=$request->input('id');
+        $title=$request->input('title');
+        $content=$request->input('content');
+        $image=$request->input('image');
 //
 //        $tag_id=$request->input('tag_id');
-        $question_id=1;
-        $title="ana el title";
-        $content="ana el content";
-        $image="ana el image";
-
-        $tag_id=[2,1];
-
-        $now = new DateTime();
-        $date=$now->format('Y-m-d H:i:s');
-
-        //start update data in question table*****
-        $update=DB::table('questions')
-            ->where('id', $question_id)
-            ->update([
-                'title' => $title,
-                'content' => $content,
-                'image'=>$image,
-                'time'=>$date,
-            ]);
-
-        // delete old tags to insert new tags**
-        DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
-
-        foreach($tag_id as $tag)
+        if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            DB::table('question_tags')->insertGetID(
-                [
-                    'question_id'=>$question_id,
-                    'tag_id'=>$tag,
-                ]
-            );
+            $tag_id=[2,1];
+
+            $now = new DateTime();
+            $date=$now->format('Y-m-d H:i:s');
+
+            //start update data in question table*****
+            $update=DB::table('questions')
+                ->where('id', $question_id)
+                ->update([
+                    'title' => $title,
+                    'content' => $content,
+                    'image'=>$image,
+                    'time'=>$date,
+                ]);
+
+            // delete old tags to insert new tags**
+            DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
+
+            foreach($tag_id as $tag)
+            {
+                DB::table('question_tags')->insertGetID(
+                    [
+                        'question_id'=>$question_id,
+                        'tag_id'=>$tag,
+                    ]
+                );
+
+            }
+
 
         }
+//            $question_id=1;
+//        $title="ana el title";
+//        $content="ana el content";
+//        $image="ana el image";
+
 
 
 
@@ -132,6 +144,7 @@ class QuestionController extends Controller
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
+
                 ->select('answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
 //        return $request->input('id');

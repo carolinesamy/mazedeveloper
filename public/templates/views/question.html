@@ -81,9 +81,11 @@
 				</div>
 
 				<h5>{{answer.answer_content}}</h5>
+
+
 				<div class="row">
 					<div class="col-sm-2">
-						<h3><span class="glyphicon glyphicon-thumbs-up">{{answer.likes}}</span> <span class="glyphicon glyphicon-thumbs-down">{{answer.dislikes}}</span></h3>
+						<h3><a class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.id)">{{answer.likes}}</a> <a class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.id)">{{answer.dislikes}}</a></h3>
 
 					</div>
 					<div class="col-sm-9"></div>

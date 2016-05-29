@@ -77,7 +77,6 @@ class StudentController extends Controller
                                 'email'=>$instructor->email,
                                 'ifull_name'=>$instructor->ifull_name,
                                 'image'=>$instructor->image,
-                                'points'=>$instructor->points,
                             ),
                             'message'=>'login',
                             'type'=>'instructor'

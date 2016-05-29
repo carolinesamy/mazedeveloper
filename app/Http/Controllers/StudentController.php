@@ -27,7 +27,6 @@ class StudentController extends Controller
 
             $password=$user['password'];
             $email=$user['email'];
-
             $student= Student::where('email',$email)->first();
 
             if (count($student))
@@ -48,8 +47,11 @@ class StudentController extends Controller
                             'intake_id'=>$student->intake_id,
                         ),
                         'message'=>'login',
-                        'type'=>'student'
+                        'type'=>'student',
                     );
+
+
+
 
 
                 }

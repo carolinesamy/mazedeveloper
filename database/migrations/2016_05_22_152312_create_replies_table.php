@@ -21,10 +21,10 @@ class CreateRepliesTable extends Migration
             $table->integer('answer_id')->unsigned();
             $table->foreign('answer_id')->references('id')->on('answers');
 
-            $table->integer('student_id')->unsigned();
+            $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->integer('instructor_id')->unsigned();
+            $table->integer('instructor_id')->unsigned()->nullable();
             $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->timestamps();
         });

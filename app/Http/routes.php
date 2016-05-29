@@ -43,4 +43,9 @@ Route::post('/questiondata','QuestionController@get_question');
 Route::post('/complete','QuestionController@complete');
 
 
+/*******by merna ********/
+Route::post('/questioncomment','CommentController@comment');
+Route::post('/answerreply','ReplyController@reply');
+
+
 

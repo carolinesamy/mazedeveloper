@@ -50,8 +50,9 @@ class StudentsTableSeeder extends Seeder
 
 
         DB::table('students')->insert(array(
-            array('sfull_name'=>'john','email'=>'john@clivern.com','password'=>bcrypt('123456'),'points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456','last_hit'=>'2016-05-22 05:22:22'),
-            array('sfull_name'=>'aya','email'=>'aya@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'1234745','last_hit'=>'2016-06-22 05:22:22'),
+            array('sfull_name'=>'aya','email'=>'aya@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'1234745','last_hit'=>'2016-05-22 07:22:22'),
+
+            array('sfull_name'=>'john','email'=>'john@gmail.com','password'=>'123456','points'=>'0','intake_id'=>'1','track_id'=>'1','remember_token'=>'123456','last_hit'=>'2016-05-22 05:22:22'),
 
 
         ));
@@ -63,8 +64,8 @@ class StudentsTableSeeder extends Seeder
         ));
 
         DB::table('notifications')->insert(array(
-            array('content'=>'you have one question','type'=>'question'),
-            array('content'=>'you have one answer','type'=>'answer'),
+            array('content'=>'you have one question','type'=>'question','time'=>'2016-05-22 05:22:22'),
+            array('content'=>'you have one answer','type'=>'answer','time'=>'2016-05-22 09:22:22'),
 
         ));
 

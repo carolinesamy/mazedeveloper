@@ -65,11 +65,16 @@ class QuestionController extends Controller
 
     }
 
+
     public function get_question(Request $request){
         return $request->input('id');
     }
 
     public function complete(Request $request){
-        return $request->input('sentance');
+        $text=$request->input('sentance');
+
+        $question_titles= Question::select('title')->where('title','like',$text."%")->get();
+
+        return $question_titles;
     }
 }

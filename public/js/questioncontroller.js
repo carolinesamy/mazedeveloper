@@ -144,6 +144,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+
 	$scope.addAnswer=function(valid){
 		console.log($scope.image_path);
 

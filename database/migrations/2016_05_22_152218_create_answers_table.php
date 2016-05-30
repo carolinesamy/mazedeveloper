@@ -18,8 +18,8 @@ class CreateAnswersTable extends Migration
             $table->text('content');
             $table->string('image')->nullable();
             $table->dateTime('time');
-            $table->integer('likes')->default('0');
-            $table->integer('dislikes')->default('0');
+//            $table->integer('likes')->default('0');
+//            $table->integer('dislikes')->default('0');
             $table->boolean('accepted')->default('0');
 
             $table->integer('question_id')->unsigned();

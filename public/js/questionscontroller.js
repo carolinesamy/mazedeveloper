@@ -37,7 +37,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			}
 		}).success(function(res){
 			//handle the returned data here
-			console.log(JSON.parse(res.user['latest_all_question']));
+			console.log(res);
 			$rootScope.courses = JSON.parse(res.user['course_data']);
 			$rootScope.questions = JSON.parse(res.user['latest_follow_question']);
 			$rootScope.allquestions = JSON.parse(res.user['latest_all_question']);

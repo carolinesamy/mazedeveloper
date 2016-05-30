@@ -89,8 +89,8 @@ class StudentsTableSeeder extends Seeder
         ));
         DB::table('answers')->insert(array(
 
-            array('content'=>'you have one question','time'=>'2016-05-19 05:22:22','student_id'=>'1','likes'=>'5','dislikes'=>'1','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
-            array('content'=>'you have two answers','time'=>'2016-05-20 05:22:22','student_id'=>'1','likes'=>'9','dislikes'=>'2','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'you have one question','time'=>'2016-05-19 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'you have two answers','time'=>'2016-05-20 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
 
         ));
 
@@ -115,8 +115,7 @@ class StudentsTableSeeder extends Seeder
         DB::table('student_courses')->insert(array(
             array('student_id'=>'1','course_id'=>'1','privilege'=>'notify'),
             array('student_id'=>'1','course_id'=>'2','privilege'=>'dislike'),
-            array('student_id'=>'1','course_id'=>'3','privilege'=>'dislike'),
-            array('student_id'=>'1','course_id'=>'4','privilege'=>'dislike'),
+
 
 
         ));

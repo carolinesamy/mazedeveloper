@@ -133,12 +133,14 @@ class StudentController extends Controller
                     ])
                     ->select(DB::raw('count(*) as count'))
                     ->get();
+
                 $courses=DB::table('courses')
                     ->join('student_courses','courses.id','=','student_courses.course_id')
                     ->where('student_courses.student_id','=',$user_id)
                     ->select('courses.id','courses.course_name')
                     ->get();
                 $i=0;
+                $arr=[];
                 foreach($courses as $course)
                 {
 
@@ -153,19 +155,21 @@ class StudentController extends Controller
 
                 $latest_follow_question=DB::table('questions')
                     // ->join('answers','questions.id','=','answers.question_id')
-
+                    ->join('courses','courses.id','=','questions.course_id')
                     ->join('student_courses','questions.course_id','=','student_courses.course_id')
                     ->where('student_courses.student_id','=',$user_id)
-                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
+                    ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
                     ->orderBy('questions.time','desc')->take(10)
                     ->get();
 
                 $i=0;
+                $arr=[];
                 foreach($latest_follow_question as $question)
                 {
 
 
                     $arr[$i]['id']=$question->id;
+                    $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
@@ -178,15 +182,18 @@ class StudentController extends Controller
                 $latest_all_question=DB::table('questions')
                     // ->join('answers','questions.id','=','answers.question_id')
                     // ->join('answers','questions.id','=','answers.question_id')
-                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
+                    ->join('courses','courses.id','=','questions.course_id')
+                    ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
                     ->orderBy('questions.time','desc')->take(10)
                     ->get();
                 $i=0;
+                $arr=[];
                 foreach($latest_all_question as $question)
                 {
 
 
                     $arr[$i]['id']=$question->id;
+                    $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
@@ -229,10 +236,10 @@ class StudentController extends Controller
 
                 $latest_follow_question=DB::table('questions')
                     // ->join('answers','questions.id','=','answers.question_id')
-
+                    ->join('courses','courses.id','=','questions.course_id')
                     ->join('instructor_courses','questions.course_id','=','instructor_courses.course_id')
                     ->where('instructor_courses.instructor_id','=',$user_id)
-                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved')
+                    ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved')
                     ->orderBy('questions.time','desc')->take(10)
                     ->get();
 
@@ -242,6 +249,7 @@ class StudentController extends Controller
 
 
                     $arr[$i]['id']=$question->id;
+                    $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
@@ -252,7 +260,8 @@ class StudentController extends Controller
                 $latest_all_question=DB::table('questions')
                     // ->join('answers','questions.id','=','answers.question_id')
                     // ->join('answers','questions.id','=','answers.question_id')
-                    ->select('questions.id','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
+                    ->join('courses','courses.id','=','questions.course_id')
+                    ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
                     ->orderBy('questions.time','desc')->take(10)
                     ->get();
 
@@ -262,6 +271,7 @@ class StudentController extends Controller
 
 
                     $arr[$i]['id']=$question->id;
+                    $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;

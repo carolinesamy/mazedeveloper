@@ -22,7 +22,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 
-			console.log(res.answer);
+			console.log(res);
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answer;
@@ -37,78 +37,78 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 
 	//logged-in user
-	// $scope.user = {
- //      email: '',
- //      password: '',
- //      notifications :0
- //    };
+	$scope.user = {
+      email: '',
+      password: '',
+      notifications :0
+    };
 
     
 
-	// //details of this question 
-	// $scope.question = 
-	// 	{
-	// 	'id':1,
-	// 	'title':"HTML tags doesn't work",
-	// 	'content':"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'answers':20,
-	// 	'solved':0
-	// 	};
-	// //questions' answers
-	// $scope.answers = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'11/01/2016 17:40:66',
-	// 	'image':'',
-	// 	'like': 5,
-	// 	'dislike': 1,
-	// 	'accepted':0,
-	// 	'user_name':'Aya',
-	// 	'user_image':''
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'image':'',
-	// 	'like': 12,
-	// 	'dislike': 3,
-	// 	'accepted':0,
-	// 	'user_name':'Merna',
-	// 	'user_image':''
-	// 	}
-	// ];
+	//details of this question
+	$scope.question =
+		{
+		'id':1,
+		'title':"HTML tags doesn't work",
+		'content':"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+		'answers':20,
+		'solved':0
+		};
+	//questions' answers
+	$scope.answers = [
+		{
+		'id':1,
+		'content':"malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+		'time':'11/01/2016 17:40:66',
+		'image':'',
+		'like': 5,
+		'dislike': 1,
+		'accepted':0,
+		'user_name':'Aya',
+		'user_image':''
+		},
+		{
+		'id':2,
+		'content':"senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+		'time':'07/04/2016 03:13:04',
+		'image':'',
+		'like': 12,
+		'dislike': 3,
+		'accepted':0,
+		'user_name':'Merna',
+		'user_image':''
+		}
+	];
 
-	// $scope.replies = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'christina',
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"ames ac turpis egestas. Vestibulum ",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'caroline',
-	// 	}
-	// ];
+	$scope.replies = [
+		{
+		'id':1,
+		'content':"senectus et netus et malesuada fames ac turpis egestas.",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'christina',
+		},
+		{
+		'id':2,
+		'content':"ames ac turpis egestas. Vestibulum ",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'caroline',
+		}
+	];
 
-	// $scope.comments = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'christina',
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"ames ac turpis egestas. Vestibulum ",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'caroline',
-	// 	}
-	// ];
+	$scope.comments = [
+		{
+		'id':1,
+		'content':"senectus et netus et malesuada fames ac turpis egestas.",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'christina',
+		},
+		{
+		'id':2,
+		'content':"ames ac turpis egestas. Vestibulum ",
+		'time':'07/04/2016 03:13:04',
+		'user_name':'caroline',
+		}
+	];
 
 	$scope.acceptAnswer = function(answer_id,index){
 
@@ -123,6 +123,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'id':answer_id,
 				'user_id': sessionService.get('user'),
 				'type': sessionService.get('type')
+
 
 			}
 		}).success(function(res){
@@ -147,6 +148,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'id':answer_id,
 				'user_id': sessionService.get('user'),
 				'type': sessionService.get('type')
+
 
 			}
 		}).success(function(res){

@@ -30,7 +30,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     // $scope.courses = ['PHP','Bootstrap','Django','Java'];
 
- //   $scope.user.notification = $scope.notifications.length;
 
     $scope.sendData = function(valid){
 
@@ -150,7 +149,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'type':sessionService.get('type')
             }
         }).success(function(res){
-            console.log(res[0].count);
+            //console.log(res[0].count);
             $rootScope.numOfnotification = res[0].count;
         }).error(function(err){
             console.log(err);

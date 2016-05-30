@@ -6,7 +6,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
         mode: 'xml',
     };
 
-	 console.log($routeParams.id);
+	//console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
 	$rootScope.user_id = sessionService.get('user');
 
@@ -96,13 +96,15 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 
 	$scope.addAnswer=function(valid){
-		console.log($scope.image_path.name);
+		if($scope.image_path){
+			image = $scope.image_path.name;
+		}else{image=''}
 
 		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
+					'image': image,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'student'

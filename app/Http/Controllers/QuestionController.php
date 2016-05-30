@@ -142,8 +142,8 @@ class QuestionController extends Controller
                 ->select('questions.student_id as question_student_id','questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
                 ->get();
         /** answers with the data of the person who asks **/
-        $answerdata =DB::table('questions')
-                ->join('answers','questions.id', '=', 'answers.question_id')
+        $answerdata =DB::table('answers')
+                ->join('questions','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
                 ->where('questions.id', '=', $question_id)

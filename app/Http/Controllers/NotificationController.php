@@ -17,6 +17,8 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('id');
         $user_type = $request->input('type');
+        $notification=0;
+
         if (session('user_id') == $user_id && session('type') == $user_type) {
             //->select(DB::raw('count(*) as user_count, status'))
 
@@ -49,7 +51,8 @@ class NotificationController extends Controller
                     ->select(DB::raw('count(*) as count'))
                     ->get();
             }
-            return $notification;
         }
+        return $notification;
+
     }
 }

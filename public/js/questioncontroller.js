@@ -27,6 +27,10 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answer;
+			$rootScope.comments = res.comments;
+			$rootScope.replies = res.replies[0];
+
+
 
 		}).error(function(err){
 			console.log(err);

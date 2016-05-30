@@ -36,14 +36,14 @@
 						<div class="thumbnail" ng-repeat='comment in comments'>
 							<div class="row">
 								<div class="col-md-10">
-									<h4>By: {{comment.user_name}}</h4>
+									<h4>{{comment.content}}</h4>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-21">
 									<h6>{{comment.time}}</h6>
 								</div>
 
 							</div>
-							<h5>{{comment.content}}</h5>
+							<h5></h5>
 							
 							
 						</div>
@@ -81,7 +81,7 @@
 
 					</div>
 					<div class="col-md-1">
-						<button class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+						<button ng-if='answer.answer_student_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
 					</div>
 				</div>
 
@@ -117,13 +117,13 @@
 						<div class="thumbnail" ng-repeat='reply in replies'>
 							<div class="row">
 								<div class="col-md-10">
-									<h4>By: {{reply.user_name}}</h4>
+									<h4>{{reply.content}}</h4>
 								</div>
 								<div class="col-md-2">
 									<h6>{{reply.time}}</h6>
 								</div>				
 							</div>
-							<h5>{{reply.content}}</h5>
+							
 							
 							
 						</div>

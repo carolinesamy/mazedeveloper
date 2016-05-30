@@ -15,6 +15,7 @@ class NotificationController extends Controller
     //
     public function get_notification_num(Request $request)
     {
+        $notification=0;
         $user_id = $request->input('id');
         $user_type = $request->input('type');
         $notification=0;
@@ -51,6 +52,7 @@ class NotificationController extends Controller
                     ->select(DB::raw('count(*) as count'))
                     ->get();
             }
+
         }
         return $notification;
 

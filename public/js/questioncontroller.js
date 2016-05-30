@@ -40,6 +40,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	
 
+	
+
 
 	$scope.acceptAnswer = function(answer_id,index){
 

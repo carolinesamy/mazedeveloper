@@ -3,11 +3,12 @@
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
 
-    // $scope.question = {
-    //   'title':'',
-    //   'content':''
-    // }
-
+    $scope.question = {
+      'title':'',
+      'content':'',
+      'course':'',
+      'tags':''
+    }
 
     // $scope.notifications = [
     //   {
@@ -75,7 +76,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
         sessionService.destroy('user');
         sessionService.destroy('type');
-        $rootScope.currentuser = null;
+        $rootScope = null;
         $('#logoutModal').modal('hide');
         $location.path('/');
 
@@ -83,7 +84,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
 
     $scope.askQuestion = function(valid){
-
+        console.log($scope.question);
         if(valid){
             $http({
                 method: 'POST',
@@ -94,7 +95,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'image':'',
                     'course_id':$scope.question.course,
                     'tag_id':$scope.question.tags,
-                    'student_id':sessionService.get('user')
+                    'student_id':sessionService.get('user'),
+                    'type': sessionService.get('type')
                 }
             }).success(function(res){
                 $('#askModal').modal('hide');
@@ -124,12 +126,13 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         });
     }
 
-    $scope.autoComplete=function(){
+    $scope.autoComplete=function(title){
+        console.log($scope.question.title);
         $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',
             data: {
-                'sentance':$scope.question.title
+                'sentance':title
             }
         }).success(function(res){
             console.log(res);

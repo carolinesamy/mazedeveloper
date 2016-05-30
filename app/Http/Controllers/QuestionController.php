@@ -146,7 +146,7 @@ class QuestionController extends Controller
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
                 ->where('questions.id', '=', $question_id)
-                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
+                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
         $ids=[];
         $likes=[];
@@ -160,7 +160,7 @@ class QuestionController extends Controller
         }
 
         foreach($ids as $ans_id)
-        {
+        {// get users ids who like an answer
             $likes[]=DB::table('answers')
                 ->join('likes','answers.id','=','likes.answer_id')
                 ->where('likes.answer_id', '=', $ans_id)
@@ -181,27 +181,6 @@ class QuestionController extends Controller
                 ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
                 ->get();
         }
-//        return $request->input('id');
-//        $check=DB::table('likes')
-//            ->join('answers','answers.id','=','likes.answer_id')
-//            ->where('likes.id', '=', 1)
-//            ->where('likes.type','=','student')
-//            ->where('answer_id','=','answers.id')
-//            ->first();
-//        if($check===null){
-//            $likes=-1;
-//        }
-//        else
-//        {
-//            $likes=DB::table('likes')
-//                ->join('answers','answers.id','=','likes.answer_id')
-//                ->where('likes.id', '=', $user_id)
-//                ->where('likes.type','=',$type)
-//                ->where('likes.answer_id','=','answers.id')
-//                ->select('likes.answer_id as liked_answer_id','likes.like')
-//                ->get();
-//        }
-
         $response =array(
             'question'=>$questiondata,
             'answer'=>$answerdata,

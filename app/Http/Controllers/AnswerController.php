@@ -59,7 +59,9 @@ class AnswerController extends Controller
                 $question->save();
 
                 return "true";
-            } else {
+            }
+            else
+            {
                 return "false";
             }
         }
@@ -94,7 +96,9 @@ class AnswerController extends Controller
                     ]
                 );
 
-            } else {
+            }
+            else
+            {
                 $insert = DB::table('answers')->insertGetId(
                     [
                         'content' => $content,
@@ -109,10 +113,13 @@ class AnswerController extends Controller
 
             //*********** take data from anguler reqest => laravel => to me ***************
 
-            if ($insert > 0) {
+            if ($insert > 0)
+            {
                 return "true";
 
-            } else {
+            }
+            else
+            {
                 return "false";
             }
 
@@ -148,10 +155,13 @@ class AnswerController extends Controller
                         'time'=>$date,
                     ]
                 );
-            if ($update > 0) {
+            if ($update > 0)
+            {
                 return "true";
 
-            } else {
+            }
+            else
+            {
                 return "false";
             }
 

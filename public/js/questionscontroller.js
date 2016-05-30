@@ -28,14 +28,12 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 	 
 
-	$scope.answeredQuestions = function(status){
-		
+	$scope.filterQuestions = function(status){
+
 		$rootScope.questions = $rootScope.questionsWithoutFilter;
 
 		questions=[];
 		if(status== 'answered'){
-			console.log($rootScope.questions);
-	 	console.log($rootScope.questionsWithoutFilter);
 		
 			angular.forEach( $rootScope.questionsWithoutFilter, function(value , key){
 				if(value['answer_number'] > 0){
@@ -43,23 +41,19 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 				}
 			} );
 			$rootScope.questions = questions;
-			console.log('answered '+$rootScope.questions);
 
 		}else if(status == 'unanswered'){
 
-console.log($rootScope.questions);
-	 	console.log($rootScope.questionsWithoutFilter);
 			angular.forEach( $rootScope.questionsWithoutFilter, function(value , key){
-				if(value['answer_number'] = 0){
+				if(value['answer_number'] == 0){
 					questions.push(value) ; 
 				}
 			} );
 			$rootScope.questions = questions;
-			console.log('unanswered '+$rootScope.questions);
 
 		}else if(status == 'all'){
-			 $rootScope.questions = $rootScope.questionsWithoutFilter;
-			console.log('all '+$rootScope.questions);
+
+			$rootScope.questions = $rootScope.questionsWithoutFilter;
 
 		}
 	}

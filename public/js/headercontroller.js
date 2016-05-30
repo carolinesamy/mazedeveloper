@@ -147,7 +147,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'type':sessionService.get('type')
             }
         }).success(function(res){
-            console.log(res);
+            console.log(res[0].count);
+            $rootScope.numOfnotification = res[0].count;
         }).error(function(err){
             console.log(err);
         });

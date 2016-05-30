@@ -125,7 +125,7 @@ class QuestionController extends Controller
 
 
     }
-
+/**************** by christina *****************/
 
     public function get_question(Request $request){
         $question_id=$request->input('id');
@@ -144,10 +144,38 @@ class QuestionController extends Controller
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
+                ->where('questions.id', '=', $question_id)
                 ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
 
+        foreach($answerdata as $data)
+        {
+            $ids[]=$data->answer_id;
 
+        }
+
+        foreach($ids as $ans_id)
+        {
+            $likes[]=DB::table('answers')
+                ->join('likes','answers.id','=','likes.answer_id')
+                ->where('likes.answer_id', '=', $ans_id)
+                ->select('likes.id as user_id','likes.type as user_type','likes.answer_id')
+//                ->groupBy('likes.answer_id')
+                ->get();
+        }
+
+        $comments=DB::table('comments')
+            ->where('comments.question_id','=',$question_id)
+            ->select('comments.id as comment_id','comments.content','comments.time','comments.student_id','comments.instructor_id')
+            ->get();
+
+        foreach($ids as $ans_id)
+        {
+            $replies[]=DB::table('replies')
+                ->where('replies.answer_id', '=', $ans_id)
+                ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
+                ->get();
+        }
 //        return $request->input('id');
 //        $check=DB::table('likes')
 //            ->join('answers','answers.id','=','likes.answer_id')
@@ -172,7 +200,9 @@ class QuestionController extends Controller
         $response =array(
             'question'=>$questiondata,
             'answer'=>$answerdata,
-//            'likes'=>$likes
+            'likes'=>$likes,
+            'comments'=>$comments,
+            'replies'=>$replies
         );
         return $response;
     }

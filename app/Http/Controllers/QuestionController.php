@@ -125,40 +125,42 @@ class QuestionController extends Controller
         $questiondata = DB::table('questions')
                 ->join('students','questions.student_id', '=', 'students.id')
                 ->where('questions.id', '=', $question_id)
-                ->select('questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
+                ->select('questions.student_id as question_student_id','questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
                 ->get();
         /** answers with the data of the person who asks **/
         $answerdata =DB::table('questions')
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->join('students','answers.student_id', '=', 'students.id')
-                ->select('answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
+                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
+
+
 //        return $request->input('id');
-        $check=DB::table('likes')
-            ->join('answers','answers.id','=','likes.answer_id')
-            ->where('likes.id', '=', 1)
-            ->where('likes.type','=','student')
-            ->where('answer_id','=','answers.id')
-            ->first();
-        if($check===null){
-            $likes=-1;
-        }
-        else
-        {
-            $likes=DB::table('likes')
-                ->join('answers','answers.id','=','likes.answer_id')
-                ->where('likes.id', '=', $user_id)
-                ->where('likes.type','=',$type)
-                ->where('likes.answer_id','=','answers.id')
-                ->select('likes.answer_id as liked_answer_id','likes.like')
-                ->get();
-        }
+//        $check=DB::table('likes')
+//            ->join('answers','answers.id','=','likes.answer_id')
+//            ->where('likes.id', '=', 1)
+//            ->where('likes.type','=','student')
+//            ->where('answer_id','=','answers.id')
+//            ->first();
+//        if($check===null){
+//            $likes=-1;
+//        }
+//        else
+//        {
+//            $likes=DB::table('likes')
+//                ->join('answers','answers.id','=','likes.answer_id')
+//                ->where('likes.id', '=', $user_id)
+//                ->where('likes.type','=',$type)
+//                ->where('likes.answer_id','=','answers.id')
+//                ->select('likes.answer_id as liked_answer_id','likes.like')
+//                ->get();
+//        }
 
         $response =array(
             'question'=>$questiondata,
             'answer'=>$answerdata,
-            'likes'=>$likes
+//            'likes'=>$likes
         );
         return $response;
     }

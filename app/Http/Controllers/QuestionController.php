@@ -157,9 +157,10 @@ class QuestionController extends Controller
                 ->get();
         $instids=[];
         $stids=[];
-        $likes=[];
-        $comments=[];
-        $replies=[];
+        $instlikes=[];
+        $stlikes=[];
+        $instreplies=[];
+        $streplies=[];
 
         foreach($instructoranswerdata as $data)
         {
@@ -178,7 +179,6 @@ class QuestionController extends Controller
                 ->join('likes','answers.id','=','likes.answer_id')
                 ->where('likes.answer_id', '=', $ans_id)
                 ->select('likes.id as user_id','likes.type as user_type','likes.answer_id','likes.like')
-//                ->groupBy('likes.answer_id')
                 ->get();
         }
         foreach($stids as $ans_id)
@@ -187,7 +187,6 @@ class QuestionController extends Controller
                 ->join('likes','answers.id','=','likes.answer_id')
                 ->where('likes.answer_id', '=', $ans_id)
                 ->select('likes.id as user_id','likes.type as user_type','likes.answer_id','likes.like')
-//                ->groupBy('likes.answer_id')
                 ->get();
         }
 

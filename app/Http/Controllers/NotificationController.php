@@ -53,5 +53,6 @@ class NotificationController extends Controller
 
         }
         return $notification;
+
     }
 }

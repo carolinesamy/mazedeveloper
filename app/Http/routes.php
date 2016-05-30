@@ -34,7 +34,7 @@ Route::post('/getuserdata','StudentController@gethomeuserdata');
 
 
 
-Route::get('/gettags','TagController@get_tag');
+Route::post('/gettags','TagController@get_tag');
 
 /***** by christina *****/
 Route::post('/addanswer','AnswerController@add_answer');

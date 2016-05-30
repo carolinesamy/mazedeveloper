@@ -19,6 +19,7 @@ class NotificationController extends Controller
         $notification =0;
         $user_id = $request->input('id');
         $user_type = $request->input('type');
+
         if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null )
         {
 
@@ -45,6 +46,7 @@ class NotificationController extends Controller
             {
                 //return "opa alaalaa";
 
+
                 $last_hit = Instructor::select('last_hit')->where('id', $user_id)->first();
 
 
@@ -52,7 +54,7 @@ class NotificationController extends Controller
                     ->join('instructor_notifications', 'notifications.id', '=', 'instructor_notifications.notification_id')
                     ->where([
                         ['instructor_notifications.instructor_id', '=', $user_id],
-                        ['notifications.time', '>', $last_hit->last_hit],
+                        ['notifications.time', '>', $last_hit->last_hit]
                     ])
                     ->select(DB::raw('count(*) as count'))
                     ->get();

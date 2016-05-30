@@ -21,13 +21,13 @@
 
 			    <div class="btn-group" data-toggle="buttons">
 				  <label >
-				    <a href="#/questions" class="btn btn-default"> All Questions</a>
+				    <a class="btn btn-default" 'answeredQuestions("all")'> All Questions</a>
 				  </label>
 				  <label >
-				    <a href="#" class="btn btn-default"> Answered Questions</a>
+				    <a class="btn btn-default" ng-click='answeredQuestions("answered")'> Answered Questions</a>
 				  </label>
 				  <label >
-				    <a href="#" class="btn btn-default"> un-answered Questions</a>
+				    <a class="btn btn-default" ng-click='answeredQuestions("unanswered")'> un-answered Questions</a>
 				  </label>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 						
-				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answers}}</h5> </p>
+				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answer_number}}</h5> </p>
 
 				        
 				    </div>

@@ -28,7 +28,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //   },
     // ];
 
-    // $scope.courses = ['PHP','Bootstrap','Django','Java'];
 
 
     $scope.sendData = function(valid){
@@ -100,27 +99,29 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }).success(function(res){
                 $('#askModal').modal('hide');
                 console.log(res);
+                $scope.question = '';
 
             }).error(function(err){
                 console.log(err);
             });
-          // $scope.question = {
-          //       'title':'',
-          //       'content':'',
-          //       'image':'',
-          //       'student_id':''
-          //   };
+         
         }
     };
 
     $scope.requestAsk=function(){
         if($scope.question.title){
             $http({
-            method: 'GET',
+            method: 'POST',
             url: 'http://localhost:8000/gettags',
+           data:{
+               'id':sessionService.get('user'),
+               'type':sessionService.get('type')
+           }
         }).success(function(res){
-            console.log(res);
-            $scope.tags=res;
+            console.log(res.tags_id);
+            $scope.tags= res.tags_id;
+            $rootScope.courses = JSON.parse(res.course_data);
+
         }).error(function(err){
             console.log(err);
         });
@@ -152,10 +153,9 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 'type':sessionService.get('type')
             }
         }).success(function(res){
-
-           // console.log(res);
-
+             //console.log(res);
             $rootScope.numOfnotification = res[0].count;
+
         }).error(function(err){
             console.log(err);
         });

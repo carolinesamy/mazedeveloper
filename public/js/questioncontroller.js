@@ -6,7 +6,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
         mode: 'xml',
     };
 
-	 console.log($routeParams.id);
+	//console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
 	$rootScope.user_id = sessionService.get('user');
 
@@ -96,13 +96,16 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 
 	$scope.addAnswer=function(valid){
-		console.log($scope.image_path.name);
+
+		if($scope.image_path){
+			image = $scope.image_path.name;
+		}else{image=''}
 
 		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
+					'image': image,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -111,7 +114,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
+					//'image': $scope.image_path.name,
+					'image':'',
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
@@ -296,6 +300,42 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/dislikeaction',
+			data: {
+				'answer_id': answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+
+		}).error(function(err){
+			console.log(err);
+		});
+	};
+
+	$scope.removeLike=function(answer_id){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/removelike',
+			data: {
+				'answer_id': answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+
+		}).error(function(err){
+			console.log(err);
+		});
+	};
+
+	$scope.removeDislike=function(answer_id){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/removedislike',
 			data: {
 				'answer_id': answer_id,
 				'user_id': sessionService.get('user'),

@@ -30,7 +30,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     // $scope.courses = ['PHP','Bootstrap','Django','Java'];
 
- //   $scope.user.notification = $scope.notifications.length;
 
     $scope.sendData = function(valid){
 
@@ -115,15 +114,22 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     };
 
     $scope.requestAsk=function(){
-        $http({
-            method: 'GET',
+        if($scope.question.title){
+            $http({
+            method: 'POST',
             url: 'http://localhost:8000/gettags',
+           data:{
+               'id':sessionService.get('user'),
+               'type':sessionService.get('type')
+           }
         }).success(function(res){
             console.log(res);
             $scope.tags=res;
         }).error(function(err){
             console.log(err);
         });
+        }
+        
     }
 
     $scope.autoComplete=function(title){
@@ -151,6 +157,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
         }).success(function(res){
             console.log(res);
+
             $rootScope.numOfnotification = res[0].count;
         }).error(function(err){
             console.log(err);

@@ -25,7 +25,6 @@ class QuestionController extends Controller
         $tag_id=$request->input('tag_id');
         $course_id=$request->input('course_id');
 
-        
 
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
@@ -142,31 +141,52 @@ class QuestionController extends Controller
                 ->select('questions.student_id as question_student_id','questions.title as question_title', 'questions.content as question_content','questions.image as question_image','questions.time as question_time','questions.solved','questions.course_id as question_course','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
                 ->get();
         /** answers with the data of the person who asks **/
-        $answerdata =DB::table('questions')
+
+
+        $instructoranswerdata =DB::table('questions')
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
-                ->join('students','answers.student_id', '=', 'students.id')
-                ->where('questions.id', '=', $question_id)
-                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
+                ->where('answers.question_id', '=', $question_id)
+                ->select('answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
-        $ids=[];
-        $likes=[];
-        $comments=[];
-        $replies=[];
+        $studentanswerdata =DB::table('questions')
+                ->join('answers','questions.id', '=', 'answers.question_id')
+                ->join('students','answers.student_id', '=', 'students.id')
+                ->where('answers.question_id', '=', $question_id)
+                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
+                ->get();
+        $instids=[];
+        $stids=[];
+        $instlikes=[];
+        $stlikes=[];
+        $instreplies=[];
+        $streplies=[];
 
-        foreach($answerdata as $data)
+        foreach($instructoranswerdata as $data)
         {
-            $ids[]=$data->answer_id;
+            $instids[]=$data->answer_id;
+
+        }
+        foreach($studentanswerdata as $data)
+        {
+            $stids[]=$data->answer_id;
 
         }
 
-        foreach($ids as $ans_id)
+        foreach($instids as $ans_id)
         {// get users ids who like an answer
-            $likes[]=DB::table('answers')
+            $instlikes[]=DB::table('answers')
                 ->join('likes','answers.id','=','likes.answer_id')
                 ->where('likes.answer_id', '=', $ans_id)
-                ->select('likes.id as user_id','likes.type as user_type','likes.answer_id')
-//                ->groupBy('likes.answer_id')
+                ->select('likes.id as user_id','likes.type as user_type','likes.answer_id','likes.like')
+                ->get();
+        }
+        foreach($stids as $ans_id)
+        {// get users ids who like an answer
+            $stlikes[]=DB::table('answers')
+                ->join('likes','answers.id','=','likes.answer_id')
+                ->where('likes.answer_id', '=', $ans_id)
+                ->select('likes.id as user_id','likes.type as user_type','likes.answer_id','likes.like')
                 ->get();
         }
 
@@ -175,19 +195,35 @@ class QuestionController extends Controller
             ->select('comments.id as comment_id','comments.content','comments.time','comments.student_id','comments.instructor_id')
             ->get();
 
-        foreach($ids as $ans_id)
+        foreach($instids as $ans_id)
         {
-            $replies[]=DB::table('replies')
+            $instreplies[]=DB::table('replies')
+                ->where('replies.answer_id', '=', $ans_id)
+                ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
+                ->get();
+        }
+        foreach($stids as $ans_id)
+        {
+            $streplies[]=DB::table('replies')
                 ->where('replies.answer_id', '=', $ans_id)
                 ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
                 ->get();
         }
         $response =array(
             'question'=>$questiondata,
-            'answer'=>$answerdata,
-            'likes'=>$likes,
+            'answers'=>array(
+                'instructor'=>$instructoranswerdata,
+                'student'=>$studentanswerdata
+            ),
+            'likes'=>array(
+                    'instructor'=>$instlikes,
+                    'student'=>$stlikes
+            ),
             'comments'=>$comments,
-            'replies'=>$replies
+            'replies'=>array(
+                'instructor'=>$instreplies,
+                'student'=>$streplies
+            )
         );
         return $response;
     }

@@ -226,6 +226,7 @@ class StudentController extends Controller
                     ->get();
 
                 $i=0;
+                $arr=[];
                 foreach($courses as $course)
                 {
 
@@ -246,6 +247,7 @@ class StudentController extends Controller
                     ->get();
 
                 $i=0;
+                $arr=[];
                 foreach($latest_follow_question as $question)
                 {
 
@@ -268,6 +270,7 @@ class StudentController extends Controller
                     ->get();
 
                 $i=0;
+                $arr=[];
                 foreach($latest_all_question as $question)
                 {
 

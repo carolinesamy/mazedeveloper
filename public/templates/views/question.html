@@ -14,7 +14,7 @@
 			<h1 ng-if='question.solved == 1' class="text-success"><span class="glyphicon glyphicon-ok"></span></h1>							
 		</div>
 		<div class="col-sm-1">
-			<button class="btn btn-default" ng-click="editQuestion(question_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+			<button ng-if='question.question_student_id == user_id' class="btn btn-default" ng-click="editQuestion(question_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 			
 		</div>
 	</div>
@@ -95,7 +95,7 @@
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
-						<div class="radio">
+						<div class="radio" ng-if='question.question_student_id == user_id'>
 					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.answer_id,$index)'>Accept</label>
 					    </div>
 					</div>

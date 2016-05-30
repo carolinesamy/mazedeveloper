@@ -118,9 +118,11 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			method: 'POST',
 			url: 'http://localhost:8000/accept',
 			data: {
-				//'id':1,
+				//'id':1
+
 				'id':answer_id,
-				'type':sessionService.get('type')
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
 
 
 			}
@@ -142,9 +144,11 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			method:'POST',
 			url: 'http://localhost:8000/unaccept',
 			data: {
-
+				//'id':1
 				'id':answer_id,
-				'type':sessionService.get('type')
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+
 
 			}
 		}).success(function(res){
@@ -251,18 +255,20 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'type': 'instructor'
 			};
 		}
-		console.log(arr);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/questioncomment',
-		//	data: {
-		//		comment: arr
-		//	}
-		//}).success(function (res) {
-		//	console.log(res);
-		//}).error(function (err) {
-		//	console.log(err);
-		//});
+		//console.log(arr);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/questioncomment',
+			data: {
+				comment: arr
+			}
+		}).success(function (res) {
+			console.log(res);
+			
+
+		}).error(function (err) {
+			console.log(err);
+		});
 
 	};
 
@@ -299,30 +305,30 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	};
 
 	$scope.addReply=function(answer_id,reply){
-		data={
-			'content': reply,
-			'answer_id': answer_id,
-			'user_id': sessionService.get('user'),
-			'type': sessionService.get('type')
-		};
-		console.log(data);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/answerreply',
-		//	data: {
-		//		'reply': {
-		//			'content': reply,
-		//			'answer_id': answer_id,
-		//			'user_id': sessionService.get('user'),
-		//			'type': sessionService.get('type')
-		//		}
-		//	}
-		//}).success(function(res){
-		//	console.log(res);
-        //
-		//}).error(function(err){
-		//	console.log(err);
-		//});
+		//data={
+		//	'content': reply,
+		//	'answer_id': answer_id,
+		//	'user_id': sessionService.get('user'),
+		//	'type': sessionService.get('type')
+		//};
+		//console.log(data);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/answerreply',
+			data: {
+				'reply': {
+					'content': reply,
+					'answer_id': answer_id,
+					'user_id': sessionService.get('user'),
+					'type': sessionService.get('type')
+				}
+			}
+		}).success(function(res){
+			console.log(res);
+
+		}).error(function(err){
+			console.log(err);
+		});
 	};
 
 

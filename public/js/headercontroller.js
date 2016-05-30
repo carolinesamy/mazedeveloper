@@ -153,7 +153,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
         }).success(function(res){
 
-            console.log(res);
+           // console.log(res);
 
             $rootScope.numOfnotification = res[0].count;
         }).error(function(err){

@@ -4,7 +4,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
         lineWrapping : true,
         lineNumbers: true,
         mode: 'xml',
-    };
+   		};
+   		$rootScope.answers ='';
 
 	//console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
@@ -26,11 +27,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			console.log(res);
 
 			$rootScope.question = res.question[0];
-			$rootScope.answers = res.answer;
+			$rootScope.answers = res.answers.instructor;
+			//$rootScope.answers = res.answers.student;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
 
-
+			
 
 		}).error(function(err){
 			console.log(err);

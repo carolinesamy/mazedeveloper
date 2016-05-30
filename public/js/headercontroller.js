@@ -116,8 +116,12 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     $scope.requestAsk=function(){
         if($scope.question.title){
             $http({
-            method: 'GET',
+            method: 'POST',
             url: 'http://localhost:8000/gettags',
+           data:{
+               'id':sessionService.get('user'),
+               'type':sessionService.get('type')
+           }
         }).success(function(res){
             console.log(res);
             $scope.tags=res;

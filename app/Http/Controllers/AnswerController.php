@@ -21,17 +21,23 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
-        $answer = Answer::find($id);
-        $question = Question::find($answer->question_id);
+        $type = $request->input('type');
 
-        if ($answer->accepted == 0 && $question->solved == 0) {
-            $answer->accepted = 1;
-            $answer->save();
-            $question->solved = 1;
-            $question->save();
-            return "true";
-        } else {
-            return "false";
+        if (session('user_id') == $id &&session('type') == $type)
+
+        {
+            $answer = Answer::find($id);
+            $question = Question::find($answer->question_id);
+
+            if ($answer->accepted == 0 && $question->solved == 0) {
+                $answer->accepted = 1;
+                $answer->save();
+                $question->solved = 1;
+                $question->save();
+                return "true";
+            } else {
+                return "false";
+            }
         }
 
     }
@@ -40,73 +46,85 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
-        $answer = Answer::find($id);
-        $question = Question::find($answer->question_id);
+        $type = $request->input('type');
+        if (session('user_id') == $id &&session('type') == $type)
+        {
+            $answer = Answer::find($id);
+            $question = Question::find($answer->question_id);
 
-        if ($answer->accepted == 1 && $question->solved == 1) {
-            $answer->accepted = 0;
-            $answer->save();
-            $question->solved = 0;
-            $question->save();
+            if ($answer->accepted == 1 && $question->solved == 1) {
+                $answer->accepted = 0;
+                $answer->save();
+                $question->solved = 0;
+                $question->save();
 
-            return "true";
-        } else {
-            return "false";
+                return "true";
+            } else {
+                return "false";
+            }
         }
+
+
 
     }
 
     public function add_answer(Request $request)
     {
         $answersdata = $request->input('answer');
+        $user_id = $answersdata['id'];
+        $user_type = $answersdata['type'];
         $content = $answersdata['content'];
         $image = $answersdata['image'];
         $question_id = $answersdata['question_id'];
-        $user_id = $answersdata['id'];
-        $user_type = $answersdata['type'];
 
-        $now = new DateTime();
-        $date = $now->format('Y-m-d H:i:s');
+        if (session('user_id') == $user_id &&session('type') == $user_type)
+        {
 
-        if ($user_type == 'student') {
-            $insert = DB::table('answers')->insertGetId(
-                [
-                    'content' => $content,
-                    'image' => $image,
-                    'student_id' => $user_id,
-                    'time' => $date,
-                    'question_id' => $question_id,
-                ]
-            );
+            $now = new DateTime();
+            $date = $now->format('Y-m-d H:i:s');
 
-        } else {
-            $insert = DB::table('answers')->insertGetId(
-                [
-                    'content' => $content,
-                    'image' => $image,
-                    'instructor_id' => $user_id,
-                    'time' => $date,
-                    'question_id' => $question_id,
-                ]
-            );
+            if ($user_type == 'student') {
+                $insert = DB::table('answers')->insertGetId(
+                    [
+                        'content' => $content,
+                        'image' => $image,
+                        'student_id' => $user_id,
+                        'time' => $date,
+                        'question_id' => $question_id,
+                    ]
+                );
+
+            } else {
+                $insert = DB::table('answers')->insertGetId(
+                    [
+                        'content' => $content,
+                        'image' => $image,
+                        'instructor_id' => $user_id,
+                        'time' => $date,
+                        'question_id' => $question_id,
+                    ]
+                );
+
+            }
+
+            //*********** take data from anguler reqest => laravel => to me ***************
+
+            if ($insert > 0) {
+                return "true";
+
+            } else {
+                return "false";
+            }
 
         }
-
-        //*********** take data from anguler reqest => laravel => to me ***************
-
-        if ($insert > 0) {
-            return "true";
-
-        } else {
-            return "false";
-        }
-
 
     }
 
     public function edit_answer(Request $request)
     {
         $answersdata=$request->input('answer');
+        $user_id = $answersdata['id'];
+        $user_type = $answersdata['type'];
         $answer_id=$answersdata['id'];
         $content=$answersdata['content'];
         $image=$answersdata['image'];
@@ -115,25 +133,32 @@ class AnswerController extends Controller
 //        $content="opaa allaaa";
 //        $image='p5';
 
-        $now = new DateTime();
-        $date=$now->format('Y-m-d H:i:s');
+        if (session('user_id') == $user_id &&session('type') == $user_type)
+        {
+            $now = new DateTime();
+            $date=$now->format('Y-m-d H:i:s');
 
 
             $update= DB::table('answers')
                 ->where('id', $answer_id)
                 ->update(
-                [
-                    'content' => $content,
-                    'image'=>$image,
-                    'time'=>$date,
-                ]
-            );
-        if ($update > 0) {
-            return "true";
+                    [
+                        'content' => $content,
+                        'image'=>$image,
+                        'time'=>$date,
+                    ]
+                );
+            if ($update > 0) {
+                return "true";
 
-        } else {
-            return "false";
+            } else {
+                return "false";
+            }
+
         }
+
+
+
 
     }
 

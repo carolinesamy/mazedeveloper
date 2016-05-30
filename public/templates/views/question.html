@@ -4,15 +4,27 @@
 <div class="container" >
 <div class="row">	
 	<div class="thumbnail" >
-		<div class="row">
-			<div class="col-sm-9">
-				<h3>{{question.title}}</h3>
-			</div>
-			<div class="col-sm-3">
-				<button class="btn btn-default" ng-click="editQuestion()">edit question</button>
-			</div>
+
+	<div class="row">
+		<div class="col-sm-11">
+			<h3>{{question.question_title}}</h3>
 		</div>
-		<h4>{{question.content}}</h4>
+		<div class="col-sm-1">
+			<h1 ng-if='question.solved == 1' class="text-success"><span class="glyphicon glyphicon-ok"></span></h1>							
+		</div>
+	</div>
+	<div class='row'>
+		<div class="col-sm-12">
+			<p>{{question.question_content}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9"></div>
+		<div class="col-sm-3">
+			<h5>{{question.question_time}}<br/> by: {{question.student_name}}<br/>Points:{{question.student_points}}</h5>
+		</div>
+	</div>
+
 		<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-10">
@@ -55,32 +67,37 @@
 		<div class="thumbnail" ng-repeat='answer in answers track by $index'>
 			<div class="caption">
 				<div class="row">
-					<div class="col-md-10">
-						<h4>By: {{answer.user_name}}</h4>
+					<div class="col-md-9">
+						<h4>By: {{answer.student_name}}</h4>
+					</div>
+
+					<div class="col-md-2">
+						<h6>{{answer.answer_time}}</h6>
+
 					</div>
 					<div class="col-md-1">
-						<h6>{{answer.time}}</h6>
-					</div>
-					<div class="col-md-1">
-						<button class="btn btn-default" ng-click="editAnswer(answer.id)">edit answer</button>
+						<button class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 					</div>
 				</div>
-				<h5>{{answer.content}}</h5>
+
+				<h5>{{answer.answer_content}}</h5>
+
 
 				<div class="row">
 					<div class="col-sm-2">
-						<h3><a class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.id)">{{answer.like}}</a> <a class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.id)">{{answer.dislike}}</a></h3>
+						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{answer.likes}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{answer.dislikes}}</a></h3>
+
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
 						<div class="radio">
-					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.id,$index)'></label>
+					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.answer_id,$index)'>Accept</label>
 					    </div>
 					</div>
 
 					<div class="col-sm-1" ng-if='question.solved == 1'>
 						<div class="radio">
-					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.id,$index)' checked='true'></label>
+					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.answer_id,$index)' checked='true'></label>
 
 
 					    </div>
@@ -108,7 +125,7 @@
 						<div class="form-horizontal row">
 								<div class="form-group">
 								    <div class="col-sm-2">
-								    	<button class="btn btn-default" ng-click="addReply(answer.id,my_reply)">Add Reply</button>
+								    	<button class="btn btn-default" ng-click="addReply(answer.answer_id,my_reply)">Add Reply</button>
 								    </div>
 								    <div class="col-sm-9">
 								      <input type="text" class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply">
@@ -123,6 +140,9 @@
 		</div>
 	</div>
 </div>
+
+
+
 
 <form class="form-horizontal thumbnail" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid)">
 
@@ -153,7 +173,108 @@
 
 
 
-
-
 <!--Footer-->
 <div ng-include = "'templates/views/footer.html'"></div>
+
+
+   <!-- edit question Modal -->
+<div class="modal fade " id="askModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- edit question Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Your Question:</h4>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-horizontal" name="EditForm1" novalidate ng-submit="submitted=true;editQuestion(EditForm1.$valid)">
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Question Title</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  ng-model='question.edittitle' readonly name="title" required>
+                <p ng-if="EditForm1.title.$error.required&&submitted" class="text-danger" >Question's Title is required..</p>
+              </div>              
+
+            </div>
+            
+            <div class="form-group">
+              <label for="content" class="col-sm-2 control-label">Question Content</label>
+              <div class="col-sm-10">
+
+                <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm1.content.$error.required&&submitted" class="text-danger" >Question's Content is required..</p>
+              </div>
+              
+
+            </div>           
+
+            <div class="form-group">
+              <label for="course"  class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in tags" multiple></select>
+
+              </div>
+            </div>
+
+
+          
+              <div class="modal-footer">
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+              </div>
+        </form>
+          
+
+        </div>
+      </div>
+      
+    </div>
+  </div><!--end of modal -->
+
+
+   <!-- edit answer Modal -->
+<div class="modal fade " id="askModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- edit answer Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Your Answer:</h4>
+        </div>
+        <div class="modal-body">
+
+			<form class="form-horizontal thumbnail" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
+
+
+            <div class="form-group">
+              <label for="course"  class="col-sm-2 control-label">Select Image</label>
+		        <div class="col-sm-10">
+					<input type="file" class="form-control" file-model='answer.editimage_path' name="image_path">	        
+		        </div>
+            </div>
+
+            <div class="form-group">
+              <label for="course"  class="col-sm-2 control-label">Answer Content</label>
+              <trix-editor style='height: 300px;' angular-trix ng-model='answer.editcontent' name='answer_content' required></trix-editor>
+        		<p ng-if="EditForm2.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
+            </div>
+
+
+          
+              <div class="modal-footer">
+                  <button class="btn btn-danger">Edit</button>
+				  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+              </div>
+        </form>
+          
+
+        </div>
+      </div>
+      
+    </div>
+  </div><!--end of modal -->

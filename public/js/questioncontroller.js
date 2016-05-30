@@ -22,7 +22,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 
-			console.log(res.answer);
+			console.log(res);
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answer;

@@ -143,6 +143,7 @@ class QuestionController extends Controller
                 ->get();
         /** answers with the data of the person who asks **/
 
+
         $instructoranswerdata =DB::table('questions')
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')

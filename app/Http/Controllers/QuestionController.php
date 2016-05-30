@@ -25,6 +25,8 @@ class QuestionController extends Controller
         $tag_id=$request->input('tag_id');
         $course_id=$request->input('course_id');
 
+        
+
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
             $now = new DateTime();

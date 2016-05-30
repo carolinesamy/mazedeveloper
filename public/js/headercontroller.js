@@ -10,7 +10,6 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'tags':''
     }
 
-
     // $scope.notifications = [
     //   {
     //     'id':1,

@@ -17,7 +17,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 			$rootScope.courses = JSON.parse(res.user['course_data']);
 			$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
-			$rootScope.allquestions = JSON.parse(res.user['latest_all_question']);
+			$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
 
 		}).error(function(err){
 			console.log(err);
@@ -56,7 +56,37 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			$rootScope.questions = $rootScope.questionsWithoutFilter;
 
 		}
-	}
+	};
+
+	$scope.filterAllQuestions = function(status){
+
+		$rootScope.allquestions = $rootScope.allquestionsWithoutFilter;
+
+		questions=[];
+		if(status== 'answered'){
+		
+			angular.forEach( $rootScope.allquestionsWithoutFilter, function(value , key){
+				if(value['answer_number'] > 0){
+					questions.push(value) ; 
+				}
+			} );
+			$rootScope.allquestions = questions;
+
+		}else if(status == 'unanswered'){
+
+			angular.forEach( $rootScope.allquestionsWithoutFilter, function(value , key){
+				if(value['answer_number'] == 0){
+					questions.push(value) ; 
+				}
+			} );
+			$rootScope.allquestions = questions;
+
+		}else if(status == 'all'){
+
+			$rootScope.allquestions = $rootScope.allquestionsWithoutFilter;
+
+		}
+	};
 
 
 

@@ -13,17 +13,16 @@
   		<div class="row">	
   		<div class="col-sm-6"></div>
   			<div class="col-sm-6">	  	
-		    <div class="btn-group" data-toggle="buttons">
-			  <label >
-			    <a href="#/questions" class="btn btn-default"> All Questions</a>
-			  </label>
-			  <label >
-			    <a href="#" class="btn btn-default"> Answered Questions</a>
-			  </label>
-			  <label >
-			    <a href="#" class="btn btn-default"> un-answered Questions</a>
-			  </label>
-
+		    <div>
+				  <label>
+				    <a class="btn btn-default" ng-click='filterAllQuestions("all")'> All Questions</a>
+				  </label>
+				  <label >
+				    <a class="btn btn-default" ng-click='filterAllQuestions("answered")'> Answered Questions</a>
+				  </label>
+				  <label >
+				    <a class="btn btn-default" ng-click='filterAllQuestions("unanswered")'> un-answered Questions</a>
+				  </label>
 			</div>
 			</div>
 	    </div>

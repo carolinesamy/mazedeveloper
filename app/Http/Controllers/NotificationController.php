@@ -18,12 +18,15 @@ class NotificationController extends Controller
         $notification=0;
         $user_id = $request->input('id');
         $user_type = $request->input('type');
-        $notification=0;
 
-        if (session('user_id') == $user_id && session('type') == $user_type) {
+
+        if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null)
+        {
             //->select(DB::raw('count(*) as user_count, status'))
 
-            if ($user_type == 'student') {
+            if ($user_type == 'student')
+            {
+
 
                 $last_hit= Student::select('last_hit')->where('id',$user_id)->first();
 
@@ -40,6 +43,7 @@ class NotificationController extends Controller
             }
             else {
 
+
                 $last_hit = Instructor::select('last_hit')->where('id', $user_id)->first();
 
 
@@ -47,7 +51,7 @@ class NotificationController extends Controller
                     ->join('instructor_notifications', 'notifications.id', '=', 'instructor_notifications.notification_id')
                     ->where([
                         ['instructor_notifications.instructor_id', '=', $user_id],
-                        ['notifications.time', '>', $last_hit->last_hit],
+                        ['notifications.time', '>', $last_hit->last_hit]
                     ])
                     ->select(DB::raw('count(*) as count'))
                     ->get();

@@ -13,8 +13,9 @@ class TagController extends Controller
     //
     public function get_tag(Request $request)
     {
-        $user_id=$request->input('user');
+        $user_id=$request->input('id');
         $user_type=$request->input('type');
+
         if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null)
         {
             $tags = DB::table('tags')->get();

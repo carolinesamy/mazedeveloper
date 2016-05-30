@@ -147,6 +147,10 @@ class QuestionController extends Controller
                 ->where('questions.id', '=', $question_id)
                 ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.likes','answers.dislikes','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
+        $ids=[];
+        $likes=[];
+        $comments=[];
+        $replies=[];
 
         foreach($answerdata as $data)
         {

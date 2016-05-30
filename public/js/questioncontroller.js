@@ -41,80 +41,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	
 
 
-	// //logged-in user
-	// $scope.user = {
- //      email: '',
- //      password: '',
- //      notifications :0
- //    };
-
-    
-
-	// //details of this question
-	// $scope.question =
-	// 	{
-	// 	'id':1,
-	// 	'title':"HTML tags doesn't work",
-	// 	'content':"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'answers':20,
-	// 	'solved':0
-	// 	};
-	// //questions' answers
-	// $scope.answers = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'11/01/2016 17:40:66',
-	// 	'image':'',
-	// 	'like': 5,
-	// 	'dislike': 1,
-	// 	'accepted':0,
-	// 	'user_name':'Aya',
-	// 	'user_image':''
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'image':'',
-	// 	'like': 12,
-	// 	'dislike': 3,
-	// 	'accepted':0,
-	// 	'user_name':'Merna',
-	// 	'user_image':''
-	// 	}
-	// ];
-
-	// $scope.replies = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'christina',
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"ames ac turpis egestas. Vestibulum ",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'caroline',
-	// 	}
-	// ];
-
-	// $scope.comments = [
-	// 	{
-	// 	'id':1,
-	// 	'content':"senectus et netus et malesuada fames ac turpis egestas.",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'christina',
-	// 	},
-	// 	{
-	// 	'id':2,
-	// 	'content':"ames ac turpis egestas. Vestibulum ",
-	// 	'time':'07/04/2016 03:13:04',
-	// 	'user_name':'caroline',
-	// 	}
-	// ];
-
 	$scope.acceptAnswer = function(answer_id,index){
 
 		//this block of code will be in http request success function
@@ -168,13 +94,13 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 
 	$scope.addAnswer=function(valid){
-		console.log($scope.image_path);
+		console.log($scope.image_path.name);
 
 		if(valid) {
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path,
+					'image': $scope.image_path.name,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -183,7 +109,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path,
+					'image': $scope.image_path.name,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
@@ -198,6 +124,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
+				
 			}).error(function (err) {
 				console.log(err);
 			});
@@ -211,7 +138,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			if (sessionService.get('type') == 'student') {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path,
+					'image': $scope.image_path.name,
 					'question_id': $rootScope.question_id,
 					'answer_id':answer_id,
 					'id': sessionService.get('user'),
@@ -221,7 +148,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					'image': $scope.image_path,
+					'image': $scope.image_path.name,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
@@ -269,6 +196,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function (res) {
 			console.log(res);
+			$scope.comment = '';
 			
 
 		}).error(function (err) {
@@ -330,6 +258,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			reply = '';
 
 		}).error(function(err){
 			console.log(err);

@@ -17,7 +17,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			$rootScope.courses = JSON.parse(res.user['course_data']);
 			$rootScope.questions = JSON.parse(res.user['latest_follow_question']);
 			$rootScope.allquestions = JSON.parse(res.user['latest_all_question']);
-			$rootScope.numOfnotification = res.user['notification_num'];
+			//$rootScope.numOfnotification = res.user['notification_num'];
 
 		}).error(function(err){
 			console.log(err);

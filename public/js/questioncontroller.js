@@ -1,17 +1,17 @@
 angular.module('developerMaze').controller('questionCtl',function( $scope ,sessionService ,$rootScope ,$http, server,$routeParams){
 
-		$scope.editorOptions = {
-        lineWrapping : true,
-        lineNumbers: true,
-        mode: 'xml',
-   		};
-   		$rootScope.answers ='';
+	// //code mirror code
+	// $scope.editorOptions = {
+ //        lineWrapping : true,
+ //        lineNumbers: true,
+ //        mode: 'xml',
+ //   		};
+   	$rootScope.answers ='';
 
-	//console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
 	$rootScope.user_id = sessionService.get('user');
 
-	/*** get question data **/
+	//***************get question data function*************************
 
 	$scope.get_question_data=function(){
 		$http({
@@ -40,10 +40,11 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	};
 	$scope.get_question_data();
 
-	
+	//****************************************************************
 
 	
 
+	//*******************accept answer function***************
 
 	$scope.acceptAnswer = function(answer_id,index){
 
@@ -71,6 +72,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+	//******************* UN-accept answer function***************
+
 	$scope.unacceptAnswer = function(answer_id,index){
 
 		//this block of code will be in http request success function
@@ -96,6 +99,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+	//*******************Add answer function***************
 
 	$scope.addAnswer=function(valid){
 
@@ -139,6 +143,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		
 	};
 
+	//*******************Edit answer function***************
+
 	$scope.editAnswer=function(answer_id){
 		//console.log($scope.image_path);
 
@@ -176,6 +182,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+	//*******************add Comment function***************
+
 	$scope.addComment=function(){
 
 		if (sessionService.get('type') == 'student') {
@@ -212,6 +220,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+	//*******************Edit Question function***************
+
 	$scope.editQuestion = function(valid){
 		console.log($scope.selected_tags);
 		if(valid){
@@ -244,6 +254,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		}
 	};
 
+	//*******************Add Reply function***************
+
 	$scope.addReply=function(answer_id,reply){
 		//data={
 		//	'content': reply,
@@ -273,6 +285,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		});
 	};
 
+	//*******************Like function***************
 
 	$scope.like=function(answer_id){
 		// data={
@@ -296,6 +309,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			console.log(err);
 		});
 	};
+
+	//*******************Dislike function***************
 
 	$scope.dislike=function(answer_id){
 
@@ -332,6 +347,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			console.log(err);
 		});
 	};
+
+	//*******************Remove Dislike function***************
 
 	$scope.removeDislike=function(answer_id){
 

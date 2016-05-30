@@ -1,6 +1,7 @@
 
 angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
 
+//*************************Request Data*******************************
 
 	$scope.requestData=function(){
 
@@ -26,8 +27,11 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 	
 	$scope.requestData();
 
-	 
+//*************************************************************
 
+	 
+	//*************filter user's questions to (answerd,unanswered,all)***************
+	
 	$scope.filterQuestions = function(status){
 
 		$rootScope.questions = $rootScope.questionsWithoutFilter;
@@ -57,6 +61,8 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 		}
 	};
+
+	//*************filter ALL questions to (answerd,unanswered,all)***************
 
 	$scope.filterAllQuestions = function(status){
 

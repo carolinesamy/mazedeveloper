@@ -10,25 +10,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'tags':''
     }
 
-    // $scope.notifications = [
-    //   {
-    //     'id':1,
-    //     'user':'aya',
-    //     'content':'answered your question'
-    //   },
-    //   {
-    //     'id':2,
-    //     'user':'caroline',
-    //     'content':'replied to your answer'
-    //   },
-    //   {
-    //     'id':4,
-    //     'user':'merna',
-    //     'content':'accept your answer'
-    //   },
-    // ];
-
-
+    
+//****************************login function*********************************
 
     $scope.sendData = function(valid){
 
@@ -70,6 +53,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       }
     };
 
+    //**************************logout function********************
+
     $scope.logout = function(){
 
         sessionService.destroy('user');
@@ -80,6 +65,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     };
 
+    //**************************Ask Question function********************
 
     $scope.askQuestion = function(valid){
         console.log($scope.question);
@@ -108,6 +94,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         }
     };
 
+    //**************************get Tags and Courses for Ask modal********************
+
     $scope.requestAsk=function(){
         if($scope.question.title){
             $http({
@@ -118,6 +106,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                'type':sessionService.get('type')
            }
         }).success(function(res){
+
             console.log(res.tags_id);
             $scope.tags= res.tags_id;
             $rootScope.courses = JSON.parse(res.course_data);
@@ -128,6 +117,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         }
         
     }
+
+    //************************** Search function********************
 
     $scope.autoComplete=function(title){
         console.log($scope.question.title);
@@ -143,6 +134,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             console.log(err);
         });
     };
+
+    //**************************get number of notification AUTO********************
 
     $scope.getNOtifications=function(){
         $http({
@@ -160,6 +153,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             console.log(err);
         });
     };
+    
     $scope.getNOtifications();
 
 });

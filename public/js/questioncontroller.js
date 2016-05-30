@@ -8,6 +8,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	 console.log($routeParams.id);
 	$rootScope.question_id=$routeParams.id;
+	$rootScope.user_id = sessionService.get('user');
 
 	/*** get question data **/
 
@@ -22,21 +23,25 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 
-			console.log(res.answer);
+			console.log(res);
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answer;
+			$rootScope.comments = res.comments;
+			$rootScope.replies = res.replies[0];
+
+
 
 		}).error(function(err){
 			console.log(err);
 		});
-	}
+	};
 	$scope.get_question_data();
 
 	
 
 
-	//logged-in user
+	// //logged-in user
 	// $scope.user = {
  //      email: '',
  //      password: '',
@@ -45,8 +50,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
     
 
-	// //details of this question 
-	// $scope.question = 
+	// //details of this question
+	// $scope.question =
 	// 	{
 	// 	'id':1,
 	// 	'title':"HTML tags doesn't work",
@@ -118,8 +123,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			method: 'POST',
 			url: 'http://localhost:8000/accept',
 			data: {
-				'id':1
-				//'id':answer_id
+				//'id':1
+
+				'id':answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+
 
 			}
 		}).success(function(res){
@@ -140,8 +149,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			method:'POST',
 			url: 'http://localhost:8000/unaccept',
 			data: {
-				'id':1
-				//'id':answer_id
+				//'id':1
+				'id':answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+
+
 			}
 		}).success(function(res){
 			console.log(res);
@@ -247,18 +260,20 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'type': 'instructor'
 			};
 		}
-		console.log(arr);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/questioncomment',
-		//	data: {
-		//		comment: arr
-		//	}
-		//}).success(function (res) {
-		//	console.log(res);
-		//}).error(function (err) {
-		//	console.log(err);
-		//});
+		//console.log(arr);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/questioncomment',
+			data: {
+				comment: arr
+			}
+		}).success(function (res) {
+			console.log(res);
+			
+
+		}).error(function (err) {
+			console.log(err);
+		});
 
 	};
 
@@ -295,54 +310,54 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	};
 
 	$scope.addReply=function(answer_id,reply){
-		data={
-			'content': reply,
-			'answer_id': answer_id,
-			'user_id': sessionService.get('user'),
-			'type': sessionService.get('type')
-		};
-		console.log(data);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/answerreply',
-		//	data: {
-		//		'reply': {
-		//			'content': reply,
-		//			'answer_id': answer_id,
-		//			'user_id': sessionService.get('user'),
-		//			'type': sessionService.get('type')
-		//		}
-		//	}
-		//}).success(function(res){
-		//	console.log(res);
-        //
-		//}).error(function(err){
-		//	console.log(err);
-		//});
+		//data={
+		//	'content': reply,
+		//	'answer_id': answer_id,
+		//	'user_id': sessionService.get('user'),
+		//	'type': sessionService.get('type')
+		//};
+		//console.log(data);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/answerreply',
+			data: {
+				'reply': {
+					'content': reply,
+					'answer_id': answer_id,
+					'user_id': sessionService.get('user'),
+					'type': sessionService.get('type')
+				}
+			}
+		}).success(function(res){
+			console.log(res);
+
+		}).error(function(err){
+			console.log(err);
+		});
 	};
 
 
 	$scope.like=function(answer_id){
-		data={
-			'answer_id': answer_id,
-				'user_id': sessionService.get('user'),
-				'type': sessionService.get('type')
-		};
-		console.log(data);
-		//$http({
-		//	method: 'POST',
-		//	url: 'http://localhost:8000/likeaction',
-		//	data: {
-		//			'answer_id': answer_id,
-		//			'user_id': sessionService.get('user'),
-		//			'type': sessionService.get('type')
-		//	}
-		//}).success(function(res){
-		//	console.log(res);
-        //
-		//}).error(function(err){
-		//	console.log(err);
-		//});
+		// data={
+		// 	'answer_id': answer_id,
+		// 		'user_id': sessionService.get('user'),
+		// 		'type': sessionService.get('type')
+		// };
+		// console.log(data);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/likeaction',
+			data: {
+					'answer_id': answer_id,
+					'user_id': sessionService.get('user'),
+					'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+        
+		}).error(function(err){
+			console.log(err);
+		});
 	};
 
 	$scope.dislike=function(answer_id){

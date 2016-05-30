@@ -27,7 +27,6 @@ class StudentController extends Controller
 
             $password=$user['password'];
             $email=$user['email'];
-
             $student= Student::where('email',$email)->first();
 
             if (count($student))
@@ -48,10 +47,13 @@ class StudentController extends Controller
                             'intake_id'=>$student->intake_id,
                         ),
                         'message'=>'login',
-                        'type'=>'student'
+                        'type'=>'student',
                     );
                     session(['user_id'=>$student->id]);
                     session(['type'=>'student']);
+
+
+
 
 
                 }
@@ -80,7 +82,6 @@ class StudentController extends Controller
                                 'email'=>$instructor->email,
                                 'ifull_name'=>$instructor->ifull_name,
                                 'image'=>$instructor->image,
-                                'points'=>$instructor->points,
                             ),
                             'message'=>'login',
                             'type'=>'instructor'
@@ -91,6 +92,7 @@ class StudentController extends Controller
 
 
                     }
+
                     elseif($instructor->password != $password)
                     {
                         $rett=array('message'=>'password');

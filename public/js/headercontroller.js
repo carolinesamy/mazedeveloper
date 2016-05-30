@@ -138,7 +138,21 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         });
     };
 
-
+    $scope.getNOtifications=function(){
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/getnotifications',
+            data: {
+                'id':sessionService.get('user'),
+                'type':sessionService.get('type')
+            }
+        }).success(function(res){
+            console.log(res);
+        }).error(function(err){
+            console.log(err);
+        });
+    };
+    $scope.getNOtifications();
 
 });
 

@@ -28,7 +28,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answer;
 			$rootScope.comments = res.comments;
-			$rootScope.replies = res.replies[0];
+			$rootScope.replies = res.replies;
 
 
 
@@ -124,7 +124,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
-				
 			}).error(function (err) {
 				console.log(err);
 			});
@@ -259,6 +258,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		}).success(function(res){
 			console.log(res);
 			reply = '';
+
 
 		}).error(function(err){
 			console.log(err);

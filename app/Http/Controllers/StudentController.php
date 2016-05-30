@@ -92,6 +92,7 @@ class StudentController extends Controller
 
 
                     }
+
                     elseif($instructor->password != $password)
                     {
                         $rett=array('message'=>'password');

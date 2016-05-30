@@ -262,6 +262,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function (res) {
 			console.log(res);
+			
+
 		}).error(function (err) {
 			console.log(err);
 		});

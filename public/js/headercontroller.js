@@ -114,7 +114,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     };
 
     $scope.requestAsk=function(){
-        $http({
+        if($scope.question.title){
+            $http({
             method: 'GET',
             url: 'http://localhost:8000/gettags',
         }).success(function(res){
@@ -123,6 +124,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
         }).error(function(err){
             console.log(err);
         });
+        }
+        
     }
 
     $scope.autoComplete=function(title){

@@ -80,10 +80,10 @@ class StudentsTableSeeder extends Seeder
         ));
 
         DB::table('questions')->insert(array(
-            array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'0'),
-            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1'),
-            array('title'=>'null pointer exception..','content'=>'you OPPa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1'),
-            array('title'=>'how to install laravel 5.2 ?','content'=>'youuuu opa alalllaaaa','student_id'=>'2','solved'=>'1','course_id'=>'1'),
+            array('title'=>'how to test?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'0','time'=>'2016-05-22 05:22:22'),
+            array('title'=>'how to debug?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
+            array('title'=>'null pointer exception..','content'=>'you OPPa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
+            array('title'=>'how to install laravel 5.2 ?','content'=>'youuuu opa alalllaaaa','student_id'=>'2','solved'=>'1','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
 
 
         ));

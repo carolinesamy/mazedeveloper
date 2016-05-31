@@ -96,7 +96,15 @@ class AnswerController extends Controller
                     ]
                 );
 
+            $return_data=array(
 
+                'answer_content' => $content,
+                'answer_image' => $image,
+                'student_id' => $user_id,
+                'answer_time' => $date,
+                'answer_id'=>$insert,
+                'accepted'=>0
+            );
 
             }
             else
@@ -111,6 +119,17 @@ class AnswerController extends Controller
                     ]
                 );
 
+                $return_data=array(
+
+                    'answer_content' => $content,
+                    'answer_image' => $image,
+                    'instructor_id' => $user_id,
+                    'answer_time' => $date,
+                    'answer_id'=>$insert,
+                    'accepted'=>0
+                );
+
+
 
             }
 
@@ -118,7 +137,7 @@ class AnswerController extends Controller
 
             if ($insert > 0)
             {
-                return "true";
+                return $return_data;
 
             }
             else
@@ -207,18 +226,20 @@ class AnswerController extends Controller
                 else
                 {
                     DB::table('students')
-                        ->where('id', $answered_user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->increment('points',5);
                 }
-                print_r($answered_user_id->student_id) ;
            }
         }
     }
     public function dislike_remove(Request $request)
     {
-        $answer_id=$request->input('id');
-        $user_type=$request->input('type');
-        $user_id=$request->input('user_id');
+//        $answer_id=$request->input('id');
+//        $user_type=$request->input('type');
+//        $user_id=$request->input('user_id');
+        $answer_id=1;
+        $user_type="student";
+        $user_id=1;
         if (session('user_id') == $user_id &&session('type') == $user_type) {
             //select user who write thid answer
             //insert new row for new like
@@ -236,27 +257,29 @@ class AnswerController extends Controller
 
                 if ($user_type == 'student') {
                     DB::table('students')
-                        ->where('id', $answered_user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->increment('points');
                 } //if like from instructor
                 else {
                     DB::table('students')
-                        ->where('id', $answered_user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->increment('points', 5);
                 }
             }
             //**increment student points in 2 case if student or instructor
-            print_r($user_id->student_id);
         }
     }
     public function like_remove(Request $request)
     {
-        $answer_id=$request->input('id');
-        $user_type=$request->input('type');
-        $user_id=$request->input('user_id');
+        $answer_id=1;
+        $user_type="student";
+        $user_id=1;
+
+//        $answer_id=$request->input('id');
+//        $user_type=$request->input('type');
+//        $user_id=$request->input('user_id');
         if (session('user_id') == $user_id &&session('type') == $user_type) {
-            //select user who write thid answer
-            //insert new row for new like
+
             DB::table('likes')
                 ->where([
                     ['answer_id','=',$answer_id ],
@@ -267,18 +290,18 @@ class AnswerController extends Controller
             if ($instructor_id->instructor_id == null)
             {
                 $answered_user_id = Answer::select('student_id')->where('id', $answer_id)->first();
+
                 if ($user_type == 'student') {
                     DB::table('students')
-                        ->where('id', $answered_user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->decrement('points');
                 } //if like from instructor
                 else {
                     DB::table('students')
-                        ->where('id', $answered_user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->decrement('points', 5);
                 }
             }
-            print_r($user_id->student_id);
         }
     }
 
@@ -287,8 +310,8 @@ class AnswerController extends Controller
 //        $answer_id=$request->input('id');
 //        $user_type=$request->input('type');
 //        $user_id=$request->input('user_id');
-        $answer_id=2;
-        $user_type="instructor";
+        $answer_id=1;
+        $user_type="student";
         $user_id=1;
         //select user who write thid answer
         if (session('user_id') == $user_id &&session('type') == $user_type)
@@ -309,13 +332,13 @@ class AnswerController extends Controller
                 if ($user_type == 'student')
                 {
                     DB::table('students')
-                        ->where('id', $user_id)
+                        ->where('id', $answered_user_id->student_id)
                         ->decrement('points');
                 }
                 else
                 {
                     DB::table('students')
-                        ->where('id', $user_id)
+                        ->where('id',  $answered_user_id->student_id)
                         ->decrement('points',5);
                 }
             }

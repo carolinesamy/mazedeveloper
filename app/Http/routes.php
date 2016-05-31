@@ -54,11 +54,11 @@ Route::post('/editquestion','QuestionController@edit_question');
 
 Route::post('/editanswer','AnswerController@edit_answer');
 
-Route::post('/likeaction','AnswerController@like_action');
+Route::get('/likeaction','AnswerController@like_action');
 
-Route::post('/dislikeaction','AnswerController@dislike_action');
-Route::post('/removelike','AnswerController@like_remove');
-Route::post('/removedislike','AnswerController@dislike_remove');
+Route::get('/dislikeaction','AnswerController@dislike_action');
+Route::get('/removelike','AnswerController@like_remove');
+Route::get('/removedislike','AnswerController@dislike_remove');
 
 
 

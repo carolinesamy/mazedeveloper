@@ -157,12 +157,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	//*******************Edit answer function***************
 
 	$scope.editAnswer=function(answer_id){
-		//console.log($scope.image_path);
+		
 
 			if (sessionService.get('type') == 'student') {
 				arr = {
-					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
+					'content': $scope.editanswer_content,
+					'image': '',
 					'answer_id':answer_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -186,6 +186,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
+                $('#editAnswerModal').modal('hide');
+
 			}).error(function (err) {
 				console.log(err);
 			});
@@ -256,7 +258,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 					'type':sessionService.get('type')
 				}
 			}).success(function(res){
-				$('#askModal').modal('hide');
+                $('#editQuestionModal').modal('hide');
 				console.log(res);
 
 			}).error(function(err){

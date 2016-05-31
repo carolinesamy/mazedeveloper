@@ -89,7 +89,8 @@
 
 					</div>
 					<div class="col-md-1">
-						<button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+
+						<button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn btn-default" ng-click="editAnswerData(answer)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 					</div>
 				</div>
 
@@ -254,7 +255,8 @@
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
-                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple></select>
+                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
+
 
               </div>
             </div>
@@ -276,7 +278,7 @@
 
 
    <!-- edit answer Modal -->
-<div class="modal fade " id="askModal" role="dialog">
+<div class="modal fade " id="editAnswerModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- edit answer Modal content-->
@@ -287,27 +289,24 @@
         </div>
         <div class="modal-body">
 
-			<form class="form-horizontal thumbnail" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
+          <form class="form-horizontal" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
 
-
+            
             <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Select Image</label>
-		        <div class="col-sm-10">
-					<input type="file" class="form-control" file-model='answer.editimage_path' name="image_path">	        
-		        </div>
-            </div>
+              <label for="content" class="col-sm-2 control-label">Answer Content</label>
+              <div class="col-sm-10">
 
-            <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Answer Content</label>
-              <trix-editor style='height: 300px;' angular-trix ng-model='answer.editcontent' name='answer_content' required></trix-editor>
-        		<p ng-if="EditForm2.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
-            </div>
+                <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm2.content.$error.required&&submitted" class="text-danger" >Answer's Content is required..</p>
+              </div>
+              
 
-
+            </div>          
           
               <div class="modal-footer">
-                  <button class="btn btn-danger">Edit</button>
-				  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           

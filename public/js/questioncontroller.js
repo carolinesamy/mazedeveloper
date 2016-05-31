@@ -192,6 +192,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
+	$scope.editAnswerData = function(answer){
+
+		$scope.editanswer_content = answer.answer_content;
+
+	}
+
 	//*******************add Comment function***************
 
 	$scope.addComment=function(){

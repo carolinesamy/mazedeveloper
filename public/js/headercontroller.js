@@ -9,7 +9,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'course':'',
       'tags':''
     }
-
+    $scope.titleError ='';
+   
     
 //****************************login function*********************************
 
@@ -68,7 +69,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //**************************Ask Question function********************
 
     $scope.askQuestion = function(valid){
-        console.log($scope.question);
+        
         if(valid){
             $http({
                 method: 'POST',
@@ -87,9 +88,9 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-
                 console.log(res);
                 $scope.question = '';
+                $scope.titleError ='';
 
             }).error(function(err){
                 console.log(err);
@@ -101,7 +102,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //**************************get Tags and Courses for Ask modal********************
 
     $scope.requestAsk=function(valid){
-        if(valid){
+
+        if($scope.question.title){
             $http({
             method: 'POST',
             url: 'http://localhost:8000/gettags',
@@ -114,10 +116,17 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             console.log(res.tags_id);
             $scope.tags= res.tags_id;
             $rootScope.courses = JSON.parse(res.course_data);
+            $scope.titleError ='';
+
 
         }).error(function(err){
             console.log(err);
         });
+        
+        }else{
+
+             $scope.titleError = "Please,Enter Title to Your Question.."
+
         }
         
     }

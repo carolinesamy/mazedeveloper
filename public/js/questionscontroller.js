@@ -15,11 +15,13 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		}).success(function(res){
 
 			console.log(res);
+			if(res){
+				$rootScope.courses = JSON.parse(res.user['course_data']);
+				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
+				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
 
-			$rootScope.courses = JSON.parse(res.user['course_data']);
-			$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
-			$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
-
+			}
+			
 		}).error(function(err){
 			console.log(err);
 		});
@@ -27,7 +29,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 	
 	$scope.requestData();
 
-//*************************************************************
+	//*************************************************************
 
 	 
 	//*************filter user's questions to (answerd,unanswered,all)***************

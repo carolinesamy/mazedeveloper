@@ -96,8 +96,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     //**************************get Tags and Courses for Ask modal********************
 
-    $scope.requestAsk=function(){
-        if($scope.question.title){
+    $scope.requestAsk=function(valid){
+        if(valid){
             $http({
             method: 'POST',
             url: 'http://localhost:8000/gettags',

@@ -8,6 +8,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Question;
+use App\Course;
 use DateTime;
 class QuestionController extends Controller
 {
@@ -52,10 +53,21 @@ class QuestionController extends Controller
                 );
 
             }
+            $course_name=Course::select('course_name')->where('id',$course_id)->first();
+
+            $return_data=array(
+                'title' => $title,
+                'content' => $content,
+                'answer_number'=>0,
+                'id'=>$insert,
+                'solved'=>0,
+                'course_name'=>$course_name->course_name
+
+            );
 
             if ($insert > 0 )
             {
-                return "true";
+                return $return_data;
 
             }
             else
@@ -133,6 +145,7 @@ class QuestionController extends Controller
         $user_id=$request->input('user_id');
         $type=$request->input('type');
         $questions = DB::table('questions')->get();
+
 
         /** question with user data ***/
         $questiondata = DB::table('questions')
@@ -282,7 +295,13 @@ class QuestionController extends Controller
 
         $replies=array_merge($instreplies,$streplies);
 
+        $tags=DB::table('tags')
+            ->join('question_tags','tags.id','=','tag_id')
+            ->where('question_tags.question_id','=',$question_id)
+            ->select('tags.tag_name','tags.id')->get();
+
         $response =array(
+            'tags'=>$tags,
             'question'=>$questiondata,
             'answers'=>$answers,
 //            'answers'=>array(

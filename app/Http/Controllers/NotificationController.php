@@ -70,10 +70,10 @@ class NotificationController extends Controller
     {
 
         $notification =0;
-//        $user_id = $request->input('id');
-//        $user_type = $request->input('type');
-        $user_id=1;
-        $user_type="student";
+        $user_id = $request->input('id');
+        $user_type = $request->input('type');
+//        $user_id=1;
+//        $user_type="student";
 
         if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null )
         {

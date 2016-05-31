@@ -10,6 +10,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'tags':''
     }
     $scope.titleError ='';
+    $rootScope.user_id = sessionService.get('user');
+    $rootScope.user_type = sessionService.get('type');
    
     
 //****************************login function*********************************
@@ -169,5 +171,24 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     
     $scope.getNOtifications();
 
+    //************************** get notification list ****************************
+    $scope.getNotificationList=function(){
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/getnotificationsdata',
+            data: {
+                'id':sessionService.get('user'),
+                'type':sessionService.get('type')
+            }
+        }).success(function(res){
+            console.log(res);
+
+        }).error(function(err){
+            console.log(err);
+        });
+    };
+
 });
+
+
 

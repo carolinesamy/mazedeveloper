@@ -7,9 +7,15 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
  //        mode: 'xml',
  //   		};
    	$rootScope.answers ='';
+   	$rootScope.replies = '';
+   	$rootScope.comments = '';
+   	$rootScope.likes = '';
+   	$rootScope.dislikes = '';
+
 
 	$rootScope.question_id=$routeParams.id;
-	$rootScope.user_id = sessionService.get('user');
+	
+
 
 	//***************get question data function*************************
 
@@ -30,10 +36,10 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			$rootScope.answers = res.answers;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
-			$rootScope.likescount = res.likescount;
-			$rootScope.dislikescount = res.dislikescount;
-
-
+			$rootScope.tags = res.tags;
+			$rootScope.likes = res.likescount;
+			$rootScope.dislikes = res.dislikecount;
+			$rootScope.likesCondition = res.likes;
 			
 
 		}).error(function(err){
@@ -138,6 +144,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}).success(function (res) {
 				console.log(res);
 				$rootScope.answers.push(res);
+				$rootScope.replies[$rootScope.answers.length-1] =[];
+				$scope.answer_content='';
+
 			}).error(function (err) {
 				console.log(err);
 			});
@@ -154,7 +163,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				arr = {
 					'content': $scope.answer_content,
 					'image': $scope.image_path.name,
-					'question_id': $rootScope.question_id,
 					'answer_id':answer_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -170,17 +178,17 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				};
 			}
 			console.log(arr);
-			//$http({
-			//	method: 'POST',
-			//	url: 'http://localhost:8000/editanswer',
-			//	data: {
-			//		answer: arr
-			//	}
-			//}).success(function (res) {
-			//	console.log(res);
-			//}).error(function (err) {
-			//	console.log(err);
-			//});
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/editanswer',
+				data: {
+					answer: arr
+				}
+			}).success(function (res) {
+				console.log(res);
+			}).error(function (err) {
+				console.log(err);
+			});
 
 	};
 
@@ -232,14 +240,14 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				method: 'POST',
 				url: 'http://localhost:8000/editquestion',
 				data: {
-					'title':$scope.question.title,
-					'content':$scope.question.content,
+					'title':$scope.question.edittitle,
+					'content':$scope.question.editcontent,
 					'image':'',
-					//'course_id':$scope.question.course,
-					//'tag_id':$scope.question.tag,
-					'course_id':1,
-					'tag_id':[2,1],
-					'student_id':sessionService.get('user')
+					//'course_id':1,
+					'question_id': $rootScope.question_id,
+					'tag_id':$scope.question.edittags,
+					'student_id':sessionService.get('user'),
+					'type':sessionService.get('type')
 				}
 			}).success(function(res){
 				$('#askModal').modal('hide');
@@ -257,16 +265,35 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		}
 	};
 
+	$scope.editQuestionData = function(){
+
+		$http({
+            method: 'POST',
+            url: 'http://localhost:8000/gettags',
+           data:{
+               'id':sessionService.get('user'),
+               'type':sessionService.get('type')
+           }
+        }).success(function(res){
+
+            $scope.edittags= res.tags_id;
+            $scope.question.edittitle = $rootScope.question.question_title;
+            $scope.question.editcontent = $rootScope.question.question_content;
+            $scope.question.edittags = $rootScope.tags;
+            console.log($scope.question.edittags);
+
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+
+	}
+
 	//*******************Add Reply function***************
 
 	$scope.addReply=function(answer_id,reply,index){
-		//data={
-		//	'content': reply,
-		//	'answer_id': answer_id,
-		//	'user_id': sessionService.get('user'),
-		//	'type': sessionService.get('type')
-		//};
-		//console.log(data);
+		
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/answerreply',
@@ -279,7 +306,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}
 		}).success(function(res){
-			console.log(res);
+
+			console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
 			$rootScope.replies[index].push(res);
 
 

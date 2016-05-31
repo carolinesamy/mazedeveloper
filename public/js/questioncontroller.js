@@ -30,6 +30,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			$rootScope.answers = res.answers;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
+			$rootScope.likescount = res.likescount;
+			$rootScope.dislikescount = res.dislikescount;
+
 
 			
 

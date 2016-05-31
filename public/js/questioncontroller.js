@@ -24,16 +24,16 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 
-			console.log(res);
+			console.log(res.likes);
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answers;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
-			$rootScope.likescount = res.likescount;
-			$rootScope.dislikescount = res.dislikescount;
-
-
+			$rootScope.tags = res.tags;
+			$rootScope.likes = res.likescount;
+			$rootScope.dislikes = res.dislikecount;
+			$rootScope.likesCondition = res.likes;
 			
 
 		}).error(function(err){

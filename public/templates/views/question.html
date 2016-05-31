@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-sm-10">
 			<h3>{{question.question_title}}</h3>
+			Tags: <b ng-repeat='tag in tags'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b>
 		</div>
 
 		<div class="col-sm-1">
@@ -100,7 +101,7 @@
 
 				<div class="row">
 					<div class="col-sm-2">
-						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{answer.likes}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{answer.dislikes}}</a></h3>
+						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{likes[$index]}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a></h3>
 
 					</div>
 					<div class="col-sm-9"></div>

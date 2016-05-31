@@ -162,6 +162,7 @@ class QuestionController extends Controller
         $instreplies=[];
         $streplies=[];
 
+
         foreach($instructoranswerdata as $data)
         {
             $instids[]=$data->answer_id;
@@ -188,7 +189,13 @@ class QuestionController extends Controller
                 ->where('likes.answer_id', '=', $ans_id)
                 ->select('likes.id as user_id','likes.type as user_type','likes.answer_id','likes.like')
                 ->get();
-        }
+        };
+
+        $likes = array_merge($instlikes,$stlikes);
+//        foreach($stlikes as $mystlike) {
+//            $instlikes->add($mystlike);
+//        }
+
 
         $comments=DB::table('comments')
             ->where('comments.question_id','=',$question_id)
@@ -198,6 +205,7 @@ class QuestionController extends Controller
         foreach($instids as $ans_id)
         {
             $instreplies[]=DB::table('replies')
+                ->join('instructors','instructors.id','=','replies.instructor_id')
                 ->where('replies.answer_id', '=', $ans_id)
                 ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
                 ->get();
@@ -205,25 +213,32 @@ class QuestionController extends Controller
         foreach($stids as $ans_id)
         {
             $streplies[]=DB::table('replies')
+                ->join('students','students.id','=','replies.student_id')
                 ->where('replies.answer_id', '=', $ans_id)
                 ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','replies.instructor_id')
                 ->get();
         }
+
+        $replies=array_merge($instreplies,$streplies);
+        $answers=array_merge($instructoranswerdata,$studentanswerdata);
         $response =array(
             'question'=>$questiondata,
-            'answers'=>array(
-                'instructor'=>$instructoranswerdata,
-                'student'=>$studentanswerdata
-            ),
-            'likes'=>array(
-                    'instructor'=>$instlikes,
-                    'student'=>$stlikes
-            ),
+            'answers'=>$answers,
+//            'answers'=>array(
+//                'instructor'=>$instructoranswerdata,
+//                'student'=>$studentanswerdata
+//            ),
+//            'likes'=>array(
+//                    'instructor'=>$instlikes,
+//                    'student'=>$stlikes
+//            ),
+            'likes'=>$likes,
             'comments'=>$comments,
-            'replies'=>array(
-                'instructor'=>$instreplies,
-                'student'=>$streplies
-            )
+            'replies'=>$replies
+//            'replies'=>array(
+//                'instructor'=>$instreplies,
+//                'student'=>$streplies
+//            )
         );
         return $response;
     }

@@ -96,7 +96,15 @@ class AnswerController extends Controller
                     ]
                 );
 
+            $return_data=array(
 
+                'answer_content' => $content,
+                'answer_image' => $image,
+                'answer_student_id' => $user_id,
+                'answer_time' => $date,
+                'answer_id'=>$insert,
+                'accepted'=>0
+            );
 
             }
             else
@@ -111,6 +119,17 @@ class AnswerController extends Controller
                     ]
                 );
 
+                $return_data=array(
+
+                    'answer_content' => $content,
+                    'answer_image' => $image,
+                    'answer_instructor_id' => $user_id,
+                    'answer_time' => $date,
+                    'answer_id'=>$insert,
+                    'accepted'=>0
+                );
+
+
 
             }
 
@@ -118,7 +137,7 @@ class AnswerController extends Controller
 
             if ($insert > 0)
             {
-                return "true";
+                return $return_data;
 
             }
             else

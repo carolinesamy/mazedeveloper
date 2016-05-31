@@ -163,7 +163,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				arr = {
 					'content': $scope.answer_content,
 					'image': $scope.image_path.name,
-					'question_id': $rootScope.question_id,
 					'answer_id':answer_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
@@ -179,17 +178,17 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				};
 			}
 			console.log(arr);
-			//$http({
-			//	method: 'POST',
-			//	url: 'http://localhost:8000/editanswer',
-			//	data: {
-			//		answer: arr
-			//	}
-			//}).success(function (res) {
-			//	console.log(res);
-			//}).error(function (err) {
-			//	console.log(err);
-			//});
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/editanswer',
+				data: {
+					answer: arr
+				}
+			}).success(function (res) {
+				console.log(res);
+			}).error(function (err) {
+				console.log(err);
+			});
 
 	};
 
@@ -241,14 +240,14 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				method: 'POST',
 				url: 'http://localhost:8000/editquestion',
 				data: {
-					'title':$scope.question.title,
-					'content':$scope.question.content,
+					'title':$scope.question.edittitle,
+					'content':$scope.question.editcontent,
 					'image':'',
-					//'course_id':$scope.question.course,
-					//'tag_id':$scope.question.tag,
-					'course_id':1,
-					'tag_id':[2,1],
-					'student_id':sessionService.get('user')
+					//'course_id':1,
+					'question_id': $rootScope.question_id,
+					'tag_id':$scope.question.edittags,
+					'student_id':sessionService.get('user'),
+					'type':sessionService.get('type')
 				}
 			}).success(function(res){
 				$('#askModal').modal('hide');
@@ -265,6 +264,31 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			};
 		}
 	};
+
+	$scope.editQuestionData = function(){
+
+		$http({
+            method: 'POST',
+            url: 'http://localhost:8000/gettags',
+           data:{
+               'id':sessionService.get('user'),
+               'type':sessionService.get('type')
+           }
+        }).success(function(res){
+
+            $scope.edittags= res.tags_id;
+            $scope.question.edittitle = $rootScope.question.question_title;
+            $scope.question.editcontent = $rootScope.question.question_content;
+            $scope.question.edittags = $rootScope.tags;
+            console.log($scope.question.edittags);
+
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+
+	}
 
 	//*******************Add Reply function***************
 

@@ -174,12 +174,21 @@ class StudentController extends Controller
                     $answers=DB::table('answers')
                         ->where('question_id','=',$question->id)
                         ->select(DB::raw('count(*) as count'))->get();
+
                     $arr[$i]['answer_number']=$answers[0]->count;
+
+                    $tags=DB::table('tags')
+                        ->join('question_tags','tags.id','=','tag_id')
+                        ->where('question_tags.question_id','=',$question->id)
+                        ->select('tags.id','tags.tag_name')->get();
+                    $arr[$i]['tags']=$tags;
+
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
                     $arr[$i]['privilege']=$question->privilege;
+                    $arr[$i]['time']=$question->time;
 
                     $i++;
                 }
@@ -203,11 +212,17 @@ class StudentController extends Controller
                         ->where('question_id','=',$question->id)
                         ->select(DB::raw('count(*) as count'))->get();
                     $arr[$i]['answer_number']=$answers[0]->count;
+                    $tags=DB::table('tags')
+                        ->join('question_tags','tags.id','=','tag_id')
+                        ->where('question_tags.question_id','=',$question->id)
+                        ->select('tags.id','tags.tag_name')->get();
+                    $arr[$i]['tags']=$tags;
 
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
+                    $arr[$i]['time']=$question->time;
                     $i++;
                 }
                 $user_latest_all_question=json_encode($arr);
@@ -266,10 +281,18 @@ class StudentController extends Controller
                         ->where('question_id','=',$question->id)
                         ->select(DB::raw('count(*) as count'))->get();;
                     $arr[$i]['answer_number']=$answers[0]->count;
+
+                    $tags=DB::table('tags')
+                        ->join('question_tags','tags.id','=','tag_id')
+                        ->where('question_tags.question_id','=',$question->id)
+                        ->select('tags.id','tags.tag_name')->get();
+                    $arr[$i]['tags']=$tags;
+
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
+                    $arr[$i]['time']=$question->time;
                     $i++;
                 }
                 $user_latest_follow_question=json_encode($arr);
@@ -294,10 +317,17 @@ class StudentController extends Controller
                         ->select(DB::raw('count(*) as count'))->get();
                     $arr[$i]['answer_number']=$answers[0]->count;
 
+                    $tags=DB::table('tags')
+                        ->join('question_tags','tags.id','=','tag_id')
+                        ->where('question_tags.question_id','=',$question->id)
+                        ->select('tags.id','tags.tag_name')->get();
+                    $arr[$i]['tags']=$tags;
+
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;
                     $arr[$i]['solved']=$question->solved;
+                    $arr[$i]['time']=$question->time;
                     $i++;
                 }
                 $user_latest_all_question=json_encode($arr);

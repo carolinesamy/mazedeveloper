@@ -30,6 +30,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			$rootScope.answers = res.answers;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
+			$rootScope.likescount = res.likescount;
+			$rootScope.dislikescount = res.dislikescount;
+
 
 			
 
@@ -119,8 +122,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			else {
 				arr = {
 					'content': $scope.answer_content,
-					//'image': $scope.image_path.name,
-					'image':'',
+					'image':image,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
@@ -135,6 +137,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
+				$rootScope.answers.push(res);
 			}).error(function (err) {
 				console.log(err);
 			});

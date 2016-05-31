@@ -87,7 +87,7 @@
 
 					</div>
 					<div class="col-md-1">
-						<button ng-if='answer.answer_student_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+						<button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
 					</div>
 				</div>
 

@@ -59,6 +59,7 @@ Route::get('/likeaction','AnswerController@like_action');
 Route::get('/dislikeaction','AnswerController@dislike_action');
 Route::get('/removelike','AnswerController@like_remove');
 Route::get('/removedislike','AnswerController@dislike_remove');
+Route::get('/getnotificationsdata','NotificationController@get_notification_data');
 
 
 

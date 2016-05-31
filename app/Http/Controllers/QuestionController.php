@@ -90,10 +90,12 @@ class QuestionController extends Controller
 
         $student_id=$request->input('student_id');
         $user_type=$request->input('type');
-        $question_id=$request->input('id');
+        $question_id=$request->input('question_id');
         $title=$request->input('title');
         $content=$request->input('content');
         $image=$request->input('image');
+        
+        $tags=$request->input('tag_id');
 //
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
@@ -116,7 +118,7 @@ class QuestionController extends Controller
             // delete old tags to insert new tags**
             DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
 
-            foreach($tag_id as $tag)
+            foreach($tags as $tag)
             {
                 DB::table('question_tags')->insertGetID(
                     [

@@ -154,7 +154,7 @@ class AnswerController extends Controller
         $answersdata=$request->input('answer');
         $user_id = $answersdata['id'];
         $user_type = $answersdata['type'];
-        $answer_id=$answersdata['id'];
+        $answer_id=$answersdata['answer_id'];
         $content=$answersdata['content'];
         $image=$answersdata['image'];
 

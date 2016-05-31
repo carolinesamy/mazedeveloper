@@ -28,7 +28,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answers;
-			//$rootScope.answers = res.answers.student;
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
 
@@ -257,7 +256,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Add Reply function***************
 
-	$scope.addReply=function(answer_id,reply){
+	$scope.addReply=function(answer_id,reply,index){
 		//data={
 		//	'content': reply,
 		//	'answer_id': answer_id,
@@ -278,8 +277,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
-			$rootScope.replies.push(res);
-			reply = '';
+			$rootScope.replies[index].push(res);
 
 
 		}).error(function(err){

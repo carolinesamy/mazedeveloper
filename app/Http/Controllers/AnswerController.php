@@ -96,6 +96,16 @@ class AnswerController extends Controller
                     ]
                 );
 
+                $ret_data=array(
+
+                    'content' => $content,
+                    'image' => $image,
+                    'student_id' => $user_id,
+                    'time' => $date,
+                    'question_id' => $question_id,
+                    'reply_id'=>$insert
+                );
+
             }
             else
             {
@@ -108,6 +118,15 @@ class AnswerController extends Controller
                         'question_id' => $question_id,
                     ]
                 );
+                $ret_data=array(
+
+                    'content' => $content,
+                    'image' => $image,
+                    'instructor_id' => $user_id,
+                    'time' => $date,
+                    'question_id' => $question_id,
+                    'reply_id'=>$insert
+                );
 
             }
 
@@ -115,7 +134,7 @@ class AnswerController extends Controller
 
             if ($insert > 0)
             {
-                return "true";
+                return $ret_data;
 
             }
             else

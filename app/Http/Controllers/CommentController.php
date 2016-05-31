@@ -34,6 +34,15 @@ class CommentController extends Controller
                 ]
             );
 
+            $ret=array(
+
+                'content' => $content,
+                'time'=>$date,
+                'question_id'=>$question_id,
+                'student_id'=>$user_id,
+                'comment_id'=>$insert
+            );
+
         }
         else
         {
@@ -45,11 +54,20 @@ class CommentController extends Controller
                     'instructor_id'=>$user_id,
                 ]
             );
+            $ret=array(
+
+                'content' => $content,
+                'time'=>$date,
+                'question_id'=>$question_id,
+                'instructor_id'=>$user_id,
+                'comment_id'=>$insert
+
+            );
 
         }
         if ($insert > 0 )
         {
-            return "true";
+            return $ret;
 
         }
         else

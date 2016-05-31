@@ -6,13 +6,14 @@
 angular.module('developerMaze').factory('sessionService',function(){
     return {
         set:function(key,value){
-            return sessionStorage.setItem(key,value);
+            return localStorage.setItem(key,value);
+
         },
         get:function(key){
-            return sessionStorage.getItem(key);
+            return localStorage.getItem(key);
         },
         destroy:function(key){
-            return sessionStorage.removeItem(key);
+            return localStorage.removeItem(key);
         },
 
         // logout:function(){

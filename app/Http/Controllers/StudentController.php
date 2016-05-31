@@ -180,7 +180,7 @@ class StudentController extends Controller
                     $tags=DB::table('tags')
                         ->join('question_tags','tags.id','=','tag_id')
                         ->where('question_tags.question_id','=',$question->id)
-                        ->select('tags.tag_name')->get();
+                        ->select('tags.id','tags.tag_name')->get();
                     $arr[$i]['tags']=$tags;
 
                     $arr[$i]['course_name']=$question->course_name;
@@ -215,7 +215,7 @@ class StudentController extends Controller
                     $tags=DB::table('tags')
                         ->join('question_tags','tags.id','=','tag_id')
                         ->where('question_tags.question_id','=',$question->id)
-                        ->select('tags.tag_name')->get();
+                        ->select('tags.id','tags.tag_name')->get();
                     $arr[$i]['tags']=$tags;
 
                     $arr[$i]['course_name']=$question->course_name;
@@ -285,7 +285,7 @@ class StudentController extends Controller
                     $tags=DB::table('tags')
                         ->join('question_tags','tags.id','=','tag_id')
                         ->where('question_tags.question_id','=',$question->id)
-                        ->select('tags.tag_name')->get();
+                        ->select('tags.id','tags.tag_name')->get();
                     $arr[$i]['tags']=$tags;
 
                     $arr[$i]['course_name']=$question->course_name;
@@ -320,9 +320,9 @@ class StudentController extends Controller
                     $tags=DB::table('tags')
                         ->join('question_tags','tags.id','=','tag_id')
                         ->where('question_tags.question_id','=',$question->id)
-                        ->select('tags.tag_name')->get();
+                        ->select('tags.id','tags.tag_name')->get();
                     $arr[$i]['tags']=$tags;
-                    
+
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;

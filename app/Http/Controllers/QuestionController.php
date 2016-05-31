@@ -146,6 +146,7 @@ class QuestionController extends Controller
         $type=$request->input('type');
         $questions = DB::table('questions')->get();
 
+
         /** question with user data ***/
         $questiondata = DB::table('questions')
                 ->join('students','questions.student_id', '=', 'students.id')
@@ -262,7 +263,13 @@ class QuestionController extends Controller
 
         $replies=array_merge($instreplies,$streplies);
 
+        $tags=DB::table('tags')
+            ->join('question_tags','tags.id','=','tag_id')
+            ->where('question_tags.question_id','=',$question_id)
+            ->select('tags.tag_name','tags.id')->get();
+
         $response =array(
+            'tags'=>$tags,
             'question'=>$questiondata,
             'answers'=>$answers,
 //            'answers'=>array(

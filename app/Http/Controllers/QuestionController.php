@@ -8,6 +8,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Question;
+use App\Course;
 use DateTime;
 class QuestionController extends Controller
 {
@@ -52,10 +53,21 @@ class QuestionController extends Controller
                 );
 
             }
+            $course_name=Course::select('course_name')->where('id',$course_id)->first();
+
+            $return_data=array(
+                'title' => $title,
+                'content' => $content,
+                'answer_number'=>0,
+                'id'=>$insert,
+                'solved'=>0,
+                'course_name'=>$course_name->course_name
+
+            );
 
             if ($insert > 0 )
             {
-                return "true";
+                return $return_data;
 
             }
             else

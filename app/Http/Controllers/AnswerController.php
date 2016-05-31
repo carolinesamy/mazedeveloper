@@ -100,7 +100,7 @@ class AnswerController extends Controller
 
                 'answer_content' => $content,
                 'answer_image' => $image,
-                'student_id' => $user_id,
+                'answer_student_id' => $user_id,
                 'answer_time' => $date,
                 'answer_id'=>$insert,
                 'accepted'=>0
@@ -123,7 +123,7 @@ class AnswerController extends Controller
 
                     'answer_content' => $content,
                     'answer_image' => $image,
-                    'instructor_id' => $user_id,
+                    'answer_instructor_id' => $user_id,
                     'answer_time' => $date,
                     'answer_id'=>$insert,
                     'accepted'=>0

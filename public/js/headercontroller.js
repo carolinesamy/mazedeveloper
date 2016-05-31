@@ -84,6 +84,10 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 }
             }).success(function(res){
                 $('#askModal').modal('hide');
+                $rootScope.allquestions.splice(0, 0, res);
+                $rootScope.questions.splice(0, 0, res);
+
+
                 console.log(res);
                 $scope.question = '';
 

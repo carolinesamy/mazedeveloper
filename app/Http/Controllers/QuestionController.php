@@ -160,7 +160,7 @@ class QuestionController extends Controller
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('instructors', 'answers.instructor_id', '=', 'instructors.id')
                 ->where('answers.question_id', '=', $question_id)
-                ->select('answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
+                ->select('answers.instructor_id as answer_instructor_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','instructors.ifull_name as instructor_name', 'instructors.image as instructor_image')
                 ->get();
         $studentanswerdata =DB::table('questions')
                 ->join('answers','questions.id', '=', 'answers.question_id')
@@ -171,17 +171,48 @@ class QuestionController extends Controller
         $answers=array_merge($instructoranswerdata,$studentanswerdata);
 
         $ids=[];
+        $user_id=[];
         $instids=[];
         $stids=[];
         $instlikes=[];
         $stlikes=[];
         $instreplies=[];
         $streplies=[];
-
+        $myreplies=[];
         foreach($answers as $answer)
         {
             $ids[]=$answer->answer_id;
 
+        }
+//        foreach($ids as $ansid) {
+//            $user_id[] = DB::table('replies')
+//                ->where('replies.answer_id', '=', 1)
+//                ->select('replies.student_id', 'replies.instructor_id', 'replies.answer_id')
+//                ->get();
+//        }
+
+        foreach($ids as $ansid)
+        {
+            $user_id=DB::table('replies')
+                ->where('replies.answer_id','=',1)
+                ->select('replies.student_id','replies.instructor_id','replies.answer_id')
+                ->get();
+//
+                if($user_id[0]->student_id!=null)
+                {
+                    $myreplies[]=DB::table('replies')
+                        ->join('students','students.id','=','replies.student_id')
+                        ->where('replies.answer_id', '=', $ansid)
+                        ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id as reply_student_id','students.sfull_name as student_name')
+                        ->get();
+                }
+                else{
+                    $myreplies[]=DB::table('replies')
+                        ->join('instructors','instructors.id','=','replies.instructor_id')
+                        ->where('replies.answer_id', '=', $ansid)
+                        ->select('replies.id as reply_id','replies.content','replies.time','replies.instructor_id as reply_instructor_id','instructors.ifull_name as instructor_name')
+                        ->get();
+                }
         }
         $likesnum=[];
         $dislikesnum=[];
@@ -230,12 +261,12 @@ class QuestionController extends Controller
         $stcomments=DB::table('comments')
             ->join('students','students.id','=','comments.student_id')
             ->where('comments.question_id','=',$question_id)
-            ->select('comments.id as comment_id','comments.content','comments.time','comments.student_id','students.sfull_name')
+            ->select('comments.student_id as comment_student_id','comments.id as comment_id','comments.content','comments.time','comments.student_id','students.sfull_name')
             ->get();
         $instcomments=DB::table('comments')
             ->join('instructors','instructors.id','=','comments.instructor_id')
             ->where('comments.question_id','=',$question_id)
-            ->select('comments.id as comment_id','comments.content','comments.time','comments.instructor_id','instructors.ifull_name as instructor_name')
+            ->select('comments.instructor_id as comment_instructor_id','comments.id as comment_id','comments.content','comments.time','comments.instructor_id','instructors.ifull_name as instructor_name')
             ->get();
 //        $comments=DB::table('comments')
 ////            ->join('students','students.id','=','comments.student_id')
@@ -244,12 +275,13 @@ class QuestionController extends Controller
 //            ->get();
         $comments=array_merge($instcomments,$stcomments);
 
+
         foreach($instids as $ans_id)
         {
             $instreplies[]=DB::table('replies')
                 ->join('instructors','instructors.id','=','replies.instructor_id')
                 ->where('replies.answer_id', '=', $ans_id)
-                ->select('replies.id as reply_id','replies.content','replies.time','replies.instructor_id','instructors.ifull_name as instructor_name')
+                ->select('replies.id as reply_id','replies.content','replies.time','replies.instructor_id as reply_instructor_id','instructors.ifull_name as instructor_name')
                 ->get();
         }
         foreach($stids as $ans_id)
@@ -257,7 +289,7 @@ class QuestionController extends Controller
             $streplies[]=DB::table('replies')
                 ->join('students','students.id','=','replies.student_id')
                 ->where('replies.answer_id', '=', $ans_id)
-                ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id','students.sfull_name as student_name')
+                ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id as reply_student_id','students.sfull_name as student_name')
                 ->get();
         }
 
@@ -282,7 +314,8 @@ class QuestionController extends Controller
 //            ),
             'likes'=>$likes,
             'comments'=>$comments,
-            'replies'=>$replies,
+//            'replies'=>$replies,
+            'replies'=>$myreplies,
 //            'replies'=>array(
 //                'instructor'=>$instreplies,
 //                'student'=>$streplies

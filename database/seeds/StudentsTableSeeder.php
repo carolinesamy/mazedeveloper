@@ -89,21 +89,21 @@ class StudentsTableSeeder extends Seeder
         ));
         DB::table('answers')->insert(array(
 
-            array('content'=>'you have one question','time'=>'2016-05-19 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
-            array('content'=>'you have two answers','time'=>'2016-05-20 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'you have one question','time'=>'2016-05-19 05:22:22','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'you have two answers','time'=>'2016-05-20 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1'),
 
         ));
 
         DB::table('comments')->insert(array(
 
-            array('content'=>'comment 1','time'=>'2016-05-22 05:22:22','student_id'=>'1','question_id'=>'1','instructor_id'=>'1'),
-            array('content'=>'comment 2','time'=>'2016-05-25 08:22:12','student_id'=>'1','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'comment 1','time'=>'2016-05-22 05:22:22','question_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'comment 2','time'=>'2016-05-25 08:22:12','student_id'=>'1','question_id'=>'1'),
 
         ));
         DB::table('replies')->insert(array(
 
-            array('content'=>'replay 1','time'=>'2016-05-33 05:22:22','student_id'=>'1','answer_id'=>'1','instructor_id'=>'1'),
-            array('content'=>'replyt 2','time'=>'2016-05-12 08:22:12','student_id'=>'1','answer_id'=>'1','instructor_id'=>'1'),
+            array('content'=>'replay 1','time'=>'2016-05-33 05:22:22','student_id'=>'1','answer_id'=>'1'),
+            array('content'=>'replyt 2','time'=>'2016-05-12 08:22:12','answer_id'=>'1','instructor_id'=>'1'),
 
         ));
 

@@ -291,9 +291,9 @@ class StudentController extends Controller
                     $arr[$i]['id']=$question->id;
                     $answers=DB::table('answers')
                         ->where('question_id','=',$question->id)
-                        ->select(DB::raw('count(*) as count'));
-
+                        ->select(DB::raw('count(*) as count'))->get();
                     $arr[$i]['answer_number']=$answers[0]->count;
+
                     $arr[$i]['course_name']=$question->course_name;
                     $arr[$i]['content']=$question->content;
                     $arr[$i]['title']=$question->title;

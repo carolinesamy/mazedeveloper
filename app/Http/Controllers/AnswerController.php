@@ -96,6 +96,8 @@ class AnswerController extends Controller
                     ]
                 );
 
+
+
             }
             else
             {
@@ -108,6 +110,7 @@ class AnswerController extends Controller
                         'question_id' => $question_id,
                     ]
                 );
+
 
             }
 

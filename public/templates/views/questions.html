@@ -19,15 +19,15 @@
   		<div class="col-sm-6"></div>
   			<div class="col-sm-6">	  	
 
-			    <div class="btn-group" data-toggle="buttons">
-				  <label >
-				    <a href="#/questions" class="btn btn-default"> All Questions</a>
+			    <div>
+				  <label>
+				    <a class="btn btn-default" ng-click='filterQuestions("all")'> All Questions</a>
 				  </label>
 				  <label >
-				    <a href="#" class="btn btn-default"> Answered Questions</a>
+				    <a class="btn btn-default" ng-click='filterQuestions("answered")'> Answered Questions</a>
 				  </label>
 				  <label >
-				    <a href="#" class="btn btn-default"> un-answered Questions</a>
+				    <a class="btn btn-default" ng-click='filterQuestions("unanswered")'> un-answered Questions</a>
 				  </label>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 						
-				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answers}}</h5> </p>
+				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a><h5># Answers: {{question.answer_number}}</h5> </p>
 
 				        
 				    </div>

@@ -10,6 +10,8 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'tags':''
     }
     $scope.titleError ='';
+    $rootScope.user_id = sessionService.get('user');
+    $rootScope.user_type = sessionService.get('type');
    
     
 //****************************login function*********************************

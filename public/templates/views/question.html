@@ -98,10 +98,31 @@
 					hm-link-class="links">
 				</div>
 
-
 				<div class="row">
-					<div class="col-sm-2">
-						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{likes[$index]}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a></h3>
+					<div class="col-sm-2" ng-repeat='obj in likesCondition[$index] '> 
+						<h3>
+						
+						<div ng-if='obj'>
+						<div ng-if='user_id === obj.user_id && user_type === obj.user_type'>
+							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							
+						</div>
+						<!-- <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a> -->
+						<div ng-if='user_id !== obj.user_id || user_type !== obj.user_type'>
+							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							
+						</div>
+						</div>
+						<!-- <div ng-if='!obj'>
+							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="Like(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
+						</div> -->
+						</h3>
 
 					</div>
 					<div class="col-sm-9"></div>
@@ -126,6 +147,7 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-10">
 						<div class="thumbnail" ng-repeat='reply in replies[$index]'>
+
 							<div class="row">
 								<div class="col-md-10">
 									<h4>{{reply.content}}</h4>

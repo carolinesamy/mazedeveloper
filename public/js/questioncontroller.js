@@ -7,9 +7,15 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
  //        mode: 'xml',
  //   		};
    	$rootScope.answers ='';
+   	$rootScope.replies = '';
+   	$rootScope.comments = '';
+   	$rootScope.likes = '';
+   	$rootScope.dislikes = '';
+
 
 	$rootScope.question_id=$routeParams.id;
-	$rootScope.user_id = sessionService.get('user');
+	
+
 
 	//***************get question data function*************************
 
@@ -24,7 +30,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 
-			console.log(res.likes);
+			console.log(res);
 
 			$rootScope.question = res.question[0];
 			$rootScope.answers = res.answers;
@@ -138,6 +144,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}).success(function (res) {
 				console.log(res);
 				$rootScope.answers.push(res);
+				$rootScope.replies[$rootScope.answers.length-1] =[];
+				$scope.answer_content='';
+
 			}).error(function (err) {
 				console.log(err);
 			});
@@ -260,13 +269,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	//*******************Add Reply function***************
 
 	$scope.addReply=function(answer_id,reply,index){
-		//data={
-		//	'content': reply,
-		//	'answer_id': answer_id,
-		//	'user_id': sessionService.get('user'),
-		//	'type': sessionService.get('type')
-		//};
-		//console.log(data);
+		
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/answerreply',
@@ -279,7 +282,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}
 		}).success(function(res){
-			console.log(res);
+
+			console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
 			$rootScope.replies[index].push(res);
 
 

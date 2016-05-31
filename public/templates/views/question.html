@@ -77,7 +77,9 @@
 			<div class="caption">
 				<div class="row">
 					<div class="col-md-9">
-						<h4>By: {{answer.student_name}}</h4>
+						<h4 ng-if='answer.student_name'>By: {{answer.student_name}}</h4>
+						<h4 ng-if='answer.instructor_name'>By Eng. {{answer.instructor_name}}</h4>
+
 					</div>
 
 					<div class="col-md-2">
@@ -89,7 +91,11 @@
 					</div>
 				</div>
 
-				<h5>{{answer.answer_content}}</h5>
+				<div hm-read-more
+					hm-text="{{answer.answer_content}}" 
+					hm-dots-class="dots"
+					hm-link-class="links">
+				</div>
 
 
 				<div class="row">
@@ -99,7 +105,7 @@
 					</div>
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
-						<div class="radio" ng-if='question.question_student_id == user_id'>
+						<div class="radio" ng-if='question.question_student_id == user_id '>
 					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.answer_id,$index)'>Accept</label>
 					    </div>
 					</div>
@@ -134,7 +140,7 @@
 						<div class="form-horizontal row">
 								<div class="form-group">
 								    <div class="col-sm-2">
-								    	<button class="btn btn-default" ng-click="addReply(answer.answer_id,my_reply)">Add Reply</button>
+								    	<button class="btn btn-default" ng-click="addReply(answer.answer_id,my_reply, $index)">Add Reply</button>
 								    </div>
 								    <div class="col-sm-9">
 								      <input type="text" class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply">

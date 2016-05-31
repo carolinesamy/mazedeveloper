@@ -37,6 +37,14 @@ class ReplyController extends Controller
                     'student_id'=>$user_id,
                 ]
             );
+            $ret_data=array(
+
+                'content' => $content,
+                'student_id' => $user_id,
+                'time' => $date,
+                'answer_id' => $answer_id,
+                'reply_id'=>$insert
+            );
 
         }
         else
@@ -49,11 +57,19 @@ class ReplyController extends Controller
                     'instructor_id'=>$user_id,
                 ]
             );
+            $ret_data=array(
+
+                'content' => $content,
+                'instructor_id'=>$user_id,
+                'time' => $date,
+                'answer_id' => $answer_id,
+                'reply_id'=>$insert
+            );
 
         }
         if ($insert > 0 )
         {
-            return "true";
+            return $ret_data;
 
         }
         else

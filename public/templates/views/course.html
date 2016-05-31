@@ -6,6 +6,8 @@
    
 
     <div class="col-sm-2">
+    <a href="#/allquestions" class="btn btn-default">Other Courses' Questions</a>
+
             <div class="list-group pull-right">
             <h4 class="list-group-item" style="text-align: center;">List of Course:</h4>
             <span ng-repeat='course in courses'>
@@ -36,7 +38,7 @@
         </div>
       
         <br/>
-        <div class="row"  ng-repeat='question in questions track by $index'>
+        <!-- <div class="row"  ng-repeat='question in questions track by $index'>
                   
                 <div class="thumbnail">
                     <div class="caption">
@@ -49,13 +51,13 @@
                             hm-dots-class="dots"
                             hm-link-class="links">
                         </div>
-                        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answers}}</h5> </p>
+                        <p><a class="btn btn-default" href="#/question?id={{question.id}}">See More</a><h5># Answers: {{question.answer_number}}</h5> </p>
 
                         
                     </div>
                 </div>
             
-        </div>
+        </div> -->
     </div>
 
   </div>

@@ -13,10 +13,16 @@
     </div>
 
       <div class="navbar-form navbar-left"  ng-if='currentuser'>
+
+      <form class="form-horizontal" role="form" name="myForm" novalidate ng-submit="submitted=true;requestAsk(myForm.$valid)">
+
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search or Ask.." ng-model="question.title" ng-change="autoComplete(question.title)" ng-model-options="{debounce:1000}">
+          <input type="text" name="tt" class="form-control" placeholder="Search or Ask.." ng-model="question.title" ng-change="autoComplete(question.title)" ng-model-options="{debounce:1000}" required>
         </div>
         <button class="btn btn-default" data-toggle="modal" ng-click="requestAsk()" data-target="#askModal">Ask</button>
+        <p ng-if="myForm.tt.$error.required&&submitted" class="text-danger">Please,Enter Title For Your Question..</p>
+
+      </form>
       </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">

@@ -156,7 +156,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Edit answer function***************
 
-	$scope.editAnswer=function(answer_id){
+	$scope.editAnswer=function(valid){
 		
 
 			if (sessionService.get('type') == 'student') {
@@ -164,7 +164,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				arr = {
 					'content': $scope.editanswer_content,
 					'image': '',
-					'answer_id':answer_id,
+					'answer_id':$scope.editanswer_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
 				};
@@ -195,9 +195,10 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	};
 
-	$scope.editAnswerData = function(answer){
+	$scope.editAnswerData = function(answer,answer_id){
 
 		$scope.editanswer_content = answer.answer_content;
+		$scope.editanswer_id = answer_id;
 
 	}
 

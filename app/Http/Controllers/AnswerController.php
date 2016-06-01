@@ -389,12 +389,18 @@ class AnswerController extends Controller
     //******** Golden Mark ******************/
     public function golden_mark(Request $request)
     {
-        $answer_id = $request->input('id');
+        //$answer_id = $request->input('id');
+        $answer_id=1;
         $user_id=$request->input('user_id');
         $type = $request->input('type');
         if (session('user_id') == $user_id &&session('type') == $type && $type=='instructor')
         {
+            $answer = Answer::find($answer_id);
+            if($answer->golden == 0){
 
+                $answer->golden ==1;
+                return"true";
+            }
 
         }
         else{
@@ -404,4 +410,29 @@ class AnswerController extends Controller
 
 
     }
+
+    public function ungolden_mark(Request $request)
+    {
+//        $answer_id = $request->input('id');
+        $answer_id=1;
+        $user_id=$request->input('user_id');
+        $type = $request->input('type');
+        if (session('user_id') == $user_id &&session('type') == $type && $type=='instructor')
+        {
+            $answer = Answer::find($answer_id);
+            if($answer->golden == 1){
+
+                $answer->golden ==0;
+                return"true";
+            }
+
+        }
+        else{
+            return "false";
+        }
+
+
+
+    }
+
 }

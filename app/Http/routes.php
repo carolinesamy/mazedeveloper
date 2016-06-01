@@ -49,6 +49,7 @@ Route::post('/questioncomment','CommentController@comment');
 Route::post('/answerreply','ReplyController@reply');
 Route::post('/getnotifications','NotificationController@get_notification_num');
 Route::post('/goldenmark','AnswerController@golden_mark');
+Route::post('/ungoldenmark','AnswerController@ungolden_mark');
 
 //**by caroline *** routes for edit question && edit answer
 

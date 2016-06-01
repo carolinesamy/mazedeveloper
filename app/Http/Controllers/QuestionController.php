@@ -42,7 +42,7 @@ class QuestionController extends Controller
                     'course_id'=>$course_id,
                 ]
             );
-
+            $tags_name=[];
             foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
@@ -51,6 +51,10 @@ class QuestionController extends Controller
                         'tag_id'=>$tag,
                     ]
                 );
+
+                $tags_name[]=DB::table('tags')
+                    ->where('id',$tag)
+                    ->get();
 
             }
             $course_name=Course::select('course_name')->where('id',$course_id)->first();
@@ -61,7 +65,9 @@ class QuestionController extends Controller
                 'answer_number'=>0,
                 'id'=>$insert,
                 'solved'=>0,
-                'course_name'=>$course_name->course_name
+                'time'=>$date,
+                'course_name'=>$course_name->course_name,
+                'tags'=>$tags_name
 
             );
 

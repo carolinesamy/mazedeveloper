@@ -43,6 +43,7 @@ class QuestionController extends Controller
                 ]
             );
             $tags_name=[];
+            $i = 0;
             foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
@@ -52,9 +53,10 @@ class QuestionController extends Controller
                     ]
                 );
 
-                $tags_name[]=DB::table('tags')
+                $tags_name[$i]=DB::table('tags')
                     ->where('id',$tag)
                     ->get();
+                $i++;
 
             }
             $course_name=Course::select('course_name')->where('id',$course_id)->first();

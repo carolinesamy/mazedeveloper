@@ -74,7 +74,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.askQuestion = function(valid){
         
-        if(valid){
+        if(valid ){
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -88,11 +88,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
+                
                 $('#askModal').modal('hide');
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                console.log(res);
                 $scope.question = '';
                 $scope.titleError ='';
 

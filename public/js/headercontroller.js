@@ -34,7 +34,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 $location.path('/');
             }
             else if(res.message=='login') {
-                //console.log(res.user);
+                console.log(res.user['image']);
 
                 sessionService.set('user', res.user['id']);
                 sessionService.set('type',res.type);
@@ -43,6 +43,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'name': res.user['sfull_name'],
                     'id': res.user['id']
                 }
+                $rootScope.user_image=res.user['image'];
 
                 $('#myModal').modal('hide');
                 $location.url('/questions');

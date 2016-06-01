@@ -206,11 +206,18 @@ class AnswerController extends Controller
             );
             //select instructor to know writer type
             $instructor_id= Answer::select('instructor_id')->where('id',$answer_id)->first();
+            $student_id= Answer::select('student_id')->where('id',$answer_id)->first();
 
             if ($instructor_id->instructor_id == null)
             {
+                $answered_user_id=$student_id->student_id;
+            }
+            else
+            {
+                $answered_user_id=$instructor_id->instructor_id;
 
-                $answered_user_id= Answer::select('student_id')->where('id',$answer_id)->first();
+            }
+
                 //**increment student points in 2 case if student or instructor
 
                 if ($user_type == 'student')
@@ -226,7 +233,7 @@ class AnswerController extends Controller
                         ->where('id', $answered_user_id->student_id)
                         ->increment('points',5);
                 }
-           }
+
         }
     }
     public function dislike_remove(Request $request)

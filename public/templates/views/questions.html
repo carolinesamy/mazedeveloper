@@ -12,6 +12,7 @@
 			<a href="#/course?id={{course.id}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a>		  
 
 		</div>
+		
   	</div>
 
   	<div class="col-sm-10">
@@ -40,6 +41,7 @@
 				    <div class="col-sm-10">
 
 				        <h3>{{question.title}} .."{{question.course_name}}"</h3>
+				       Tags: <b ng-repeat='tag in question.tags'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b>
 				        <div hm-read-more
 					        hm-text="{{question.content}}" 
 					        hm-limit="250" 
@@ -57,12 +59,21 @@
 						
 				        <p><a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a>
 
-							<!--<a data-toggle="modal" data-toggle="modal" data-target="#myModal" class="btn btn-circle-lg btn-info"><span >{{question.answer_number}}</span> </a>-->
-
 					<h5># Answers: {{question.answer_number}}</h5> </p>
 
 				        
+				    <p>
+				    <div class="pull-left">
+				    	<a class="btn btn-default" href="#/question?id={{question.id}}">View Question's Page</a>
 				    </div>
+					    <div class="pull-right">
+						    <h5>Number Of Answers: {{question.answer_number}}</h5> 
+						    <strong>Time: {{question.time}}</strong>
+					    </div>
+				    </p>
+				    <div class="clearfix"></div>
+				        
+				</div>
 				</div>
 	    	
 	    </div>

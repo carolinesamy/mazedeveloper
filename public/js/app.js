@@ -12,9 +12,10 @@ angular.module('developerMaze').config(function($routeProvider){
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
 		resolve:{
-		        "check":function($rootScope,sessionService){ 
+		        "check":function($rootScope,sessionService,$location){ 
 
-    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				$rootScope.currentuser = sessionService.get('user'); 
+					          			            
 		        }
 		    },
 		controller:'homeCtl'

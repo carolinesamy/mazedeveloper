@@ -115,6 +115,7 @@ class StudentController extends Controller
         //return to anqular request user data to show
         $user_id=$request->input('user');
         //$user_id=2;
+       // $paginator=$request->input('paginator')-1;
         $user_type=$request->input('type');
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {
@@ -161,7 +162,7 @@ class StudentController extends Controller
                     ->join('student_courses','questions.course_id','=','student_courses.course_id')
                     ->where('student_courses.student_id','=',$user_id)
                     ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
-                    ->orderBy('questions.time','desc')->take(10)
+                    ->orderBy('questions.time','desc')/*->skip($paginator*10)*/->take(10)
                     ->get();
 
                 $i=0;

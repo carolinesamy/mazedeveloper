@@ -8,13 +8,15 @@
 	<div class="row">
 		<div class="col-sm-10">
 			<h3>{{question.question_title}}</h3>
+			<strong>Tags:</strong> <b ng-repeat='tag in tags'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b>
 		</div>
 
 		<div class="col-sm-1">
 			<h1 ng-if='question.solved == 1' class="text-success"><span class="glyphicon glyphicon-ok"></span></h1>							
 		</div>
 		<div class="col-sm-1">
-			<button ng-if='question.question_student_id == user_id' class="btn btn-default" ng-click="editQuestion(question_id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+			<button ng-if='question.question_student_id == user_id' class="btn btn-default" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+
 			
 		</div>
 	</div>
@@ -87,7 +89,8 @@
 
 					</div>
 					<div class="col-md-1">
-						<button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+
+						<button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-default" ng-click="editAnswerData(answer,answer.answer_id)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 					</div>
 				</div>
 
@@ -97,10 +100,31 @@
 					hm-link-class="links">
 				</div>
 
-
 				<div class="row">
-					<div class="col-sm-2">
-						<h3><a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)">{{answer.likes}}</a> <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{answer.dislikes}}</a></h3>
+					<div class="col-sm-2" ng-repeat='obj in likesCondition[$index] '> 
+						<h3>
+						
+						<div ng-if='obj'>
+						<div ng-if='user_id === obj.user_id && user_type === obj.user_type'>
+							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							
+						</div>
+						<!-- <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a> -->
+						<div ng-if='user_id !== obj.user_id || user_type !== obj.user_type'>
+							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							
+						</div>
+						</div>
+						<!-- <div ng-if='!obj'>
+							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="Like(answer.answer_id)"> {{likes[$index]}}</a>
+
+							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
+						</div> -->
+						</h3>
 
 					</div>
 					<div class="col-sm-9"></div>
@@ -111,7 +135,7 @@
 					</div>
 
 					<div class="col-sm-1" ng-if='question.solved == 1'>
-						<div class="radio">
+						<div class="radio" ng-if='question.question_student_id == user_id '>
 					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.answer_id,$index)' checked='true'></label>
 
 
@@ -125,6 +149,7 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-10">
 						<div class="thumbnail" ng-repeat='reply in replies[$index]'>
+
 							<div class="row">
 								<div class="col-md-10">
 									<h4>{{reply.content}}</h4>
@@ -192,8 +217,8 @@
 <div ng-include = "'templates/views/footer.html'"></div>
 
 
-   <!-- edit question Modal -->
-<div class="modal fade " id="askModal" role="dialog">
+<!-- edit question Modal -->
+<div class="modal fade " id="editQuestionModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- edit question Modal content-->
@@ -209,7 +234,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Question Title</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control"  ng-model='question.edittitle' readonly name="title" required>
+                <input type="text" class="form-control"  ng-model='question.edittitle'  name="title" required>
                 <p ng-if="EditForm1.title.$error.required&&submitted" class="text-danger" >Question's Title is required..</p>
               </div>              
 
@@ -230,7 +255,8 @@
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
-                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in tags" multiple></select>
+                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
+
 
               </div>
             </div>
@@ -252,7 +278,7 @@
 
 
    <!-- edit answer Modal -->
-<div class="modal fade " id="askModal" role="dialog">
+<div class="modal fade " id="editAnswerModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- edit answer Modal content-->
@@ -263,27 +289,24 @@
         </div>
         <div class="modal-body">
 
-			<form class="form-horizontal thumbnail" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
+          <form class="form-horizontal" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
 
-
+            
             <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Select Image</label>
-		        <div class="col-sm-10">
-					<input type="file" class="form-control" file-model='answer.editimage_path' name="image_path">	        
-		        </div>
-            </div>
+              <label for="content" class="col-sm-2 control-label">Answer Content</label>
+              <div class="col-sm-10">
 
-            <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Answer Content</label>
-              <trix-editor style='height: 300px;' angular-trix ng-model='answer.editcontent' name='answer_content' required></trix-editor>
-        		<p ng-if="EditForm2.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
-            </div>
+                <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm2.content.$error.required&&submitted" class="text-danger" >Answer's Content is required..</p>
+              </div>
+              
 
-
+            </div>          
           
               <div class="modal-footer">
-                  <button class="btn btn-danger">Edit</button>
-				  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           

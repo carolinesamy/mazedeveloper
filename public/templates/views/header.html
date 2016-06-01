@@ -31,7 +31,7 @@
       <li ng-if='currentuser'>
          <button class="btn btn-default btn-lg dropdown-toggle" ng-click="getNotificationList()" type="button" data-toggle="dropdown"><span class="badge ">{{numOfnotification}}</span><span class="glyphicon glyphicon-bell "></span></button>
           <ul class="dropdown-menu">
-            <li ng-repeat='notification in notifications'><a href="#">{{notification.user}} {{notification.content}}</a></li>
+            <li ng-repeat='notification in notifications'><a href="#">{{notification.content}} "{{notification.time}}"</a></li>
           </ul>
       </li>
       <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>

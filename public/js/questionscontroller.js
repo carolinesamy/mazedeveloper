@@ -19,7 +19,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 				$rootScope.courses = JSON.parse(res.user['course_data']);
 				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
 				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
-
+				
 			}
 			
 		}).error(function(err){

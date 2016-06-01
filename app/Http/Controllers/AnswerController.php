@@ -154,13 +154,10 @@ class AnswerController extends Controller
         $answersdata=$request->input('answer');
         $user_id = $answersdata['id'];
         $user_type = $answersdata['type'];
-        $answer_id=$answersdata['id'];
+        $answer_id=$answersdata['answer_id'];
         $content=$answersdata['content'];
         $image=$answersdata['image'];
 
-//        $answer_id=1;
-//        $content="opaa allaaa";
-//        $image='p5';
 
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {
@@ -190,12 +187,12 @@ class AnswerController extends Controller
     }
     public function like_action(Request $request)
     {
-//        $answer_id=$request->input('answer_id');
-//        $user_type=$request->input('type')
-//        $user_id=$request->input('user_id');
-        $answer_id=1;
-        $user_type="student";
-        $user_id=1;
+       $answer_id=$request->input('answer_id');
+       $user_type=$request->input('type');
+       $user_id=$request->input('user_id');
+        // $answer_id=1;
+        // $user_type="student";
+        // $user_id=1;
 
        if (session('user_id') == $user_id &&session('type') == $user_type)
         {
@@ -234,12 +231,12 @@ class AnswerController extends Controller
     }
     public function dislike_remove(Request $request)
     {
-//        $answer_id=$request->input('id');
-//        $user_type=$request->input('type');
-//        $user_id=$request->input('user_id');
-        $answer_id=1;
-        $user_type="student";
-        $user_id=1;
+       $answer_id=$request->input('id');
+       $user_type=$request->input('type');
+       $user_id=$request->input('user_id');
+        // $answer_id=1;
+        // $user_type="student";
+        // $user_id=1;
         if (session('user_id') == $user_id &&session('type') == $user_type) {
             //select user who write thid answer
             //insert new row for new like
@@ -271,13 +268,13 @@ class AnswerController extends Controller
     }
     public function like_remove(Request $request)
     {
-        $answer_id=1;
-        $user_type="student";
-        $user_id=1;
+        // $answer_id=1;
+        // $user_type="student";
+        // $user_id=1;
 
-//        $answer_id=$request->input('id');
-//        $user_type=$request->input('type');
-//        $user_id=$request->input('user_id');
+       $answer_id=$request->input('id');
+       $user_type=$request->input('type');
+       $user_id=$request->input('user_id');
         if (session('user_id') == $user_id &&session('type') == $user_type) {
 
             DB::table('likes')
@@ -307,12 +304,12 @@ class AnswerController extends Controller
 
     public function dislike_action(Request $request)
     {
-//        $answer_id=$request->input('id');
-//        $user_type=$request->input('type');
-//        $user_id=$request->input('user_id');
-        $answer_id=1;
-        $user_type="student";
-        $user_id=1;
+       $answer_id=$request->input('id');
+       $user_type=$request->input('type');
+       $user_id=$request->input('user_id');
+        // $answer_id=1;
+        // $user_type="student";
+        // $user_id=1;
         //select user who write thid answer
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {

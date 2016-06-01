@@ -2,6 +2,7 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
+    $scope.isCollapsed = true;
 
     $scope.question = {
       'title':'',
@@ -136,18 +137,24 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //************************** Search function********************
 
     $scope.autoComplete=function(title){
-        console.log($scope.question.title);
-        $http({
+        if($scope.question.title){
+            $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',
             data: {
                 'sentance':title
             }
-        }).success(function(res){
-            console.log(res);
-        }).error(function(err){
-            console.log(err);
-        });
+            }).success(function(res){
+                console.log(res);
+                $scope.searchItems = res;
+            }).error(function(err){
+                console.log(err);
+            });
+        }else{
+            $scope.searchItems = '';
+
+        }
+        
     };
 
     //**************************get number of notification AUTO********************

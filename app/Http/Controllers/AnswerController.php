@@ -21,9 +21,10 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
+        $user_id=$request->input('user_id');
         $type = $request->input('type');
 
-        if (session('user_id') == $id &&session('type') == $type)
+        if (session('user_id') == $user_id &&session('type') == $type)
 
         {
             $answer = Answer::find($id);
@@ -46,8 +47,9 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
+        $user_id=$request->input('user_id');
         $type = $request->input('type');
-        if (session('user_id') == $id &&session('type') == $type)
+        if (session('user_id') == $user_id &&session('type') == $type)
         {
             $answer = Answer::find($id);
             $question = Question::find($answer->question_id);

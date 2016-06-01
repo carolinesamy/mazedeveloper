@@ -224,12 +224,13 @@ class AnswerController extends Controller
     }
     public function like_action(Request $request)
     {
-       $answer_id=$request->input('answer_id');
-       $user_type=$request->input('type');
-       $user_id=$request->input('user_id');
-        // $answer_id=1;
-        // $user_type="student";
-        // $user_id=1;
+//       $answer_id=$request->input('answer_id');
+//       $user_type=$request->input('type');
+//       $user_id=$request->input('user_id');
+
+         $answer_id=1;
+         $user_type="instructor";
+         $user_id=1;
 
        if (session('user_id') == $user_id &&session('type') == $user_type)
         {
@@ -242,12 +243,18 @@ class AnswerController extends Controller
                 ]
             );
             //select instructor to know writer type
-            $instructor_id= Answer::select('instructor_id')->where('id',$answer_id)->first();
+            $user_id= Answer::select('instructor_id','student_id')->where('id',$answer_id)->first();
 
-            if ($instructor_id->instructor_id == null)
+            if ($user_id->instructor_id == null)
             {
+                $answered_user_id=$user_id->student_id;
+            }
+            else
+            {
+                $answered_user_id=$user_id->instructor_id;
 
-                $answered_user_id= Answer::select('student_id')->where('id',$answer_id)->first();
+            }
+//echo $
                 //**increment student points in 2 case if student or instructor
 
                 if ($user_type == 'student')
@@ -263,7 +270,7 @@ class AnswerController extends Controller
                         ->where('id', $answered_user_id->student_id)
                         ->increment('points',5);
                 }
-           }
+
         }
     }
     public function dislike_remove(Request $request)

@@ -21,6 +21,7 @@ class CreateAnswersTable extends Migration
 //            $table->integer('likes')->default('0');
 //            $table->integer('dislikes')->default('0');
             $table->boolean('accepted')->default('0');
+            $table->boolean('golden')->default('0');
 
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');

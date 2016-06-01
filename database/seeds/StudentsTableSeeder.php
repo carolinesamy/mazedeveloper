@@ -65,8 +65,8 @@ class StudentsTableSeeder extends Seeder
 
         ));
         DB::table('instructors')->insert(array(
-            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
-            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22'),
+            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','points'=>'5'),
+            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','points'=>'5'),
 
 
         ));
@@ -89,8 +89,8 @@ class StudentsTableSeeder extends Seeder
         ));
         DB::table('answers')->insert(array(
 
-            array('content'=>'Usu tacimates dissentiet necessitatibus cu, mea affert tempor bonorum id, est ei alia vidisse aliquid. Ad nec dicta inimicus comprehensam. Et ipsum summo aliquip pri, dolore facilisi eum cu, cu tibique verterem per. Detracto lobortis vim cu, mei eu sonet maluisset instructior, dolorum disputationi eam an. Id unum conceptam sed, te mucius meliore indoctum vis.','time'=>'2016-05-19 05:22:22','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
-            array('content'=>'Ex mel magna fabellas evertitur, mei ludus exerci doming ea. Quo molestie deseruisse ad. Cu mel liber dicit numquam, ne quo tale fabellas inciderint. Hinc essent commune mea cu, euismod fabulas per an.
+            array('golden'=>'0','content'=>'Usu tacimates dissentiet necessitatibus cu, mea affert tempor bonorum id, est ei alia vidisse aliquid. Ad nec dicta inimicus comprehensam. Et ipsum summo aliquip pri, dolore facilisi eum cu, cu tibique verterem per. Detracto lobortis vim cu, mei eu sonet maluisset instructior, dolorum disputationi eam an. Id unum conceptam sed, te mucius meliore indoctum vis.','time'=>'2016-05-19 05:22:22','accepted'=>'0','question_id'=>'1','instructor_id'=>'1'),
+            array('golden'=>'0','content'=>'Ex mel magna fabellas evertitur, mei ludus exerci doming ea. Quo molestie deseruisse ad. Cu mel liber dicit numquam, ne quo tale fabellas inciderint. Hinc essent commune mea cu, euismod fabulas per an.
 ','time'=>'2016-05-20 05:22:22','student_id'=>'1','accepted'=>'0','question_id'=>'1'),
 
         ));

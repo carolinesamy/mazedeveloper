@@ -217,7 +217,7 @@ class AnswerController extends Controller
                 $answered_user_id=$user_id->instructor_id;
 
             }
-echo $
+//echo $
                 //**increment student points in 2 case if student or instructor
 
                 if ($user_type == 'student')

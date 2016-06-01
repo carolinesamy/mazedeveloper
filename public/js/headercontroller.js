@@ -182,6 +182,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }
         }).success(function(res){
             console.log(res);
+            $rootScope.notifications = res;
 
         }).error(function(err){
             console.log(err);

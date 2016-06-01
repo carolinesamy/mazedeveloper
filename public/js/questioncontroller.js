@@ -160,6 +160,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		
 
 			if (sessionService.get('type') == 'student') {
+
 				arr = {
 					'content': $scope.editanswer_content,
 					'image': '',
@@ -170,9 +171,9 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 			else {
 				arr = {
-					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
-					'question_id': $rootScope.question_id,
+					'content': $scope.editanswer_content,
+					'image': '',
+					'answer_id':answer_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
 				};
@@ -264,12 +265,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}).error(function(err){
 				console.log(err);
 			});
-			$scope.question = {
-				'title':'',
-				'content':'',
-				'image':'',
-				'student_id':''
-			};
+		
 		}
 	};
 

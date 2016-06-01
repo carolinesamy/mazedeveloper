@@ -254,7 +254,9 @@
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
-                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple></select>
+				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in question.edittags" multiple selected></select>-->
+				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in question.unselectedTags" multiple></select>-->
+				  <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple></select>
 
               </div>
             </div>

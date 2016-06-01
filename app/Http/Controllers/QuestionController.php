@@ -94,7 +94,6 @@ class QuestionController extends Controller
         $title=$request->input('title');
         $content=$request->input('content');
         $image=$request->input('image');
-        
         $tags=$request->input('tag_id');
 //
 //        $tag_id=$request->input('tag_id');

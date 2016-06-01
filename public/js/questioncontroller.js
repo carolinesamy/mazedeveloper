@@ -276,10 +276,30 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
            }
         }).success(function(res){
 
-            $scope.edittags= res.tags_id;
+            $scope.edittags= res.tags_id;//all tags
             $scope.question.edittitle = $rootScope.question.question_title;
             $scope.question.editcontent = $rootScope.question.question_content;
-            $scope.question.edittags = $rootScope.tags;
+            $scope.question.edittags = $rootScope.tags;//selected tags
+			$scope.question.unselectedTags=[];
+			//$scope.selectedTags=[];
+			$scope.unselectedTags=[];
+			var flag=0;
+			var keepGoing=1;
+			angular.forEach($scope.edittags, function(value, key){
+				flag=0;
+				angular.forEach($scope.question.edittags,function(valuee,keyy){
+					if(value.id==valuee.id){
+						flag++;
+					}
+				});
+
+				if(flag==0){$scope.question.unselectedTags.push(value);}
+			});
+			console.log("selected tags: ");
+			console.log($scope.question.edittags);
+			console.log("unselected tags: ");
+			console.log($scope.question.unselectedTags);
+
             console.log($scope.question.edittags);
 
 

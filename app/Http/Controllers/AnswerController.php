@@ -154,13 +154,10 @@ class AnswerController extends Controller
         $answersdata=$request->input('answer');
         $user_id = $answersdata['id'];
         $user_type = $answersdata['type'];
-        $answer_id=$answersdata['id'];
+        $answer_id=$answersdata['answer_id'];
         $content=$answersdata['content'];
         $image=$answersdata['image'];
 
-//        $answer_id=1;
-//        $content="opaa allaaa";
-//        $image='p5';
 
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {

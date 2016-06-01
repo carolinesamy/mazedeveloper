@@ -21,21 +21,41 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
+        $user_id=$request->input('user_id');
         $type = $request->input('type');
 
-        if (session('user_id') == $id &&session('type') == $type)
+        if (session('user_id') == $user_id &&session('type') == $type)
 
         {
             $answer = Answer::find($id);
             $question = Question::find($answer->question_id);
 
-            if ($answer->accepted == 0 && $question->solved == 0) {
+            if ($answer->accepted == 0 && $question->solved <= 3)
+            {
                 $answer->accepted = 1;
                 $answer->save();
-                $question->solved = 1;
+                $question->solved ++;
                 $question->save();
-                return "true";
-            } else {
+
+                if($answer->instructor_id==null)
+                {
+                    DB::table('students')
+                        ->where('id',$answer->student_id)
+                        ->increment('points',5);
+                    return "true";
+
+                }
+                else
+                {
+                    DB::table('instructors')
+                        ->where('id',$answer->instructor_id)
+                        ->increment('points',5);
+                    return "true";
+
+                }
+            }
+            else
+            {
                 return "false";
             }
         }
@@ -46,19 +66,36 @@ class AnswerController extends Controller
     {
 
         $id = $request->input('id');
+        $user_id=$request->input('user_id');
         $type = $request->input('type');
-        if (session('user_id') == $id &&session('type') == $type)
+        if (session('user_id') == $user_id &&session('type') == $type)
         {
             $answer = Answer::find($id);
             $question = Question::find($answer->question_id);
 
-            if ($answer->accepted == 1 && $question->solved == 1) {
+            if ($answer->accepted == 1 &&($question->solved >0 && $question->solved <=3) ) {
                 $answer->accepted = 0;
                 $answer->save();
-                $question->solved = 0;
+                $question->solved --;
                 $question->save();
 
-                return "true";
+                if($answer->instructor_id==null)
+                {
+                    DB::table('students')
+                        ->where('id',$answer->student_id)
+                        ->decrement('points',5);
+                    return "true";
+
+                }
+                else
+                {
+                    DB::table('instructors')
+                        ->where('id',$answer->instructor_id)
+                        ->decrement('points',5);
+                    return "true";
+
+                }
+
             }
             else
             {
@@ -340,5 +377,24 @@ class AnswerController extends Controller
                 }
             }
         }
+    }
+
+    //******** Golden Mark ******************/
+    public function golden_mark(Request $request)
+    {
+        $answer_id = $request->input('id');
+        $user_id=$request->input('user_id');
+        $type = $request->input('type');
+        if (session('user_id') == $user_id &&session('type') == $type && $type=='instructor')
+        {
+
+
+        }
+        else{
+            return "false";
+        }
+
+
+
     }
 }

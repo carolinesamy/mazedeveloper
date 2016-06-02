@@ -267,7 +267,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 				$rootScope.question.question_content = $scope.question.editcontent;
 				$rootScope.question.question_title = $scope.question.edittitle;
-				$rootScope.tags = res.tags;
+				$rootScope.tags = res;
 
 
 			}).error(function(err){

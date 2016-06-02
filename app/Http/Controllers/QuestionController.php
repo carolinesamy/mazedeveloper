@@ -107,7 +107,7 @@ class QuestionController extends Controller
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            $tag_id=[2,1];
+            // $tag_id=[2,1];
 
             $now = new DateTime();
             $date=$now->format('Y-m-d H:i:s');
@@ -136,9 +136,11 @@ class QuestionController extends Controller
 
             }
 
+            
+
 
         }
-//            $question_id=1;
+//        $question_id=1;
 //        $title="ana el title";
 //        $content="ana el content";
 //        $image="ana el image";

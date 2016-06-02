@@ -2,6 +2,7 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
+    $scope.isCollapsed = true;
 
     $scope.question = {
       'title':'',
@@ -73,7 +74,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.askQuestion = function(valid){
         
-        if(valid){
+        if(valid ){
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -87,11 +88,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
+                
                 $('#askModal').modal('hide');
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                console.log(res);
                 $scope.question = '';
                 $scope.titleError ='';
 
@@ -137,18 +138,24 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //************************** Search function********************
 
     $scope.autoComplete=function(title){
-        console.log($scope.question.title);
-        $http({
+        if($scope.question.title){
+            $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',
             data: {
                 'sentance':title
             }
-        }).success(function(res){
-            console.log(res);
-        }).error(function(err){
-            console.log(err);
-        });
+            }).success(function(res){
+                console.log(res);
+                $scope.searchItems = res;
+            }).error(function(err){
+                console.log(err);
+            });
+        }else{
+            $scope.searchItems = '';
+
+        }
+        
     };
 
     //**************************get number of notification AUTO********************

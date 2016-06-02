@@ -43,7 +43,8 @@ class QuestionController extends Controller
                 ]
             );
             $tags_name=[];
-            $i=0;
+
+            $i = 0;
             foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
@@ -53,10 +54,10 @@ class QuestionController extends Controller
                     ]
                 );
 
+
                 $tags[]=DB::table('tags')
                     ->where('id',$tag)
                     ->get();
-
 
             }
             foreach($tags as $tag_data)
@@ -117,7 +118,7 @@ class QuestionController extends Controller
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            //$tag_id=[2,1];
+
 
             $now = new DateTime();
             $date=$now->format('Y-m-d H:i:s');
@@ -159,10 +160,12 @@ class QuestionController extends Controller
             }
             $question_tags=json_encode($tags_data);
 
+            
+
 
             return $question_tags;
         }
-//            $question_id=1;
+//        $question_id=1;
 //        $title="ana el title";
 //        $content="ana el content";
 //        $image="ana el image";

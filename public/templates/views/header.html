@@ -12,12 +12,18 @@
       <a class="navbar-brand">Developer Maze</a>
     </div>
 
-      <div class="navbar-form navbar-left"  ng-if='currentuser'>
+      <div class="navbar-form navbar-left" ng-if='currentuser'>
 
         <div class="form-group" >
           <input type="text" class="form-control" placeholder="Search or Ask.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:1000}">
         </div>
-        
+
+        <!--search drop down -->
+        <div class="btn-group" uib-dropdown is-open="status.isopen">
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li><a href="#/question?id={{item.id}}" ng-repeat='item in searchItems'>{{item.title}}</a></li>
+          </ul>
+        </div>
 
         <button class="btn btn-default" data-toggle="modal" ng-click="requestAsk() " data-target="#askModal">Ask</button>
 
@@ -183,15 +189,17 @@
     </div>
   </div><!--end of modal -->
 
-<div ng-init='isCollapsed = !isCollapsed' class="row">  
+<!-- <div ng-init='isCollapsed = !isCollapsed' class="row">  
 <div class="col-sm-2"></div>
 <div class="col-sm-4">
-  <div class="pull-left" uib-collapse="isCollapsed" style="background-color: white;">
+  <div class="pull-left" uib-collapse="isCollapsed">
     <span ng-repeat='item in searchItems'><a class="btn">{{item.title}}</a><br><hr></span>
   </div>
 </div>
-</div>
+</div> -->
 
+
+    
 
   <div class="row">
     <div class="col-sm-1"></div>

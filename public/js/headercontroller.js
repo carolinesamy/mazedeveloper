@@ -10,6 +10,18 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'course':'',
       'tags':''
     }
+
+    $scope.status = {
+    isopen: false
+  };
+
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
@@ -138,7 +150,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //************************** Search function********************
 
     $scope.autoComplete=function(title){
+
         if($scope.question.title){
+            $scope.status = {
+                isopen: true
+              };
             $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',

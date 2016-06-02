@@ -105,7 +105,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                $scope.question = '';
+                $scope.question.title = '';
                 $scope.titleError ='';
 
             }).error(function(err){
@@ -164,6 +164,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }).success(function(res){
                 console.log(res);
                 $scope.searchItems = res;
+                
             }).error(function(err){
                 console.log(err);
             });

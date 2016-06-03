@@ -1,6 +1,22 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
 
+
+<!--<h3>Array of objects (sorting enabled)</h3>-->
+<!--<ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">-->
+	<!--<ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>-->
+	<!--<ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">-->
+		<!--<div ng-bind-html="person.name | highlight: $select.search"></div>-->
+		<!--<small>-->
+			<!--email: {{person.email}}-->
+			<!--age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>-->
+		<!--</small>-->
+	<!--</ui-select-choices>-->
+<!--</ui-select>-->
+<!--<p>Selected: {{multipleDemo.selectedPeople}}</p>-->
+
+
+
 <div class="container" >
 <div class="row">	
 	<div class="thumbnail" >
@@ -89,7 +105,8 @@
 
 					</div>
 					<div class="col-md-1">
-						<button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn btn-default" ng-click="editAnswer(answer.answer_id)"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+
+						<button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-default" ng-click="editAnswerData(answer,answer.answer_id)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 					</div>
 				</div>
 
@@ -187,7 +204,7 @@
 
 	<!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
 	<div class="form-group">
-        <label for="course"  class="col-sm-2 control-label">Select Image</label>
+        <label  class="col-sm-2 control-label">Select Image</label>
         <div class="col-sm-10">
 			<input type="file" class="form-control" file-model='image_path' name="image_path">	        
         </div>
@@ -240,7 +257,7 @@
             </div>
             
             <div class="form-group">
-              <label for="content" class="col-sm-2 control-label">Question Content</label>
+              <label class="col-sm-2 control-label">Question Content</label>
               <div class="col-sm-10">
 
                 <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
@@ -252,13 +269,37 @@
             </div>           
 
             <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Tags</label>
+              <label  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
-				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in question.edittags" multiple selected></select>-->
-				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in question.unselectedTags" multiple></select>-->
-				  <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple></select>
 
-              </div>
+				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>-->
+
+				  <!--<ui-select multiple ng-model="question.edittags" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">-->
+					  <!--<ui-select-match placeholder="Select person...">{{question.edittags.tag_name}} &lt;{{question.edittags.id}}&gt;</ui-select-match>-->
+					  <!--<ui-select-choices repeat="tag in edittags | propsFilter: {tag_name: $select.search, id: $select.search}">-->
+						  <!--<div ng-bind-html="tag.tag_name | highlight: $select.search"></div>-->
+						  <!--<small>-->
+							  <!--tag: {{tag.tag_name}}-->
+							  <!--id: <span ng-bind-html="''+tag.id | highlight: $select.search"></span>-->
+						  <!--</small>-->
+					  <!--</ui-select-choices>-->
+				  <!--</ui-select>-->
+				  <!--<p>Selected: {{question.edittags}}</p>-->
+				  <h3>Array of objects (sorting enabled)</h3>
+				  <ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">
+					  <ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
+					  <ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">
+						  <div ng-bind-html="person.name | highlight: $select.search"></div>
+						  <small>
+							  email: {{person.email}}
+							  age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+						  </small>
+					  </ui-select-choices>
+				  </ui-select>
+				  <p>Selected: {{multipleDemo.selectedPeople}}</p>
+
+
+			  </div>
             </div>
 
 
@@ -278,7 +319,7 @@
 
 
    <!-- edit answer Modal -->
-<div class="modal fade " id="askModal" role="dialog">
+<div class="modal fade " id="editAnswerModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- edit answer Modal content-->
@@ -289,27 +330,24 @@
         </div>
         <div class="modal-body">
 
-			<form class="form-horizontal thumbnail" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
+          <form class="form-horizontal" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
 
-
+            
             <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Select Image</label>
-		        <div class="col-sm-10">
-					<input type="file" class="form-control" file-model='answer.editimage_path' name="image_path">	        
-		        </div>
-            </div>
+              <label class="col-sm-2 control-label">Answer Content</label>
+              <div class="col-sm-10">
 
-            <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Answer Content</label>
-              <trix-editor style='height: 300px;' angular-trix ng-model='answer.editcontent' name='answer_content' required></trix-editor>
-        		<p ng-if="EditForm2.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
-            </div>
+                <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm2.content.$error.required&&submitted" class="text-danger" >Answer's Content is required..</p>
+              </div>
+              
 
-
+            </div>          
           
               <div class="modal-footer">
-                  <button class="btn btn-danger">Edit</button>
-				  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           

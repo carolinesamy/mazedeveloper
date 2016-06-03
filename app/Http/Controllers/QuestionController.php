@@ -42,7 +42,7 @@ class QuestionController extends Controller
                     'course_id'=>$course_id,
                 ]
             );
-
+            $tags_name=[];
             foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
@@ -51,6 +51,10 @@ class QuestionController extends Controller
                         'tag_id'=>$tag,
                     ]
                 );
+
+                $tags_name[]=DB::table('tags')
+                    ->where('id',$tag)
+                    ->get();
 
             }
             $course_name=Course::select('course_name')->where('id',$course_id)->first();
@@ -61,7 +65,9 @@ class QuestionController extends Controller
                 'answer_number'=>0,
                 'id'=>$insert,
                 'solved'=>0,
-                'course_name'=>$course_name->course_name
+                'time'=>$date,
+                'course_name'=>$course_name->course_name,
+                'tags'=>$tags_name
 
             );
 
@@ -94,12 +100,12 @@ class QuestionController extends Controller
         $title=$request->input('title');
         $content=$request->input('content');
         $image=$request->input('image');
-        $tags=$request->input('tag_id');
+        $tag_id=$request->input('tag_id');
 //
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            $tag_id=[2,1];
+//            $tag_id=[2,1];
 
             $now = new DateTime();
             $date=$now->format('Y-m-d H:i:s');
@@ -117,7 +123,7 @@ class QuestionController extends Controller
             // delete old tags to insert new tags**
             DB::table('question_tags')->where('question_id', '=', $question_id)->delete();
 
-            foreach($tags as $tag)
+            foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
                     [
@@ -331,7 +337,7 @@ class QuestionController extends Controller
     public function complete(Request $request){
         $text=$request->input('sentance');
 
-        $question_titles= Question::select('title')->where('title','like',$text."%")->get();
+        $question_titles= Question::select('id','title')->where('title','like',$text."%")->get();
 
         return $question_titles;
     }

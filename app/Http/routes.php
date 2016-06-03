@@ -22,6 +22,7 @@ Route::get('/test', function () {
 });
 Route::post('/login','StudentController@login' );
 
+//*** by merna *******/
 Route::post('/accept','AnswerController@accept_answer');
 
 Route::post('/unaccept','AnswerController@unaccept_answer');
@@ -47,6 +48,8 @@ Route::post('/complete','QuestionController@complete');
 Route::post('/questioncomment','CommentController@comment');
 Route::post('/answerreply','ReplyController@reply');
 Route::post('/getnotifications','NotificationController@get_notification_num');
+Route::post('/goldenmark','AnswerController@golden_mark');
+Route::post('/ungoldenmark','AnswerController@ungolden_mark');
 
 //**by caroline *** routes for edit question && edit answer
 
@@ -55,10 +58,10 @@ Route::post('/editquestion','QuestionController@edit_question');
 Route::post('/editanswer','AnswerController@edit_answer');
 
 Route::post('/likeaction','AnswerController@like_action');
-
-Route::post('/dislikeaction','AnswerController@dislike_action');
 Route::post('/removelike','AnswerController@like_remove');
-Route::post('/removedislike','AnswerController@dislike_remove');
+
+Route::get('/dislikeaction','AnswerController@dislike_action');
+Route::get('/removedislike','AnswerController@dislike_remove');
 Route::post('/getnotificationsdata','NotificationController@get_notification_data');
 
 

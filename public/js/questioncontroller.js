@@ -156,23 +156,24 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Edit answer function***************
 
-	$scope.editAnswer=function(answer_id){
-		//console.log($scope.image_path);
+	$scope.editAnswer=function(valid){
+		
 
 			if (sessionService.get('type') == 'student') {
+
 				arr = {
-					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
-					'answer_id':answer_id,
+					'content': $scope.editanswer_content,
+					'image': '',
+					'answer_id':$scope.editanswer_id,
 					'id': sessionService.get('user'),
 					'type': 'student'
 				};
 			}
 			else {
 				arr = {
-					'content': $scope.answer_content,
-					'image': $scope.image_path.name,
-					'question_id': $rootScope.question_id,
+					'content': $scope.editanswer_content,
+					'image': '',
+					'answer_id':answer_id,
 					'id': sessionService.get('user'),
 					'type': 'instructor'
 				};
@@ -186,11 +187,20 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
+                $('#editAnswerModal').modal('hide');
+
 			}).error(function (err) {
 				console.log(err);
 			});
 
 	};
+
+	$scope.editAnswerData = function(answer,answer_id){
+
+		$scope.editanswer_content = answer.answer_content;
+		$scope.editanswer_id = answer_id;
+
+	}
 
 	//*******************add Comment function***************
 
@@ -250,18 +260,13 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 					'type':sessionService.get('type')
 				}
 			}).success(function(res){
-				$('#askModal').modal('hide');
+                $('#editQuestionModal').modal('hide');
 				console.log(res);
 
 			}).error(function(err){
 				console.log(err);
 			});
-			$scope.question = {
-				'title':'',
-				'content':'',
-				'image':'',
-				'student_id':''
-			};
+		
 		}
 	};
 
@@ -418,8 +423,6 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			console.log(err);
 		});
 	};
-
-
 
 });
 

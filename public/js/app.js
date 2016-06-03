@@ -14,7 +14,8 @@ angular.module('developerMaze').config(function($routeProvider){
 		resolve:{
 		        "check":function($rootScope,sessionService,$location){ 
 
-    				$rootScope.currentuser = sessionService.get('user'); 
+    				$rootScope.currentuser = sessionService.get('user');
+    				
 					          			            
 		        }
 		    },

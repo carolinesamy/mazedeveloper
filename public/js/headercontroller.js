@@ -10,6 +10,18 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'course':'',
       'tags':''
     }
+
+    $scope.status = {
+    isopen: false
+  };
+
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
@@ -93,7 +105,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                $scope.question = '';
+                $scope.question.title = '';
                 $scope.titleError ='';
 
             }).error(function(err){
@@ -138,7 +150,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //************************** Search function********************
 
     $scope.autoComplete=function(title){
+
         if($scope.question.title){
+            $scope.status = {
+                isopen: true
+              };
             $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',
@@ -148,6 +164,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }).success(function(res){
                 console.log(res);
                 $scope.searchItems = res;
+                
             }).error(function(err){
                 console.log(err);
             });

@@ -16,6 +16,18 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
   };
 
 
+
+  //ui-select
+  var vm = this;
+
+  vm.tags = [
+    { tag_name: 'Aya',id:1 },
+    { tag_name: 'Christina',id:2 },
+    { tag_name: 'Caroline',id:3},
+    { tag_name: 'Merna',id:4 } 
+    ];
+
+
   $scope.toggleDropdown = function($event) {
     $event.preventDefault();
     $event.stopPropagation();

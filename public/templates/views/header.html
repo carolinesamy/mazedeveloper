@@ -1,4 +1,4 @@
-<div ng-controller ="headerCtl" >
+<div ng-controller ="headerCtl as ctrl" >
 
 <nav class="navbar navbar-default">
   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -173,7 +173,17 @@
 
               </div>
             </div>
-
+            
+            <div >
+               <ui-select multiple tagging="ctrl.tagTransform" ng-model="ctrl.multipleDemo.selectedTags" theme="bootstrap" ng-disabled="ctrl.disabled"  title="Choose Tags">
+              <ui-select-match placeholder="Select Tags...">{{$item.tag_name}}</ui-select-match>
+              <ui-select-choices repeat=" tag in ctrl.tags | propsFilter: {tag_name: $select.search}">
+               
+                <div ng-if="!tag.isTag" ng-bind-html="tag.tag_name + tag.isTag| highlight: $select.search"></div>
+              </ui-select-choices>
+             </ui-select>
+             <pre>selected Tags = {{ctrl.multipleDemo.selectedTags}}</pre>
+            </div>
 
           
               <div class="modal-footer">
@@ -181,6 +191,7 @@
                   <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
               </div>
         </form>
+          
           
 
         </div>
@@ -210,8 +221,13 @@
 
   </div>
 
+            
+
 
 </div>
+
+
+
 
 
 

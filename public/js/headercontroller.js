@@ -90,12 +90,12 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
             }).success(function(res){
                 
                 $('#askModal').modal('hide');
-                $rootScope.allquestions.splice(0, 0, res);
-                $rootScope.questions.splice(0, 0, res);
+                //$rootScope.allquestions.splice(0, 0, res);
+                //$rootScope.questions.splice(0, 0, res);
 
                 $scope.question = '';
                 $scope.titleError ='';
-
+                console.log(res);
             }).error(function(err){
                 console.log(err);
             });

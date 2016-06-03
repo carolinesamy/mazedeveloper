@@ -26,12 +26,11 @@ class QuestionController extends Controller
         $tag_id=$request->input('tag_id');
         $course_id=$request->input('course_id');
 
-
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
             $now = new DateTime();
-//        $date = $now->getTimezone();
             $date=$now->format('Y-m-d H:i:s');
+
             $insert= DB::table('questions')->insertGetId(
                 [
                     'title' => $title,
@@ -43,7 +42,7 @@ class QuestionController extends Controller
                 ]
             );
             $tags_name=[];
-            $i = 0;
+
             foreach($tag_id as $tag)
             {
                 DB::table('question_tags')->insertGetID(
@@ -53,12 +52,14 @@ class QuestionController extends Controller
                     ]
                 );
 
-                $tags_name[$i]=DB::table('tags')
+                $tags_name[]=DB::table('tags')
+                    ->select('id','tag_name')
                     ->where('id',$tag)
                     ->get();
-                $i++;
 
             }
+            $tagss=json_encode($tags_name);
+            return $tagss;
             $course_name=Course::select('course_name')->where('id',$course_id)->first();
 
             $return_data=array(
@@ -69,13 +70,13 @@ class QuestionController extends Controller
                 'solved'=>0,
                 'time'=>$date,
                 'course_name'=>$course_name->course_name,
-                'tags'=>$tags_name
+                'tags'=>$tagss
 
             );
 
             if ($insert > 0 )
             {
-                return $return_data;
+
 
             }
             else
@@ -107,7 +108,7 @@ class QuestionController extends Controller
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
         {
-            $tag_id=[2,1];
+          //  $tag_id=[2,1];
 
             $now = new DateTime();
             $date=$now->format('Y-m-d H:i:s');

@@ -106,7 +106,7 @@
 					</div>
 					<div class="col-md-1">
 
-						<button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-default" ng-click="editAnswerData(answer,answer.answer_id)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+						<button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-default" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 					</div>
 				</div>
 
@@ -146,13 +146,13 @@
 					<div class="col-sm-9"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
 						<div class="radio" ng-if='question.question_student_id == user_id '>
-					      <label><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='acceptAnswer(answer.answer_id,$index)'>Accept</label>
+					      <label><h3><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)'></span></h3>Press To Accept</label>
 					    </div>
 					</div>
 
 					<div class="col-sm-1" ng-if='question.solved == 1'>
 						<div class="radio" ng-if='question.question_student_id == user_id '>
-					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok"></span></h3><input type="checkbox" ng-click='unacceptAnswer(answer.answer_id,$index)' checked='true'></label>
+					      <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)'></span></h3>Accepted</label>
 
 
 					    </div>

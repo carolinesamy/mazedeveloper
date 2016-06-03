@@ -15,7 +15,6 @@ angular.module('developerMaze').config(function($routeProvider){
 		        "check":function($rootScope,sessionService,$location){
 
     				$rootScope.currentuser = sessionService.get('user');
-					          			            
 		        }
 		    },
 		controller:'homeCtl'

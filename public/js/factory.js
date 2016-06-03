@@ -2,10 +2,20 @@ angular.module('developerMaze').factory('server',function($http){
 
 	return{
 		'connect':function(url , method , data){
-			return $http({
+			if(method =="GET"){
+				return $http({
 					url:'http://localhost:8000/'+url,
-					method:method
+					method:method,
+					params:data
 					});
+			}else{
+				return $http({
+					url:'http://localhost:8000/'+url,
+					method:method,
+					data:data
+					});
+			}
+			
 		}
 
 	}

@@ -2,6 +2,7 @@
 
 angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
 
+    $scope.isCollapsed = true;
 
     $scope.question = {
       'title':'',
@@ -9,6 +10,18 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
       'course':'',
       'tags':''
     }
+
+    $scope.status = {
+    isopen: false
+  };
+
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
@@ -73,7 +86,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
 
     $scope.askQuestion = function(valid){
         
-        if(valid){
+        if(valid ){
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -87,12 +100,12 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
+                
                 $('#askModal').modal('hide');
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                console.log(res);
-                $scope.question = '';
+                $scope.question.title = '';
                 $scope.titleError ='';
 
             }).error(function(err){
@@ -137,18 +150,29 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     //************************** Search function********************
 
     $scope.autoComplete=function(title){
-        console.log($scope.question.title);
-        $http({
+
+        if($scope.question.title){
+            $scope.status = {
+                isopen: true
+              };
+            $http({
             method: 'POST',
             url: 'http://localhost:8000/complete',
             data: {
                 'sentance':title
             }
-        }).success(function(res){
-            console.log(res);
-        }).error(function(err){
-            console.log(err);
-        });
+            }).success(function(res){
+                console.log(res);
+                $scope.searchItems = res;
+                
+            }).error(function(err){
+                console.log(err);
+            });
+        }else{
+            $scope.searchItems = '';
+
+        }
+        
     };
 
     //**************************get number of notification AUTO********************

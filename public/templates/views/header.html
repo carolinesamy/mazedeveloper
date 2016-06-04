@@ -16,7 +16,7 @@
       <div class="navbar-form navbar-left" ng-if='currentuser'>
 
         <div class="form-group" >
-          <input type="text" class="form-control" placeholder="Search or Ask.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:1000}">
+          <input type="text" class="form-control" placeholder="Search or Ask.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:500}">
         </div>
 
         <!--search drop down -->

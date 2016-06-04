@@ -133,7 +133,7 @@
 						</h3>
 
 					</div>
-					<div class="col-sm-9"></div>
+					<div class="col-sm-8"></div>
 					<div class="col-sm-1" ng-if='question.solved == 0'>
 						<div class="radio" ng-if='question.question_student_id == user_id '>
 					      <label><h3><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)'></span></h3>Press To Accept</label>
@@ -146,6 +146,9 @@
 
 
 					    </div>
+					</div>
+					<div class="col-sm-1" ng-if = 'user_type == "student" '>
+						<h1><span class="glyphicon glyphicon-star"></span></h1>
 					</div>
 
 				</div>

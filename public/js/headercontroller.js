@@ -15,7 +15,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     isopen: false
   };
 
-$scope.questionTags={};
+$rootScope.questionTags={};
 // $scope.tagTransform = function (newTag) {
 //     var item = {
 //         tag_name: newTag,
@@ -115,13 +115,9 @@ $scope.questionTags={};
             }).success(function(res){
                 
                 $('#askModal').modal('hide');
-                
-                if($location.path() == '/questions'){
 
-                    $rootScope.allquestions.splice(0, 0, res);
-                    $rootScope.questions.splice(0, 0, res);
-                }
-                
+                $rootScope.allquestions.splice(0, 0, res);
+                $rootScope.questions.splice(0, 0, res);
 
                 $scope.question.title = '';
                 $scope.titleError ='';

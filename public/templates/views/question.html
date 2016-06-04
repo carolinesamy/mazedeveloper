@@ -99,31 +99,37 @@
 					hm-dots-class="dots"
 					hm-link-class="links">
 				</div>
-
 				<div class="row">
-					<div class="col-sm-2" ng-repeat='obj in likesCondition[$index] '> 
+					<div class="col-sm-2" ng-repeat='obj in ui_likes[$index] track by $index'>
 						<h3>
-						
-						<div ng-if='obj'>
-						<div ng-if='user_id === obj.user_id && user_type === obj.user_type'>
-							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+							<!--{{obj}}-->
+							<!--{{$index}}-->
+							<!--{{$parent.$index}}-->
+							{{likes[$parent.$index]}}
+						<!--<h2>{{obj}}</h2>-->
+						<div ng-if='obj.empty == 0 && obj.me == 1'>
+							<!--{{likesnums[$parent.$index]}}-->
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 0 && obj.like == 1 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> </a>
+							<a ng-if='obj.empty == 0 && obj.like == 1 ' style="text-decoration: none;cursor: not-allowed;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)"> {{dislikes[$index]}}</a>
 
-							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
-							
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 0 && obj.like == 0 ' style="text-decoration: none;cursor: not-allowed;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)"></a>
+							<a ng-if='obj.empty == 0 && obj.like == 0 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+
 						</div>
 						<!-- <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a> -->
-						<div ng-if='user_id !== obj.user_id || user_type !== obj.user_type'>
-							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+						<div ng-if='obj.empty == 1'>
+							<!--{{likesnums[$parent.$index]}}-->
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 1' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)"></a>
 
-							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							<a ng-if='obj.empty == 1' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
 							
 						</div>
-						</div>
+					<!--</div>-->
 						<!-- <div ng-if='!obj'>
 							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="Like(answer.answer_id)"> {{likes[$index]}}</a>
 
 							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
-						</div> -->
+						<!--</div> &ndash;&gt;-->
 						</h3>
 
 					</div>
@@ -188,7 +194,7 @@
 
 	<!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
 	<div class="form-group">
-        <label for="course"  class="col-sm-2 control-label">Select Image</label>
+        <label  class="col-sm-2 control-label">Select Image</label>
         <div class="col-sm-10">
 			<input type="file" class="form-control" file-model='image_path' name="image_path">	        
         </div>
@@ -241,7 +247,7 @@
             </div>
             
             <div class="form-group">
-              <label for="content" class="col-sm-2 control-label">Question Content</label>
+              <label class="col-sm-2 control-label">Question Content</label>
               <div class="col-sm-10">
 
                 <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
@@ -253,12 +259,13 @@
             </div>           
 
             <div class="form-group">
-              <label for="course"  class="col-sm-2 control-label">Tags</label>
+              <label  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
-                <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
+
+				  <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
 
 
-              </div>
+			  </div>
             </div>
 
 
@@ -293,7 +300,7 @@
 
             
             <div class="form-group">
-              <label for="content" class="col-sm-2 control-label">Answer Content</label>
+              <label class="col-sm-2 control-label">Answer Content</label>
               <div class="col-sm-10">
 
                 <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>

@@ -29,6 +29,7 @@ class AnswerController extends Controller
         {
             $answer = Answer::find($id);
             $question = Question::find($answer->question_id);
+            echo "answer before:".$answer->accepted;
 
             if ($answer->accepted == 0 && $question->solved <= 3)
             {
@@ -36,6 +37,7 @@ class AnswerController extends Controller
                 $answer->save();
                 $question->solved ++;
                 $question->save();
+                echo "answer after:".$answer->accepted;
 
                 if($answer->instructor_id==null)
                 {
@@ -67,17 +69,19 @@ class AnswerController extends Controller
 
         $id = $request->input('id');
         $user_id=$request->input('user_id');
-        $type = $request->input('type');
+        $type =$request->input('type');
         if (session('user_id') == $user_id &&session('type') == $type)
         {
             $answer = Answer::find($id);
             $question = Question::find($answer->question_id);
+            echo "answer before:".$answer->accepted;
 
             if ($answer->accepted == 1 &&($question->solved >0 && $question->solved <=3) ) {
                 $answer->accepted = 0;
                 $answer->save();
                 $question->solved --;
                 $question->save();
+                echo "answer after:".$answer->accepted;
 
                 if($answer->instructor_id==null)
                 {
@@ -227,6 +231,7 @@ class AnswerController extends Controller
        $answer_id=$request->input('answer_id');
        $user_type=$request->input('type');
        $user_id=$request->input('user_id');
+        //echo $user_id;
 
 //         $answer_id=1;
 //         $user_type="instructor";
@@ -405,53 +410,81 @@ class AnswerController extends Controller
 
 
     //******** Golden Mark ******************/
+
     public function golden_mark(Request $request)
     {
-        //$answer_id = $request->input('id');
-        $answer_id=1;
+        $answer_id = $request->input('id');
         $user_id=$request->input('user_id');
         $type = $request->input('type');
-        if (session('user_id') == $user_id &&session('type') == $type && $type=='instructor')
-        {
-            $answer = Answer::find($answer_id);
-            if($answer->golden == 0){
 
-                $answer->golden ==1;
-                return"true";
+        if(session('user_id')==$user_id && session('type')== 'instructor'){
+
+
+            $answer= DB::table('answers')
+                        ->where('id',$answer_id)
+                        ->first();
+            if($answer->golden == 0  && $answer->instructor_id == '')
+            {
+                $update_answer= DB:: table('answers')
+                    ->where('id',$answer_id)
+                    ->update(['golden' => 1]);
+
+                DB::table('students')
+                    ->where('id',$answer->student_id)
+                    ->increment('points',10);
+
+                echo "true"."<br>";
+
             }
-
+            else
+            {
+                echo "false golden value"."<br>";
+            }
         }
-        else{
-            return "false";
+        else
+        {
+            return "false session";
         }
-
-
-
     }
+
+
 
     public function ungolden_mark(Request $request)
     {
-//        $answer_id = $request->input('id');
-        $answer_id=1;
+        $answer_id = $request->input('id');
         $user_id=$request->input('user_id');
         $type = $request->input('type');
-        if (session('user_id') == $user_id &&session('type') == $type && $type=='instructor')
-        {
-            $answer = Answer::find($answer_id);
-            if($answer->golden == 1){
 
-                $answer->golden ==0;
-                return"true";
+        if(session('user_id')==$user_id && session('type')== 'instructor'){
+
+
+            $answer= DB::table('answers')
+                ->where('id',$answer_id)
+                ->first();
+            if($answer->golden == 1  && $answer->instructor_id == '')
+            {
+                $update_answer= DB:: table('answers')
+                    ->where('id',$answer_id)
+                    ->update(['golden' => 0]);
+
+                DB::table('students')
+                    ->where('id',$answer->student_id)
+                    ->decrement('points',10);
+
+                echo "true"."<br>";
+
             }
-
+            else
+            {
+                echo "false golden value"."<br>";
+            }
         }
-        else{
-            return "false";
+        else
+        {
+            return "false session";
         }
-
-
-
     }
+
 
     public function dislike_remove(Request $request)
     {

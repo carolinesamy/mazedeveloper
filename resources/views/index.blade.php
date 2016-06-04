@@ -50,14 +50,15 @@
 
     <script src='bower_components/angular-file-model/angular-file-model.js'></script>
 
-    <!-- Basic stylesheet -->
+    <!-- Slider -->
 	<link rel="stylesheet" href="owl-carousel/owl.carousel.css">
-
-	 <!-- Default Theme -->
 	<link rel="stylesheet" href="owl-carousel/owl.theme.css">
-
-	<!-- Include js plugin -->
 	<script src="owl-carousel/owl.carousel.js"></script>
+
+	<!--ui-select-->
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+	<script src="js/select.js"></script>
+    <link rel="stylesheet" href="css/select.css">
 
 <style type="text/css">
 	body{

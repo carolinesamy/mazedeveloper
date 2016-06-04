@@ -5,18 +5,16 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select']);
 
 angular.module('developerMaze').config(function($routeProvider){
 
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
 		resolve:{
-		        "check":function($rootScope,sessionService,$location){ 
+		        "check":function($rootScope,sessionService,$location){
 
     				$rootScope.currentuser = sessionService.get('user');
-    				
-					          			            
 		        }
 		    },
 		controller:'homeCtl'

@@ -117,8 +117,8 @@ class QuestionController extends Controller
 //
 //        $tag_id=$request->input('tag_id');
         if (session('user_id') == $student_id &&session('type') == $user_type)
-        {
 
+//            $tag_id=[2,1];
 
             $now = new DateTime();
             $date=$now->format('Y-m-d H:i:s');
@@ -173,7 +173,7 @@ class QuestionController extends Controller
 
 
 
-    }
+
 /**************** by christina *****************/
 
     public function get_question(Request $request){
@@ -202,7 +202,7 @@ class QuestionController extends Controller
                 ->join('answers','questions.id', '=', 'answers.question_id')
                 ->join('students','answers.student_id', '=', 'students.id')
                 ->where('answers.question_id', '=', $question_id)
-                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
+                ->select('answers.student_id as answer_student_id','answers.id as answer_id','answers.content as answer_content','answers.image as answer_image','answers.time as answer_time','answers.accepted','answers.golden','students.sfull_name as student_name', 'students.image as student_image','students.points as student_points')
                 ->get();
         $answers=array_merge($instructoranswerdata,$studentanswerdata);
 
@@ -220,12 +220,6 @@ class QuestionController extends Controller
             $ids[]=$answer->answer_id;
 
         }
-//        foreach($ids as $ansid) {
-//            $user_id[] = DB::table('replies')
-//                ->where('replies.answer_id', '=', 1)
-//                ->select('replies.student_id', 'replies.instructor_id', 'replies.answer_id')
-//                ->get();
-//        }
 
         foreach($ids as $ansid)
         {
@@ -340,22 +334,9 @@ class QuestionController extends Controller
             'tags'=>$tags,
             'question'=>$questiondata,
             'answers'=>$answers,
-//            'answers'=>array(
-//                'instructor'=>$instructoranswerdata,
-//                'student'=>$studentanswerdata
-//            ),
-//            'likes'=>array(
-//                    'instructor'=>$instlikes,
-//                    'student'=>$stlikes
-//            ),
             'likes'=>$likes,
             'comments'=>$comments,
-//            'replies'=>$replies,
             'replies'=>$myreplies,
-//            'replies'=>array(
-//                'instructor'=>$instreplies,
-//                'student'=>$streplies
-//            )
             'likescount'=>$likesnum,
             'dislikecount'=>$dislikesnum
 

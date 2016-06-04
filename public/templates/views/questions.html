@@ -41,7 +41,8 @@
 				    <div class="col-sm-10">
 
 				        <h3>{{question.title}} .."{{question.course_name}}"</h3>
-				       Tags: <b ng-repeat='tag in question.tags'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b>
+				       tags: {{question.tags}}
+				       Tags: <b ng-repeat='tag in question.tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b>
 				        <div hm-read-more
 					        hm-text="{{question.content}}" 
 					        hm-limit="250" 

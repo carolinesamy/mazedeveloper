@@ -15,6 +15,15 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     isopen: false
   };
 
+$rootScope.questionTags={selectedTags:[]};
+// $scope.tagTransform = function (newTag) {
+//     var item = {
+//         tag_name: newTag,
+        
+//     };
+//     return item;
+//   };
+
 
   $scope.toggleDropdown = function($event) {
     $event.preventDefault();
@@ -87,6 +96,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     $scope.askQuestion = function(valid){
         
         if(valid ){
+            var tagsIdsArray=[];
+            angular.forEach( $scope.questionTags.selectedTags,function(value,key){
+                           tagsIdsArray.push(value.id);
+                       });
+
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -95,19 +109,21 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'content':$scope.question.content,
                     'image':'',
                     'course_id':$scope.question.course,
-                    'tag_id':$scope.question.tags,
+                    'tag_id':tagsIdsArray,
                     'student_id':sessionService.get('user'),
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
                 
                 $('#askModal').modal('hide');
-                //$rootScope.allquestions.splice(0, 0, res);
-                //$rootScope.questions.splice(0, 0, res);
+
+                console.log(res);
+                $rootScope.allquestions.splice(0, 0, res);
+                $rootScope.questions.splice(0, 0, res);
+
 
                 $scope.question.title = '';
                 $scope.titleError ='';
-                console.log(res);
             }).error(function(err){
                 console.log(err);
             });
@@ -129,7 +145,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
            }
         }).success(function(res){
 
-            console.log(res.tags_id);
+            console.log(res);
             $scope.tags= res.tags_id;
             $rootScope.courses = JSON.parse(res.course_data);
             $scope.titleError ='';

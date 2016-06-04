@@ -5,7 +5,7 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize', 'ui.select','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model']);
 
 angular.module('developerMaze').config(function($routeProvider){
 

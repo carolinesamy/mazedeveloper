@@ -1,22 +1,6 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
 
-
-<!--<h3>Array of objects (sorting enabled)</h3>-->
-<!--<ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">-->
-	<!--<ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>-->
-	<!--<ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">-->
-		<!--<div ng-bind-html="person.name | highlight: $select.search"></div>-->
-		<!--<small>-->
-			<!--email: {{person.email}}-->
-			<!--age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>-->
-		<!--</small>-->
-	<!--</ui-select-choices>-->
-<!--</ui-select>-->
-<!--<p>Selected: {{multipleDemo.selectedPeople}}</p>-->
-
-
-
 <div class="container" >
 <div class="row">	
 	<div class="thumbnail" >
@@ -115,31 +99,37 @@
 					hm-dots-class="dots"
 					hm-link-class="links">
 				</div>
-
 				<div class="row">
-					<div class="col-sm-2" ng-repeat='obj in likesCondition[$index] '> 
+					<div class="col-sm-2" ng-repeat='obj in ui_likes[$index] track by $index'>
 						<h3>
-						
-						<div ng-if='obj'>
-						<div ng-if='user_id === obj.user_id && user_type === obj.user_type'>
-							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+							<!--{{obj}}-->
+							<!--{{$index}}-->
+							<!--{{$parent.$index}}-->
+							{{likes[$parent.$index]}}
+						<!--<h2>{{obj}}</h2>-->
+						<div ng-if='obj.empty == 0 && obj.me == 1'>
+							<!--{{likesnums[$parent.$index]}}-->
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 0 && obj.like == 1 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> </a>
+							<a ng-if='obj.empty == 0 && obj.like == 1 ' style="text-decoration: none;cursor: not-allowed;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)"> {{dislikes[$index]}}</a>
 
-							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
-							
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 0 && obj.like == 0 ' style="text-decoration: none;cursor: not-allowed;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)"></a>
+							<a ng-if='obj.empty == 0 && obj.like == 0 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+
 						</div>
 						<!-- <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a> -->
-						<div ng-if='user_id !== obj.user_id || user_type !== obj.user_type'>
-							<a ng-if='obj.like === 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id)"> {{likes[$index]}}</a>
+						<div ng-if='obj.empty == 1'>
+							<!--{{likesnums[$parent.$index]}}-->
+							{{likes[$parent.$index]}}<a ng-if='obj.empty == 1' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id)"></a>
 
-							<a ng-if='obj.like === 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id)">{{dislikes[$index]}}</a>
+							<a ng-if='obj.empty == 1' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
 							
 						</div>
-						</div>
+					<!--</div>-->
 						<!-- <div ng-if='!obj'>
 							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="Like(answer.answer_id)"> {{likes[$index]}}</a>
 
 							<a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id)">{{dislikes[$index]}}</a>
-						</div> -->
+						<!--</div> &ndash;&gt;-->
 						</h3>
 
 					</div>
@@ -272,31 +262,7 @@
               <label  class="col-sm-2 control-label">Tags</label>
               <div class="col-sm-10">
 
-				  <!--<select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>-->
-
-				  <!--<ui-select multiple ng-model="question.edittags" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">-->
-					  <!--<ui-select-match placeholder="Select person...">{{question.edittags.tag_name}} &lt;{{question.edittags.id}}&gt;</ui-select-match>-->
-					  <!--<ui-select-choices repeat="tag in edittags | propsFilter: {tag_name: $select.search, id: $select.search}">-->
-						  <!--<div ng-bind-html="tag.tag_name | highlight: $select.search"></div>-->
-						  <!--<small>-->
-							  <!--tag: {{tag.tag_name}}-->
-							  <!--id: <span ng-bind-html="''+tag.id | highlight: $select.search"></span>-->
-						  <!--</small>-->
-					  <!--</ui-select-choices>-->
-				  <!--</ui-select>-->
-				  <!--<p>Selected: {{question.edittags}}</p>-->
-				  <h3>Array of objects (sorting enabled)</h3>
-				  <ui-select multiple ng-model="ctrl.multipleDemo.selectedPeople" theme="bootstrap" ng-disabled="ctrl.disabled" sortable="true" close-on-select="false" style="width: 800px;">
-					  <ui-select-match placeholder="Select person...">{{$item.name}} &lt;{{$item.email}}&gt;</ui-select-match>
-					  <ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">
-						  <div ng-bind-html="person.name | highlight: $select.search"></div>
-						  <small>
-							  email: {{person.email}}
-							  age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-						  </small>
-					  </ui-select-choices>
-				  </ui-select>
-				  <p>Selected: {{multipleDemo.selectedPeople}}</p>
+				  <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
 
 
 			  </div>

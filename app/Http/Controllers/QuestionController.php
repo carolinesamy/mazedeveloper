@@ -80,7 +80,7 @@ class QuestionController extends Controller
                 'solved'=>0,
                 'time'=>$date,
                 'course_name'=>$course_name->course_name,
-                'tags'=>$question_tags
+                'tags'=>json_decode($question_tags)
 
             );
 

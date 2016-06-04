@@ -413,9 +413,10 @@ class AnswerController extends Controller
 
     public function golden_mark(Request $request)
     {
-        $answer_id = $request->input('id');
+        $answer_id = $request->input('answer_id');
         $user_id=$request->input('user_id');
         $type = $request->input('type');
+        echo $answer_id;
 
         if(session('user_id')==$user_id && session('type')== 'instructor'){
 
@@ -423,7 +424,7 @@ class AnswerController extends Controller
             $answer= DB::table('answers')
                         ->where('id',$answer_id)
                         ->first();
-            if($answer->golden == 0  && $answer->instructor_id == '')
+            if($answer->golden == 0  && $answer->instructor_id == null)
             {
                 $update_answer= DB:: table('answers')
                     ->where('id',$answer_id)

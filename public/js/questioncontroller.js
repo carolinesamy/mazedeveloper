@@ -158,7 +158,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	$scope.editAnswer=function(valid){
 		
-
+		if(valid){
 			if (sessionService.get('type') == 'student') {
 
 				arr = {
@@ -187,18 +187,20 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function (res) {
 				console.log(res);
-                $('#editAnswerModal').modal('hide');
+                $('#editAnswerModal').modal('hide');              
+                $rootScope.answers[$scope.answer_index].answer_content = $scope.editanswer_content;
 
 			}).error(function (err) {
 				console.log(err);
 			});
-
+		}
 	};
 
-	$scope.editAnswerData = function(answer,answer_id){
-
+	$scope.editAnswerData = function(answer,index){
+		console.log(index);
 		$scope.editanswer_content = answer.answer_content;
-		$scope.editanswer_id = answer_id;
+		$scope.editanswer_id = answer.answer_id;
+		$scope.answer_index = index;
 
 	}
 
@@ -244,7 +246,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 	//*******************Edit Question function***************
 
 	$scope.editQuestion = function(valid){
-		console.log($scope.selected_tags);
+		console.log($scope.question.edittags);
 		if(valid){
 			$http({
 				method: 'POST',
@@ -261,7 +263,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				}
 			}).success(function(res){
                 $('#editQuestionModal').modal('hide');
-				console.log(res);
+				console.log('tags:'+res);
+
+				$rootScope.question.question_content = $scope.question.editcontent;
+				$rootScope.question.question_title = $scope.question.edittitle;
+				$rootScope.tags = res;
+
 
 			}).error(function(err){
 				console.log(err);

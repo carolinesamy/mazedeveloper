@@ -15,7 +15,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     isopen: false
   };
 
-$rootScope.questionTags={};
+$rootScope.questionTags={selectedTags:[]};
 // $scope.tagTransform = function (newTag) {
 //     var item = {
 //         tag_name: newTag,
@@ -100,6 +100,7 @@ $rootScope.questionTags={};
             angular.forEach( $scope.questionTags.selectedTags,function(value,key){
                            tagsIdsArray.push(value.id);
                        });
+
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -115,7 +116,7 @@ $rootScope.questionTags={};
             }).success(function(res){
                 
                 $('#askModal').modal('hide');
-
+                console.log(res);
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 

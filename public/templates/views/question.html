@@ -147,8 +147,10 @@
 
 					    </div>
 					</div>
-					<div class="col-sm-1" ng-if = 'user_type == "student" '>
-						<h1><span class="glyphicon glyphicon-star"></span></h1>
+					<div class="col-sm-1">
+						<h1 ng-if='answer.golden == 1'><span class="glyphicon glyphicon-star" style="color: #d9d927"></span></h1>
+
+						<h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar()'></span></h1>
 					</div>
 
 				</div>

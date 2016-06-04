@@ -470,6 +470,13 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		});
 	};
 
+	//****************golden star*************************
+
+	$scope.goldenStar = function(){
+		
+		console.log('golden function');
+	}
+
 });
 
 

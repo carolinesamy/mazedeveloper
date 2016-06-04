@@ -173,19 +173,24 @@
 
               </div>
             </div>
-            
+
             <div >
-               <ui-select multiple tagging="ctrl.tagTransform" ng-model="ctrl.multipleDemo.selectedTags" theme="bootstrap" ng-disabled="ctrl.disabled"  title="Choose Tags">
+               <ui-select multiple tagging="tagTransform" ng-model="questionTags.selectedTags" theme="bootstrap"   title="Choose Tags" >
               <ui-select-match placeholder="Select Tags...">{{$item.tag_name}}</ui-select-match>
-              <ui-select-choices repeat=" tag in ctrl.tags | propsFilter: {tag_name: $select.search}">
+              <ui-select-choices repeat=" tag in tags | propsFilter: {tag_name: $select.search}">
                
                 <div ng-if="!tag.isTag" ng-bind-html="tag.tag_name + tag.isTag| highlight: $select.search"></div>
+                  <div ng-if="tag.isTag" ng-bind-html="tag.tag_name | highlight: $select.search"></div>
               </ui-select-choices>
              </ui-select>
-             <pre>selected Tags = {{ctrl.multipleDemo.selectedTags}}</pre>
+             <pre>selected Tags = {{questionTags.selectedTags}}</pre>
             </div>
+            <style>
+               input.ui-select-search.input-xs{
+                            width: auto!important;
+                        }
 
-          
+            </style>
               <div class="modal-footer">
                   <button  class="btn btn-danger">Ask</button>
                   <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>

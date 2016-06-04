@@ -15,17 +15,14 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     isopen: false
   };
 
-
-
-  //ui-select
-  var vm = this;
-
-  vm.tags = [
-    { tag_name: 'Aya',id:1 },
-    { tag_name: 'Christina',id:2 },
-    { tag_name: 'Caroline',id:3},
-    { tag_name: 'Merna',id:4 } 
-    ];
+$scope.questionTags={};
+// $scope.tagTransform = function (newTag) {
+//     var item = {
+//         tag_name: newTag,
+        
+//     };
+//     return item;
+//   };
 
 
   $scope.toggleDropdown = function($event) {
@@ -99,6 +96,10 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     $scope.askQuestion = function(valid){
         
         if(valid ){
+            var tagsIdsArray=[];
+            angular.forEach( $scope.questionTags.selectedTags,function(value,key){
+                           tagsIdsArray.push(value.id);
+                       });
             $http({
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
@@ -107,15 +108,20 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
                     'content':$scope.question.content,
                     'image':'',
                     'course_id':$scope.question.course,
-                    'tag_id':$scope.question.tags,
+                    'tag_id':tagsIdsArray,
                     'student_id':sessionService.get('user'),
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
                 
                 $('#askModal').modal('hide');
-                $rootScope.allquestions.splice(0, 0, res);
-                $rootScope.questions.splice(0, 0, res);
+                
+                if($location.path() == '/questions'){
+
+                    $rootScope.allquestions.splice(0, 0, res);
+                    $rootScope.questions.splice(0, 0, res);
+                }
+                
 
                 $scope.question.title = '';
                 $scope.titleError ='';
@@ -141,7 +147,7 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
            }
         }).success(function(res){
 
-            console.log(res.tags_id);
+            console.log(res);
             $scope.tags= res.tags_id;
             $rootScope.courses = JSON.parse(res.course_data);
             $scope.titleError ='';

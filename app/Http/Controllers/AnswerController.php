@@ -294,8 +294,7 @@ class AnswerController extends Controller
     public function like_remove(Request $request)
     {
 
-
-        $answer_id=$request->input('id');
+        $answer_id=$request->input('answer_id');
         $user_type=$request->input('type');
         $user_id=$request->input('user_id');
         if (session('user_id') == $user_id &&session('type') == $user_type)
@@ -350,7 +349,7 @@ class AnswerController extends Controller
 
     public function dislike_action(Request $request)
     {
-       $answer_id=$request->input('id');
+       $answer_id=$request->input('answer_id');
        $user_type=$request->input('type');
        $user_id=$request->input('user_id');
 //        $answer_id=1;
@@ -359,13 +358,22 @@ class AnswerController extends Controller
         //select user who write thid answer
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {
-            $update= DB::table('likes')
-                ->where([
-                    ['answer_id','=',$answer_id ],
-                    ['id','=',$user_id],
-                    ['type','=',$user_type,],
-                ])
-                ->update(['like' => 0]);
+//            $update= DB::table('likes')
+//                ->where([
+//                    ['answer_id','=',$answer_id ],
+//                    ['id','=',$user_id],
+//                    ['type','=',$user_type,],
+//                ])
+//                ->update(['like' => 0]);
+
+            $insert=DB::table('likes')->insertGetId(
+                [
+                    'id'=>$user_id,
+                    'answer_id'=>$answer_id,
+                    'type'=>$user_type,
+                    'like'=>0,
+                ]
+            );
             //**increment student points in 2 case if student or instructor
             $user_id= Answer::select('instructor_id','student_id')->where('id',$answer_id)->first();
 
@@ -412,7 +420,7 @@ class AnswerController extends Controller
 
     public function golden_mark(Request $request)
     {
-        $answer_id = $request->input('id');
+        $answer_id = $request->input('answer_id');
         $user_id=$request->input('user_id');
         $type = $request->input('type');
 
@@ -487,7 +495,7 @@ class AnswerController extends Controller
 
     public function dislike_remove(Request $request)
     {
-        $answer_id=$request->input('id');
+        $answer_id=$request->input('answer_id');
         $user_type=$request->input('type');
         $user_id=$request->input('user_id');
 //        $answer_id=1;

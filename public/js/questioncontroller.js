@@ -388,7 +388,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Like function***************
 
-	$scope.like=function(answer_id){
+	$scope.like=function(answer_id,index){
 		// data={
 		// 	'answer_id': answer_id,
 		// 		'user_id': sessionService.get('user'),
@@ -406,8 +406,17 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
-			console.log('end Like');
-        
+			console.log(index);
+			console.log($rootScope.ui_likes[index]);
+			New=[{
+				'empty':0,
+				'like':1,
+				'me':1
+			}];
+            $rootScope.ui_likes[index]=New;
+			$rootScope.likes[index]++;
+			console.log($rootScope.ui_likes[index]);
+
 		}).error(function(err){
 			console.log(err);
 		});
@@ -415,7 +424,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Dislike function***************
 
-	$scope.dislike=function(answer_id){
+	$scope.dislike=function(answer_id,index){
 		console.log('entered disLike');
 		$http({
 			method: 'POST',
@@ -427,13 +436,21 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			New=[{
+				'empty':0,
+				'like':0,
+				'me':1
+
+			}];
+			$rootScope.ui_likes[index]=New;
+			$rootScope.dislikes[index]++;
 
 		}).error(function(err){
 			console.log(err);
 		});
 	};
 
-	$scope.removeLike=function(answer_id){
+	$scope.removeLike=function(answer_id,index){
 		console.log('entered removeLike');
 		$http({
 			method: 'POST',
@@ -445,6 +462,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			New=[{
+				'empty':1
+
+			}];
+			$rootScope.ui_likes[index]=New;
+			$rootScope.likes[index]--;
 
 		}).error(function(err){
 			console.log(err);
@@ -453,7 +476,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//*******************Remove Dislike function***************
 
-	$scope.removeDislike=function(answer_id){
+	$scope.removeDislike=function(answer_id,index){
 		console.log('entered removedisLike');
 		$http({
 			method: 'POST',
@@ -465,6 +488,12 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			New=[{
+				'empty':1
+
+			}];
+			$rootScope.ui_likes[index]=New;
+			$rootScope.dislikes[index]--;
 
 		}).error(function(err){
 			console.log(err);
@@ -473,7 +502,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//****************golden star*************************
 
-	$scope.goldenStar = function(answer_id){
+	$scope.goldenStar = function(answer_id,index){
 		
 		console.log('golden function');
 		//data={
@@ -492,8 +521,8 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
-			console.log('end Like');
-
+			console.log('end golden');
+			$rootScope.answers[index].golden=1;
 		}).error(function(err){
 			console.log(err);
 		});

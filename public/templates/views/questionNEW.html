@@ -1,0 +1,221 @@
+<!--Header-->
+<div ng-include = "'templates/views/header.html'"></div>
+<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: white;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+  </style>
+
+
+<div class="container" >
+  <div class="row content">
+    <div class="col-sm-3 sidenav" ng-controller='questionsCtl'>
+
+
+      <!-- list of courses -->
+      <h4 style="text-align: center;">List of Course:</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#/course?id={{course.id}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a></li>
+      </ul><br>
+
+      
+    </div>
+
+    <div class="col-sm-9">
+      
+      
+      <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
+      <h5><span class="glyphicon glyphicon-time"></span> Post by {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="badge">{{question.student_points}}</span></h5>
+      <h5><span class="label label-success">Lorem</span></h5><br>
+
+      <div class="pull-right">
+        <button ng-if='question.question_student_id == user_id' class="btn btn-warning" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+      </div>
+
+      <span class="badge"> Tags</span> <b ng-repeat='tag in tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
+
+      <h4 hm-read-more
+        hm-text="{{question.question_content}}" 
+        hm-dots-class="dots"
+        hm-link-class="links">
+      </h4>
+      <hr>
+
+
+      <div class="row" ng-repeat='comment in comments'>
+        
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+          <h4>{{comment.instructor_name}} {{comment.sfull_name}} <small>{{comment.time}}</small></h4>
+          <p>{{comment.content}}</p>
+        </div>
+        <hr>
+      </div>
+
+      <h4>Leave a Comment:</h4>
+      <div role="form">
+        <div class="form-group">
+          <textarea class="form-control" id="comment" placeholder="Enter Your Comment.." ng-model="comment"></textarea>
+        </div>
+        <button class="btn btn-success" ng-click="addComment()">Add Comment</button>
+      </div>
+      <br><br>
+      
+      <h3><small>RECENT ANSWERS</small></h3>
+      <hr>
+      <div class="row">
+        
+        <div class="col-sm-2 text-center">
+          <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+        </div>
+        <div class="col-sm-10">
+          <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
+          <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <br>
+          <p><span class="badge">1</span> Comment:</p><br>
+          <div class="row">
+            <div class="col-sm-2 text-center">
+              <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+            </div>
+            <div class="col-xs-10">
+              <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
+              <p>Me too! WOW!</p>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>
+
+
+
+
+
+
+
+<!-- edit question Modal -->
+<div class="modal fade " id="editQuestionModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- edit question Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Your Question:</h4>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-horizontal" name="EditForm1" novalidate ng-submit="submitted=true;editQuestion(EditForm1.$valid)">
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Question Title</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  ng-model='question.edittitle'  name="title" required>
+                <p ng-if="EditForm1.title.$error.required&&submitted" class="text-danger" >Question's Title is required..</p>
+              </div>              
+
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Question Content</label>
+              <div class="col-sm-10">
+
+                <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm1.content.$error.required&&submitted" class="text-danger" >Question's Content is required..</p>
+              </div>
+              
+
+            </div>           
+
+            <div class="form-group">
+              <label  class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+
+          <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
+
+
+        </div>
+            </div>
+
+
+          
+              <div class="modal-footer">
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+              </div>
+        </form>
+          
+
+        </div>
+      </div>
+      
+    </div>
+  </div><!--end of modal -->
+
+
+   <!-- edit answer Modal -->
+<div class="modal fade " id="editAnswerModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- edit answer Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Your Answer:</h4>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-horizontal" name="EditForm2" novalidate ng-submit="submitted=true;editAnswer(EditForm2.$valid)">
+
+            
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Answer Content</label>
+              <div class="col-sm-10">
+
+                <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
+                </trix-editor>
+                <p ng-if="EditForm2.content.$error.required&&submitted" class="text-danger" >Answer's Content is required..</p>
+              </div>
+              
+
+            </div>          
+          
+              <div class="modal-footer">
+                  <button  class="btn btn-danger">Edit</button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+              </div>
+        </form>
+          
+
+        </div>
+      </div>
+      
+    </div>
+  </div><!--end of modal -->

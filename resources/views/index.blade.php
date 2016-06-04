@@ -67,7 +67,7 @@ overflow-x:hidden;
 </style>
 </head>
 
-<body>
+<body style="background-color: #f5f8f9; color: #08415c;">
 <div >
 
 	<div ng-view></div>

@@ -6,7 +6,7 @@
     
     /* Set gray background color and 100% height */
     .sidenav {
-      background-color: #f5f5f0;
+      background-color: white;
       height: 100%;
     }
     
@@ -45,10 +45,10 @@
     <div class="col-sm-9">
     
     <!-- filteration for questions -->
-      <nav class="navbar" style="background-color: #f5f5f0;">
+      <nav class="navbar" style="background-color: white;">
       <div class="container-fluid">
 
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div>
           <ul class="nav navbar-nav">
           <li  class="active"><a class="btn" href="#/questions" ng-click='filterQuestions("all")' >My Courses' Questions</a></li>
           <li><a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
@@ -58,11 +58,11 @@
       </div>
     </nav><!-- end of filteration -->
     <!-- filteration for questions -->
-      <nav class="navbar" style="background-color: #f5f5f0;">
+      <nav class="navbar" style="background-color: white;">
       <b class="navbar-brand" style="color: grey;">Filteration:</b>
       <div class="container-fluid">
 
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div>
           <ul class="nav navbar-nav">
             <li><a class="btn" ng-click='filterQuestions("answered")' style="color: green;"> Answered Questions</a></li>
             <li><a class="btn" ng-click='filterQuestions("unanswered")' style="color: green;"> un-answered Questions</a></li>

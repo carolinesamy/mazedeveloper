@@ -406,6 +406,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			console.log('end Like');
         
 		}).error(function(err){
 			console.log(err);
@@ -472,12 +473,32 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 
 	//****************golden star*************************
 
-	$scope.goldenStar = function(){
+	$scope.goldenStar = function(answer_id){
 		
 		console.log('golden function');
+		//data={
+		//	'answer_id': answer_id,
+		//	'user_id': sessionService.get('user'),
+		//	'type': sessionService.get('type')
+		//};
+		//console.log(data);
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/goldenmark',
+			data: {
+				'answer_id': answer_id,
+				'user_id': sessionService.get('user'),
+				'type': sessionService.get('type')
+			}
+		}).success(function(res){
+			console.log(res);
+			console.log('end Like');
+
+		}).error(function(err){
+			console.log(err);
+		});
 	}
 
 });
-
 
 

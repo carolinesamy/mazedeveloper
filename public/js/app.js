@@ -21,7 +21,7 @@ angular.module('developerMaze').config(function($routeProvider){
 	})
 
 	.when('/questions',{
-		templateUrl:'templates/views/questions.html',
+		templateUrl:'templates/views/questionsNEW.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				

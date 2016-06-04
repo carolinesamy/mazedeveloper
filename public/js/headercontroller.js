@@ -120,7 +120,7 @@ $rootScope.questionTags={selectedTags:[]};
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
-                $scope.question.title = '';
+                $scope.question= '';
                 $scope.titleError ='';
 
             }).error(function(err){

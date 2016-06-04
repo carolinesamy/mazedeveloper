@@ -31,20 +31,20 @@
       </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
-    <ul class="nav navbar-nav navbar-right" >
-      <li ><h4>{{user.name}}</h4></li>
-        <!-- Trigger the modal with a link -->
-      <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li ng-if='currentuser'>
-         <button class="btn btn-default btn-lg dropdown-toggle" ng-click="getNotificationList()" type="button" data-toggle="dropdown"><span class="badge ">{{numOfnotification}}</span><span class="glyphicon glyphicon-bell "></span></button>
-          <ul class="dropdown-menu">
-            <li ng-repeat='notification in notifications'><a href="#">{{notification.content}} "{{notification.time}}"</a></li>
-          </ul>
-      </li>
-      <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>
-      <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li>
-      <li ng-if='currentuser'><a class="btn btn-default" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-    </ul>
+      <ul class="nav navbar-nav navbar-right" >
+        <li ><h4>{{user.name}}</h4></li>
+          <!-- Trigger the modal with a link -->
+        <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li ng-if='currentuser'>
+           <button class="btn btn-default btn-lg dropdown-toggle" ng-click="getNotificationList()" type="button" data-toggle="dropdown"><span class="badge ">{{numOfnotification}}</span><span class="glyphicon glyphicon-bell "></span></button>
+            <ul class="dropdown-menu">
+              <li ng-repeat='notification in notifications'><a href="#">{{notification.content}} "{{notification.time}}"</a></li>
+            </ul>
+        </li>
+        <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>
+        <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li>
+        <li ng-if='currentuser'><a class="btn btn-default" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
     </div>
 
   </div>

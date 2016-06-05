@@ -84,17 +84,34 @@
       <h3><small>RECENT ANSWERS</small></h3>
       <hr>
       <div class="row" ng-repeat='answer in answers track by $index'>
-        <div class="pull-right">
-          <br/><br/>
-
-            <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-warning" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span> Edit Answer</button>
-          </div>
+        
         <div class="col-sm-12">
           <h4>By: {{answer.student_name}}{{answer.instructor_name}} <small>{{answer.answer_time}}</small> </h4>
 
+          <div class="pull-right">
+          <br/><br/>
+            
+            <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-warning" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span> Edit Answer</button>
+
+          </div>
+        <div class="pull-left">
+          <!--accepted-->
+            <div ng-if='question.solved == 0'>
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)' style="font-size:30px;"></span></h3></label>
+                </div>
+            </div>
+
+            <div ng-if='question.solved == 1' class="pull-right">
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)' style="font-size:36px;"></span></h3></label>
+
+
+                </div>
+            </div><!--end of accepted-->
+        </div>
           
-          
-          <div hm-read-more
+        <div hm-read-more
           hm-text="{{answer.answer_content}}" 
           hm-dots-class="dots"
           hm-link-class="links">
@@ -106,20 +123,7 @@
 
             <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
           </div>
-          <!--accepted-->
-            <div ng-if='question.solved == 0' class="pull-right">
-              <div class="radio" ng-if='question.question_student_id == user_id '>
-                  <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)'></span></h3></label>
-                </div>
-            </div>
-
-            <div ng-if='question.solved == 1' class="pull-right">
-              <div class="radio" ng-if='question.question_student_id == user_id '>
-                  <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)'></span></h3></label>
-
-
-                </div>
-            </div><!--end of accepted-->
+          
           <br><br>
 
           <!--Likes/DisLikes-->

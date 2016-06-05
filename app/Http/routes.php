@@ -75,8 +75,12 @@ Route::post('/goldentnotification','NotificationController@golden_notification')
 
 
 /** by christina **  ***** routes for admin */
-Route::get('/admin','AdminController@login');
+Route::get('/admin',function(){
+    return view('adminLogin');
+});
+Route::get('/admin/login','AdminController@login');
 Route::get('/admin/students','AdminController@index');
+Route::get('/admin/students/{id}','AdminController@show');
 
 
 

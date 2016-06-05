@@ -24,7 +24,45 @@ use App\Student;
 class AdminController extends Controller
 {
     public function login(){
-        return view('adminLogin');
+
+        $admin= DB::table('admin')
+            ->where('email',$email)->first();
+
+            if ($student->password == $password)
+            {
+                // echo "YOU ARE LOGIN";
+                $rett=array
+                (
+                    'user'=> array
+                    (
+                        'id'=>$student->id,
+                        'email'=>$student->email,
+                        'sfull_name'=>$student->sfull_name,
+                        'image'=>$student->image,
+                        'track_id'=>$student->track_id,
+                        'points'=>$student->points,
+                        'intake_id'=>$student->intake_id,
+                    ),
+                    'message'=>'login',
+                    'type'=>'student',
+                );
+                session(['user_id'=>$student->id]);
+                session(['type'=>'student']);
+
+
+
+
+
+            }
+            elseif($student->password != $password)
+            {
+                $rett=array('message'=>'password');
+            }
+//                else{
+//                    $rett=array('message'=>'email');
+//                }
+
+        return view('adminDashboard');
     }
 
     public function index()

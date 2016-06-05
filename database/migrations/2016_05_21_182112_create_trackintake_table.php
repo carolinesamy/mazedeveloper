@@ -19,6 +19,7 @@ class CreateTrackintakeTable extends Migration
 
             $table->integer('track_id')->unsigned();
             $table->foreign('track_id')->references('id')->on('tracks');
+
             $table->boolean('state')->default('1');
 
             $table->timestamps();

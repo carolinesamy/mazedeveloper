@@ -17,6 +17,8 @@
 	<script src="js/headercontroller.js"></script>
 	<script src="js/questioncontroller.js"></script>
 	<script src="js/directives.js"></script>
+	<script src="js/inboxcontroller.js"></script>
+
 
 
 	<!--bootstrap and jquery-->
@@ -59,6 +61,11 @@
 	<link rel="stylesheet" href="css/selectize.default.css">
 	<script src="js/select.js"></script>
     <link rel="stylesheet" href="css/select.css">
+
+	<!--soket.io-->
+	<script src="js/socket.js"></script>
+	<script src="node_modules/socket.io-client/socket.io.js"></script>
+
 
 <style type="text/css">
 	body{

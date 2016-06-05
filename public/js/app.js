@@ -80,5 +80,20 @@ angular.module('developerMaze').config(function($routeProvider){
 		controller:'questionsCtl'
 	})
 
+	.when('/inbox',{
+		templateUrl:'templates/views/inbox.html',
+		resolve:{
+		        "check":function($location,$rootScope,sessionService){ 
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				        	
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');
+		            }
+		        }
+		    },
+		controller:'inboxCtl'
+	})
+
 })
 

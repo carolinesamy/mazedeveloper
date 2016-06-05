@@ -17,6 +17,8 @@
 	<script src="js/headercontroller.js"></script>
 	<script src="js/questioncontroller.js"></script>
 	<script src="js/directives.js"></script>
+	<script src="js/inboxcontroller.js"></script>
+
 
 
 	<!--bootstrap and jquery-->

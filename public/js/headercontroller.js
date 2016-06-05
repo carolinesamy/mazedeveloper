@@ -21,14 +21,6 @@ angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$
     });
 
 $rootScope.questionTags={selectedTags:[]};
-// $scope.tagTransform = function (newTag) {
-//     var item = {
-//         tag_name: newTag,
-        
-//     };
-//     return item;
-//   };
-
 
   $scope.toggleDropdown = function($event) {
     $event.preventDefault();

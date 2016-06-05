@@ -28,7 +28,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		});
 	}
 
-	$scope.requestData();
+	$scope.requestData();	
 
 
 	//*************************************************************

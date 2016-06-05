@@ -1,0 +1,117 @@
+<!--Header-->
+<div ng-include = "'templates/views/header.html'"></div>
+<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: white;
+      height: 100%;
+    }
+    
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+  </style>
+
+
+<div class="container" >
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+
+
+      <!-- list of courses -->
+      <h4 style="text-align: center;">List of Course:</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#/course?name={{course.course_name}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;" ng-click='courseQuestions()'>{{course.course_name}}</a></li>
+      </ul><br>
+
+      
+    </div>
+
+    <div class="col-sm-9">
+
+      <!-- filteration for questions -->
+      <nav class="navbar" style="background-color: white;">
+      <div class="container-fluid">
+
+        <div>
+          <ul class="nav navbar-nav">
+          <li><a class="btn" href="#/questions" ng-click='filterQuestions("all")'  style="color: #cc2900;">My Courses' Questions</a></li>
+          <li> <a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav><!-- end of filteration -->
+    <!-- inbox code -->
+      
+
+ 
+    <div class="row">
+        <div class="col-sm-3 col-md-2">
+            <a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                <li><a class="btn bg-danger"><span class="badge pull-right">32</span> Inbox </a>
+                </li>
+                <li><a class="btn bg-danger">Sent Mail</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-10">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-envelope">
+                </span> Messages</a></li>
+
+
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="home">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+
+                            <span class="glyphicon glyphicon-user"></span><span class="name" > Mark Otto</span> <span class="">Nice work on the lastest version</span>
+                            <span class="text-muted" style="font-size: 13px;">- More content here</span> <span class="badge">12:10 AM</span> <span class="pull-right"></span></a><a href="#" class="list-group-item">
+                                    
+                                    <span class="glyphicon glyphicon-user"></span><span class="name"> Jason Markus</span> <span class="">This is big title</span>
+                                    <span class="text-muted" style="font-size: 13px;">- I saw that you had..</span> <span class="badge">12:09 AM</span> <span class="pull-right"></span></a><a href="#" class="list-group-item read">
+                                            
+                                            <span class="glyphicon glyphicon-user"></span><span class="name"> Jane Patel</span> <span class="">This is big title</span>
+                                            <span class="text-muted" style="font-size: 13px;">- Hi hello how r u ?</span> <span class="badge">11:30 PM</span> <span class="pull-right"></span></a>
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="profile">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <span class="text-center">This tab is empty.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="messages">
+                    ...</div>
+                <div class="tab-pane fade in" id="settings">
+                    This tab is empty.</div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- end of inbox code -->
+    </div>
+  </div>
+</div>
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>

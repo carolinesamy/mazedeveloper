@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('questionCtl',function( $scope ,sessionService ,$rootScope ,$http, server,$routeParams){
+angular.module('developerMaze').controller('questionCtl',function( socket,$scope ,sessionService ,$rootScope ,$http, server,$routeParams){
 
 	// //code mirror code
 	// $scope.editorOptions = {
@@ -107,6 +107,24 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			console.log(res);
 			$scope.answers[index]['accepted'] = 1;
 			$scope.question['solved'] = 1;
+
+
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/acceptnotification',
+				data: {
+					'student_id': sessionService.get('user'),
+					'user_type': sessionService.get('type'),
+					'answer_id': answer_id,
+					'notification_type':'accept'
+				}
+			}).success(function(res){
+
+				console.log(res);
+
+				socket.emit('new_count_notification');
+
+			})
 		}).error(function(err){
 			console.log(err);
 		});
@@ -175,10 +193,28 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 					answer: arr
 				}
 			}).success(function (res) {
+
 				console.log(res);
 				$rootScope.answers.push(res);
 				$rootScope.replies[$rootScope.answers.length-1] =[];
 				$scope.answer_content='';
+
+				//*** socket notification
+				$http({
+					method: 'POST',
+					url: 'http://localhost:8000/answernotification',
+					data: {
+						'student_id': sessionService.get('user'),
+						'user_type': sessionService.get('type'),
+						'question_id':$rootScope.question_id,
+						'notification_type':'answer'
+					}
+				}).success(function(res){
+
+
+					socket.emit('new_count_notification');
+
+				})
 
 			}).error(function (err) {
 				console.log(err);
@@ -269,7 +305,23 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				console.log(res);
 				$rootScope.comments.push(res);
 				$scope.comment = '';
-				
+
+				$http({
+					method: 'POST',
+					url: 'http://localhost:8000/commentnotification',
+					data: {
+						'student_id': sessionService.get('user'),
+						'user_type': sessionService.get('type'),
+						'question_id':$rootScope.question_id,
+						'notification_type':'comment'
+					}
+				}).success(function(res){
+
+					console.log(res);
+
+					socket.emit('new_count_notification');
+
+				})
 
 			}).error(function (err) {
 				console.log(err);
@@ -378,6 +430,24 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
 				$rootScope.replies[index].push(res);
 
+				$http({
+					method: 'POST',
+					url: 'http://localhost:8000/replynotification',
+					data: {
+						'student_id': sessionService.get('user'),
+						'user_type': sessionService.get('type'),
+						'question_id':$rootScope.question_id,
+						'answer_id':answer_id,
+						'notification_type':'reply'
+					}
+				}).success(function(res){
+
+					console.log(res);
+
+					socket.emit('new_count_notification');
+
+				})
+
 
 			}).error(function(err){
 				console.log(err);
@@ -406,6 +476,22 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}
 		}).success(function(res){
 			console.log(res);
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/likenotification',
+				data: {
+					'student_id': sessionService.get('user'),
+					'user_type': sessionService.get('type'),
+					'answer_id': answer_id,
+					'notification_type':'like'
+				}
+			}).success(function(res){
+
+				console.log(res);
+
+				socket.emit('new_count_notification');
+
+			})
 			console.log(index);
 			console.log($rootScope.ui_likes[index]);
 			New=[{
@@ -444,6 +530,23 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 			}];
 			$rootScope.ui_likes[index]=New;
 			$rootScope.dislikes[index]++;
+
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000/dislikenotification',
+				data: {
+					'student_id': sessionService.get('user'),
+					'user_type': sessionService.get('type'),
+					'answer_id': answer_id,
+					'notification_type':'dislike'
+				}
+			}).success(function(res){
+
+				console.log(res);
+
+				socket.emit('new_count_notification');
+
+			})
 
 		}).error(function(err){
 			console.log(err);
@@ -511,6 +614,7 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 		//	'type': sessionService.get('type')
 		//};
 		//console.log(data);
+		//golden
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/goldenmark',
@@ -520,6 +624,23 @@ angular.module('developerMaze').controller('questionCtl',function( $scope ,sessi
 				'type': sessionService.get('type')
 			}
 		}).success(function(res){
+
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8000//goldentnotification',
+				data: {
+					'student_id': sessionService.get('user'),
+					'user_type': sessionService.get('type'),
+					'answer_id': answer_id,
+					'notification_type':'golden'
+				}
+			}).success(function(res){
+
+				console.log(res);
+
+				socket.emit('new_count_notification');
+
+			})
 			console.log(res);
 			console.log('end golden');
 			$rootScope.answers[index].golden=1;

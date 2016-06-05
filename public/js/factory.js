@@ -20,3 +20,9 @@ angular.module('developerMaze').factory('server',function($http){
 
 	}
 })
+angular.module('developerMaze').factory('socket', function (socketFactory) {
+	return socketFactory({
+
+		ioSocket: io.connect('localhost:7000')
+	});
+});

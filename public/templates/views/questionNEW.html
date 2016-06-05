@@ -44,14 +44,13 @@
 
     <div class="col-sm-9">
       
-      
-      <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="badge">{{question.student_points}}</span></h5>
-      <h5><span class="label label-success">Lorem</span></h5><br>
-
       <div class="pull-right">
-        <button ng-if='question.question_student_id == user_id' class="btn btn-warning" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+        <button ng-if='question.question_student_id == user_id' class="btn btn-warning" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit Question</button>
       </div>
+      <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
+      <h5><span class="glyphicon glyphicon-time"></span> Post by {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="label label-success">{{question.student_points}}</span></h5>
+
+      
 
       <span class="badge"> Tags</span> <b ng-repeat='tag in tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
 
@@ -67,7 +66,7 @@
         
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-          <h4>{{comment.instructor_name}} {{comment.sfull_name}} <small>{{comment.time}}</small></h4>
+          <h4> <span class="glyphicon glyphicon-circle-arrow-right"></span> {{comment.instructor_name}} {{comment.sfull_name}} <small>{{comment.time}}</small></h4>
           <p>{{comment.content}}</p>
         </div>
         <hr>
@@ -78,34 +77,130 @@
         <div class="form-group">
           <textarea class="form-control" id="comment" placeholder="Enter Your Comment.." ng-model="comment"></textarea>
         </div>
-        <button class="btn btn-success" ng-click="addComment()">Add Comment</button>
+        <button class="btn btn-success" ng-click="addComment()"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
       </div>
       <br><br>
       
       <h3><small>RECENT ANSWERS</small></h3>
       <hr>
-      <div class="row">
+      <div class="row" ng-repeat='answer in answers track by $index'>
         
-        <div class="col-sm-2 text-center">
-          <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-        </div>
-        <div class="col-sm-10">
-          <h4>John Row <small>Sep 25, 2015, 8:25 PM</small></h4>
-          <p>I am so happy for you man! Finally. I am looking forward to read about your trendy life. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <br>
-          <p><span class="badge">1</span> Comment:</p><br>
-          <div class="row">
-            <div class="col-sm-2 text-center">
-              <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-            </div>
-            <div class="col-xs-10">
-              <h4>Nested Bro <small>Sep 25, 2015, 8:28 PM</small></h4>
-              <p>Me too! WOW!</p>
-              <br>
-            </div>
+        <div class="col-sm-12">
+          <h4>By: {{answer.student_name}}{{answer.instructor_name}} <small>{{answer.answer_time}}</small> </h4>
+
+          <div class="pull-right">
+          <br/><br/>
+            
+            <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-warning" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span> Edit Answer</button>
+
           </div>
+        <div class="pull-left">
+          <!--accepted-->
+            <div ng-if='question.solved == 0'>
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)' style="font-size:30px;"></span></h3></label>
+                </div>
+            </div>
+
+            <div ng-if='question.solved == 1' class="pull-right">
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)' style="font-size:36px;"></span></h3></label>
+
+
+                </div>
+            </div><!--end of accepted-->
+        </div>
+          
+        <div hm-read-more
+          hm-text="{{answer.answer_content}}" 
+          hm-dots-class="dots"
+          hm-link-class="links">
+        </div>
+
+        <!--golden star-->
+          <div class="pull-left">
+            <h1 ng-if='answer.golden == 1'><span class="glyphicon glyphicon-star" style="color: #d9d927"></span></h1>
+
+            <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
+          </div>
+          
+          <br><br>
+
+          <!--Likes/DisLikes-->
+          <div ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$index">
+            <h3>
+
+              <div ng-if='obj.empty == 0 && obj.me == 1'>
+                <!--{{obj.like}}-->
+                <a ng-if='obj.like == 1 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-up" ng-click="removeLike(answer.answer_id,my_index)">{{likes[my_index]}}</a>
+                <a ng-if='obj.like == 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down">{{dislikes[my_index]}}</a>
+
+                <a ng-if='obj.like == 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" >{{likes[my_index]}}</a>
+                <a ng-if='obj.like == 0 ' style="text-decoration: none;color: darkblue;" class="glyphicon glyphicon-thumbs-down" ng-click="removeDislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
+
+              </div>
+                <div ng-if='obj.empty == 1'>
+                <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id,my_index)">{{likes[my_index]}}</a>
+
+                <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
+
+              </div>
+            </h3>
+          </div><!--end of likes/dislike-->
+          
+          <!--reply -->
+          <div class="row" ng-repeat='reply in replies[$index]'>
+            <div class="col-sm-2"></div>
+            <div class="col-xs-10">
+              <h4> <span class="glyphicon glyphicon-circle-arrow-right"></span> {{reply.instructor_name}}{{reply.student_name}} <small>{{reply.time}}</small></h4>
+              <p>{{reply.content}}</p>
+              <br>
+
+
+            </div>
+          </div><!--end of reply-->
+          <h4>Leave a Reply:</h4>
+
+              <div role="form">
+                <div class="form-group">
+                  <textarea class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply"></textarea>
+                </div>
+                <button class="btn btn-success" ng-click="addReply(answer.answer_id,my_reply, $index)"><span class="glyphicon glyphicon-tasks"></span> Add Reply</button>
+              </div>
+              <br><br>
+
+        </div>
+        <hr>
+      </div><!--end of answers -->
+      <hr>
+
+      <h4>Leave an Answer:</h4>
+      <form class="form-horizontal" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid)">
+
+      <!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
+      <div class="form-group">
+            <label  class="col-sm-2 control-label">Select Image</label>
+            <div class="col-sm-10">
+          <input type="file" class="form-control" file-model='image_path' name="image_path">          
+            </div>
+        </div>
+
+      <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+          <trix-editor class='thumbnail' style='height: 300px;' angular-trix ng-model='answer_content' name='answer_content' required></trix-editor>
+              <p ng-if="answerForm.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
+            </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-2">
+          <button class="btn btn-success"><span class="glyphicon glyphicon-eject"></span> Add Answer</button>
         </div>
       </div>
+
+    </form>
+
     </div>
   </div>
 </div>

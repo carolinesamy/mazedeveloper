@@ -5,7 +5,7 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io']);
 
 angular.module('developerMaze').config(function($routeProvider){
 
@@ -77,7 +77,7 @@ angular.module('developerMaze').config(function($routeProvider){
 		            }
 		        }
 		    },
-		controller:'courseCtl'
+		controller:'questionsCtl'
 	})
 
 })

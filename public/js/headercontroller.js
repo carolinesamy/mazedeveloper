@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('developerMaze').controller('headerCtl',function( $scope,$location ,$http, $rootScope,sessionService){
+angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
 
     $scope.isCollapsed = true;
 
@@ -14,6 +14,11 @@ angular.module('developerMaze').controller('headerCtl',function( $scope,$locatio
     $scope.status = {
     isopen: false
   };
+
+    socket.on( 'new_count_notification', function() {
+        $scope.getNOtifications();
+
+    });
 
 $rootScope.questionTags={selectedTags:[]};
 // $scope.tagTransform = function (newTag) {
@@ -120,15 +125,34 @@ $rootScope.questionTags={selectedTags:[]};
                     'type': sessionService.get('type')
                 }
             }).success(function(res){
-                
+
+
+                //*********  socket **/
+                console.log($scope.question.course);
+                $http({
+                    method: 'POST',
+                    url: 'http://localhost:8000/questionnotification',
+                    data: {
+                        'student_id': sessionService.get('user'),
+                        'user_type': sessionService.get('type'),
+                        'course_id': $scope.question.course,
+                        'notification_type':'question'
+                    }
+                }).success(function(res){
+
+
+                    socket.emit('new_count_notification');
+
+                })
+                // ****
                 $('#askModal').modal('hide');
+
                 console.log(res);
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
                 $scope.question= '';
                 $scope.titleError ='';
-
             }).error(function(err){
                 console.log(err);
             });

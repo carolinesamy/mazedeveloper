@@ -394,5 +394,87 @@ class NotificationController extends Controller
 
     }
 
+    public function accept_notification(Request $request)
+    {
+        $user_id = $request->input('student_id');
+        $user_type = $request->input('user_type');
+        $notification_type = $request->input('notification_type');
+        $answer_id = $request->input('answer_id');
+        if (session('user_id') == $user_id && session('type') == $user_type)
+        {
+
+
+            $now = new DateTime();
+            $date = $now->format('Y-m-d H:i:s');
+
+
+            $insert = DB::table('notifications')->insertGetId(
+                [
+                    'content' => 'your answer have been accepted',
+                    'type' => $notification_type,
+                    'time' => $date,
+                ]
+            );
+
+            $answer = Answer::where('id', $answer_id)->first();
+
+            if ($answer->instructor_id == null) {
+
+                $answer_by_student_notification = DB::table('student_notifications')->insertGetId(
+                    [
+                        'student_id' => $answer->student_id,
+                        'notification_id' => $insert
+                    ]
+                );
+            } else {
+
+                $answer_by_student_notification = DB::table('instructor_notifications')->insertGetId(
+                    [
+                        'instructor_id' => $answer->instructor_id,
+                        'notification_id' => $insert
+                    ]
+                );
+            }
+
+
+        }
+
+    }
+
+    public function golden_notification(Request $request)
+    {
+        $user_id = $request->input('student_id');
+        $user_type = $request->input('user_type');
+        $notification_type = $request->input('notification_type');
+        $answer_id = $request->input('answer_id');
+        if (session('user_id') == $user_id && session('type') == $user_type)
+        {
+
+            $now = new DateTime();
+            $date = $now->format('Y-m-d H:i:s');
+
+
+            $insert = DB::table('notifications')->insertGetId(
+                [
+                    'content' => 'your answer have been taken GOLDEN ',
+                    'type' => $notification_type,
+                    'time' => $date,
+                ]
+            );
+
+            $answer = Answer::where('id', $answer_id)->first();
+
+                $answer_by_student_notification = DB::table('student_notifications')->insertGetId(
+                    [
+                        'student_id' => $answer->student_id,
+                        'notification_id' => $insert
+                    ]
+                );
+
+
+
+        }
+
+    }
 
 }

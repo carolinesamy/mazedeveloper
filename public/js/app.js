@@ -51,7 +51,7 @@ angular.module('developerMaze').config(function($routeProvider){
 	})
 
 	.when('/question',{
-		templateUrl:'templates/views/question.html',
+		templateUrl:'templates/views/questionNEW.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				
@@ -77,7 +77,7 @@ angular.module('developerMaze').config(function($routeProvider){
 		            }
 		        }
 		    },
-		controller:'courseCtl'
+		controller:'questionsCtl'
 	})
 	
 

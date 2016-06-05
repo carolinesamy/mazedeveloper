@@ -1,5 +1,6 @@
 
-angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server){
+angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server , $routeParams){
+	
 
 //*************************Request Data*******************************
 
@@ -26,8 +27,9 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			console.log(err);
 		});
 	}
-	
+
 	$scope.requestData();
+
 
 	//*************************************************************
 
@@ -96,6 +98,29 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 		}
 	};
 
+	//*****************get course questions********************
 
+	$scope.courseQuestions = function(){
+
+		$rootScope.coursequestions = [];
+
+		angular.forEach( $rootScope.questionsWithoutFilter, function(value , key){
+
+				if(value['course_name'] == $scope.course_name){
+
+					$rootScope.coursequestions.push(value);
+				}
+				
+			} );
+
+	}
+
+
+	if($routeParams.name){
+
+		$scope.course_name = $routeParams.name;
+		$scope.courseQuestions();
+
+	}
 
 })

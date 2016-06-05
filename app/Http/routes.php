@@ -69,6 +69,8 @@ Route::post('/questionnotification','NotificationController@question_notificatio
 Route::post('/answernotification','NotificationController@answer_notification');
 Route::post('/likenotification','NotificationController@like_notification');
 Route::post('/dislikenotification','NotificationController@dislike_notification');
+Route::post('/acceptnotification','NotificationController@accept_notification');
+Route::post('/goldentnotification','NotificationController@golden_notification');
 
 
 

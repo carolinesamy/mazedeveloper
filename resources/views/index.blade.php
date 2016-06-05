@@ -17,7 +17,6 @@
 	<script src="js/headercontroller.js"></script>
 	<script src="js/questioncontroller.js"></script>
 	<script src="js/directives.js"></script>
-	<script src="js/coursecontroller.js"></script>
 
 
 	<!--bootstrap and jquery-->
@@ -56,7 +55,8 @@
 	<script src="owl-carousel/owl.carousel.js"></script>
 
 	<!--ui-select-->
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css"><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+	<link rel="stylesheet" href="css/select2.css">
+	<link rel="stylesheet" href="css/selectize.default.css">
 	<script src="js/select.js"></script>
     <link rel="stylesheet" href="css/select.css">
 

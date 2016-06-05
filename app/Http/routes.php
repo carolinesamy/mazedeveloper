@@ -64,7 +64,9 @@ Route::post('/dislikeaction','AnswerController@dislike_action');
 Route::post('/removedislike','AnswerController@dislike_remove');
 Route::post('/getnotificationsdata','NotificationController@get_notification_data');
 
-
+/** by christina **  ***** routes for admin */
+Route::get('/admin','AdminController@login');
+Route::get('/admin/students','AdminController@index');
 
 
 

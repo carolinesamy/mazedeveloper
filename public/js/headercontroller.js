@@ -58,10 +58,15 @@ $rootScope.questionTags={selectedTags:[]};
                 $location.path('/');
             }
             else if(res.message=='login') {
-                console.log(res.user['image']);
-
+                //console.log(res.user['image']);
+                console.log(res);
                 sessionService.set('user', res.user['id']);
                 sessionService.set('type',res.type);
+                if(res.type=='instructor')
+                {sessionService.set('name',res.user['ifull_name']);}
+                else {
+                    sessionService.set('name',res.user['sfull_name']);
+                }
 
                 $rootScope.currentuser ={
                     'name': res.user['sfull_name'],
@@ -85,6 +90,7 @@ $rootScope.questionTags={selectedTags:[]};
 
         sessionService.destroy('user');
         sessionService.destroy('type');
+        sessionService.destroy('name');
         $rootScope = null;
         $('#logoutModal').modal('hide');
         $location.path('/');

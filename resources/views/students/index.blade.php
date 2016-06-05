@@ -22,9 +22,9 @@
                     <td>{{$student->email }}</td>
                     <td>{{$student->points }}</td>
                     <td>
-                        <a class="btn btn-primary" href="/students/{{$student->id}}">Show</a>
-                        <a class="btn btn-warning" href="/students/{{$student->id}}/edit">Edit</a>
-                        <a class="btn btn-danger" href="/students/destroy/{{$student->id}}">Delete</a>
+                        <a class="btn btn-primary" href="/admin/students/{{$student->id}}">Show</a>
+                        <a class="btn btn-warning" href="/admin/students/{{$student->id}}/edit">Edit</a>
+                        <a class="btn btn-danger" href="/admin/students/destroy/{{$student->id}}">Delete</a>
 
                     </td>
                 </tr>

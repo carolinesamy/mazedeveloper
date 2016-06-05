@@ -2,9 +2,12 @@
 
 @section('content')
     <h1>
-        {{ $article->title }}
+        {{ $student->sfull_name }}
     </h1>
     <p>
-        {{ $article->body }}
+        {{ $student->email }}
+    </p>
+    <p>
+        {{ $student->points }}
     </p>
 @stop

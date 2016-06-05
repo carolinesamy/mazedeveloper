@@ -33,7 +33,7 @@
             <span><i class="fa fa-lock"></i></span>
         </div>
 
-        <button type="submit" class="submit" onclick="login()"><i class="fa fa-long-arrow-right"></i></button>
+        <button type="submit" class="submit" onclick="window.location='{{ url("admin/login") }}'"><i class="fa fa-long-arrow-right"></i></button>
 
     </fieldset>
 

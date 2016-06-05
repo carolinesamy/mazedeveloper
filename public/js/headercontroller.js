@@ -253,6 +253,7 @@ $rootScope.questionTags={selectedTags:[]};
         }).success(function(res){
             console.log(res);
             $rootScope.notifications = res;
+            $rootScope.numOfnotification=0;
 
         }).error(function(err){
             console.log(err);

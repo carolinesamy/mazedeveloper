@@ -50,6 +50,8 @@ Route::post('/answerreply','ReplyController@reply');
 Route::post('/getnotifications','NotificationController@get_notification_num');
 Route::post('/goldenmark','AnswerController@golden_mark');
 Route::post('/ungoldenmark','AnswerController@ungolden_mark');
+Route::post('/commentnotification','NotificationController@comment_notification');
+Route::post('/replynotification','NotificationController@reply_notification');
 
 //**by caroline *** routes for edit question && edit answer
 
@@ -63,6 +65,12 @@ Route::post('/removelike','AnswerController@like_remove');
 Route::post('/dislikeaction','AnswerController@dislike_action');
 Route::post('/removedislike','AnswerController@dislike_remove');
 Route::post('/getnotificationsdata','NotificationController@get_notification_data');
+Route::post('/questionnotification','NotificationController@question_notification');
+Route::post('/answernotification','NotificationController@answer_notification');
+Route::post('/likenotification','NotificationController@like_notification');
+Route::post('/dislikenotification','NotificationController@dislike_notification');
+
+
 
 
 

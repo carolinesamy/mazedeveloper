@@ -5,7 +5,7 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io']);
 
 angular.module('developerMaze').config(function($routeProvider){
 
@@ -21,7 +21,7 @@ angular.module('developerMaze').config(function($routeProvider){
 	})
 
 	.when('/questions',{
-		templateUrl:'templates/views/questions.html',
+		templateUrl:'templates/views/questionsNEW.html',
 		resolve:{
 		        "check":function($location,$rootScope,sessionService){ 
     				

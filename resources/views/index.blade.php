@@ -60,6 +60,11 @@
 	<script src="js/select.js"></script>
     <link rel="stylesheet" href="css/select.css">
 
+	<!--soket.io-->
+	<script src="js/socket.js"></script>
+	<script src="node_modules/socket.io-client/socket.io.js"></script>
+
+
 <style type="text/css">
 	body{
 overflow-x:hidden;
@@ -67,7 +72,7 @@ overflow-x:hidden;
 </style>
 </head>
 
-<body>
+<body style="background-color: #f5f8f9; color: #08415c;">
 <div >
 
 	<div ng-view></div>

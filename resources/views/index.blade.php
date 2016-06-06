@@ -66,6 +66,10 @@
 	<script src="js/socket.js"></script>
 	<script src="node_modules/socket.io-client/socket.io.js"></script>
 
+	<!-- ngWYSIWYG editor -->
+	<link rel="stylesheet" href="bower_components/ngWYSIWYG/dist/editor.min.css" />
+	<script src="bower_components/ngWYSIWYG/dist/wysiwyg.min.js"></script>
+
 
 <style type="text/css">
 	body{

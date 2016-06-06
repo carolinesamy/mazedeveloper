@@ -71,27 +71,29 @@
                                           <h4 class="modal-title">Compose</h4>
                                       </div>
                                       <div class="modal-body">
-                                          <form role="form" class="form-horizontal">
+                                          <form class="form-horizontal" name="msgForm" novalidate ng-submit="submitted=true;sendMsg(msgForm.$valid)">
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">To</label>
                                                   <div class="col-lg-10">
-                                                      <select class="form-control">
-                                                        <option ng-repeat='inst in instructors'>{{inst.id}} {{inst.ifull_name}}</option>
-                                                      </select>
+                                                      
+                                                      <select class="form-control" ng-model="msg.instructor_id" ng-options="inst.id as inst.ifull_name for inst in instructors" required name="instructor_id"></select>
+                                                       <p ng-if="msgForm.instructor_id.$error.required&&submitted" class="text-danger" >Please, Select an Instructor..</p>
                                                   </div>
                                               </div>
                                               
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">Message</label>
                                                   <div class="col-lg-10">
-                                                      <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea>
+                                                      <textarea rows="10" cols="30" class="form-control" ng-model='msg.content' name="content" required></textarea>              
+                                                      <p ng-if="msgForm.content.$error.required&&submitted" class="text-danger" >Please, Type Message Content..</p>                                    
                                                   </div>
+                                                  
                                               </div>
 
                                               <div class="form-group">
                                                   <div class="col-lg-offset-2 col-lg-10">
                                                       
-                                                      <button class="btn btn-send" type="submit">Send</button>
+                                                      <button class="btn btn-send">Send</button>
                                                   </div>
                                               </div>
                                           </form>

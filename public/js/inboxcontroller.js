@@ -33,5 +33,71 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 
 	//*************************************************************
 
+	/*********** get all instructors ****************/
+
+	$scope.getAllInstructors=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/getallinstructors',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type')
+			}
+		}).success(function(res){
+
+			console.log(res);
+
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
+
+	/*********** get inbox message ****************/
+
+	$scope.getInboxMsg=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/getinboxmsg',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type')
+			}
+		}).success(function(res){
+
+			console.log(res);
+
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
+	/**************** sent inbox message *************/
+
+	$scope.sentInboxMsg=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/sentinboxmsg',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type'),
+				'resever_user':resever_user,
+				'message':message
+			}
+		}).success(function(res){
+
+			console.log(res);
+
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
 
 });

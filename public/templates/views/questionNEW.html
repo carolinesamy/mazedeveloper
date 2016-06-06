@@ -172,7 +172,7 @@
         <hr>
       </div><!--end of answers -->
     <div ng-if='userCourse == "true" '>
-     <div  ng-if='question.question_student_id != user_id'>
+     <div  ng-if=' question.question_student_id != user_id || user_type != "student" '>
       <hr>
       <h4>Leave an Answer:</h4>
       <form class="form-horizontal" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid)">

@@ -1,7 +1,7 @@
 angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
 
 	$scope.msg = {
-		'instructor_id':'',
+		'to':'',
 		'content':''
 	}
 
@@ -35,7 +35,6 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 
 
 	//*************************************************************
-
 	/*********** get all instructors ****************/
 
 	$scope.getAllInstructors=function(){
@@ -91,12 +90,18 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 				data: {
 					'user_id': sessionService.get('user'),
 					'type':sessionService.get('type'),
-					'resever_user':$scope.msg.instructor_id,
+					'reciver_user':$scope.msg.to,
 					'message':$scope.msg.content
 				}
 			}).success(function(res){
 
 				console.log(res);
+				$('#composeModal').modal('hide');
+
+				$scope.msg = {
+					'instructor_id':'',
+					'content':''
+				}
 
 
 			}).error(function(err){

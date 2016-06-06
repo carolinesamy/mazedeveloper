@@ -22,7 +22,7 @@ class InboxmessageController extends Controller
     {
         $senduser_id = $request->input('user_id');
         $senduser_type = $request->input('type');
-        $reciveruser = $request->input('reciveruser');
+        $reciveruser = $request->input('reciver_user');
         $message=$request->input('message');
 
         if (session('user_id') == $senduser_id &&session('type') ==  $senduser_type)
@@ -108,5 +108,27 @@ class InboxmessageController extends Controller
 
         }
     }
+
+//    /*********** auto compete ******************/
+//
+//    public function to_auto_compete(Request $request)
+//    {
+//        $user_id = $request->input('student_id');
+//        $user_type = $request->input('user_type');
+//        $name=$request->input('sentance');
+//
+//        if (session('user_id') == $user_id &&session('type') == $user_type) {
+//
+//            if ($user_type == 'instructor') {
+//                $names = Instructor::select('id', 'ifull_name')->where('ifull_name', 'like', $name . "%")->get();
+//
+//            } else {
+//                $names = Student::select('id', 'sfull_name')->where('sfull_name', 'like', $name . "%")->get();
+//
+//            }
+//            return $names;
+//        }
+//
+//    }
 
 }

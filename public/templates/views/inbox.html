@@ -75,7 +75,7 @@
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">To</label>
                                                   <div class="col-lg-10">
-                                                      
+
                                                       <select class="form-control" ng-model="msg.instructor_id" ng-options="inst.id as inst.ifull_name for inst in instructors" required name="instructor_id"></select>
                                                        <p ng-if="msgForm.instructor_id.$error.required&&submitted" class="text-danger" >Please, Select an Instructor..</p>
                                                   </div>
@@ -108,7 +108,7 @@
 
                           </li>
                           <li>
-                              <a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                              <a><i class="fa fa-envelope-o"></i> Sent Mail</a>
                           </li>
                           
                       </ul>

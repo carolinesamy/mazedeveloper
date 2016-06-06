@@ -34,10 +34,29 @@
         <li ><h4>{{user.name}}</h4></li>
           <!-- Trigger the modal with a link -->
         <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+        <li ng-if='currentuser'>
+          <style>
+          .msg{
+                 background: #cc0000;
+                 position:relative;
+                 top: -20px;
+                 left: -35px;
+              }
+
+          </style>
+
+        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:36px;">
+          <span class="glyphicon glyphicon-comment"></span>
+        </button>
+        <span class="badge badge-notify msg">3</span>
+
+        </li>
+
         <li ng-if='currentuser'>
           <style>
           .badge-notify{
-                 background:red;
+                 background: #cc0000;
                  position:relative;
                  top: -20px;
                  left: -35px;
@@ -47,12 +66,13 @@
             <button class="btn btn-default btn-lg btn-link dropdown-toggle" style="font-size:36px;" ng-click="getNotificationList()" data-toggle="dropdown">
               <span class="glyphicon glyphicon-globe "></span>
             </button>
-            <span ng-if='numOfnotification != 0 ' class="badge badge-notify" style="background-color: #cc0000">{{numOfnotification}}</span>
+            <span ng-if='numOfnotification != 0 ' class="badge badge-notify">{{numOfnotification}}</span>
 
             <ul class="dropdown-menu">
               <li ng-repeat='notification in notifications'><a href="#">{{notification.content}} "{{notification.time}}"</a></li>
             </ul>
         </li>
+
         <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>
         <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li>
         <li ng-if='currentuser'><a class="btn btn-default" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

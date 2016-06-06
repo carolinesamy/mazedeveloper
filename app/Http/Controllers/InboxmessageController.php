@@ -38,6 +38,7 @@ class InboxmessageController extends Controller
                         'instructor_id'=>$reciveruser,
                         'message'=>$message,
                         'time'=>$date,
+                        'sender_student'=>1,
                     ]
                 );
 
@@ -51,6 +52,7 @@ class InboxmessageController extends Controller
                         'instructor_id'=>$senduser_id,
                         'message'=>$message,
                         'time'=>$date,
+                        'sender_student'=>0,
                     ]
                 );
 

@@ -16,6 +16,7 @@ class CreateInboxmessageTable extends Migration
             $table->increments('id');
             $table->text('message');
             $table->dateTime('time');
+            $table->boolean('sender_student');
 
             $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');

@@ -122,7 +122,7 @@ $rootScope.questionTags={selectedTags:[]};
 
 
                 //*********  socket **/
-                console.log($scope.question.course);
+                //console.log($scope.question.course);
                 $http({
                     method: 'POST',
                     url: 'http://localhost:8000/questionnotification',
@@ -136,7 +136,7 @@ $rootScope.questionTags={selectedTags:[]};
                     }
                 }).success(function(res){
 
-
+                    console.log(res);
                     socket.emit('new_count_notification');
 
                 })

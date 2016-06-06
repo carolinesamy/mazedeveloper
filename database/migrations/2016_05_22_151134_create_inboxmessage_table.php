@@ -14,13 +14,15 @@ class CreateInboxmessageTable extends Migration
     {
         Schema::create('inbox_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_name');
+            $table->text('message');
+            $table->dateTime('time');
+            $table->boolean('sender_student');
 
-            $table->integer('instructor_id')->unsigned();
-            $table->foreign('instructor_id')->references('id')->on('instructors');
-
-            $table->integer('student_id')->unsigned();
+            $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');
+
+            $table->integer('instructor_id')->unsigned()->nullable();
+            $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->timestamps();
         });
     }

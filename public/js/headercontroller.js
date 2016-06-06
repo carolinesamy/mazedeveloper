@@ -31,6 +31,8 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
+    $rootScope.user_name = sessionService.get('name');
+
    
     
 //****************************login function*********************************
@@ -120,19 +122,21 @@ $rootScope.questionTags={selectedTags:[]};
 
 
                 //*********  socket **/
-                console.log($scope.question.course);
+                //console.log($scope.question.course);
                 $http({
                     method: 'POST',
                     url: 'http://localhost:8000/questionnotification',
                     data: {
                         'student_id': sessionService.get('user'),
                         'user_type': sessionService.get('type'),
+                        'user_name': sessionService.get('name'),
                         'course_id': $scope.question.course,
-                        'notification_type':'question'
+                        'notification_type':'question',
+                        'question_title':$scope.question.title,
                     }
                 }).success(function(res){
 
-
+                    console.log(res);
                     socket.emit('new_count_notification');
 
                 })

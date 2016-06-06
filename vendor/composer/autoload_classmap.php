@@ -14,6 +14,7 @@ return array(
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_05_22_152151_create_comments_table.php',
     'CreateCoursesTable' => $baseDir . '/database/migrations/2016_05_22_140048_create_courses_table.php',
     'CreateInboxmessageTable' => $baseDir . '/database/migrations/2016_05_22_151134_create_inboxmessage_table.php',
+    'CreateInboxmessagesTable' => $baseDir . '/database/migrations/2016_06_05_150310_create_inboxmessages_table.php',
     'CreateInstructorcourseTable' => $baseDir . '/database/migrations/2016_05_22_142403_create_instructorcourse_table.php',
     'CreateInstructornotificationTable' => $baseDir . '/database/migrations/2016_05_22_150338_create_instructornotification_table.php',
     'CreateInstructorsTable' => $baseDir . '/database/migrations/2016_05_22_140633_create_instructors_table.php',

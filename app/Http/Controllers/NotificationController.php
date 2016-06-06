@@ -134,10 +134,11 @@ class NotificationController extends Controller
     public function question_notification(Request $request)
     {
         $user_id = $request->input('student_id');
+        $user_name = $request->input('user_name');
         $user_type = $request->input('user_type');
         $notification_type = $request->input('notification_type');
         $course_id = $request->input('course_id');
-
+        $question_title =$request->input('question_title');
 
         //echo $course_id;
         if (session('user_id') == $user_id && session('type') == $user_type) {
@@ -145,10 +146,17 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
             //** type question */
+//            $course_name = DB::table('courses')
+//                ->where('id', $course_id)
+//                ->select('course_name')->first();
+//
+//            return $course_name;
+
+            $content=/*$course_name->course_name .*/""."Course..question from ".$user_name ."".$question_title;
 
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'There is new question',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
                 ]

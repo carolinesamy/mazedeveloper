@@ -37,81 +37,126 @@
     </div>
 
     <div class="col-sm-9">
-
-      <!-- filteration for questions -->
+    
+    <!-- filteration for questions -->
       <nav class="navbar" style="background-color: white;">
       <div class="container-fluid">
 
         <div>
           <ul class="nav navbar-nav">
-          <li><a class="btn" href="#/questions" ng-click='filterQuestions("all")'  style="color: #cc2900;">My Courses' Questions</a></li>
-          <li> <a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
+          <li><a class="btn" href="#/questions" ng-click='filterQuestions("all")' style="color: #cc2900;">My Courses' Questions</a></li>
+          <li><a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
             
           </ul>
         </div>
       </div>
     </nav><!-- end of filteration -->
-    <!-- inbox code -->
-      
-
- 
-    <div class="row">
-        <div class="col-sm-3 col-md-2">
-            <a href="#/inbox" class="btn btn-danger btn-sm btn-block" ng-click='getAllInstructors()' role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>
-            <hr>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a class="btn bg-danger"><span class="badge pull-right">32</span> Inbox </a>
-                </li>
-                <li><a class="btn bg-danger">Sent Mail</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-md-10">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-envelope">
-                </span> Messages</a></li>
 
 
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="home">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
+    <!-- inbox-->
 
-                            <span class="glyphicon glyphicon-user"></span><span class="name" > Mark Otto</span> <span class="">Nice work on the lastest version</span>
-                            <span class="text-muted" style="font-size: 13px;">- More content here</span> <span class="badge">12:10 AM</span> <span class="pull-right"></span></a><a href="#" class="list-group-item">
-                                    
-                                    <span class="glyphicon glyphicon-user"></span><span class="name"> Jason Markus</span> <span class="">This is big title</span>
-                                    <span class="text-muted" style="font-size: 13px;">- I saw that you had..</span> <span class="badge">12:09 AM</span> <span class="pull-right"></span></a><a href="#" class="list-group-item read">
-                                            
-                                            <span class="glyphicon glyphicon-user"></span><span class="name"> Jane Patel</span> <span class="">This is big title</span>
-                                            <span class="text-muted" style="font-size: 13px;">- Hi hello how r u ?</span> <span class="badge">11:30 PM</span> <span class="pull-right"></span></a>
-                    </div>
-                </div>
-                <div class="tab-pane fade in" id="profile">
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <span class="text-center">This tab is empty.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade in" id="messages">
-                    ...</div>
-                <div class="tab-pane fade in" id="settings">
-                    This tab is empty.</div>
-            </div>
+<link rel='stylesheet prefetch' href='css/inbox.css'>
+ <div class="mail-box">
+                  <aside class="sm-side">
+                      
+                      <div class="inbox-body">
+                          
+                          <button  class="btn btn-compose" ng-click="getAllInstructors()" data-toggle="modal"  data-target="#composeModal">compose</button>
+                          <!-- Modal -->
+                          <div aria-hidden="true" role="dialog" tabindex="-1" id="composeModal" class="modal fade" style="display: none;">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                          <h4 class="modal-title">Compose</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                          <form role="form" class="form-horizontal">
+                                              <div class="form-group">
+                                                  <label class="col-lg-2 control-label">To</label>
+                                                  <div class="col-lg-10">
+                                                      <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                                  </div>
+                                              </div>
+                                              
+                                              <div class="form-group">
+                                                  <label class="col-lg-2 control-label">Message</label>
+                                                  <div class="col-lg-10">
+                                                      <textarea rows="10" cols="30" class="form-control" id="" name=""></textarea>
+                                                  </div>
+                                              </div>
 
-        </div>
-    </div>
+                                              <div class="form-group">
+                                                  <div class="col-lg-offset-2 col-lg-10">
+                                                      
+                                                      <button class="btn btn-send" type="submit">Send</button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div><!-- /.modal-content -->
+                              </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
+                      </div>
+                      <ul class="inbox-nav inbox-divider">
+                          <li class="active">
+                              <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
 
+                          </li>
+                          <li>
+                              <a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                          </li>
+                          
+                      </ul>
+                      
 
+                  </aside>
+                  <aside class="lg-side">
+                     
+                      <div class="inbox-body">
+                         <div class="mail-option">
+                             
 
+                             
+                          
+                             <div class="btn-group">
+                                 
+                                 <ul class="dropdown-menu">
+                                     <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                     <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                     <li class="divider"></li>
+                                     <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                 </ul>
+                             </div>
 
-    <!-- end of inbox code -->
+                            
+                         </div>
+                          <table class="table table-inbox table-hover">
+                            <tbody>
+                             
+                              <tr class="">
+                                  <td class="inbox-small-cells">
+                                     <span class="glyphicon glyphicon-user"></span>
+                                  </td>
+                                  <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                                  <td class="view-message dont-show">sender-name</td>
+                                  <td class="view-message view-message">content </td>
+                                  <td class="view-message inbox-small-cells"></td>
+                                  <td class="view-message text-right">time</td>
+                              </tr>
+                              
+                          </tbody>
+                          </table>
+                      </div>
+                  </aside>
+              </div>
+
+    <!--end of inbox -->
     </div>
   </div>
 </div>
 
+<div class="navbar-fixed-botom">
 <!--Footer-->
 <div ng-include = "'templates/views/footer.html'"></div>
+</div>

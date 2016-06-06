@@ -76,4 +76,28 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		});
 	}
 
+	/**************** sent inbox message *************/
+
+	$scope.sentInboxMsg=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/sentinboxmsg',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type'),
+				'resever_user':resever_user,
+				'message':message
+			}
+		}).success(function(res){
+
+			console.log(res);
+
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
+
 });

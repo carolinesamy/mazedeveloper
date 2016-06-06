@@ -426,8 +426,17 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 
 			$rootScope.questionTags={
-				selectedTags:$rootScope.tags
+				selectedTags:[]
 			};
+            angular.forEach($scope.edittags,function(item){
+            var currentItem = item;
+            angular.forEach($rootScope.tags,function(item,index){
+                if(currentItem.id == item.id){
+                    $rootScope.questionTags.selectedTags.push($scope.edittags[index]);
+                                   
+                }
+                })
+            })
 
 			$scope.unselectedTags=[];
 			var flag=0;

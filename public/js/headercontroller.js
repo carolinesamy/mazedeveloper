@@ -256,6 +256,13 @@ $rootScope.questionTags={selectedTags:[]};
         });
     };
 
+    //*********************** message page*********************
+
+    $scope.messagePage = function(){
+
+        $location.path('/inbox');
+    }
+
 });
 
 

@@ -146,37 +146,35 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
             //** type question */
-
-
-            $course_name = DB::table('courses')
-                ->where('id', $course_id)
-                ->select('course_name')->first();
-
-            return $course_name;
-
-//            $content=$course_name->course_name .""."Course..question from ".$user_name ."".$question_title;
+//            $course_name = DB::table('courses')
+//                ->where('id', $course_id)
+//                ->select('course_name')->first();
 //
-//            $insert = DB::table('notifications')->insertGetId(
-//                [
-//                    'content' => $content,
-//                    'type' => $notification_type,
-//                    'time' => $date,
-//                ]
-//            );
-//            $instructors_id = DB::table('instructors')
-//                ->join('instructor_courses', 'instructor_courses.instructor_id', '=', 'instructors.id')
-//                ->where('instructor_courses.course_id', $course_id)
-//                ->select('instructors.id')->get();
-//
-//            foreach ($instructors_id as $id) {
-//
-//                $instructor_notification = DB::table('instructor_notifications')->insertGetId(
-//                    [
-//                        'instructor_id' => $id->id,
-//                        'notification_id' => $insert
-//                    ]
-//                );
-//            }
+//            return $course_name;
+
+            $content=/*$course_name->course_name .*/""."Course..question from ".$user_name ."".$question_title;
+
+            $insert = DB::table('notifications')->insertGetId(
+                [
+                    'content' => $content,
+                    'type' => $notification_type,
+                    'time' => $date,
+                ]
+            );
+            $instructors_id = DB::table('instructors')
+                ->join('instructor_courses', 'instructor_courses.instructor_id', '=', 'instructors.id')
+                ->where('instructor_courses.course_id', $course_id)
+                ->select('instructors.id')->get();
+
+            foreach ($instructors_id as $id) {
+
+                $instructor_notification = DB::table('instructor_notifications')->insertGetId(
+                    [
+                        'instructor_id' => $id->id,
+                        'notification_id' => $insert
+                    ]
+                );
+            }
 
 
         }

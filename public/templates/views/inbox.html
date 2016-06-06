@@ -56,7 +56,7 @@
     <!-- inbox-->
 
 <link rel='stylesheet prefetch' href='css/inbox.css'>
- <div class="mail-box">
+ <div class="mail-box" ng-controller='inboxCtl as ctrl'>
                   <aside class="sm-side">
                       
                       <div class="inbox-body">
@@ -76,8 +76,20 @@
                                                   <label class="col-lg-2 control-label">To</label>
                                                   <div class="col-lg-10">
                                                       
-                                                      <select class="form-control" ng-model="msg.instructor_id" ng-options="inst.id as inst.ifull_name for inst in instructors" required name="instructor_id"></select>
-                                                       <p ng-if="msgForm.instructor_id.$error.required&&submitted" class="text-danger" >Please, Select an Instructor..</p>
+
+  <ui-select tagging="tagTransform" ng-model="person.selected" theme="bootstrap" ng-disabled="disabled">
+
+  <ui-select-match placeholder="Select Name..." required name='name'>{{$select.selected.ifull_name}}</ui-select-match>
+  <p ng-if="msgForm.name.$error.required&&submitted" class="text-danger" >Please, Select Name..</p>
+
+  <ui-select-choices repeat="person in people | propsFilter: {ifull_name: $select.search}">
+    <div ng-if="person.isTag" ng-bind-html="(person.ifull_name | highlight: $select.search) +' (new)'"></div>
+    <div ng-if="!person.isTag" ng-bind-html="person.ifull_name + person.isTag| highlight: $select.search"></div>
+
+  </ui-select-choices>
+
+  </ui-select>
+
                                                   </div>
                                               </div>
                                               

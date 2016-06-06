@@ -214,6 +214,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				};
 			}
 			else {
+
 				arr = {
 					'content': $scope.answer_content,
 					'image':image,

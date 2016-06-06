@@ -122,7 +122,7 @@ $rootScope.questionTags={selectedTags:[]};
 
 
                 //*********  socket **/
-                //console.log($scope.question.course);
+                //console.log(res.id);
                 $http({
                     method: 'POST',
                     url: 'http://localhost:8000/questionnotification',
@@ -133,6 +133,7 @@ $rootScope.questionTags={selectedTags:[]};
                         'course_id': $scope.question.course,
                         'notification_type':'question',
                         'question_title':$scope.question.title,
+                        'question_id':res.id,
                     }
                 }).success(function(res){
 

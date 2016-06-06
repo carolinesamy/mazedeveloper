@@ -55,7 +55,25 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 	}
 
 
+	/*********** get inbox message ****************/
+
+	$scope.getInboxMsg=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/getinboxmsg',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type')
+			}
+		}).success(function(res){
+
+			console.log(res);
 
 
+		}).error(function(err){
+			console.log(err);
+		});
+	}
 
 });

@@ -53,6 +53,7 @@ Route::post('/ungoldenmark','AnswerController@ungolden_mark');
 Route::post('/commentnotification','NotificationController@comment_notification');
 Route::post('/replynotification','NotificationController@reply_notification');
 Route::post('/getallinstructors','InboxmessageController@all_instructors');
+Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
 
 //**by caroline *** routes for edit question && edit answer
 

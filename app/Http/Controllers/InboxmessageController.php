@@ -71,8 +71,41 @@ class InboxmessageController extends Controller
 
            $instructors = DB::table('instructors')->get();
 
-
             return $instructors;
+        }
+    }
+    public function inbox_msg(Request $request)
+    {
+        $user_id=$request->input('user_id');
+        $type=$request->input('type');
+
+        if (session('user_id') == $user_id &&session('type') == $type) {
+
+
+            if($type == 'instructor')
+            {
+
+                $inboxmsg = DB::table('inbox_messages')
+                    ->where([
+                        ['inbox_messages.instructor_id','=',$user_id ],
+                        ['inbox_messages.sender_student','=',1],
+                    ])
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.student_id')
+                    ->get();
+
+            }
+            else
+            {
+                $inboxmsg = DB::table('inbox_messages')
+                    ->where([
+                        ['inbox_messages.student_id','=',$user_id ],
+                        ['inbox_messages.sender_student','=',0],
+                    ])
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.instructor_id')
+                    ->get();
+            }
+
+
         }
     }
 

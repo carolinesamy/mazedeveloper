@@ -11,6 +11,12 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
    	$rootScope.comments = '';
    	$rootScope.likes = '';
    	$rootScope.dislikes = '';
+   	$scope.newComment = {
+   		'content':''
+   	};
+   	$scope.newAnswer = {
+   		'content':''
+   	};
 
 
 	$rootScope.question_id=$routeParams.id;
@@ -205,8 +211,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 		if(valid) {
 			if (sessionService.get('type') == 'student') {
-				arr = {
-					'content': $scope.answer_content,
+				arr = {	
+					'content': $scope.newAnswer.content,
 					'image': image,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
@@ -215,7 +221,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}
 			else {
 				arr = {
-					'content': $scope.answer_content,
+					'content': $scope.newAnswer.content,
 					'image':image,
 					'question_id': $rootScope.question_id,
 					'id': sessionService.get('user'),
@@ -234,7 +240,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				console.log(res);
 				$rootScope.answers.push(res);
 				$rootScope.replies[$rootScope.answers.length-1] =[];
-				$scope.answer_content='';
+				$scope.newAnswer.content='';
 
 				//*** socket notification
 				$http({
@@ -314,9 +320,10 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 	$scope.addComment=function(){
 
+		console.log($scope.newComment.content);
 		if (sessionService.get('type') == 'student') {
 			arr = {
-				'content': $scope.comment,
+				'content': $scope.newComment.content,
 				'question_id': $rootScope.question_id,
 				'user_id': sessionService.get('user'),
 				'type': 'student'
@@ -324,14 +331,14 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 		}
 		else {
 			arr = {
-				'content': $scope.comment,
+				'content': $scope.newComment.content,
 				'question_id': $rootScope.question_id,
 				'user_id': sessionService.get('user'),
 				'type': 'instructor'
 			};
 		}
 		//console.log(arr);
-		if($scope.comment){
+		if($scope.newComment.content){
 			$http({
 			method: 'POST',
 			url: 'http://localhost:8000/questioncomment',
@@ -341,7 +348,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}).success(function (res) {
 				console.log(res);
 				$rootScope.comments.push(res);
-				$scope.comment = '';
+				$scope.newComment.content = '';
 
 				$http({
 					method: 'POST',

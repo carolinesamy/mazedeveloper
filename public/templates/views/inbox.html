@@ -75,7 +75,9 @@
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">To</label>
                                                   <div class="col-lg-10">
-                                                      <input type="text" placeholder="" id="inputEmail1" class="form-control">
+                                                      <select class="form-control">
+                                                        <option ng-repeat='inst in instructors'>{{inst.id}} {{inst.ifull_name}}</option>
+                                                      </select>
                                                   </div>
                                               </div>
                                               

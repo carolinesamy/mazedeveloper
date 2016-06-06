@@ -47,6 +47,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		}).success(function(res){
 
 			console.log(res);
+			$rootScope.instructors = res;
 
 
 		}).error(function(err){

@@ -31,6 +31,8 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
+    $rootScope.user_name = sessionService.get('name');
+
    
     
 //****************************login function*********************************
@@ -127,8 +129,10 @@ $rootScope.questionTags={selectedTags:[]};
                     data: {
                         'student_id': sessionService.get('user'),
                         'user_type': sessionService.get('type'),
+                        'user_name': sessionService.get('name'),
                         'course_id': $scope.question.course,
-                        'notification_type':'question'
+                        'notification_type':'question',
+                        'question_title':$scope.question.title,
                     }
                 }).success(function(res){
 

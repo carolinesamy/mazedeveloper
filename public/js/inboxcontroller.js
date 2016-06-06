@@ -33,13 +33,13 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 
 	//*************************************************************
 
-	/*********** get all inbox ****************/
+	/*********** get all instructors ****************/
 
-	$scope.getInboxMsg=function(){
+	$scope.getAllInstructors=function(){
 
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8000/getinboxmsg',
+			url: 'http://localhost:8000/getallinstructors',
 			data: {
 				'user_id': sessionService.get('user'),
 				'type':sessionService.get('type')
@@ -53,5 +53,9 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 			console.log(err);
 		});
 	}
+
+
+
+
 
 });

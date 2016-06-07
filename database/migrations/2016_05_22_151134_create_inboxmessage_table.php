@@ -16,8 +16,8 @@ class CreateInboxmessageTable extends Migration
             $table->increments('id');
             $table->text('message');
             $table->dateTime('time');
-            $table->boolean('sender_student');
-
+            $table->boolean('sender_student');// to differniate betwen student && instructor
+//if student send this msg ==1 && if he recived msg ==0
             $table->integer('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students');
 

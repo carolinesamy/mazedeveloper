@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('questionCtl',function( socket,$scope ,sessionService ,$rootScope ,$http, server,$routeParams){
+angular.module('developerMaze').controller('questionCtl',function( socket,$scope,$sce ,sessionService ,$rootScope ,$http, server,$routeParams){
 
 	// //code mirror code
 	// $scope.editorOptions = {
@@ -69,7 +69,10 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			console.log(res);
 
 			$rootScope.question = res.question[0];
-			$rootScope.answers = res.answers;
+			$rootScope.answers = res.answers.map(function(item){
+				item.answer_content = $sce.trustAsHtml(item.answer_content)
+				return item;
+			})
 			$rootScope.comments = res.comments;
 			$rootScope.replies = res.replies;
 			$rootScope.tags = res.tags;
@@ -206,7 +209,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 	//*******************Add answer function***************
 
 	$scope.addAnswer=function(valid){
-
+		console.log($scope.newAnswer.content);
 		if($scope.image_path){
 			image = $scope.image_path.name;
 		}else{image=''}
@@ -240,9 +243,12 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				}
 			}).success(function (res) {
 
-				console.log(res);
+				console.log("res",res);
+				res.answer_content = $sce.trustAsHtml(res.answer_content)
 				$rootScope.answers.push(res);
-				$rootScope.replies[$rootScope.answers.length-1] =[];
+				
+				
+				// $rootScope.replies[$rootScope	.answers.length-1] =[];
 				$scope.newAnswer.content='';
 
 				//*** socket notification

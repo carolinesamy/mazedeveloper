@@ -61,6 +61,8 @@
 	<link rel="stylesheet" href="css/selectize.default.css">
 	<script src="js/select.js"></script>
     <link rel="stylesheet" href="css/select.css">
+    <link rel="stylesheet" href="css/base.css">
+
 
 	<!--soket.io-->
 	<script src="js/socket.js"></script>
@@ -70,6 +72,10 @@
 	<link rel="stylesheet" href="bower_components/ngWYSIWYG/dist/editor.min.css" />
 	<script src="bower_components/ngWYSIWYG/dist/wysiwyg.min.js"></script>
 
+	<!-- angular loading -->
+	<link rel="stylesheet" href="css/loading-bar.css">
+    <script type="text/javascript" src="js/loading-bar.js"></script>
+
 
 <style type="text/css">
 	body{
@@ -78,7 +84,7 @@ overflow-x:hidden;
 </style>
 </head>
 
-<body style="background-color: #f5f8f9; color: #08415c;">
+<body class="bg-white">
 <div >
 
 	<div ng-view></div>

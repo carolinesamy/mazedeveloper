@@ -68,10 +68,23 @@ class InboxmessageController extends Controller
         $type=$request->input('type');
 
         if (session('user_id') == $user_id &&session('type') == $type) {
+            if($type == 'instructor')
+            {
+                $names = DB::table('students')
+                    ->select('id','sfull_name as name')
+                    ->get();
 
-           $instructors = DB::table('instructors')->get();
+            }
+            else
+            {
+                $names = DB::table('instructors')
+                    ->select('id','ifull_name as name')
+                    ->get();
 
-            return $instructors;
+            }
+
+
+            return $names;
         }
     }
     public function inbox_msg(Request $request)
@@ -105,8 +118,12 @@ class InboxmessageController extends Controller
                     ->get();
             }
 
+            return $inboxmsg;
+
 
         }
     }
+
+
 
 }

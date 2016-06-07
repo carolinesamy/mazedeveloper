@@ -1,7 +1,7 @@
 angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
 
 	$scope.msg = {
-		'instructor_id':'',
+		'to':'',
 		'content':''
 	}
 
@@ -39,7 +39,6 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 
 
 	//*************************************************************
-
 	/*********** get all instructors ****************/
 
 	$scope.getAllInstructors=function(){
@@ -78,6 +77,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		}).success(function(res){
 
 			console.log(res);
+			$scope.myInboxMsgs = res;
 
 
 		}).error(function(err){
@@ -85,10 +85,13 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		});
 	}
 
+	$scope.getInboxMsg();
+
 	/**************** sent inbox message *************/
 
 	$scope.sendMsg=function(valid){
-		console.log($scope.msg);
+		console.log('msg');
+		console.log($scope.msg.to.id);
 		if(valid){
 			$http({
 				method: 'POST',
@@ -96,12 +99,18 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 				data: {
 					'user_id': sessionService.get('user'),
 					'type':sessionService.get('type'),
-					'resever_user':$scope.msg.instructor_id,
+					'reciver_user':$scope.msg.to.id,
 					'message':$scope.msg.content
 				}
 			}).success(function(res){
 
 				console.log(res);
+				$('#composeModal').modal('hide');
+
+				$scope.msg = {
+					'instructor_id':'',
+					'content':''
+				}
 
 
 			}).error(function(err){

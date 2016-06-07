@@ -1,15 +1,19 @@
 <div ng-controller ="headerCtl as ctrl" >
-<nav class="navbar ">
+<nav class="navbar bg-red">
+<div  class="container">
+
   <button type="button" class = "navbar-toggle" data-toggle = "collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-  <div >
+  <div>
 
     <div class="navbar-header">
-      <img src="http://placehold.it/50x50">
-      <a class="navbar-brand" href="#/" style="color: grey;">Developer Maze</a>
+    <a class="logo" href="#/">
+      <img  src="images/logo.png">
+      </a>
+      <a class="navbar-brand color-white" href="#/" >Developer Maze</a>
     </div>
 
       <div class="navbar-form navbar-left" ng-if='currentuser'>
@@ -31,7 +35,25 @@
 
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right" >
-        <li ><h4>{{user.name}}</h4></li>
+        <!-- <li ng-if='currentuser' class="color-white"><h4>Welcome, {{user_name}}</h4></li> -->
+
+      <li ng-if='currentuser'>
+        <nav class="navbar">
+          <div class="container-fluid">
+
+            <div>
+              <ul class="nav navbar-nav">
+              <li><a class="color-white" href="#/questions" ng-click='filterQuestions("all")'>Questions' Page</a></li>
+              <li><a href="#/aboutus" class='color-white'> About-Us</a> </li>
+              <li > <a href="#/help" class="color-white"> Help</a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </li>
+ 
+
           <!-- Trigger the modal with a link -->
         <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
@@ -46,25 +68,17 @@
 
           </style>
 
-        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:36px;">
-          <span class="glyphicon glyphicon-comment"></span>
+        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:30px;">
+          <span class="glyphicon glyphicon-comment color-white"></span>
         </button>
         <span class="badge badge-notify msg">3</span>
 
         </li>
 
         <li ng-if='currentuser'>
-          <style>
-          .badge-notify{
-                 background: #cc0000;
-                 position:relative;
-                 top: -20px;
-                 left: -35px;
-              }
-
-          </style>
-            <button class="btn btn-default btn-lg btn-link dropdown-toggle" style="font-size:36px;" ng-click="getNotificationList()" data-toggle="dropdown">
-              <span class="glyphicon glyphicon-globe "></span>
+       
+            <button class="btn btn-default btn-link dropdown-toggle" style="font-size:30px;" ng-click="getNotificationList()" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-globe color-white"></span>
             </button>
             <span ng-if='numOfnotification != 0 ' class="badge badge-notify">{{numOfnotification}}</span>
 
@@ -73,14 +87,14 @@
             </ul>
         </li>
 
-        <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>
-        <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li>
-        <li ng-if='currentuser'><a class="btn btn-default" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <!-- <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li> -->
+       <!--  <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li> -->
+        <li ng-if='currentuser'><a class="btn btn-default bg-transparent color-white" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
 
   </div>
-
+</div>
 </nav>
 
  <!-- login Modal -->

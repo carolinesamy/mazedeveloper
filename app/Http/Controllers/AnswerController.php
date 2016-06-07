@@ -120,7 +120,7 @@ class AnswerController extends Controller
         //$content="opa alalla";
         $image = $answersdata['image'];
         $question_id = $answersdata['question_id'];
-       // echo $content;
+        //echo $content;
 
         if (session('user_id') == $user_id &&session('type') == $user_type)
         {
@@ -131,7 +131,7 @@ class AnswerController extends Controller
             if ($user_type == 'student') {
                 $insert = DB::table('answers')->insertGetId(
                     [
-                       /* 'content' => $content,*/
+                        'content' => $content,
                         'image' => $image,
                         'student_id' => $user_id,
                         'time' => $date,

@@ -71,6 +71,7 @@
       <div ng-repeat='question in questions track by $index'>
 
       <h2>{{question.title}} <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span>
+      
       </h2>
       <h5><span class="glyphicon glyphicon-time"></span> Post at: {{question.time}}</h5>
       <h5><span class="label label-danger">{{question.course_name}}</span></h5><br>

@@ -99,25 +99,41 @@ class InboxmessageController extends Controller
             {
 
                 $inboxmsg = DB::table('inbox_messages')
-                    ->join('students','student.id','inbox_messages.student_id')
+                    ->join('students','students.id', '=','inbox_messages.student_id')
                     ->where([
                         ['inbox_messages.instructor_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',1],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','students.sfullname as name')
+                    ->select('inbox_messages.message','inbox_messages.time','students.sfull_name as name')
                     ->get();
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('instructors')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
 
             }
             else
             {
                 $inboxmsg = DB::table('inbox_messages')
-                    ->join('instructors','instructor.id','inbox_messages.instructor_id')
+                    ->join('instructors','instructors.id', '=','inbox_messages.instructor_id')
+
                     ->where([
                         ['inbox_messages.student_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',0],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','instructors.ifullname as name')
+                    ->select('inbox_messages.message','inbox_messages.time','instructors.ifull_name as name')
                     ->get();
+
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('students')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
+
+
             }
 
             return $inboxmsg;
@@ -159,6 +175,7 @@ class InboxmessageController extends Controller
                     ])
                     ->select(DB::raw('count(*) as count'))
                     ->get();
+
             }
 
         }

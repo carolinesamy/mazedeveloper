@@ -20,7 +20,7 @@ angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$
 
     });
     socket.on( 'new_count_msg_notification', function() {
-        $scope.getNOtifications();
+        $scope.getMsgNOtifications();
 
     });
 
@@ -241,7 +241,22 @@ $rootScope.questionTags={selectedTags:[]};
     };
     
     $scope.getNOtifications();
-
+    //*********** get msg number *********
+    $scope.getMsgNOtifications=function(){
+        $http({
+            method:'POST',
+            url: 'http://localhost:8000/getmsgnum',
+            data:{
+                'id':sessionService.get('user'),
+                'type':sessionService.get('type')
+            }
+        }).success(function(res){
+            $rootScope.numOfmsg = res[0].count;
+        }).error(function(res){
+            console.log(err);
+        });
+    }
+    $scope.getMsgNOtifications();
     //************************** get notification list ****************************
     $scope.getNotificationList=function(){
         $http({

@@ -19,6 +19,10 @@ angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$
         $scope.getNOtifications();
 
     });
+    socket.on( 'new_count_msg_notification', function() {
+        $scope.getNOtifications();
+
+    });
 
 $rootScope.questionTags={selectedTags:[]};
 

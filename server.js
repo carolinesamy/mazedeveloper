@@ -18,6 +18,11 @@ io.on('connection', function (socket) {
         socket.broadcast.emit( 'new_count_notification');
     });
 
+    socket.on( 'new_count_msg_notification', function() {
+        // console.log(data.new_count_notification);
+        socket.broadcast.emit( 'new_count_msg_notification');
+    });
+
 });
 server.listen(7000, function() {
     console.log('server up and running at 7000 port');

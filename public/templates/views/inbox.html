@@ -75,16 +75,16 @@
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">To</label>
                                                   <div class="col-lg-10">
-                                                      
 
-  <ui-select tagging="tagTransform" ng-model="person.selected" theme="bootstrap" ng-disabled="disabled">
 
-  <ui-select-match placeholder="Select Name..." required name='name'>{{$select.selected.ifull_name}}</ui-select-match>
+  <ui-select tagging="tagTransform" ng-model="msg.to" theme="bootstrap" ng-disabled="disabled">
+
+  <ui-select-match placeholder="Select Name..." required name='name'>{{$select.selected.name}}</ui-select-match>
   <p ng-if="msgForm.name.$error.required&&submitted" class="text-danger" >Please, Select Name..</p>
 
-  <ui-select-choices repeat="person in people | propsFilter: {ifull_name: $select.search}">
-    <div ng-if="person.isTag" ng-bind-html="(person.ifull_name | highlight: $select.search) +' (new)'"></div>
-    <div ng-if="!person.isTag" ng-bind-html="person.ifull_name + person.isTag| highlight: $select.search"></div>
+  <ui-select-choices repeat="person in people | propsFilter: {name: $select.search}">
+    <div ng-if="person.isTag" ng-bind-html="(person.name | highlight: $select.search) +' (new)'"></div>
+    <div ng-if="!person.isTag" ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
 
   </ui-select-choices>
 
@@ -120,7 +120,7 @@
 
                           </li>
                           <li>
-                              <a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                              <a><i class="fa fa-envelope-o"></i> Sent Mail</a>
                           </li>
                           
                       </ul>
@@ -130,35 +130,19 @@
                   <aside class="lg-side">
                      
                       <div class="inbox-body">
-                         <div class="mail-option">
-                             
 
-                             
-                          
-                             <div class="btn-group">
-                                 
-                                 <ul class="dropdown-menu">
-                                     <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                                     <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                                     <li class="divider"></li>
-                                     <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                                 </ul>
-                             </div>
-
-                            
-                         </div>
                           <table class="table table-inbox table-hover">
                             <tbody>
                              
-                              <tr class="">
+                              <tr ng-repeat="msg in myInboxMsgs">
                                   <td class="inbox-small-cells">
                                      <span class="glyphicon glyphicon-user"></span>
                                   </td>
                                   <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                  <td class="view-message dont-show">sender-name</td>
-                                  <td class="view-message view-message">content </td>
+                                  <td class="view-message dont-show">{{msg.instructor_id}}</td>
+                                  <td class="view-message view-message">{{msg.message}} </td>
                                   <td class="view-message inbox-small-cells"></td>
-                                  <td class="view-message text-right">time</td>
+                                  <td class="view-message text-right">{{msg.time}}</td>
                               </tr>
                               
                           </tbody>

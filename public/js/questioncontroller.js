@@ -222,6 +222,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				};
 			}
 			else {
+
 				arr = {
 					'content': $scope.newAnswer.content,
 					'image':image,

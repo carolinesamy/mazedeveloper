@@ -159,6 +159,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 					'student_id': sessionService.get('user'),
 					'user_type': sessionService.get('type'),
 					'answer_id': answer_id,
+					'user_name': sessionService.get('name'),
+					'question_id':$rootScope.question_id,
 					'notification_type':'accept'
 				}
 			}).success(function(res){
@@ -249,6 +251,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 					data: {
 						'student_id': sessionService.get('user'),
 						'user_type': sessionService.get('type'),
+						'user_name': sessionService.get('name'),
 						'question_id':$rootScope.question_id,
 						'notification_type':'answer'
 					}
@@ -499,6 +502,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 					data: {
 						'student_id': sessionService.get('user'),
 						'user_type': sessionService.get('type'),
+						'user_name': sessionService.get('name'),
 						'question_id':$rootScope.question_id,
 						'answer_id':answer_id,
 						'notification_type':'reply'
@@ -540,6 +544,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				data: {
 					'student_id': sessionService.get('user'),
 					'user_type': sessionService.get('type'),
+					'user_name': sessionService.get('name'),
+					'question_id':$rootScope.question_id,
 					'answer_id': answer_id,
 					'notification_type':'like'
 				}
@@ -594,6 +600,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				data: {
 					'student_id': sessionService.get('user'),
 					'user_type': sessionService.get('type'),
+					'user_name': sessionService.get('name'),
+					'question_id':$rootScope.question_id,
 					'answer_id': answer_id,
 					'notification_type':'dislike'
 				}
@@ -661,7 +669,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 	//****************golden star*************************
 
 	$scope.goldenStar = function(answer_id,index){
-		
+
 
 		$http({
 			method: 'POST',
@@ -679,6 +687,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				data: {
 					'student_id': sessionService.get('user'),
 					'user_type': sessionService.get('type'),
+					'user_name': sessionService.get('name'),
+					'question_id':$rootScope.question_id,
 					'answer_id': answer_id,
 					'notification_type':'golden'
 				}

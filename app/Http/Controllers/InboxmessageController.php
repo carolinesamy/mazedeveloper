@@ -22,7 +22,7 @@ class InboxmessageController extends Controller
     {
         $senduser_id = $request->input('user_id');
         $senduser_type = $request->input('type');
-        $reciveruser = $request->input('reciveruser');
+        $reciveruser = $request->input('reciver_user');
         $message=$request->input('message');
 
         if (session('user_id') == $senduser_id &&session('type') ==  $senduser_type)

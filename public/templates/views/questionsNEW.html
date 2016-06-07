@@ -1,25 +1,5 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
-<style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: white;
-      height: 100%;
-    }
-    
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-  </style>
 
 
 <div class="container" >
@@ -39,13 +19,13 @@
     <div class="col-sm-9">
     
     <!-- filteration for questions -->
-      <nav class="navbar" style="background-color: white;">
+      <nav class="navbar " style="background-color: white;">
       <div class="container-fluid">
 
         <div>
           <ul class="nav navbar-nav">
-          <li  class="active"><a class="btn" href="#/questions" ng-click='filterQuestions("all")' >My Courses' Questions</a></li>
-          <li><a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
+          <li  ><a class="color-blue " href="#/questions" ng-click='filterQuestions("all")' >My Courses' Questions</a></li>
+          <li><a href="#/allquestions" class="color-red"> Other Courses' Questions</a></li>
             
           </ul>
         </div>
@@ -58,9 +38,9 @@
 
         <div>
           <ul class="nav navbar-nav">
-           <li><a class="btn" ng-click='filterQuestions("all")' style="color: green;"> All </a></li>
-            <li><a class="btn" ng-click='filterQuestions("answered")' style="color: green;"> Answered</a></li>
-            <li><a class="btn" ng-click='filterQuestions("unanswered")' style="color: green;"> Un-Answered</a></li>
+           <li><a class="btn color-grey" ng-click='filterQuestions("all")' > All </a></li>
+            <li><a class="btn color-grey" ng-click='filterQuestions("answered")'> Answered</a></li>
+            <li><a class="btn color-grey" ng-click='filterQuestions("unanswered")'> Un-Answered</a></li>
           </ul>
         </div>
       </div>
@@ -68,34 +48,39 @@
     <h2><small>RECENT QUESTIONS</small></h2>
       <hr>
       
-      <div ng-repeat='question in questions track by $index'>
+      <div ng-repeat='question in questions track by $index' style="position: relative;">
 
-      <h2>{{question.title}} <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span>
+      <h2 class="bg-blue color-white" style=" padding-left: 20px; padding-top: 7px; padding-bottom: 7px;">{{question.title}} <span style="
+                                        position: absolute;
+                                        bottom: 143px;
+                                        top: auto;
+                                        right: 0;"
+                               ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span>
       
       </h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post at: {{question.time}}</h5>
-      <h5><span class="label label-danger">{{question.course_name}}</span></h5><br>
+      <h5><span class="glyphicon glyphicon-time"></span> <strong>Post at:</strong> {{question.time}}</h5>
+      <h5><span class="label bg-red">{{question.course_name}}</span></h5><br>
 
 
       <div class="pull-right">
-      <h4><span class="badge">{{question.answer_number}}</span> Answers</h4>
-       <p><span class="btn btn-danger"><a  href="#/question?id={{question.id}}" style="color: white;">View Question's Page</a></span></p><br>
+      <h4><span class="badge bg-brown">{{question.answer_number}}</span> Answers</h4>
+       <p><span class="btn bg-red"><a  href="#/question?id={{question.id}}" style="color: white;">View Question's Page</a></span></p><br>
      </div>
      
 
-     <span class="badge"> Tags</span> <b ng-repeat='tag in question.tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
+     <span class="badge bg-brown"> Tags</span> <b ng-repeat='tag in question.tags track by $index'> <a  >{{tag.tag_name}}</a> |</b><br><br>
       
 
 
-      
-      <div hm-read-more
+      <div ng-bind-html='question.content'></div>
+      <!-- <div hm-read-more
                   hm-text="{{question.content}}" 
                   hm-limit="150" 
                   hm-more-text="Read More" 
                   hm-less-text="Read Less"
                   hm-dots-class="dots"
                   hm-link-class="links">
-      </div>
+      </div> -->
 
 
       <hr>

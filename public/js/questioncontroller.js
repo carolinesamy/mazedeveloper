@@ -69,6 +69,9 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			console.log(res);
 
 			$rootScope.question = res.question[0];
+			content = $rootScope.question.question_content;
+			$rootScope.question.question_content = $sce.trustAsHtml(content);
+
 			$rootScope.answers = res.answers.map(function(item){
 				item.answer_content = $sce.trustAsHtml(item.answer_content)
 				return item;
@@ -244,7 +247,15 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}).success(function (res) {
 
 				console.log("res",res);
-				res.answer_content = $sce.trustAsHtml(res.answer_content)
+				res.answer_content = $sce.trustAsHtml(res.answer_content);
+
+				if($rootScope.user_type == 'student'){
+					res.student_name = $rootScope.user_name;
+
+				}else if($rootScope.user_type == 'instructor'){
+					res.instructor_name = $rootScope.user_name;
+
+				}
 				$rootScope.answers.push(res);
 				
 				
@@ -309,7 +320,9 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				}
 			}).success(function (res) {
 				console.log(res);
-                $('#editAnswerModal').modal('hide');              
+                $('#editAnswerModal').modal('hide'); 
+				$scope.editanswer_content = $sce.trustAsHtml($scope.editanswer_content)
+
                 $rootScope.answers[$scope.answer_index].answer_content = $scope.editanswer_content;
 
 			}).error(function (err) {
@@ -411,8 +424,9 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}).success(function(res){
                 $('#editQuestionModal').modal('hide');
 				console.log('tags:'+res);
+				
+				$rootScope.question.question_content = $sce.trustAsHtml($scope.question.editcontent)
 
-				$rootScope.question.question_content = $scope.question.editcontent;
 				$rootScope.question.question_title = $scope.question.edittitle;
 				$rootScope.tags = res;
 

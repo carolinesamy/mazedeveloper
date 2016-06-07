@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
+angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$location ,$sce,$http, $rootScope,sessionService){
 
     $scope.isCollapsed = true;
 
@@ -145,6 +145,8 @@ $rootScope.questionTags={selectedTags:[]};
                 $('#askModal').modal('hide');
 
                 console.log(res);
+                res.content = $sce.trustAsHtml(res.content);
+
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 

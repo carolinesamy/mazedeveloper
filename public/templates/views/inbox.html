@@ -1,26 +1,5 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
-<style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: white;
-      height: 100%;
-    }
-    
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-  </style>
-
 
 <div class="container" >
   <div class="row content">
@@ -44,8 +23,8 @@
 
         <div>
           <ul class="nav navbar-nav">
-          <li><a class="btn" href="#/questions" ng-click='filterQuestions("all")' style="color: #cc2900;">My Courses' Questions</a></li>
-          <li><a href="#/allquestions" class="btn" style="color: #cc2900;"> Other Courses' Questions</a></li>
+          <li><a class="btn color-red" href="#/questions" ng-click='filterQuestions("all")'>My Courses' Questions</a></li>
+          <li><a href="#/allquestions" class="btn color-red" > Other Courses' Questions</a></li>
             
           </ul>
         </div>
@@ -61,7 +40,7 @@
                       
                       <div class="inbox-body">
                           
-                          <button  class="btn btn-compose" ng-click="getAllInstructors()" data-toggle="modal"  data-target="#composeModal">compose</button>
+                          <button  class="btn btn-lg bg-blue color-white" ng-click="getAllInstructors()" data-toggle="modal"  data-target="#composeModal">compose</button>
                           <!-- Modal -->
                           <div aria-hidden="true" role="dialog" tabindex="-1" id="composeModal" class="modal fade" style="display: none;">
                               <div class="modal-dialog">
@@ -105,7 +84,7 @@
                                               <div class="form-group">
                                                   <div class="col-lg-offset-2 col-lg-10">
                                                       
-                                                      <button class="btn btn-send">Send</button>
+                                                      <button class="btn bg-red color-white">Send</button>
                                                   </div>
                                               </div>
                                           </form>

@@ -1,5 +1,5 @@
 
-angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http, sessionService,$location, $rootScope , server , $routeParams){
+angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http,$sce, sessionService,$location, $rootScope , server , $routeParams){
 	
 
 //*************************Request Data*******************************
@@ -20,7 +20,15 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 				$rootScope.courses = JSON.parse(res.user['course_data']);
 				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
 				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
-				
+
+				$rootScope.questions = $rootScope.questions.map(function(item){
+				item.content = $sce.trustAsHtml(item.content)
+				return item;
+				});
+				$rootScope.allquestions = $rootScope.allquestions.map(function(item){
+				item.content = $sce.trustAsHtml(item.content)
+				return item;
+				});
 			}
 			
 		}).error(function(err){

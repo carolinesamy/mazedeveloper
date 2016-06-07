@@ -68,10 +68,23 @@ class InboxmessageController extends Controller
         $type=$request->input('type');
 
         if (session('user_id') == $user_id &&session('type') == $type) {
+            if($type == 'instructor')
+            {
+                $names = DB::table('students')
+                    ->select('id','sfull_name as name')
+                    ->get();
 
-           $instructors = DB::table('instructors')->get();
+            }
+            else
+            {
+                $names = DB::table('instructors')
+                    ->select('id','ifull_name as name')
+                    ->get();
 
-            return $instructors;
+            }
+
+
+            return $names;
         }
     }
     public function inbox_msg(Request $request)
@@ -105,30 +118,12 @@ class InboxmessageController extends Controller
                     ->get();
             }
 
+            return $inboxmsg;
+
 
         }
     }
 
-//    /*********** auto compete ******************/
-//
-//    public function to_auto_compete(Request $request)
-//    {
-//        $user_id = $request->input('student_id');
-//        $user_type = $request->input('user_type');
-//        $name=$request->input('sentance');
-//
-//        if (session('user_id') == $user_id &&session('type') == $user_type) {
-//
-//            if ($user_type == 'instructor') {
-//                $names = Instructor::select('id', 'ifull_name')->where('ifull_name', 'like', $name . "%")->get();
-//
-//            } else {
-//                $names = Student::select('id', 'sfull_name')->where('sfull_name', 'like', $name . "%")->get();
-//
-//            }
-//            return $names;
-//        }
-//
-//    }
+
 
 }

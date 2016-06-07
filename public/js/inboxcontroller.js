@@ -5,6 +5,10 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		'content':''
 	}
 
+  $scope.peopleObj = {};
+  
+
+
 //*************************Request Data*******************************
 
 	$scope.requestData=function(){
@@ -49,7 +53,8 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		}).success(function(res){
 
 			console.log(res);
-			$rootScope.instructors = res;
+
+			$scope.people = res;
 
 
 		}).error(function(err){
@@ -72,6 +77,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		}).success(function(res){
 
 			console.log(res);
+			$scope.myInboxMsgs = res;
 
 
 		}).error(function(err){
@@ -79,10 +85,13 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 		});
 	}
 
+	$scope.getInboxMsg();
+
 	/**************** sent inbox message *************/
 
 	$scope.sendMsg=function(valid){
-		console.log($scope.msg);
+		console.log('msg');
+		console.log($scope.msg.to.id);
 		if(valid){
 			$http({
 				method: 'POST',
@@ -90,7 +99,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 				data: {
 					'user_id': sessionService.get('user'),
 					'type':sessionService.get('type'),
-					'reciver_user':$scope.msg.to,
+					'reciver_user':$scope.msg.to.id,
 					'message':$scope.msg.content
 				}
 			}).success(function(res){

@@ -97,5 +97,20 @@ angular.module('developerMaze').config(function($routeProvider,cfpLoadingBarProv
 		controller:'inboxCtl'
 	})
 
+	.when('/message',{
+		templateUrl:'templates/views/message.html',
+		resolve:{
+		        "check":function($location,$rootScope,sessionService){ 
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				        	
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');
+		            }
+		        }
+		    },
+		controller:'inboxCtl'
+	})
+
 })
 

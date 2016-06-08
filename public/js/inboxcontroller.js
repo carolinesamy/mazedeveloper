@@ -138,5 +138,12 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 		}
 	}
 
+	//************************ view message ***********************
 
+	$scope.viewMessage = function(msg){
+
+		$rootScope.specificMessage = msg;
+		console.log('msg',$rootScope.specificMessage);
+
+	}
 });

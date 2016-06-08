@@ -65,8 +65,8 @@ class StudentsTableSeeder extends Seeder
 
         ));
         DB::table('instructors')->insert(array(
-            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','points'=>'5'),
-            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','points'=>'5'),
+            array('ifull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','last_hit_msg'=>'2016-05-22 05:22:22','points'=>'5'),
+            array('ifull_name'=>'peter','email'=>'peter@gmail.com','password'=>'123456','type'=>'internal','last_hit'=>'2016-05-22 05:22:22','last_hit_msg'=>'2016-05-22 05:22:22','points'=>'5'),
 
 
         ));
@@ -80,8 +80,8 @@ class StudentsTableSeeder extends Seeder
         ));
 
         DB::table('questions')->insert(array(
-            array('title'=>'Lorem ipsum dolor sit amet, sit eros ullum necessitatibus ex. Has cu facer malorum, mel convenire adipiscing ei. Ne malis sensibus usu, nusquam consetetur quaerendum usu an, tantas eripuit conceptam ut ius. Ius ubique epicurei efficiantur te, et sea verear docendi reformidans.?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'1','time'=>'2016-05-22 05:22:22'),
-            array('title'=>'Cum illud consul discere no, duo ei quis putent efficiendi, nec suas duis eu. At has sumo duis summo. Eu errem tamquam platonem ius, intellegat sadipscing cu cum. Pri nemore molestiae consetetur cu. Quaeque omittam has an, qui dictas debitis evertitur ea, eu sed ubique deserunt. Mei no duis ludus menandri, duo at solet vocent, per civibus scribentur neglegentur ea.?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
+            array('title'=>'Lorem ipsum dolor sit amet, sit eros ullum necessitatibus ?','content'=>'you have one question','student_id'=>'1','course_id'=>'1','solved'=>'1','time'=>'2016-05-22 05:22:22'),
+            array('title'=>'Cum illud consul discere no, duo ei quis putent efficiendi, nec suas duis eu. At has sumo duis summo. Eu errem tamquam platonem .?','content'=>'you opa alalllaaaa','student_id'=>'1','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
             array('title'=>'ucilius aliquando id nam, est mucius regione partiendo ea, duo ea regione iracundia. Sea no soleat option. Id sea minim iisque, vocibus reprimique pri eu. Debitis ponderum laboramus per ei, vis vidit populo at, pro id facilis atomorum. Eam clita civibus accusam in, vim te duis impedit denique. Honestatis repudiandae te pro.','content'=>'you OPPa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
             array('title'=>'Ex mel magna fabellas evertitur, mei ludus exerci doming ea. Quo molestie deseruisse ad. Cu mel liber dicit numquam, ne quo tale fabellas inciderint. Hinc essent commune mea cu, euismod fabulas per an. ?','content'=>'youuuu opa alalllaaaa','student_id'=>'2','solved'=>'0','course_id'=>'1','time'=>'2016-05-22 05:22:22'),
 
@@ -167,5 +167,10 @@ class StudentsTableSeeder extends Seeder
 
         ));
 
+        DB::table('inbox_messages')->insert(array(
+            array('id'=>'1','student_id'=>'1','instructor_id'=>'1','sender_student'=>'0','time'=>'2016-05-21 05:22:22','message'=>'helooo '),
+            array('id'=>'2','student_id'=>'1','instructor_id'=>'1','sender_student'=>'1','time'=>'2016-05-20 05:22:22','message'=>'helooo opaaaa'),
+
+        ));
     }
 }

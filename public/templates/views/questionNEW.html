@@ -1,64 +1,52 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
-<style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: white;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-  </style>
-
 
 <div class="container" >
   <div class="row content">
-    <div class="col-sm-3 sidenav" ng-controller='questionsCtl'>
+    <div class="col-sm-3 sidenav">
 
 
       <!-- list of courses -->
       <h4 style="text-align: center;">List of Course:</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#/course?id={{course.id}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a></li>
+        <li><a href="#/course?name={{course.course_name}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;">{{course.course_name}}</a></li>
       </ul><br>
 
       
     </div>
 
+
     <div class="col-sm-9">
+    <nav class="navbar " style="background-color: white;">
+      <div class="container-fluid">
+
+        <div>
+          <ul class="nav navbar-nav">
+          <li  ><a class="color-red " href="#/questions" ng-click='filterQuestions("all")' >My Courses' Questions</a></li>
+          <li><a href="#/allquestions" class="color-red"> Other Courses' Questions</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
       
       <div class="pull-right">
-        <button ng-if='question.question_student_id == user_id' class="btn btn-warning" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit Question</button>
+        <button ng-if='question.question_student_id == user_id' class="btn bg-brown color-white" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit</button>
       </div>
       <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="label label-success">{{question.student_points}}</span></h5>
+      <h5><span class="glyphicon glyphicon-time"></span> <strong>Post by</strong> {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="label bg-red">{{question.student_points}}</span></h5>
 
       
 
-      <span class="badge"> Tags</span> <b ng-repeat='tag in tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
+      <span class="badge bg-red"> Tags</span> <b ng-repeat='tag in tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
 
-      <h4 hm-read-more
+      <div ng-bind-html='question.question_content'></div>
+
+      <!-- <h4 hm-read-more
         hm-text="{{question.question_content}}" 
         hm-dots-class="dots"
         hm-link-class="links">
-      </h4>
+      </h4> -->
       <hr>
 
 
@@ -72,16 +60,19 @@
         <hr>
       </div>
 
+    <div ng-if='userCourse == "true" '>
       <h4>Leave a Comment:</h4>
       <div role="form">
         <div class="form-group">
-          <textarea class="form-control" id="comment" placeholder="Enter Your Comment.." ng-model="comment"></textarea>
+          <textarea class="form-control" id="comment" placeholder="Enter Your Comment.." ng-model="newComment.content"></textarea>
+
         </div>
-        <button class="btn btn-success" ng-click="addComment()"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
+        <button class="btn bg-blue color-white" ng-click="addComment()"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
       </div>
+    </div>
       <br><br>
       
-      <h3><small>RECENT ANSWERS</small></h3>
+      <h2><small>RECENT ANSWERS</small></h2>
       <hr>
       <div class="row" ng-repeat='answer in answers track by $index'>
         
@@ -91,7 +82,7 @@
           <div class="pull-right">
           <br/><br/>
             
-            <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn btn-warning" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span> Edit Answer</button>
+            <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
 
           </div>
         <div class="pull-left">
@@ -110,12 +101,13 @@
                 </div>
             </div><!--end of accepted-->
         </div>
-          
-        <div hm-read-more
+        <div ng-bind-html='answer.answer_content'></div>
+        <!-- <div hm-read-more
           hm-text="{{answer.answer_content}}" 
           hm-dots-class="dots"
           hm-link-class="links">
-        </div>
+        </div> -->
+
 
         <!--golden star-->
           <div class="pull-left">
@@ -159,23 +151,26 @@
 
             </div>
           </div><!--end of reply-->
+        <div ng-if='userCourse == "true" '>
           <h4>Leave a Reply:</h4>
 
               <div role="form">
                 <div class="form-group">
                   <textarea class="form-control" placeholder="Enter Your Reply.." ng-model="my_reply"></textarea>
                 </div>
-                <button class="btn btn-success" ng-click="addReply(answer.answer_id,my_reply, $index)"><span class="glyphicon glyphicon-tasks"></span> Add Reply</button>
+                <button class="btn bg-blue color-white" ng-click="addReply(answer.answer_id,my_reply, $index)"><span class="glyphicon glyphicon-tasks"></span> Add Reply</button>
               </div>
+        </div>
               <br><br>
 
         </div>
         <hr>
       </div><!--end of answers -->
+    <div ng-if='userCourse == "true" '>
+     <div  ng-if=' question.question_student_id != user_id || user_type != "student" '>
       <hr>
-
       <h4>Leave an Answer:</h4>
-      <form class="form-horizontal" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid)">
+      <form class="form-horizontal" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid,answer_content)">
 
       <!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
       <div class="form-group">
@@ -188,19 +183,23 @@
       <div class="form-group">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-          <trix-editor class='thumbnail' style='height: 300px;' angular-trix ng-model='answer_content' name='answer_content' required></trix-editor>
-              <p ng-if="answerForm.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
+          <!-- <trix-editor class='thumbnail' style='height: 300px;' angular-trix ng-model='newAnswer.content' name='answer_content' required></trix-editor> -->
+
+          <wysiwyg-edit content="newAnswer.content" name='answer_content' required></wysiwyg-edit>
+
+          <p ng-if="answerForm.answer_content.$error.required&&submitted" class="text-danger" >please, Enter an Answer..</p>
             </div>
       </div>
       <div class="form-group">
         <div class="col-sm-10"></div>
         <div class="col-sm-2">
-          <button class="btn btn-success"><span class="glyphicon glyphicon-eject"></span> Add Answer</button>
+          <button class="btn bg-blue color-white"><span class="glyphicon glyphicon-eject"></span> Add Answer</button>
         </div>
       </div>
 
     </form>
-
+    </div>
+  </div>
     </div>
   </div>
 </div>
@@ -241,29 +240,39 @@
               <label class="col-sm-2 control-label">Question Content</label>
               <div class="col-sm-10">
 
-                <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
-                </trix-editor>
+               <!--  <trix-editor style='height: 300px;' angular-trix ng-model="question.editcontent" class="trix-content" name='content' required>
+                </trix-editor> -->
+
+             <wysiwyg-edit content="question.editcontent" name='content' required></wysiwyg-edit>
+
                 <p ng-if="EditForm1.content.$error.required&&submitted" class="text-danger" >Question's Content is required..</p>
               </div>
               
-
             </div>           
 
-            <div class="form-group">
-              <label  class="col-sm-2 control-label">Tags</label>
+           <div class="form-group">
+              <label for="course"  class="col-sm-2 control-label ">Tags</label>
               <div class="col-sm-10">
-
-          <select class="form-control selectpicker" ng-model="question.edittags" ng-options="tag.id as tag.tag_name for tag in edittags" multiple ></select>
-
-
-        </div>
+                <ui-select multiple tagging="tagTransform" ng-model="questionTags.selectedTags" theme="bootstrap"  >
+                <ui-select-match >{{$item.tag_name}}</ui-select-match>
+                <ui-select-choices repeat=" tag in edittags | propsFilter: {tag_name: $select.search}">
+                 
+                <div ng-if="!tag.isTag" ng-bind-html="tag.tag_name + tag.isTag| highlight: $select.search"></div>
+                    <div ng-if="tag.isTag" ng-bind-html="tag.tag_name | highlight: $select.search"></div>
+                </ui-select-choices>
+                </ui-select>
+              </div>
             </div>
-
-
-          
+              
+            <style>
+             input.ui-select-search.input-xs{
+                              width: auto!important;
+                           }
+            </style>
+         
               <div class="modal-footer">
-                  <button  class="btn btn-danger">Edit</button>
-                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn bg-red color-white">Edit</button>
+                  <button type="button" class="btn bg-blue color-white" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           
@@ -294,8 +303,11 @@
               <label class="col-sm-2 control-label">Answer Content</label>
               <div class="col-sm-10">
 
-                <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
-                </trix-editor>
+               <!--  <trix-editor style='height: 300px;' angular-trix ng-model="editanswer_content" class="trix-content" name='content' required>
+                </trix-editor> -->
+
+               <wysiwyg-edit content="editanswer_content" name='content' required></wysiwyg-edit>
+
                 <p ng-if="EditForm2.content.$error.required&&submitted" class="text-danger" >Answer's Content is required..</p>
               </div>
               
@@ -303,8 +315,8 @@
             </div>          
           
               <div class="modal-footer">
-                  <button  class="btn btn-danger">Edit</button>
-                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn bg-red color-white">Edit</button>
+                  <button type="button" class="btn bg-blue color-white" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           

@@ -26,9 +26,6 @@ class NotificationController extends Controller
         if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null )
         {
 
-            //->select(DB::raw('count(*) as user_count, status'))
-            //return $user_id;
-
             if ($user_type == 'student')
             {
 
@@ -88,9 +85,11 @@ class NotificationController extends Controller
                     ->join('student_notifications', 'notifications.id', '=', 'student_notifications.notification_id')
                     ->where([
                         ['student_notifications.student_id','=',$user_id ],
-                        ['notifications.time','>',$last_hit->last_hit],
+                        //['notifications.time','>',$last_hit->last_hit],
                     ])
-                    ->select('notifications.type','notifications.content','notifications.time')
+                    ->select('notifications.reference_id','notifications.type','notifications.content','notifications.time')
+                    ->orderBy('notifications.time', 'desc')
+                    ->take(7)
                     ->get();
 
                 $now = new DateTime();
@@ -105,17 +104,21 @@ class NotificationController extends Controller
                 //return "opa alaalaa";
 
 
-                $last_hit = Instructor::select('last_hit')->where('id', $user_id)->first();
+               // $last_hit = Instructor::select('last_hit')->where('id', $user_id)->first();
 
 
                 $notification = DB::table('notifications')
                     ->join('instructor_notifications', 'notifications.id', '=', 'instructor_notifications.notification_id')
                     ->where([
                         ['instructor_notifications.instructor_id', '=', $user_id],
-                        ['notifications.time', '>', $last_hit->last_hit]
+                       // ['notifications.time', '>', $last_hit->last_hit]
                     ])
                     ->select('notifications.type','notifications.content','notifications.time')
+                    ->orderBy('notifications.time', 'desc')
+                    ->take(7)
                     ->get();
+
+
                 $now = new DateTime();
                 $date=$now->format('Y-m-d H:i:s');
 
@@ -134,10 +137,12 @@ class NotificationController extends Controller
     public function question_notification(Request $request)
     {
         $user_id = $request->input('student_id');
+        $user_name = $request->input('user_name');
         $user_type = $request->input('user_type');
         $notification_type = $request->input('notification_type');
         $course_id = $request->input('course_id');
-
+        $question_title =$request->input('question_title');
+        $question_id =$request->input('question_id');
 
         //echo $course_id;
         if (session('user_id') == $user_id && session('type') == $user_type) {
@@ -146,11 +151,20 @@ class NotificationController extends Controller
             $date = $now->format('Y-m-d H:i:s');
             //** type question */
 
+
+            $course_name = DB::table('courses')
+                ->where('id', $course_id)
+                ->select('course_name')->first();
+
+
+            $content=$course_name->course_name ."..".$user_name." ask question".$question_title;
+
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'There is new question',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
             $instructors_id = DB::table('instructors')
@@ -175,6 +189,7 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $question_id = $request->input('question_id');
         if (session('user_id') == $user_id && session('type') == $user_type)
@@ -183,11 +198,18 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
 
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
+
+            $content =$user_name ." Answer for your question : ".$question_title->title;
+
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'you have one more answer',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
             $quest_by_student_id = DB::table('students')
@@ -212,6 +234,7 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $question_id = $request->input('question_id');
         if (session('user_id') == $user_id && session('type') == $user_type) {
@@ -219,12 +242,18 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
 
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
+
+            $content = $user_name." Comment on your question: ".$question_title->title;
 
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'there is a comment on your question',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
             $quest_by_student_id = DB::table('students')
@@ -252,6 +281,7 @@ class NotificationController extends Controller
         $user_type = $request->input('user_type');
         $notification_type = $request->input('notification_type');
         $question_id = $request->input('question_id');
+        $user_name=$request->input('user_name');
         $answer_id = $request->input('answer_id');
         if (session('user_id') == $user_id && session('type') == $user_type)
         {
@@ -259,12 +289,17 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
 
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
 
+            $content = $user_name." reply for your answer on question: ".$question_title->title;
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'There is a reply on answer',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
 
@@ -304,21 +339,26 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $answer_id = $request->input('answer_id');
+        $question_id = $request->input('question_id');
         if (session('user_id') == $user_id && session('type') == $user_type)
         {
-
-
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
 
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
 
+            $content = $user_name." likes your answer on question: ".$question_title->title;
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'There is one like for your answer',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
 
@@ -351,21 +391,29 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $answer_id = $request->input('answer_id');
+        $question_id = $request->input('question_id');
+
         if (session('user_id') == $user_id && session('type') == $user_type)
         {
-
-
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
+
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
+
+            $content = $user_name ." dislikes your answer on question: ".$question_title->title;
 
 
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'There is one dislike for your answer',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
 
@@ -398,8 +446,10 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $answer_id = $request->input('answer_id');
+        $question_id = $request->input('question_id');
         if (session('user_id') == $user_id && session('type') == $user_type)
         {
 
@@ -407,12 +457,17 @@ class NotificationController extends Controller
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
 
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
 
+            $content = $user_name ." accept your answer on question: ".$question_title->title;
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'your answer have been accepted',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
 
@@ -445,36 +500,45 @@ class NotificationController extends Controller
     {
         $user_id = $request->input('student_id');
         $user_type = $request->input('user_type');
+        $user_name=$request->input('user_name');
         $notification_type = $request->input('notification_type');
         $answer_id = $request->input('answer_id');
+        $question_id = $request->input('question_id');
         if (session('user_id') == $user_id && session('type') == $user_type)
         {
 
             $now = new DateTime();
             $date = $now->format('Y-m-d H:i:s');
+            $question_title = DB::table('questions')
+                ->where('id', $question_id)
+                ->select('title')->first();
 
+            $content = $user_name ." give you a GOLDEN mark for your answer on question: ".$question_title->title;
 
             $insert = DB::table('notifications')->insertGetId(
                 [
-                    'content' => 'your answer have been taken GOLDEN ',
+                    'content' => $content,
                     'type' => $notification_type,
                     'time' => $date,
+                    'reference_id'=>$question_id,
                 ]
             );
 
             $answer = Answer::where('id', $answer_id)->first();
 
-                $answer_by_student_notification = DB::table('student_notifications')->insertGetId(
-                    [
-                        'student_id' => $answer->student_id,
-                        'notification_id' => $insert
-                    ]
-                );
+            $answer_by_student_notification = DB::table('student_notifications')->insertGetId(
+                [
+                    'student_id' => $answer->student_id,
+                    'notification_id' => $insert
+                ]
+            );
 
 
 
         }
 
     }
+
+
 
 }

@@ -1,21 +1,25 @@
 <div ng-controller ="headerCtl as ctrl" >
-<nav class="navbar ">
+<nav class="navbar bg-red">
+<div  class="container">
+
   <button type="button" class = "navbar-toggle" data-toggle = "collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-  <div >
+  <div>
 
     <div class="navbar-header">
-      <img src="http://placehold.it/50x50">
-      <a class="navbar-brand" href="#/" style="color: grey;">Developer Maze</a>
+    <a class="logo" href="#/">
+      <img  src="images/logo.png">
+      </a>
+      <a class="navbar-brand color-white" href="#/" >Developer Maze</a>
     </div>
 
       <div class="navbar-form navbar-left" ng-if='currentuser'>
 
         <div class="form-group" >
-          <input type="text" class="form-control" placeholder="Search or Ask.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:500}">
+          <input type="text" class="form-control" placeholder="Search for Questions.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:500}">
         </div>
 
         <!--search drop down -->
@@ -25,42 +29,64 @@
           </ul>
         </div>
 
-        <button class="btn btn-default" data-toggle="modal" ng-click="requestAsk() " data-target="#askModal">Ask</button>
+        <button ng-if='user_type == "student" ' class="btn btn-default" data-toggle="modal" ng-click="requestAsk() " data-target="#askModal">Ask</button>
 
       </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right" >
-        <li ><h4>{{user.name}}</h4></li>
+        <!-- <li ng-if='currentuser' class="color-white"><h4>Welcome, {{user_name}}</h4></li> -->
+
+      <li ng-if='currentuser'>
+        <nav class="navbar">
+          <div class="container-fluid">
+
+            <div>
+              <ul class="nav navbar-nav">
+              <li><a class="color-white" href="#/questions" ng-click='filterQuestions("all")'>Questions' Page</a></li>
+              <li><a href="#/aboutus" class='color-white'> About-Us</a> </li>
+              <li > <a href="#/help" class="color-white"> Help</a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </li>
+ 
+
           <!-- Trigger the modal with a link -->
         <li><a type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" ng-if='!currentuser' ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li ng-if='currentuser'>
-          <style>
-          .badge-notify{
-                 background:red;
-                 position:relative;
-                 top: -20px;
-                 left: -35px;
-              }
 
-          </style>
-            <button class="btn btn-default btn-lg btn-link dropdown-toggle" style="font-size:36px;" ng-click="getNotificationList()" data-toggle="dropdown">
-              <span class="glyphicon glyphicon-globe "></span>
+        <li ng-if='currentuser'>
+
+        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:30px;">
+          <span class="glyphicon glyphicon-comment color-white"></span>
+        </button>
+
+        <span ng-if='numOfmsg != 0 ' class="badge badge-notify msg">{{numOfmsg}}</span>
+
+        </li>
+
+        <li ng-if='currentuser'>
+       
+            <button class="btn btn-default btn-link dropdown-toggle" style="font-size:30px;" ng-click="getNotificationList()" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-globe color-white"></span>
             </button>
-            <span class="badge badge-notify" style="background-color: #cc0000">{{numOfnotification}}</span>
+            <span ng-if='numOfnotification != 0 ' class="badge badge-notify bg-blue">{{numOfnotification}}</span>
 
             <ul class="dropdown-menu">
-              <li ng-repeat='notification in notifications'><a href="#">{{notification.content}} "{{notification.time}}"</a></li>
+              <li ng-repeat='notification in notifications'><a href="#/question?id={{notification.reference_id}}">{{notification.content}} "{{notification.time}}"</a></li>
             </ul>
         </li>
-        <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li>
-        <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li>
-        <li ng-if='currentuser'><a class="btn btn-default" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+        <!-- <li ng-if='currentuser'><img ng-src={{user_image}} width="50" height="50"  class="img-circle"></li> -->
+       <!--  <li ng-if='currentuser'><a  class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Setting</a></li> -->
+        <li ng-if='currentuser'><a class="btn btn-default bg-transparent color-white" data-toggle="modal" data-target="#logoutModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
 
   </div>
-
+</div>
 </nav>
 
  <!-- login Modal -->
@@ -161,9 +187,12 @@
             <div class="form-group">
               <label for="content" class="col-sm-2 control-label">Question Content</label>
               <div class="col-sm-10">
-
+<!-- 
                 <trix-editor style='height: 300px;' angular-trix ng-model="question.content" class="trix-content" name='content' required>
-                </trix-editor>
+                </trix-editor> -->
+
+                <wysiwyg-edit content="question.content" name='content' required></wysiwyg-edit>
+
                 <p ng-if="AskForm.content.$error.required&&submitted" class="text-danger" >Question's Content is required..</p>
               </div>
               
@@ -182,7 +211,6 @@
             <div class="form-group">
               <label for="course"  class="col-sm-2 control-label">Select Tags</label>
               <div class="col-sm-10">
-                <!-- <select class="form-control selectpicker" ng-model="question.tags" ng-options="tag.id as tag.tag_name for tag in tags" multiple></select> -->
                 <ui-select multiple tagging="tagTransform" ng-model="questionTags.selectedTags" theme="bootstrap"   title="Choose Tags" >
               <ui-select-match placeholder="Select Tags...">{{$item.tag_name}}</ui-select-match>
               <ui-select-choices repeat=" tag in tags | propsFilter: {tag_name: $select.search}">
@@ -191,7 +219,6 @@
                   <div ng-if="tag.isTag" ng-bind-html="tag.tag_name | highlight: $select.search"></div>
               </ui-select-choices>
              </ui-select>
-             <pre>selected Tags = {{questionTags.selectedTags}}</pre>
             
 
               </div>
@@ -206,8 +233,8 @@
 
             </style>
               <div class="modal-footer">
-                  <button  class="btn btn-danger">Ask</button>
-                  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                  <button  class="btn bg-red color-white">Ask</button>
+                  <button type="button" class="btn bg-blue color-white" data-dismiss="modal">Cancel</button>
               </div>
         </form>
           
@@ -241,7 +268,6 @@
   </div>
 
             
-
 
 </div>
 

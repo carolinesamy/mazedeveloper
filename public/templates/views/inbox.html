@@ -1,0 +1,143 @@
+<!--Header-->
+<div ng-include = "'templates/views/header.html'"></div>
+
+<div class="container" >
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+
+
+      <!-- list of courses -->
+      <h4 style="text-align: center;">List of Course:</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#/course?name={{course.course_name}}" class="list-group-item" ng-repeat='course in courses track by $index' style="text-align: center;" ng-click='courseQuestions()'>{{course.course_name}}</a></li>
+      </ul><br>
+
+      
+    </div>
+
+    <div class="col-sm-9">
+    
+    <!-- filteration for questions -->
+      <nav class="navbar" style="background-color: white;">
+      <div class="container-fluid">
+
+        <div>
+          <ul class="nav navbar-nav">
+          <li><a class="btn color-red" href="#/questions" ng-click='filterQuestions("all")'>My Courses' Questions</a></li>
+          <li><a href="#/allquestions" class="btn color-red" > Other Courses' Questions</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav><!-- end of filteration -->
+
+
+    <!-- inbox-->
+
+<link rel='stylesheet prefetch' href='css/inbox.css'>
+ <div class="mail-box" ng-controller='inboxCtl as ctrl'>
+                  <aside class="sm-side">
+                      
+                      <div class="inbox-body">
+                          
+                          <button  class="btn btn-lg bg-blue color-white" ng-click="getAllInstructors()" data-toggle="modal"  data-target="#composeModal">compose</button>
+                          <!-- Modal -->
+                          <div aria-hidden="true" role="dialog" tabindex="-1" id="composeModal" class="modal fade" style="display: none;">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                          <h4 class="modal-title">Compose</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                          <form class="form-horizontal" name="msgForm" novalidate ng-submit="submitted=true;sendMsg(msgForm.$valid)">
+                                              <div class="form-group">
+                                                  <label class="col-lg-2 control-label">To</label>
+                                                  <div class="col-lg-10">
+
+
+  <ui-select tagging="tagTransform" ng-model="msg.to" theme="bootstrap" ng-disabled="disabled">
+
+  <ui-select-match placeholder="Select Name..." required name='name'>{{$select.selected.name}}</ui-select-match>
+  <p ng-if="msgForm.name.$error.required&&submitted" class="text-danger" >Please, Select Name..</p>
+
+  <ui-select-choices repeat="person in people | propsFilter: {name: $select.search}">
+    <div ng-if="person.isTag" ng-bind-html="(person.name | highlight: $select.search) +' (new)'"></div>
+    <div ng-if="!person.isTag" ng-bind-html="person.name + person.isTag| highlight: $select.search"></div>
+
+  </ui-select-choices>
+
+  </ui-select>
+
+                                                  </div>
+                                              </div>
+                                              
+                                              <div class="form-group">
+                                                  <label class="col-lg-2 control-label">Message</label>
+                                                  <div class="col-lg-10">
+                                                      <!-- <textarea rows="10" cols="30" class="form-control" ng-model='msg.content' name="content" required></textarea> -->
+                                                <wysiwyg-edit content="msg.content" name='content' required></wysiwyg-edit>
+
+                                                      <p ng-if="msgForm.content.$error.required&&submitted" class="text-danger" >Please, Type Message Content..</p>                                    
+                                                  </div>
+                                                  
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <div class="col-lg-offset-2 col-lg-10">
+                                                      
+                                                      <button class="btn bg-red color-white">Send</button>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div><!-- /.modal-content -->
+                              </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
+                      </div>
+                      <ul class="inbox-nav inbox-divider">
+                          <li class="active">
+                              <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+
+                          </li>
+                          <li>
+                              <a><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                          </li>
+                          
+                      </ul>
+                      
+
+                  </aside>
+                  <aside class="lg-side">
+                     
+                      <div class="inbox-body">
+
+                          <table class="table table-inbox table-hover">
+                            <tbody>
+                             
+                              <tr ng-repeat="msg in myInboxMsgs">
+                                  <td class="inbox-small-cells">
+                                     <span class="glyphicon glyphicon-user"></span>
+                                  </td>
+                                  <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                                  <td class="view-message dont-show">{{msg.name}}</td>
+                                  <td class="view-message view-message">{{msg.message}} </td>
+                                  <td class="view-message inbox-small-cells"></td>
+                                  <td class="view-message text-right">{{msg.time}}</td>
+                              </tr>
+                              
+                          </tbody>
+                          </table>
+                      </div>
+                  </aside>
+              </div>
+
+    <!--end of inbox -->
+    </div>
+  </div>
+</div>
+
+<div class="navbar-fixed-botom">
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>
+</div>

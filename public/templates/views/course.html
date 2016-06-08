@@ -1,32 +1,5 @@
 <!--Header-->
 <div ng-include = "'templates/views/header.html'"></div>
-<style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: white;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-  </style>
-
 
 <div class="container" >
   <div class="row content">
@@ -39,7 +12,7 @@
         <span ng-repeat='course in courses track by $index'>
         <li><a href="#/course?name={{course.course_name}}" class="list-group-item" style="text-align: center;" ng-if='course.course_name != course_name' ng-click='courseQuestions()'>{{course.course_name}}</a></li>
 
-        <li><a href="#/course?name={{course.course_name}}" class="list-group-item active" style="text-align: center;" ng-if='course.course_name == course_name' ng-click='courseQuestions()'>{{course.course_name}}</a></li>
+        <li><a href="#/course?name={{course.course_name}}" class="list-group-item bg-brown" style="text-align: center; color: white;" ng-if='course.course_name == course_name' ng-click='courseQuestions()'>{{course.course_name}}</a></li>
         </span>
       </ul><br>
 
@@ -62,7 +35,7 @@
       </div>
     </nav><!-- end of filteration -->
     <!-- filteration for questions -->
-      <nav class="navbar" style="background-color: white;">
+      <!-- <nav class="navbar" style="background-color: white;">
       <b class="navbar-brand" style="color: grey;">Filteration:</b>
       <div class="container-fluid">
 
@@ -74,37 +47,43 @@
           </ul>
         </div>
       </div>
-    </nav><!-- end of filteration -->
+    </nav> --><!-- end of filteration -->
     <h2><small>RECENT QUESTIONS</small></h2>
       <hr>
       
       <div ng-repeat='question in coursequestions track by $index'>
-
-      <h2>{{question.title}} <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span>
+<h2 class="bg-blue color-white" style=" padding-left: 20px; padding-top: 7px; padding-bottom: 7px;">{{question.title}} <span style="
+                                        position: absolute;
+                                        bottom: 143px;
+                                        top: auto;
+                                        right: 0;
+"  ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span>
+      
       </h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post at: {{question.time}}</h5>
-      <h5><span class="label label-danger">{{question.course_name}}</span></h5><br>
+      <h5><span class="glyphicon glyphicon-time"></span> <strong>Post at:</strong> {{question.time}}</h5>
+      <h5><span class="label bg-red">{{question.course_name}}</span></h5><br>
 
 
       <div class="pull-right">
-      <h4><span class="badge">{{question.answer_number}}</span> Answers</h4>
-       <p><span class="btn btn-danger"><a  href="#/question?id={{question.id}}" style="color: white;">View Question's Page</a></span></p><br>
+      <h4><span class="badge bg-brown">{{question.answer_number}}</span> Answers</h4>
+       <p><span class="btn bg-red"><a  href="#/question?id={{question.id}}" style="color: white;">View Question's Page</a></span></p><br>
      </div>
      
 
-     <span class="badge"> Tags</span> <b ng-repeat='tag in question.tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
+     <span class="badge bg-brown"> Tags</span> <b ng-repeat='tag in question.tags track by $index'> <a >{{tag.tag_name}}</a> |</b><br><br>
       
 
 
+      <div ng-bind-html='question.content'></div>
       
-      <div hm-read-more
+     <!--  <div hm-read-more
                   hm-text="{{question.content}}" 
                   hm-limit="150" 
                   hm-more-text="Read More" 
                   hm-less-text="Read Less"
                   hm-dots-class="dots"
                   hm-link-class="links">
-      </div>
+      </div> -->
 
 
       <hr>

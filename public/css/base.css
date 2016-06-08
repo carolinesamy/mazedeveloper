@@ -1,0 +1,131 @@
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: white;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+
+.badge-notify{
+                 position:relative;
+                 top: -20px;
+                 left: -35px;
+              }
+
+.msg{
+                 position:relative;
+                 top: -20px;
+                 left: -35px;
+              }
+.logo{
+  width: 50px;
+}
+nav.bg-red{
+  padding-top: 16px;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+a.logo {
+    background: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 5px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 50px;
+}
+a.logo img{
+  width: 40px;
+}
+.bg-red{
+  background-color: #9F1C20;
+}
+.color-red{
+  color: #9F1C20;
+}
+
+
+.bg-blue{
+  background-color: #08415C;
+}
+.color-blue{
+  color: #08415C;
+}
+
+.bg-brown{
+  background-color: #440913;
+}
+.color-brown{
+  color: #440913;
+}
+
+.bg-grey{
+  background-color: #070707;
+}
+.color-grey{
+  color: #070707;
+}
+
+.bg-white{
+  background-color: #EAEAEA;
+}
+.color-white{
+  color: #EAEAEA;
+}
+.bg-transparent{
+  background-color: transparent;
+}
+
+.header{
+  background-image: url('../images/header.jpg');
+  height: calc(100% - 88px);
+  background-size: cover; 
+  position: relative;
+  display: table;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.header .overlay{
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color:rgba(0,0,0,0.8) 
+
+}
+.header .logo{
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+
+}
+.header .logo img{
+  width: 200px;
+}
+html,body,body>div,div[ng-view]{
+  height: 100%
+}

@@ -14,8 +14,11 @@ io.on('connection', function (socket) {
     console.log('new connection');
 
     socket.on( 'new_count_notification', function() {
-        // console.log(data.new_count_notification);
         socket.broadcast.emit( 'new_count_notification');
+    });
+
+    socket.on( 'new_count_msg_notification', function() {
+        socket.broadcast.emit( 'new_count_msg_notification');
     });
 
 });

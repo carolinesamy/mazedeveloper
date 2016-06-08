@@ -52,6 +52,10 @@ Route::post('/goldenmark','AnswerController@golden_mark');
 Route::post('/ungoldenmark','AnswerController@ungolden_mark');
 Route::post('/commentnotification','NotificationController@comment_notification');
 Route::post('/replynotification','NotificationController@reply_notification');
+Route::post('/getallinstructors','InboxmessageController@all_instructors');
+Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
+Route::post('/sentinboxmsg','InboxmessageController@send_message');
+//Route::post('/tocomplete','InboxmessageController@to_auto_compete');
 
 //**by caroline *** routes for edit question && edit answer
 
@@ -71,8 +75,8 @@ Route::post('/likenotification','NotificationController@like_notification');
 Route::post('/dislikenotification','NotificationController@dislike_notification');
 Route::post('/acceptnotification','NotificationController@accept_notification');
 Route::post('/goldentnotification','NotificationController@golden_notification');
-
-
+Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
+Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 
 /** by christina **  ***** routes for admin */
 //Route::get('/admin/login','AuthController@login');

@@ -5,9 +5,11 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io','ngWYSIWYG','angular-loading-bar']);
 
-angular.module('developerMaze').config(function($routeProvider){
+angular.module('developerMaze').config(function($routeProvider,cfpLoadingBarProvider){
+
+	 cfpLoadingBarProvider.includeSpinner = false;
 
 	$routeProvider.when('/',{
 		templateUrl:'templates/views/home.html',
@@ -78,6 +80,21 @@ angular.module('developerMaze').config(function($routeProvider){
 		        }
 		    },
 		controller:'questionsCtl'
+	})
+
+	.when('/inbox',{
+		templateUrl:'templates/views/inbox.html',
+		resolve:{
+		        "check":function($location,$rootScope,sessionService){ 
+    				
+    				$rootScope.currentuser = sessionService.get('user');  					          			            
+    				        	
+		            if(!($rootScope.currentuser)){ 
+		                $location.path('/');
+		            }
+		        }
+		    },
+		controller:'inboxCtl'
 	})
 
 })

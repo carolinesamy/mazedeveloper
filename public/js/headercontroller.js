@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
+angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$location ,$sce,$http, $rootScope,sessionService){
 
     $scope.isCollapsed = true;
 
@@ -19,16 +19,12 @@ angular.module('developerMaze').controller('headerCtl',function( socket,$scope,$
         $scope.getNOtifications();
 
     });
+    socket.on( 'new_count_msg_notification', function() {
+        $scope.getMsgNOtifications();
+
+    });
 
 $rootScope.questionTags={selectedTags:[]};
-// $scope.tagTransform = function (newTag) {
-//     var item = {
-//         tag_name: newTag,
-        
-//     };
-//     return item;
-//   };
-
 
   $scope.toggleDropdown = function($event) {
     $event.preventDefault();
@@ -39,6 +35,8 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.titleError ='';
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
+    $rootScope.user_name = sessionService.get('name');
+
    
     
 //****************************login function*********************************
@@ -106,7 +104,7 @@ $rootScope.questionTags={selectedTags:[]};
 
     $scope.askQuestion = function(valid){
         
-        if(valid ){
+        if(valid && $scope.question.content){
             var tagsIdsArray=[];
             angular.forEach( $scope.questionTags.selectedTags,function(value,key){
                            tagsIdsArray.push(value.id);
@@ -128,19 +126,22 @@ $rootScope.questionTags={selectedTags:[]};
 
 
                 //*********  socket **/
-                console.log($scope.question.course);
+                //console.log(res.id);
                 $http({
                     method: 'POST',
                     url: 'http://localhost:8000/questionnotification',
                     data: {
                         'student_id': sessionService.get('user'),
                         'user_type': sessionService.get('type'),
+                        'user_name': sessionService.get('name'),
                         'course_id': $scope.question.course,
-                        'notification_type':'question'
+                        'notification_type':'question',
+                        'question_title':$scope.question.title,
+                        'question_id':res.id,
                     }
                 }).success(function(res){
 
-
+                    console.log(res);
                     socket.emit('new_count_notification');
 
                 })
@@ -148,6 +149,8 @@ $rootScope.questionTags={selectedTags:[]};
                 $('#askModal').modal('hide');
 
                 console.log(res);
+                res.content = $sce.trustAsHtml(res.content);
+
                 $rootScope.allquestions.splice(0, 0, res);
                 $rootScope.questions.splice(0, 0, res);
 
@@ -240,7 +243,22 @@ $rootScope.questionTags={selectedTags:[]};
     };
     
     $scope.getNOtifications();
-
+    //*********** get msg number *********
+    $scope.getMsgNOtifications=function(){
+        $http({
+            method:'POST',
+            url: 'http://localhost:8000/getmsgnum',
+            data:{
+                'id':sessionService.get('user'),
+                'type':sessionService.get('type')
+            }
+        }).success(function(res){
+            $rootScope.numOfmsg = res[0].count;
+        }).error(function(res){
+            console.log(err);
+        });
+    }
+    $scope.getMsgNOtifications();
     //************************** get notification list ****************************
     $scope.getNotificationList=function(){
         $http({
@@ -259,6 +277,13 @@ $rootScope.questionTags={selectedTags:[]};
             console.log(err);
         });
     };
+
+    //*********************** message page*********************
+
+    $scope.messagePage = function(){
+
+        $location.path('/inbox');
+    }
 
 });
 

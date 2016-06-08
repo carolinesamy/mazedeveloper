@@ -84,8 +84,13 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 			}
 		}).success(function(res){
 
-			console.log(res);
+			console.log('inbox',res);
 			$scope.myInboxMsgs = res;
+
+			$scope.myInboxMsgs = $scope.myInboxMsgs.map(function(item){
+				item.message = $sce.trustAsHtml(item.message)
+				return item;
+				});
 
 
 		}).error(function(err){
@@ -133,5 +138,12 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 		}
 	}
 
+	//************************ view message ***********************
 
+	$scope.viewMessage = function(msg){
+
+		$rootScope.specificMessage = msg;
+		console.log('msg',$rootScope.specificMessage);
+
+	}
 });

@@ -104,7 +104,7 @@ class InboxmessageController extends Controller
                         ['inbox_messages.instructor_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',1],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','students.sfull_name as name')
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.id','students.sfull_name as name')
                     ->get();
                 $now = new DateTime();
                 $date=$now->format('Y-m-d H:i:s');
@@ -123,7 +123,7 @@ class InboxmessageController extends Controller
                         ['inbox_messages.student_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',0],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','instructors.ifull_name as name')
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.id','instructors.ifull_name as name')
                     ->get();
 
                 $now = new DateTime();

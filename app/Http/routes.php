@@ -75,13 +75,58 @@ Route::post('/goldentnotification','NotificationController@golden_notification')
 
 
 /** by christina **  ***** routes for admin */
-Route::get('/admin',function(){
-    return view('adminLogin');
+//Route::get('/admin/login','AuthController@login');
+Route::get('/admin','AdminController@relogin');
+Route::post('/admin/login','AdminController@login');
+//Route::get('/admin/students','AdminController@index');
+//Route::get('/admin/students/{id}','AdminController@show');
+//Route::resource('/admin','AdminController');
+
+
+//Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/admin/charts',function(){
+    return view('admin/charts');
 });
-Route::get('/admin/login','AdminController@login');
-Route::get('/admin/students','AdminController@index');
+//Route::get('/admin/tables',function(){
+//    return view('admin/tables');
+//});
+Route::get('/admin/tables','AdminController@index');
+Route::get('/admin/forms',function(){
+    return view('admin/forms');
+});
+Route::get('/admin/bootstrapElements',function(){
+    return view('admin/bootstrap-elements');
+});
+Route::get('/admin/bootstrapGrid',function(){
+    return view('admin/bootstrap-grid');
+});
+Route::get('/admin/aindex',function(){
+    return view('adminDashboard');
+});
+Route::get('/admin/blankPage',function(){
+    return view('admin/blank-page');
+});
+Route::get('/admin/rindex',function(){
+    return view('admin/index-rtl');
+});
+
+
 Route::get('/admin/students/{id}','AdminController@show');
-
-
-
-
+Route::get('/admin/students/{id}/edit','AdminController@edit');
+Route::get('/admin/students/destroy/{id}','AdminController@destroy');
+//
+//// Authentication Routes...
+//$this->get('login', 'Auth\AuthController@showLoginForm');
+//$this->post('login', 'Auth\AuthController@login');
+//$this->get('logout', 'Auth\AuthController@logout');
+//
+//// Registration Routes...
+//$this->get('register', 'Auth\AuthController@showRegistrationForm');
+//$this->post('register', 'Auth\AuthController@register');
+//
+//// Password Reset Routes...
+//$this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+//$this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+//$this->post('password/reset', 'Auth\PasswordController@reset');

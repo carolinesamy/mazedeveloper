@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Input;
+
 use App\Answer;
 use App\Question;
+use App\Course;
+use App\Intake;
+use App\Track;
 use DateTime;
 use DB;
 
@@ -23,54 +28,69 @@ use App\Student;
 
 class AdminController extends Controller
 {
-    public function login(){
+    public function login(Request $request){
+
+        $email=$request->input('email');
+        $password=$request->input('password');
 
         $admin= DB::table('admin')
             ->where('email',$email)->first();
 
-            if ($student->password == $password)
+            if ($admin->password == $password)
             {
                 // echo "YOU ARE LOGIN";
                 $rett=array
                 (
-                    'user'=> array
-                    (
-                        'id'=>$student->id,
-                        'email'=>$student->email,
-                        'sfull_name'=>$student->sfull_name,
-                        'image'=>$student->image,
-                        'track_id'=>$student->track_id,
-                        'points'=>$student->points,
-                        'intake_id'=>$student->intake_id,
-                    ),
-                    'message'=>'login',
-                    'type'=>'student',
+                        'id'=>$admin->id,
+                        'email'=>$admin->email,
+                        'afull_name'=>$admin->afull_name
+
                 );
-                session(['user_id'=>$student->id]);
-                session(['type'=>'student']);
+//                session(['user_id'=>$student->id]);
+//                session(['type'=>'student']);
 
-
-
-
+                return view('adminDashboard',compact('rett'));
 
             }
-            elseif($student->password != $password)
+            elseif($admin->password != $password)
             {
-                $rett=array('message'=>'password');
+                return view('adminLogin');
             }
-//                else{
-//                    $rett=array('message'=>'email');
-//                }
 
-        return view('adminDashboard');
+
+
+    }
+
+    public function relogin(){
+        return view('adminLogin');
+//        Route::post('/login','AuthController@login');
     }
 
     public function index()
     {
-        $title="students";
+        /*** Students Data ***/
         $students=Student::all();
-        return view('students.index',compact('students','title'));
 
+        /*** instructors Data ***/
+        $instructors=Instructor::all();
+
+        /*** categories Data ***/
+        $categories=DB::table('categories')->get();
+        /*** courses data ***/
+        $courses=DB::table('courses')
+            ->join('categories','courses.category_id','=','categories.id')
+            ->get();
+
+        /*** intakes ***/
+        $intakes=DB::table('intakes')->get();
+
+        /*** tracks ***/
+        $tracks=DB::table('tracks')->get();
+
+        /*** tags ***/
+        $tags=DB::table('tags')->get();
+
+        return view('admin/tables',compact('students','instructors','courses','categories','intakes','tracks','tags'));
     }
 
     public function create()
@@ -80,15 +100,23 @@ class AdminController extends Controller
 
     public function show($id)
     {
+        $title='student information';
         $student=Student::findOrFail($id);
-        return view('students.show',compact('student'));
+        $intake_id=$student->intake_id;
+        $track_id=$student->track_id;
+        $intake=Intake::findOrFail($intake_id);
+        $track=Track::findOrFail($track_id);
+
+        return view('students.show',compact('student','title','intake','track'));
     }
 
     public function edit($id)
     {
         $student=Student::find($id);
+        $intakes=Intake::all();
+        $tracks=Track::all();
 
-        return view('students.edit',compact('student'));
+        return view('students.edit',compact('student','intakes','tracks'));
     }
 
     public function store()
@@ -103,17 +131,17 @@ class AdminController extends Controller
     public function update($id)
     {
         $student=Student::find($id);
-        $student->title=Request::get('title');
-        $student->body=Request::get('body');
+        $student->sfull_name=Request::get('name');
+        $student->email=Request::get('email');
         $student->save();
-        return redirect('/students');
+        return redirect('/tables');
     }
 
     public function destroy($id)
     {
         $student=Student::find($id);
         $student->delete();
-        return redirect('/students');
+        return redirect('admin/tables');
     }
 
 }

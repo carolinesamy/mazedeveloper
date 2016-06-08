@@ -100,7 +100,7 @@ $rootScope.questionTags={selectedTags:[]};
 
     $scope.askQuestion = function(valid){
         
-        if(valid ){
+        if(valid && $scope.question.content){
             var tagsIdsArray=[];
             angular.forEach( $scope.questionTags.selectedTags,function(value,key){
                            tagsIdsArray.push(value.id);

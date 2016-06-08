@@ -40,6 +40,14 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
 				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
 
+				$rootScope.questions =$rootScope.questionsWithoutFilter = $rootScope.questions.map(function(item){
+					item.content = $sce.trustAsHtml(item.content)
+					return item;
+				});
+				$rootScope.allquestions =$rootScope.allquestionsWithoutFilter = $rootScope.allquestions.map(function(item){
+					item.content = $sce.trustAsHtml(item.content)
+					return item;
+				});
 			}
 			
 		}).error(function(err){
@@ -217,7 +225,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			image = $scope.image_path.name;
 		}else{image=''}
 
-		if(valid) {
+		if(valid && $scope.newAnswer.content) {
 			if (sessionService.get('type') == 'student') {
 				arr = {	
 					'content': $scope.newAnswer.content,
@@ -291,7 +299,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 	$scope.editAnswer=function(valid){
 		
-		if(valid){
+		if(valid && $scope.editanswer_content){
 			if (sessionService.get('type') == 'student') {
 
 				arr = {
@@ -402,7 +410,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 	$scope.editQuestion = function(valid){
 		console.log($scope.question.edittags);
-		if(valid){
+		if(valid && $scope.question.editcontent){
 
 			var tagsIdsArray=[];
             angular.forEach( $scope.questionTags.selectedTags,function(value,key){

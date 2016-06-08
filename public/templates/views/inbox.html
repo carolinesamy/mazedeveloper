@@ -75,7 +75,9 @@
                                               <div class="form-group">
                                                   <label class="col-lg-2 control-label">Message</label>
                                                   <div class="col-lg-10">
-                                                      <textarea rows="10" cols="30" class="form-control" ng-model='msg.content' name="content" required></textarea>              
+                                                      <!-- <textarea rows="10" cols="30" class="form-control" ng-model='msg.content' name="content" required></textarea> -->
+                                                <wysiwyg-edit content="msg.content" name='content' required></wysiwyg-edit>
+
                                                       <p ng-if="msgForm.content.$error.required&&submitted" class="text-danger" >Please, Type Message Content..</p>                                    
                                                   </div>
                                                   

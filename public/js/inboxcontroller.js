@@ -1,4 +1,4 @@
-angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$location ,$http, $rootScope,sessionService){
+angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$scope,$location ,$http, $rootScope,sessionService){
 
 	$scope.msg = {
 		'to':'',
@@ -28,6 +28,14 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
 				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
 				
+				$rootScope.questions = $rootScope.questions.map(function(item){
+				item.content = $sce.trustAsHtml(item.content)
+				return item;
+				});
+				$rootScope.allquestions = $rootScope.allquestions.map(function(item){
+				item.content = $sce.trustAsHtml(item.content)
+				return item;
+				});
 			}
 			
 		}).error(function(err){
@@ -92,7 +100,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$scope,$l
 	$scope.sendMsg=function(valid){
 		console.log('msg');
 		console.log($scope.msg.to.id);
-		if(valid){
+		if(valid && $scope.msg.content){
 			$http({
 				method: 'POST',
 				url: 'http://localhost:8000/sentinboxmsg',

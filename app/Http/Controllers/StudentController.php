@@ -228,7 +228,6 @@ class StudentController extends Controller
                     $i++;
                 }
                 $user_latest_all_question=json_encode($arr);
-
             }
             else
             {

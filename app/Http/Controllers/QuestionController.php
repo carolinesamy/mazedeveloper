@@ -191,6 +191,11 @@ class QuestionController extends Controller
                 ->get();
         /** answers with the data of the person who asks **/
 
+        $course=$questiondata[0]->question_course;
+        $privilege=DB::table('student_courses')
+            ->where('student_id','=',$user_id)
+            ->where('course_id','=',$course)
+            ->select('privilege')->get();
 
         $instructoranswerdata =DB::table('questions')
                 ->join('answers','questions.id', '=', 'answers.question_id')
@@ -338,7 +343,8 @@ class QuestionController extends Controller
             'comments'=>$comments,
             'replies'=>$myreplies,
             'likescount'=>$likesnum,
-            'dislikecount'=>$dislikesnum
+            'dislikecount'=>$dislikesnum,
+            'privilege'=>$privilege
 
         );
         return $response;

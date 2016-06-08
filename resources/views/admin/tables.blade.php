@@ -215,6 +215,7 @@
                     <div class="col-md-12">
                         <h2>Students</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/student/create">Create new student</a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>

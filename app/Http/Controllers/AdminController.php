@@ -95,7 +95,10 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $title='Create New Student ';
+        $intakes = Intake::lists('intake_number', 'id');
+        $tracks = Track::lists('track_name', 'id');
+        return view('students.create',compact('title','intakes','tracks'));
     }
 
     public function show($id)
@@ -112,29 +115,42 @@ class AdminController extends Controller
 
     public function edit($id)
     {
+        $title=" Edit student data ";
         $student=Student::find($id);
-        $intakes=Intake::all();
-        $tracks=Track::all();
+//        $intakes=Intake::all();
+        $intakes = Intake::lists('intake_number', 'id');
+//        $tracks=Track::all();
+        $tracks = Track::lists('track_name', 'id');
 
-        return view('students.edit',compact('student','intakes','tracks'));
+
+        return view('students.edit',compact('student','intakes','tracks','title'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $student=new Student();
-        $student->title=Request::get('title');
-        $student->body=Request::get('body');
+        $student->sfull_name=$request->input('name');
+        $student->email=$request->input('email');
+        $student->password=$request->input('password');
+        $student->image=$request->input('image');
+        $student->intake_id=$request->input('intake');
+        $student->track_id=$request->input('track');
         $student->save();
-        return redirect('/students');
+        return redirect('/admin/tables');
     }
 
-    public function update($id)
+    public function update($id,Request $request)
     {
         $student=Student::find($id);
-        $student->sfull_name=Request::get('name');
-        $student->email=Request::get('email');
+        $student->sfull_name=$request->input('name');
+        $student->email=$request->input('email');
+        $student->password=$request->input('password');
+        $student->image=$request->input('image');
+        $student->intake_id=$request->input('intake');
+        $student->track_id=$request->input('track');
+
         $student->save();
-        return redirect('/tables');
+        return redirect('/admin/tables');
     }
 
     public function destroy($id)

@@ -3,17 +3,35 @@
 @section('content')
 
     <div class="container">
-        {!! Form::open(['route'=>'articles.store','method'=>'post']) !!}
+        {!! Form::open(['route'=>['admin.student.store'],'method'=>'post']) !!}
 
         <fieldset class="form-group">
-            <label for="exampleInputEmail1">Title</label>
-            <input class="form-control" placeholder="Title" name="title">
-            <small class="text-muted">We'll never share your email with anyone else.</small>
+            <label>Name</label>
+            <input class="form-control" placeholder="name" name="name">
         </fieldset>
 
         <fieldset class="form-group">
-            <label for="exampleTextarea">Body</label>
-            <textarea class="form-control" id="exampleTextarea" rows="3" name="body"></textarea>
+            <label>Email</label>
+            <input class="form-control" placeholder="email" type="email" id="email" name="email">
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label>Password</label>
+            <input class="form-control" placeholder="password" type="password" id="password" name="password">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Image</label>
+            <input class="form-control" placeholder="image path" type="text" id="image" name="image">
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label>Intake</label>
+            {{ Form::select('intake', $intakes,null,array('class'=>'form-control')) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label>track</label>
+            {{ Form::select('track', $tracks,null,array('class'=>'form-control')) }}
         </fieldset>
 
         <button type="submit" class="btn btn-primary">Submit</button>

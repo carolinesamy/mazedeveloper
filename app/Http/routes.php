@@ -84,7 +84,8 @@ Route::get('/admin','AdminController@relogin');
 Route::post('/admin/login','AdminController@login');
 //Route::get('/admin/students','AdminController@index');
 //Route::get('/admin/students/{id}','AdminController@show');
-//Route::resource('/admin','AdminController');
+//Route::resource('/admin/instructor','AdminController');
+Route::resource('/admin/student','AdminController');
 
 
 //Route::auth();
@@ -120,6 +121,7 @@ Route::get('/admin/rindex',function(){
 Route::get('/admin/students/{id}','AdminController@show');
 Route::get('/admin/students/{id}/edit','AdminController@edit');
 Route::get('/admin/students/destroy/{id}','AdminController@destroy');
+
 //
 //// Authentication Routes...
 //$this->get('login', 'Auth\AuthController@showLoginForm');

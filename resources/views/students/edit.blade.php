@@ -6,35 +6,38 @@ use App\Http\Controllers\AdminController;
 @section('content')
 
     <div class="container">
-{{--        {!! Form::open(['action'=>'AdminController@update','method'=>'get']) !!}--}}
-<form action="" method="post">
+        {!! Form::open(['route'=>['admin.student.update',$student->id],'method'=>'put']) !!}
+
         <fieldset class="form-group">
-            <label>name</label>
+            <label>Name</label>
             <input class="form-control" placeholder="name" name="name" value="{{ $student->sfull_name }}">
         </fieldset>
 
         <fieldset class="form-group">
-            <label for="exampleInputEmail1">email</label>
-            <input class="form-control" placeholder="Email" name="email" value="{{ $student->email }}">
-            <small class="text-muted">We'll never share your email with anyone else.</small>
+            <label>Email</label>
+            <input class="form-control" type="email" id="email" name="email" value="{{ $student->email }}">
         </fieldset>
 
         <fieldset class="form-group">
             <label>Password</label>
-            <input type="password" class="form-control" id="password" name="password">{{ $student->password }}
+            <input class="form-control" type="password" id="password" name="password" value="{{ $student->password }}">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Image</label>
+            <input class="form-control" type="text" id="image" name="image" value="{{ $student->image }}">
         </fieldset>
 
         <fieldset class="form-group">
-            <label for="exampleInputEmail1">image</label>
-            <input class="form-control" placeholder="image" name="image" value="{{ $student->image }}">
+            <label>Intake</label>
+            {{ Form::select('intake', $intakes,$student->intake_id,array('class'=>'form-control')) }}
         </fieldset>
 
-        {!! Form::select('intake',
-        (['0' => 'Select an intake'] + $intakes),
-            null,
-            ['class' => 'form-control']) !!}
+        <fieldset class="form-group">
+            <label>track</label>
+            {{ Form::select('track', $tracks,$student->track_id,array('class'=>'form-control')) }}
+        </fieldset>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
         {!! Form::close() !!}
 

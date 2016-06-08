@@ -112,6 +112,12 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 				}
 			}).success(function(res){
 
+				
+					console.log(res);
+					socket.emit('new_count_msg_notification');
+
+
+
 				console.log(res);
 				$('#composeModal').modal('hide');
 

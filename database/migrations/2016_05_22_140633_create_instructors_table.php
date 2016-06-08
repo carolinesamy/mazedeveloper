@@ -20,6 +20,8 @@ class CreateInstructorsTable extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->dateTime('last_hit');
+            $table->dateTime('last_hit_msg');
+
             $table->integer('points')->default('0');
 
             $table->enum('type', ['internal', 'external','consultant']);

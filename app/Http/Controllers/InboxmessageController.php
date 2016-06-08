@@ -99,23 +99,41 @@ class InboxmessageController extends Controller
             {
 
                 $inboxmsg = DB::table('inbox_messages')
+                    ->join('students','students.id', '=','inbox_messages.student_id')
                     ->where([
                         ['inbox_messages.instructor_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',1],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.student_id')
+                    ->select('inbox_messages.message','inbox_messages.time','students.sfull_name as name')
                     ->get();
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('instructors')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
 
             }
             else
             {
                 $inboxmsg = DB::table('inbox_messages')
+                    ->join('instructors','instructors.id', '=','inbox_messages.instructor_id')
+
                     ->where([
                         ['inbox_messages.student_id','=',$user_id ],
                         ['inbox_messages.sender_student','=',0],
                     ])
-                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.instructor_id')
+                    ->select('inbox_messages.message','inbox_messages.time','instructors.ifull_name as name')
                     ->get();
+
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('students')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
+
+
             }
 
             return $inboxmsg;
@@ -123,6 +141,106 @@ class InboxmessageController extends Controller
 
         }
     }
+    public function get_msg_notification_num(Request $request)
+    {
+
+        $msg =0;
+        $user_id = $request->input('id');
+        $user_type = $request->input('type');
+
+        if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null )
+        {
+            if ($user_type == 'student')
+            {
+                $last_hit= Student::select('last_hit_msg')->where('id',$user_id)->first();
+
+                $msg = DB::table('inbox_messages')
+                    ->where([
+                        ['student_id','=',$user_id ],
+                        ['time','>',$last_hit->last_hit_msg],
+                        ['sender_student','=',0],
+                    ])
+                    ->select(DB::raw('count(*) as count'))
+                    ->get();
+            }
+            else
+            {
+
+                $last_hit = Instructor::select('last_hit_msg')->where('id', $user_id)->first();
+                $msg = DB::table('inbox_messages')
+                    ->where([
+                        ['instructor_id','=',$user_id ],
+                        ['time','>',$last_hit->last_hit_msg],
+                        ['sender_student','=',1],
+                    ])
+                    ->select(DB::raw('count(*) as count'))
+                    ->get();
+
+            }
+
+        }
+        return $msg;
+
+
+    }
+
+    public function get_msg_data(Request $request)
+    {
+
+        $msg=0;
+        $user_id = $request->input('id');
+        $user_type = $request->input('type');
+
+
+        if (session('user_id') == $user_id && session('type') == $user_type && $user_id!=null )
+        {
+
+            if ($user_type == 'student')
+            {
+                $msg = DB::table('inbox_messages')
+                    ->where([
+                        ['student_id','=',$user_id ],
+                        ['sender_student','=',0],
+                    ])
+                    ->select('id','message','instructor_id','time')
+                    ->orderBy('time', 'desc')
+                    ->take(7)
+                    ->get();
+
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('students')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
+            }
+            else
+            {
+
+                $msg = DB::table('inbox_messages')
+                    ->where([
+                        ['instructor_id','=',$user_id ],
+                        ['sender_student','=',1],
+                    ])
+                    ->select('id','message','student_id','time')
+                    ->orderBy('time', 'desc')
+                    ->take(7)
+                    ->get();
+
+                $now = new DateTime();
+                $date=$now->format('Y-m-d H:i:s');
+
+                $update_lasthit= DB:: table('instructors')
+                    ->where('id',$user_id)
+                    ->update(['last_hit_msg' => $date]);
+            }
+
+        }
+        return $msg;
+
+
+    }
+
 
 
 

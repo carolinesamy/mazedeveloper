@@ -75,8 +75,8 @@ Route::post('/likenotification','NotificationController@like_notification');
 Route::post('/dislikenotification','NotificationController@dislike_notification');
 Route::post('/acceptnotification','NotificationController@accept_notification');
 Route::post('/goldentnotification','NotificationController@golden_notification');
-
-
+Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
+Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 
 /** by christina **  ***** routes for admin */
 Route::get('/admin',function(){

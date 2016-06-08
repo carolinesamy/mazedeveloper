@@ -254,7 +254,7 @@ $rootScope.questionTags={selectedTags:[]};
             }
         }).success(function(res){
             $rootScope.numOfmsg = res[0].count;
-        }).error(function(res){
+        }).error(function(err){
             console.log(err);
         });
     }
@@ -283,6 +283,12 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.messagePage = function(){
 
         $location.path('/inbox');
+    }
+
+    //******************** cancel ask ***********************
+
+    $scope.cancelAsk = function(){
+        $scope.question.title = '';
     }
 
 });

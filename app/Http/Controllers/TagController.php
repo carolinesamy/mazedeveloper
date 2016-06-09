@@ -50,4 +50,9 @@ class TagController extends Controller
 
 
     }
+
+    public function get_all_tags(){
+        $tags = DB::table('tags')->get();
+        return $tags;
+    }
 }

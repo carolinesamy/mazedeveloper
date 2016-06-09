@@ -112,5 +112,12 @@ angular.module('developerMaze').config(function($routeProvider,cfpLoadingBarProv
 		controller:'inboxCtl'
 	})
 
+
+	.when('/help',{
+		templateUrl:'templates/views/help.html',
+		controller:'headerCtl'
+	})
+
+
 })
 

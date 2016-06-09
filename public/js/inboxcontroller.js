@@ -6,7 +6,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 	}
 
   $scope.peopleObj = {};
-  
+  $scope.type='inbox';
 
 
 //*************************Request Data*******************************
@@ -83,6 +83,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 				'type':sessionService.get('type')
 			}
 		}).success(function(res){
+			$scope.type='inbox';
 
 			console.log('inbox',res);
 			$scope.myInboxMsgs = res;
@@ -146,4 +147,32 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 		console.log('msg',$rootScope.specificMessage);
 
 	}
+
+	//*********** sent mail ********************************
+	$scope.getSentMail=function(){
+
+		$http({
+			method: 'POST',
+			url: 'http://localhost:8000/getsentmail',
+			data: {
+				'user_id': sessionService.get('user'),
+				'type':sessionService.get('type')
+			}
+		}).success(function(res){
+			$scope.type='sent';
+
+			console.log('sent',res);
+			$scope.myInboxMsgs = res;
+
+			$scope.myInboxMsgs = $scope.myInboxMsgs.map(function(item){
+				item.message = $sce.trustAsHtml(item.message)
+				return item;
+			});
+
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
+
 });

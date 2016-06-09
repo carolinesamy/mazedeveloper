@@ -32,7 +32,7 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.status.isopen = !$scope.status.isopen;
   };
 
-    $scope.titleError ='';
+    
     $rootScope.user_id = sessionService.get('user');
     $rootScope.user_type = sessionService.get('type');
     $rootScope.user_name = sessionService.get('name');
@@ -90,7 +90,7 @@ $rootScope.questionTags={selectedTags:[]};
     //**************************logout function********************
 
     $scope.logout = function(){
-
+        
 
         $http({
             method: 'POST',
@@ -108,7 +108,7 @@ $rootScope.questionTags={selectedTags:[]};
             $rootScope = null;
             $('#logoutModal').modal('hide');
             $location.path('/');
-
+            window.location.reload();
         }).error(function(err){
             console.log(err);
         });
@@ -128,7 +128,7 @@ $rootScope.questionTags={selectedTags:[]};
                 method: 'POST',
                 url: 'http://localhost:8000/ask',
                 data: {
-                    'title':$scope.question.title,
+                    'title':$scope.question.titlee,
                     'content':$scope.question.content,
                     'image':'',
                     'course_id':$scope.question.course,
@@ -169,7 +169,7 @@ $rootScope.questionTags={selectedTags:[]};
                 $rootScope.questions.splice(0, 0, res);
 
                 $scope.question= '';
-                $scope.titleError ='';
+                
             }).error(function(err){
                 console.log(err);
             });
@@ -181,8 +181,8 @@ $rootScope.questionTags={selectedTags:[]};
 
     $scope.requestAsk=function(valid){
 
-        if($scope.question.title){
-            $http({
+        
+        $http({
             method: 'POST',
             url: 'http://localhost:8000/gettags',
            data:{
@@ -194,18 +194,14 @@ $rootScope.questionTags={selectedTags:[]};
             console.log(res);
             $scope.tags= res.tags_id;
             $rootScope.courses = JSON.parse(res.course_data);
-            $scope.titleError ='';
+            
 
 
         }).error(function(err){
             console.log(err);
         });
         
-        }else{
-
-             $scope.titleError = "Please,Enter Title to Your Question.."
-
-        }
+        
         
     }
 
@@ -232,6 +228,9 @@ $rootScope.questionTags={selectedTags:[]};
             });
         }else{
             $scope.searchItems = '';
+            $scope.status = {
+                isopen: false
+              };
 
         }
         
@@ -257,6 +256,8 @@ $rootScope.questionTags={selectedTags:[]};
     };
     
     $scope.getNOtifications();
+
+
     //*********** get msg number *********
     $scope.getMsgNOtifications=function(){
         $http({
@@ -267,12 +268,15 @@ $rootScope.questionTags={selectedTags:[]};
                 'type':sessionService.get('type')
             }
         }).success(function(res){
+            console.log('num of inbox',res[0].count);
             $rootScope.numOfmsg = res[0].count;
         }).error(function(err){
             console.log(err);
         });
     }
     $scope.getMsgNOtifications();
+
+
     //************************** get notification list ****************************
     $scope.getNotificationList=function(){
         $http({

@@ -291,6 +291,42 @@ $rootScope.questionTags={selectedTags:[]};
     $scope.cancelAsk = function(){
         $scope.question.title = '';
     }
+//******************************** get all courses*********************/
+    $scope.getallcourse=function(){
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8000/getallcourse',
+        }).success(function(res){
+
+
+            console.log(res);
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+    $scope.getallcourse();
+
+
+    //******************************** get all tags*********************/
+    $scope.getalltag=function(){
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8000/getalltag',
+        }).success(function(res){
+
+
+            console.log(res);
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+    $scope.getalltag();
 
 });
 

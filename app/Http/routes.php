@@ -56,10 +56,10 @@ Route::post('/getallinstructors','InboxmessageController@all_instructors');
 Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
 Route::post('/sentinboxmsg','InboxmessageController@send_message');
 Route::post('/getsentmail','InboxmessageController@sent_message');
-Route::post('/firstfourcourse','CourseController@get_four_courses');
-Route::post('/getallcourse','CourseController@get_all_courses');
-Route::post('/getalltag','TagController@get_all_tags');
-Route::post('/getfourquestion','QuestionController@get_four_question');
+Route::get('/firstfourcourse','CourseController@get_four_courses');
+Route::get('/getallcourse','CourseController@get_all_courses');
+Route::get('/getalltag','TagController@get_all_tags');
+Route::get('/getfourquestion','QuestionController@get_four_question');
 
 //**by caroline *** routes for edit question && edit answer
 

@@ -23,7 +23,43 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
 
 
     //***************** request data for top things *************
+    //************************* get four first question *******************************
 
+    $scope.firstfourcourse=function(){
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8000/firstfourcourse',
+        }).success(function(res){
+
+
+            console.log(res);
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+    $scope.firstfourcourse();
+
+    //************************* get four latest question *******************************
+
+    $scope.getfourquestion=function(){
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8000/getfourquestion',
+        }).success(function(res){
+
+
+            console.log(res);
+
+
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+    $scope.getfourquestion();
 
 
 });

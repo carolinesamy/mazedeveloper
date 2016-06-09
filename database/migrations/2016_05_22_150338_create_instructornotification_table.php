@@ -18,10 +18,10 @@ class CreateInstructornotificationTable extends Migration
 
 
             $table->integer('instructor_id')->unsigned();
-            $table->foreign('instructor_id')->references('id')->on('instructors');
+            $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');
 
             $table->integer('notification_id')->unsigned();
-            $table->foreign('notification_id')->references('id')->on('notifications');
+            $table->foreign('notification_id')->references('id')->on('notifications')->onDelete('cascade');
             $table->timestamps();
         });
     }

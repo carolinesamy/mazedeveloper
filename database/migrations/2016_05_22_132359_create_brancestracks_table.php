@@ -16,10 +16,10 @@ class CreateBrancestracksTable extends Migration
             $table->increments('id');
 
             $table->integer('branch_id')->unsigned();
-            $table->foreign('branch_id')->references('id')->on('branchs');
+            $table->foreign('branch_id')->references('id')->on('branchs')->onDelete('cascade');
 
             $table->integer('track_id')->unsigned();
-            $table->foreign('track_id')->references('id')->on('tracks');
+            $table->foreign('track_id')->references('id')->on('tracks')->onDelete('cascade');
 
             $table->timestamps();
         });

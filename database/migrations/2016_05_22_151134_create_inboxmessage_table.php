@@ -19,10 +19,10 @@ class CreateInboxmessageTable extends Migration
             $table->boolean('sender_student');// to differniate betwen student && instructor
 //if student send this msg ==1 && if he recived msg ==0
             $table->integer('student_id')->unsigned()->nullable();
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
             $table->integer('instructor_id')->unsigned()->nullable();
-            $table->foreign('instructor_id')->references('id')->on('instructors');
+            $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');
             $table->timestamps();
         });
     }

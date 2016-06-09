@@ -61,6 +61,9 @@ Route::get('/firstfourcourse','CourseController@get_four_courses');
 Route::get('/getallcourse','CourseController@get_all_courses');
 Route::get('/getalltag','TagController@get_all_tags');
 Route::get('/getfourquestion','QuestionController@get_four_question');
+Route::resource('/admin/tag','AdtagsController');
+Route::resource('/admin/intake','AdintakesController');
+
 
 //**by caroline *** routes for edit question && edit answer
 

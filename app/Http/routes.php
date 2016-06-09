@@ -81,11 +81,10 @@ Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 /** *******by christina **  ***** routes for admin*********** */
 Route::get('/admin','AdminController@relogin');
 Route::post('/admin/login','AdminController@login');
-//Route::get('/admin/students','AdminController@index');
-//Route::get('/admin/students/{id}','AdminController@show');
 Route::resource('/admin/student','AdminController');
 Route::resource('/admin/instructor','AdinstructorController');
-Route::get('/admin/instructor/destroy/{id}','AdinstructorController@destroy');
+Route::resource('/admin/category','AdcategoriesController');
+Route::resource('/admin/course','AdcoursesController');
 
 
 //Route::auth();
@@ -117,22 +116,3 @@ Route::get('/admin/rindex',function(){
     return view('admin/index-rtl');
 });
 
-
-Route::get('/admin/students/{id}','AdminController@show');
-Route::get('/admin/students/{id}/edit','AdminController@edit');
-Route::get('/admin/students/destroy/{id}','AdminController@destroy');
-
-//
-//// Authentication Routes...
-//$this->get('login', 'Auth\AuthController@showLoginForm');
-//$this->post('login', 'Auth\AuthController@login');
-//$this->get('logout', 'Auth\AuthController@logout');
-//
-//// Registration Routes...
-//$this->get('register', 'Auth\AuthController@showRegistrationForm');
-//$this->post('register', 'Auth\AuthController@register');
-//
-//// Password Reset Routes...
-//$this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-//$this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-//$this->post('password/reset', 'Auth\PasswordController@reset');

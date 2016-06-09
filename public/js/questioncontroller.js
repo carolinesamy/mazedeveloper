@@ -91,6 +91,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			$rootScope.dislikes = res.dislikecount;
 			$rootScope.likesCondition = res.likes; // likes object
 			$rootScope.user_type=sessionService.get('type');// user type
+			$rootScope.privilege = res.privilege[0].privilege;
 
 			$rootScope.thisQuestionCourseId = res.question[0].question_course;
 
@@ -523,6 +524,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}).success(function(res){
 
 				// console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
+				// console.log('length',$rootScope.replies[index].length);
+
 				$rootScope.replies[index].push(res);
 
 				$http({

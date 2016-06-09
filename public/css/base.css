@@ -23,6 +23,8 @@
       .row.content {height: auto;} 
     }
 
+
+
 .badge-notify{
                  position:relative;
                  top: -20px;
@@ -128,4 +130,17 @@ a.logo img{
 }
 html,body,body>div,div[ng-view]{
   height: 100%
+}
+
+.navbar-toggle .icon-bar{
+  background-color: #EAEAEA;
+}
+.questionArchive{
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+
+}
+.questionArchive .questionTitle{
+  height: 100px;
 }

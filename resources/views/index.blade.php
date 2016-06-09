@@ -87,7 +87,7 @@ overflow-x:hidden;
 <body class="bg-white">
 <div >
 
-	<div ng-view></div>
+	<div ng-view autoscroll="true"></div>
 	
 </div>
 </body>

@@ -95,15 +95,26 @@
                               </div><!-- /.modal-dialog -->
                           </div><!-- /.modal -->
                       </div>
-                      <ul class="inbox-nav inbox-divider">
+                      <ul class="inbox-nav inbox-divider" ng-if=" type == 'inbox' ">
                           <li class="active">
-                              <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
 
                           </li>
                           <li>
-                              <a><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                              <a ng-click="getSentMail()"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                           </li>
                           
+                      </ul>
+
+                      <ul class="inbox-nav inbox-divider" ng-if=" type == 'sent' ">
+                          <li>
+                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+
+                          </li>
+                          <li class="active">
+                              <a ng-click="getSentMail()"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                          </li>
+
                       </ul>
                       
 
@@ -114,7 +125,14 @@
 
                           <table class="table table-inbox table-hover">
                             <tbody>
-
+                                <tr>
+                                    <th class="inbox-small-cells"></th>
+                                    <th class="inbox-small-cells"></th>
+                                    <th class="view-message dont-show">From</th>
+                                    <th class="view-message view-message" >Message</th>
+                                    <th class="view-message inbox-small-cells">Details</th>
+                                    <th class="view-message text-right">Time</th>
+                                </tr>
                               <tr ng-repeat="msg in myInboxMsgs">
                                   <td class="inbox-small-cells">
                                      <span class="glyphicon glyphicon-user"></span>

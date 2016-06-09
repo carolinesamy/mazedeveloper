@@ -110,7 +110,18 @@ class AdminController extends Controller
         $intake=Intake::findOrFail($intake_id);
         $track=Track::findOrFail($track_id);
 
-        return view('students.show',compact('student','title','intake','track'));
+        $courses=DB::table('student_courses')
+            ->where('student_courses.student_id','=',$id)
+            ->select('student_courses.course_id','student_courses.privilege')->get();
+        $courses_names=[];
+
+        foreach ($courses as $course){
+            $courses_names[]=DB::table('courses')
+                ->where('courses.id','=',$course->course_id)
+                ->value('course_name');
+        }
+
+        return view('students.show',compact('student','title','intake','track','courses','courses_names'));
     }
 
     public function edit($id)

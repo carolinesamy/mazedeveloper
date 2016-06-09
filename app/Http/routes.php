@@ -55,7 +55,11 @@ Route::post('/replynotification','NotificationController@reply_notification');
 Route::post('/getallinstructors','InboxmessageController@all_instructors');
 Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
 Route::post('/sentinboxmsg','InboxmessageController@send_message');
-//Route::post('/tocomplete','InboxmessageController@to_auto_compete');
+Route::post('/getsentmail','InboxmessageController@sent_message');
+Route::post('/firstfourcourse','CourseController@get_four_courses');
+Route::post('/getallcourse','CourseController@get_all_courses');
+Route::post('/getalltag','TagController@get_all_tags');
+Route::post('/getfourquestion','QuestionController@get_four_question');
 
 //**by caroline *** routes for edit question && edit answer
 
@@ -78,14 +82,14 @@ Route::post('/goldentnotification','NotificationController@golden_notification')
 Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
 Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 
-/** by christina **  ***** routes for admin */
-//Route::get('/admin/login','AuthController@login');
+/** *******by christina **  ***** routes for admin*********** */
 Route::get('/admin','AdminController@relogin');
 Route::post('/admin/login','AdminController@login');
 //Route::get('/admin/students','AdminController@index');
 //Route::get('/admin/students/{id}','AdminController@show');
-//Route::resource('/admin/instructor','AdminController');
 Route::resource('/admin/student','AdminController');
+Route::resource('/admin/instructor','AdinstructorController');
+Route::get('/admin/instructor/destroy/{id}','AdinstructorController@destroy');
 
 
 //Route::auth();

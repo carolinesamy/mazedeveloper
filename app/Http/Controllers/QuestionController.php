@@ -358,4 +358,10 @@ class QuestionController extends Controller
         return $question_titles;
     }
 
+    public function get_four_question(){
+        $question = DB::table('questions')->orderBy('questions.time','desc')->take(4)->get();
+        return $question;
+    }
+
+
 }

@@ -25,10 +25,10 @@ class CreateStudentsTable extends Migration
 
 
             $table->integer('intake_id')->unsigned();
-            $table->foreign('intake_id')->references('id')->on('intakes');
+            $table->foreign('intake_id')->references('id')->on('intakes')->onDelete('cascade');
 
             $table->integer('track_id')->unsigned();
-            $table->foreign('track_id')->references('id')->on('tracks');
+            $table->foreign('track_id')->references('id')->on('tracks')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

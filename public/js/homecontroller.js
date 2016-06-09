@@ -45,7 +45,6 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
     //************************* get four latest question *******************************
 
     $scope.getfourquestion=function(){
-
         $http({
             method: 'GET',
             url: 'http://localhost:8000/getfourquestion',

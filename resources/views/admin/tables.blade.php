@@ -398,7 +398,7 @@
                     <div class="col-md-12">
                         <h2>Intakes</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/intake/create">Create New Instructor</a>
+                            <a class="btn btn-primary" href="/admin/intake/create">Create New Intake</a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -439,7 +439,7 @@
                     <div class="col-md-12">
                         <h2>Tags</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/tag/create">Create New Instructor</a>
+                            <a class="btn btn-primary" href="/admin/tag/create">Create New Tag</a>
 
                             <table class="table table-striped">
                                 <thead>
@@ -498,7 +498,7 @@
 
 
                                         <td>
-                                            {{ Form::open(['route' => ['admin.track.destroy', $track->id], 'method' => 'delete']) }}
+                                            {{ Form::open(['route' => ['admin.student.destroy', $track->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/track/{{$track->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/track/{{$track->id}}/edit">Edit</a>
                                             <button type="submit" class="btn btn-danger">Delete</button>

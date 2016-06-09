@@ -17,7 +17,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 			console.log(res);
 			if(res){
-				console.log(res.user.privilege);
+				console.log(res);
 				$rootScope.courses = JSON.parse(res.user['course_data']);
 				$rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
 				$rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);

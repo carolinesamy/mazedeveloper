@@ -21,6 +21,7 @@ Route::get('/test', function () {
     return view('test');
 });
 Route::post('/login','StudentController@login' );
+Route::post('/logout','StudentController@login' );
 
 //*** by merna *******/
 Route::post('/accept','AnswerController@accept_answer');
@@ -81,6 +82,8 @@ Route::post('/acceptnotification','NotificationController@accept_notification');
 Route::post('/goldentnotification','NotificationController@golden_notification');
 Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
 Route::post('/getmsgdata','InboxmessageController@get_msg_data');
+
+Route::get('/topstudent', 'StudentController@top_student');
 
 /** *******by christina **  ***** routes for admin*********** */
 Route::get('/admin','AdminController@relogin');

@@ -34,19 +34,15 @@
         <button ng-if='question.question_student_id == user_id' class="btn bg-brown color-white" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit</button>
       </div>
       <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
-      <h5><span class="glyphicon glyphicon-time"></span> <strong>Post by</strong> {{question.student_name}}, {{question.question_time}}</h5><h5>User's Points: <span class="label bg-red">{{question.student_points}}</span></h5>
+      <h5><span class="glyphicon glyphicon-time"></span> <strong>Post by</strong> {{question.student_name}}, {{question.question_time}}</h5><strong>User's Points: <span class="label bg-red">{{question.student_points}}</span></strong>
 
       
 
-      <span class="badge bg-red"> Tags</span> <b ng-repeat='tag in tags track by $index'> <a href="#/tag?id={{tag.id}}" >{{tag.tag_name}}</a> |</b><br><br>
+      <strong> Tags</strong> <span class="badge bg-red" ng-repeat='tag in tags track by $index'> <a class="color-white" >{{tag.tag_name}}</a></span><br><br>
 
-      <div ng-bind-html='question.question_content'></div>
+      <div style="background-color: white; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; padding-left: 20px;" ng-bind-html='question.question_content'></div>
 
-      <!-- <h4 hm-read-more
-        hm-text="{{question.question_content}}" 
-        hm-dots-class="dots"
-        hm-link-class="links">
-      </h4> -->
+   
       <hr>
 
 
@@ -82,7 +78,10 @@
           <div class="pull-right">
           <br/><br/>
             
-            <button ng-if='answer.answer_student_id == user_id || answer.answer_instructor_id == user_id' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
+            <button ng-if='answer.answer_student_id == user_id ' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
+
+            <button ng-if='answer.answer_instructor_id == user_id ' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
+            
 
           </div>
         <div class="pull-left">
@@ -134,7 +133,7 @@
                 <div ng-if='obj.empty == 1'>
                 <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id,my_index)">{{likes[my_index]}}</a>
 
-                <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
+                <a  style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
 
               </div>
             </h3>
@@ -173,13 +172,13 @@
       <form class="form-horizontal" name="answerForm" novalidate ng-submit="submitted=true;addAnswer(answerForm.$valid,answer_content)">
 
       <!-- <ui-codemirror ui-codemirror-opts="editorOptions" ng-model='answerText' ></ui-codemirror> -->
-      <div class="form-group">
+      <!-- <div class="form-group">
             <label  class="col-sm-2 control-label">Select Image</label>
             <div class="col-sm-10">
           <input type="file" class="form-control" file-model='image_path' name="image_path">          
             </div>
         </div>
-
+ -->
       <div class="form-group">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">

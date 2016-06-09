@@ -256,6 +256,7 @@
                     <div class="col-md-12">
                         <h2>Instructors</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/instructor/create">Create New Instructor</a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -265,9 +266,7 @@
                                     <th>
                                         Email
                                     </th>
-                                    <th>
-                                        image
-                                    </th>
+
                                     <th>
                                         points
                                     </th>
@@ -281,14 +280,14 @@
                                     <tr>
                                         <td>{{$instructor->ifull_name }}</td>
                                         <td>{{$instructor->email }}</td>
-                                        <td>{{$instructor->image }}</td>
                                         <td>{{$instructor->points }}</td>
                                         <td>{{$instructor->type }}</td>
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/instructors/{{$instructor->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/instructors/{{$instructor->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/instructors/destroy/{{$instructor->id}}">Delete</a>
+                                            <a class="btn btn-primary" href="/admin/instructor/{{$instructor->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/instructor/{{$instructor->id}}/edit">Edit</a>
+                                            {{--{!! Form::open(['route'=>['admin.instructor.destroy',$instructor->id],'method'=>'delete']) !!}<button class="btn btn-danger">Delete</button>{!! Form::close() !!}--}}
+                                            <a class="btn btn-danger" href="/admin/instructor/destroy/{{$instructor->id}}">Delete</a>
 
                                         </td>
                                     </tr>

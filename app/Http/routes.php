@@ -78,14 +78,14 @@ Route::post('/goldentnotification','NotificationController@golden_notification')
 Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
 Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 
-/** by christina **  ***** routes for admin */
-//Route::get('/admin/login','AuthController@login');
+/** *******by christina **  ***** routes for admin*********** */
 Route::get('/admin','AdminController@relogin');
 Route::post('/admin/login','AdminController@login');
 //Route::get('/admin/students','AdminController@index');
 //Route::get('/admin/students/{id}','AdminController@show');
-//Route::resource('/admin/instructor','AdminController');
 Route::resource('/admin/student','AdminController');
+Route::resource('/admin/instructor','AdinstructorController');
+Route::get('/admin/instructor/destroy/{id}','AdinstructorController@destroy');
 
 
 //Route::auth();

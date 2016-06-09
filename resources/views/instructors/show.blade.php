@@ -3,33 +3,30 @@
 @section('content')
     <h1>
         name :
-        {{ $student->sfull_name }}
+        {{ $instructor->ifull_name }}
     </h1>
     <h3>email:</h3>
     <p>
-        {{ $student->email }}
+        {{ $instructor->email }}
     </p>
     <p>
-        {{ $student->image }}
-    </p>
-    <h3>intake number:</h3>
-    <p>
-        {{ $intake->intake_number }}
-    </p>
-    <h3>track:</h3>
-    <p>
-        {{ $track->track_name }}
+        {{ $instructor->image }}
     </p>
     <h3>points:</h3>
     <p>
-        {{ $student->points }}
+        {{ $instructor->points }}
     </p>
+    <h3>type:</h3>
+    <p>
+        {{ $instructor->type }}
+    </p>
+    <h3>courses</h3>
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th>course_name</th>
-            <th>privilege</th>
-        </tr>
+            <tr>
+                <th>course_name</th>
+                <th>teaching starting date</th>
+                </tr>
         </thead>
         <tbody>
 
@@ -39,7 +36,7 @@
                     {{$courses_names[$key]}}
                 </td>
                 <td>
-                    {{$value->privilege}}
+                    {{$value->teach_years}}
                 </td>
 
             </tr>

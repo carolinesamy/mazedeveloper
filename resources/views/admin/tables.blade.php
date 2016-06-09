@@ -237,10 +237,11 @@
                                         <td>{{$student->email }}</td>
                                         <td>{{$student->points }}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/students/{{$student->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/students/{{$student->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/students/destroy/{{$student->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.student.destroy', $student->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/student/{{$student->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/student/{{$student->id}}/edit">Edit</a>
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -284,11 +285,11 @@
                                         <td>{{$instructor->type }}</td>
 
                                         <td>
+                                            {{ Form::open(['route' => ['admin.instructor.destroy', $instructor->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/instructor/{{$instructor->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/instructor/{{$instructor->id}}/edit">Edit</a>
-                                            {{--{!! Form::open(['route'=>['admin.instructor.destroy',$instructor->id],'method'=>'delete']) !!}<button class="btn btn-danger">Delete</button>{!! Form::close() !!}--}}
-                                            <a class="btn btn-danger" href="/admin/instructor/destroy/{{$instructor->id}}">Delete</a>
-
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -308,14 +309,13 @@
                     <div class="col-md-12">
                         <h2>Courses</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/course/create">Create New Course</a>
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
                                     <th>
                                         Course Name
-                                    </th>
-                                    <th>
-                                        Description
                                     </th>
                                     <th>
                                         maximum points
@@ -330,15 +330,15 @@
                                 @foreach($courses as $course)
                                     <tr>
                                         <td>{{$course->course_name}}</td>
-                                        <td>{{$course->description}}</td>
                                         <td>{{$course->max_points}}</td>
                                         <td>{{$course->category_name}}</td>
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/courses/{{$course->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/courses/{{$course->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/courses/destroy/{{$course->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.course.destroy', $course->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/course/{{$course->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a>
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -357,6 +357,8 @@
                     <div class="col-md-12">
                         <h2>Categories</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/category/create">Create new Category</a>
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -373,10 +375,11 @@
 
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/categories/{{$category->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/categories/{{$category->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/categories/destroy/{{$category->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.category.destroy', $category->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/category/{{$category->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/category/{{$category->id}}/edit">Edit</a>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -395,6 +398,7 @@
                     <div class="col-md-12">
                         <h2>Intakes</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/intake/create">Create New Intake</a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -411,10 +415,11 @@
 
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/intakes/{{$intake->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/intakes/{{$intake->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/intakes/destroy/{{$intake->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.intake.destroy', $intake->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/intake/{{$intake->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/intake/{{$intake->id}}/edit">Edit</a>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -434,6 +439,8 @@
                     <div class="col-md-12">
                         <h2>Tags</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/tag/create">Create New Tag</a>
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -450,10 +457,11 @@
 
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/tags/{{$tag->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/tags/{{$tag->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/tags/destroy/{{$tag->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.tag.destroy', $tag->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/tag/{{$tag->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/tag/{{$tag->id}}/edit">Edit</a>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -472,6 +480,8 @@
                     <div class="col-md-12">
                         <h2>Tracks</h2>
                         <div class="table-responsive">
+                            <a class="btn btn-primary" href="/admin/track/create">Create New Instructor</a>
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -488,10 +498,11 @@
 
 
                                         <td>
-                                            <a class="btn btn-primary" href="/admin/tracks/{{$track->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/tracks/{{$track->id}}/edit">Edit</a>
-                                            <a class="btn btn-danger" href="/admin/tracks/destroy/{{$track->id}}">Delete</a>
-
+                                            {{ Form::open(['route' => ['admin.student.destroy', $track->id], 'method' => 'delete']) }}
+                                            <a class="btn btn-primary" href="/admin/track/{{$track->id}}">Show</a>
+                                            <a class="btn btn-warning" href="/admin/track/{{$track->id}}/edit">Edit</a>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            {{ Form::close() }}
                                         </td>
                                     </tr>
                                 @endforeach

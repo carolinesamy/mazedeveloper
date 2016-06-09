@@ -16,10 +16,10 @@ class CreateTrackcourseTable extends Migration
             $table->increments('id');
 
             $table->integer('track_id')->unsigned();
-            $table->foreign('track_id')->references('id')->on('tracks');
+            $table->foreign('track_id')->references('id')->on('tracks')->onDelete('cascade');
 
             $table->integer('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
             $table->timestamps();
         });

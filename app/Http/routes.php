@@ -21,6 +21,7 @@ Route::get('/test', function () {
     return view('test');
 });
 Route::post('/login','StudentController@login' );
+Route::post('/logout','StudentController@login' );
 
 //*** by merna *******/
 Route::post('/accept','AnswerController@accept_answer');
@@ -56,10 +57,13 @@ Route::post('/getallinstructors','InboxmessageController@all_instructors');
 Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
 Route::post('/sentinboxmsg','InboxmessageController@send_message');
 Route::post('/getsentmail','InboxmessageController@sent_message');
-Route::post('/firstfourcourse','CourseController@get_four_courses');
-Route::post('/getallcourse','CourseController@get_all_courses');
-Route::post('/getalltag','TagController@get_all_tags');
-Route::post('/getfourquestion','QuestionController@get_four_question');
+Route::get('/firstfourcourse','CourseController@get_four_courses');
+Route::get('/getallcourse','CourseController@get_all_courses');
+Route::get('/getalltag','TagController@get_all_tags');
+Route::get('/getfourquestion','QuestionController@get_four_question');
+Route::resource('/admin/tag','AdtagsController');
+Route::resource('/admin/intake','AdintakesController');
+
 
 //**by caroline *** routes for edit question && edit answer
 
@@ -82,14 +86,15 @@ Route::post('/goldentnotification','NotificationController@golden_notification')
 Route::post('/getmsgnum','InboxmessageController@get_msg_notification_num');
 Route::post('/getmsgdata','InboxmessageController@get_msg_data');
 
+Route::get('/topstudent', 'StudentController@top_student');
+
 /** *******by christina **  ***** routes for admin*********** */
 Route::get('/admin','AdminController@relogin');
 Route::post('/admin/login','AdminController@login');
-//Route::get('/admin/students','AdminController@index');
-//Route::get('/admin/students/{id}','AdminController@show');
 Route::resource('/admin/student','AdminController');
 Route::resource('/admin/instructor','AdinstructorController');
-Route::get('/admin/instructor/destroy/{id}','AdinstructorController@destroy');
+Route::resource('/admin/category','AdcategoriesController');
+Route::resource('/admin/course','AdcoursesController');
 
 
 //Route::auth();
@@ -121,22 +126,3 @@ Route::get('/admin/rindex',function(){
     return view('admin/index-rtl');
 });
 
-
-Route::get('/admin/students/{id}','AdminController@show');
-Route::get('/admin/students/{id}/edit','AdminController@edit');
-Route::get('/admin/students/destroy/{id}','AdminController@destroy');
-
-//
-//// Authentication Routes...
-//$this->get('login', 'Auth\AuthController@showLoginForm');
-//$this->post('login', 'Auth\AuthController@login');
-//$this->get('logout', 'Auth\AuthController@logout');
-//
-//// Registration Routes...
-//$this->get('register', 'Auth\AuthController@showRegistrationForm');
-//$this->post('register', 'Auth\AuthController@register');
-//
-//// Password Reset Routes...
-//$this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-//$this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-//$this->post('password/reset', 'Auth\PasswordController@reset');

@@ -172,5 +172,12 @@ class StudentsTableSeeder extends Seeder
             array('id'=>'2','student_id'=>'1','instructor_id'=>'1','sender_student'=>'1','time'=>'2016-05-20 05:22:22','message'=>'helooo opaaaa'),
 
         ));
+
+        DB::table('admin')->insert(array(
+            array('afull_name'=>'noha','email'=>'noha@gmail.com','password'=>'123456'),
+
+
+
+        ));
     }
 }

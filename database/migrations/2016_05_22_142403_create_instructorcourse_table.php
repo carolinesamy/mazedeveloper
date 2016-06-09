@@ -16,10 +16,10 @@ class CreateInstructorcourseTable extends Migration
             $table->increments('id');
 
             $table->integer('instructor_id')->unsigned();
-            $table->foreign('instructor_id')->references('id')->on('instructors');
+            $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');
 
             $table->integer('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
             $table->date('teach_years')->nullable();
             $table->timestamps();

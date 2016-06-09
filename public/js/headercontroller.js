@@ -253,6 +253,7 @@ $rootScope.questionTags={selectedTags:[]};
                 'type':sessionService.get('type')
             }
         }).success(function(res){
+            console.log('num of inbox',res[0].count);
             $rootScope.numOfmsg = res[0].count;
         }).error(function(err){
             console.log(err);

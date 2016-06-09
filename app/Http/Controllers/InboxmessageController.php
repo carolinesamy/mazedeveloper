@@ -141,6 +141,47 @@ class InboxmessageController extends Controller
 
         }
     }
+    public function sent_mail(Request $request)
+    {
+        $user_id=$request->input('user_id');
+        $type=$request->input('type');
+
+        if (session('user_id') == $user_id &&session('type') == $type) {
+
+
+            if($type == 'instructor')
+            {
+
+                $sentmail = DB::table('inbox_messages')
+                    ->join('students','students.id', '=','inbox_messages.student_id')
+                    ->where([
+                        ['inbox_messages.instructor_id','=',$user_id ],
+                        ['inbox_messages.sender_student','=',0],
+                    ])
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.id','students.sfull_name as name')
+                    ->get();
+
+            }
+            else
+            {
+                 $sentmail= DB::table('inbox_messages')
+                    ->join('instructors','instructors.id', '=','inbox_messages.instructor_id')
+
+                    ->where([
+                        ['inbox_messages.student_id','=',$user_id ],
+                        ['inbox_messages.sender_student','=',1],
+                    ])
+                    ->select('inbox_messages.message','inbox_messages.time','inbox_messages.id','instructors.ifull_name as name')
+                    ->get();
+
+
+            }
+
+            return $sentmail;
+
+
+        }
+    }
     public function get_msg_notification_num(Request $request)
     {
 

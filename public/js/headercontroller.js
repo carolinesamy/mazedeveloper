@@ -91,13 +91,27 @@ $rootScope.questionTags={selectedTags:[]};
 
     $scope.logout = function(){
 
-        sessionService.destroy('user');
-        sessionService.destroy('type');
-        sessionService.destroy('name');
-        $rootScope = null;
-        $('#logoutModal').modal('hide');
-        $location.path('/');
 
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/logout',
+            data: {
+                'student_id': sessionService.get('user'),
+                'user_type': sessionService.get('type'),
+                'user_name': sessionService.get('name'),
+            }
+        }).success(function(res){
+            console.log(res);
+            sessionService.destroy('user');
+            sessionService.destroy('type');
+            sessionService.destroy('name');
+            $rootScope = null;
+            $('#logoutModal').modal('hide');
+            $location.path('/');
+
+        }).error(function(err){
+            console.log(err);
+        });
     };
 
     //**************************Ask Question function********************

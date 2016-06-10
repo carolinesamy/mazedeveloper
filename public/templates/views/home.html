@@ -13,28 +13,45 @@
 <div class="container">
 	
 		
-<!-- top students -->
+<!-- top courses -->
 	<div class="row">
-		<div class="col-sm-6">
-			<div class="owl-carousel">
-
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>
+		
+		
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat='c in topCourses' style="padding-bottom: 30px;">
+			    <div class="hovereffect">
+			        
+					<img src="images/courses.jpg" width="280px" height="200px">
+			        <div class="overlay">
+			           <h2>{{c.course_name}}</h2>
+			           <a class="info" href="#/course?name={{c.course_name}}">View Course's Page</a>
+			        </div>
 			    </div>
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>
-			    </div>
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>		      	
-			    </div>
-	    		<div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>		      	
-			    </div>
-
 			</div>
-		</div>
-<!-- top instructors -->
-		<div class="col-sm-6">
+		
+
+<!-- top questions -->
+
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat='q in topQuestions' style="padding-bottom: 30px;">
+			    <div class="hovereffect">
+					<img src="images/questions.jpg" width="280px" height="200px">
+			        
+			        <div class="overlay">
+			           <h2>{{q.title}}</h2>
+			           <a class="info" href="#/question?id={{q.id}}">View Question's Page</a>
+			        </div>
+			    </div>
+			</div>
+		
+	</div>
+
+	
+</div>
+
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>
+
+<!-- <div class="col-sm-6">
 			<div class="owl-carousel">
 
 			    <div class="item" align="center">
@@ -52,12 +69,4 @@
 			    
 			</div>
 
-		</div>
-	</div>
-
-	
-</div>
-
-
-<!--Footer-->
-<div ng-include = "'templates/views/footer.html'"></div>
+		</div> -->

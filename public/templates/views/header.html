@@ -74,7 +74,18 @@
             <span ng-if='numOfnotification != 0 ' class="badge badge-notify bg-blue">{{numOfnotification}}</span>
 
             <ul class="dropdown-menu">
-              <li ng-repeat='notification in notifications'><a href="#/question?id={{notification.reference_id}}">{{notification.content}} "{{notification.time}}"</a></li>
+              <li ng-repeat='notification in notifications'>
+              <a href="#/question?id={{notification.reference_id}}">
+                <h5 class="list-group-item-heading">{{notification.time}}</h5>
+                <h6 hm-read-more
+                  hm-text="{{notification.content}}" 
+                  hm-limit="80"
+                  hm-more-text="+" 
+                  hm-less-text="-">
+                </h6>
+              </a>
+              </li>
+
             </ul>
         </li>
 

@@ -151,7 +151,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="/admin/aindex"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <a href="/admin/aindex"><i class="fa fa-fw fa-dashboard"></i> Dash</a>
                 </li>
                 <li>
                     <a href="/admin/charts"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -200,7 +200,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li>
-                            <i class="fa fa-dashboard"></i>  <a href="/admin/aindex">Dashboard</a>
+                            <i class="fa fa-dashboard"></i>  <a href="/admin/aindex">Dash</a>
                         </li>
                         <li class="active">
                             <i class="fa fa-table"></i> Tables

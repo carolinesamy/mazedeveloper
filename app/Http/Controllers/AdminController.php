@@ -46,9 +46,9 @@ class AdminController extends Controller
                         'afull_name'=>$admin->afull_name
 
                 );
-//                session(['user_id'=>$student->id]);
-//                session(['type'=>'student']);
-
+                session(['admin_id'=>$admin->id]);
+                session(['name'=>$admin->afull_name]);
+//                Session::put('key', 'value');
                 return view('adminDashboard',compact('rett'));
 
             }
@@ -139,6 +139,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        $intake_courses=
         $student=new Student();
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');

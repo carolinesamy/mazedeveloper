@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Student_courses;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -190,6 +191,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+
         if (Session::has('admin_id'))
         {
         $student=new Student();
@@ -200,6 +202,17 @@ class AdminController extends Controller
         $student->intake_id=$request->input('intake');
         $student->track_id=$request->input('track');
         $student->save();
+        $track_courses=DB::table('track_courses')
+            ->where('track_id','=',$request->input('track'))
+            ->select('course_id')->get(); // array of two objects
+
+        foreach($track_courses as $course){
+            $student_courses=new Student_courses();
+            $student_courses->student_id=$student->id;
+            $student_courses->course_id=$course->course_id;
+            $student_courses->save();
+        }
+
         return redirect('/admin/tables');
         }
         else{
@@ -209,9 +222,11 @@ class AdminController extends Controller
 
     public function update($id,Request $request)
     {
+
         if (Session::has('admin_id'))
         {
         $student=Student::find($id);
+        $last_id = $student->track_id;
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');
         $student->password=$request->input('password');
@@ -220,6 +235,31 @@ class AdminController extends Controller
         $student->track_id=$request->input('track');
 
         $student->save();
+
+        $track_courses = DB::table('track_courses')
+            ->where('track_id', '=', $request->input('track'))
+            ->select('course_id')->get(); // array of two objects
+
+        if ($last_id != $request->input('track')) {
+
+            $last_track_courses = DB::table('track_courses')
+                ->where('track_id', '=', $last_id)
+                ->select('course_id')->get();
+
+            foreach ($last_track_courses as $course) {
+                $last_student_courses = DB::table('student_courses')
+                                ->where('course_id','=',$course->course_id)
+                                ->where('student_id','=',$id)
+                                ->delete();
+            }
+
+            foreach ($track_courses as $course) {
+                $student_courses = new Student_courses();
+                $student_courses->student_id = $student->id;
+                $student_courses->course_id = $course->course_id;
+                $student_courses->save();
+            }
+        }
         return redirect('/admin/tables');
         }
         else{

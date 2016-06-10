@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 
 @section('content')
 
-    <div class="container">
+    <div>
         {!! Form::open(['route'=>['admin.student.update',$student->id],'method'=>'put']) !!}
 
         <fieldset class="form-group">

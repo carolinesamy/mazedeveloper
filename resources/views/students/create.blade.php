@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div>
         {!! Form::open(['route'=>['admin.student.store'],'method'=>'post']) !!}
 
         <fieldset class="form-group">

@@ -317,7 +317,6 @@ $rootScope.questionTags={selectedTags:[]};
         }).success(function(res){
 
 
-            console.log(res);
             $rootScope.allCourses = res;
 
 
@@ -337,7 +336,6 @@ $rootScope.questionTags={selectedTags:[]};
         }).success(function(res){
 
 
-            console.log(res);
             $rootScope.allTags = res;
 
 

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use App\Intake;
+use Session;
 
 class AdintakesController extends Controller
 {
@@ -36,11 +37,23 @@ class AdintakesController extends Controller
 
     public function store(Request $request)
     {
-        $intake=new Intake();
-        $intake->intake_number=$request->input('number');
-        $intake->save();
 
-        return redirect('/admin/tables');
+        $v = Validator::make($request->all(), [
+            'intake_number' => 'required|unique|max:255',
+        ]);
+
+        if ($v->fails())
+        {
+            return redirect()->back()->withErrors('msg','error');
+        }
+        else{
+            $intake=new Intake();
+            $intake->intake_number=$request->input('number');
+            $intake->save();
+
+            return redirect('/admin/tables');
+        }
+
     }
 
     public function update($id,Request $request)

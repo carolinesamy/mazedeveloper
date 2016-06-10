@@ -105,18 +105,18 @@
             <div class="col-sm-3">
             <h1 ng-if='answer.golden == 1'><span class="glyphicon glyphicon-star" style="color: #d9d927"></span></h1>
 
-            <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
+            <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star-empty" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
             </div>
             <div class="col-sm-3">
             <!--accepted-->
             <div ng-if='question.solved == 0'>
-              <div class="radio" ng-if='question.question_student_id == user_id '>
+              <div class="radio" ng-if='question.question_student_id == user_id   && user_type == "student" '>
                   <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)' style="font-size:30px; margin-bottom: 0px;margin-top: 0px;"></span></h3></label>
                 </div>
             </div>
 
             <div ng-if='question.solved == 1'>
-              <div class="radio" ng-if='question.question_student_id == user_id '>
+              <div class="radio" ng-if='question.question_student_id == user_id  && user_type == "student" '>
                   <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)' style="font-size:36px;"></span></h3></label>
 
 

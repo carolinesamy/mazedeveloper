@@ -1,5 +1,5 @@
 'use strict';
-angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http,$location,sessionService){
+angular.module('developerMaze').controller('homeCtl',function( $scope , $rootScope,$http,$location,sessionService,$sce){
 	
     //**********************Slider Code**************************
    
@@ -19,6 +19,48 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
 });
     //**********************************************************
 
+    //*************************Request Data*******************************
+
+    $scope.requestData=function(){
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8000/getuserdata',
+            data: {
+                'user': sessionService.get('user'),
+                'type':sessionService.get('type')
+            }
+        }).success(function(res){
+
+            console.log(res);
+            if(res){
+                console.log(res);
+                $rootScope.courses = JSON.parse(res.user['course_data']);
+                $rootScope.questions = $rootScope.questionsWithoutFilter = JSON.parse(res.user['latest_follow_question']);
+                $rootScope.allquestions = $rootScope.allquestionsWithoutFilter = JSON.parse(res.user['latest_all_question']);
+
+                $rootScope.questions = $rootScope.questions.map(function(item){
+                item.content = $sce.trustAsHtml(item.content)
+                return item;
+                });
+                $rootScope.allquestions = $rootScope.allquestions.map(function(item){
+                item.content = $sce.trustAsHtml(item.content)
+                return item;
+                });
+            }
+            
+        }).error(function(err){
+            console.log(err);
+        });
+    }
+
+    if($rootScope.currentuser){
+       $scope.requestData();   
+
+    }
+
+
+    //*************************************************************
 
     //***************** request data for top things *************
 
@@ -31,9 +73,8 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
             url: 'http://localhost:8000/firstfourcourse',
         }).success(function(res){
 
-            console.log(res);
+            //console.log(res);
             $rootScope.topCourses = res;
-            console.log('courses: ',$rootScope.topCourses);
 
         }).error(function(err){
             console.log(err);
@@ -50,9 +91,8 @@ angular.module('developerMaze').controller('homeCtl',function( $scope , $rootSco
             url: 'http://localhost:8000/getfourquestion',
         }).success(function(res){
 
-            console.log(res);
+            //console.log(res);
             $rootScope.topQuestions = res;
-            console.log('questions: ',$rootScope.topQuestions);
 
         }).error(function(err){
             console.log(err);

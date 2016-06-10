@@ -55,7 +55,6 @@ use App\Http\Controllers\AdminController;
                     <br/>
                 @else
 
-
                     {!!  Form::checkbox('instructors[]', $key,null,['class' => 'field','id'=>'ins'.$value])  !!}{!! $value !!}
                     <br/>
                 @endif

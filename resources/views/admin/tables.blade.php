@@ -320,9 +320,6 @@
                                     <th>
                                         maximum points
                                     </th>
-                                    <th>
-                                        category
-                                    </th>
 
                                 </tr>
                                 </thead>
@@ -331,7 +328,6 @@
                                     <tr>
                                         <td>{{$course->course_name}}</td>
                                         <td>{{$course->max_points}}</td>
-                                        <td>{{$course->category_name}}</td>
 
                                         <td>
                                             {{ Form::open(['route' => ['admin.course.destroy', $course->id], 'method' => 'delete']) }}
@@ -415,7 +411,7 @@
 
 
                                         <td>
-                                            {{ Form::open(['route' => ['admin.student.destroy', $intake->id], 'method' => 'delete']) }}
+                                            {{ Form::open(['route' => ['admin.intake.destroy', $intake->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/intake/{{$intake->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/intake/{{$intake->id}}/edit">Edit</a>
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -457,7 +453,7 @@
 
 
                                         <td>
-                                            {{ Form::open(['route' => ['admin.student.destroy', $tag->id], 'method' => 'delete']) }}
+                                            {{ Form::open(['route' => ['admin.tag.destroy', $tag->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/tag/{{$tag->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/tag/{{$tag->id}}/edit">Edit</a>
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -480,7 +476,7 @@
                     <div class="col-md-12">
                         <h2>Tracks</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/track/create">Create New Instructor</a>
+                            <a class="btn btn-primary" href="/admin/track/create">Create New track</a>
 
                             <table class="table table-striped">
                                 <thead>
@@ -498,7 +494,7 @@
 
 
                                         <td>
-                                            {{ Form::open(['route' => ['admin.student.destroy', $track->id], 'method' => 'delete']) }}
+                                            {{ Form::open(['route' => ['admin.track.destroy', $track->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/track/{{$track->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/track/{{$track->id}}/edit">Edit</a>
                                             <button type="submit" class="btn btn-danger">Delete</button>

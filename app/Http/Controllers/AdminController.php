@@ -77,9 +77,9 @@ class AdminController extends Controller
         /*** categories Data ***/
         $categories=DB::table('categories')->get();
         /*** courses data ***/
-        $courses=DB::table('courses')
-            ->join('categories','courses.category_id','=','categories.id')
-            ->get();
+        $courses=DB::table('courses')->get();
+//            ->join('categories','courses.category_id','=','categories.id')
+//            ->get();
 
         /*** intakes ***/
         $intakes=DB::table('intakes')->get();

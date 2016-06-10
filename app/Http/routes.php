@@ -95,17 +95,12 @@ Route::resource('/admin/student','AdminController');
 Route::resource('/admin/instructor','AdinstructorController');
 Route::resource('/admin/category','AdcategoriesController');
 Route::resource('/admin/course','AdcoursesController');
-
-
-//Route::auth();
+Route::resource('/admin/track','AdtracksController');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/admin/charts',function(){
     return view('admin/charts');
 });
-//Route::get('/admin/tables',function(){
-//    return view('admin/tables');
-//});
 Route::get('/admin/tables','AdminController@index');
 Route::get('/admin/forms',function(){
     return view('admin/forms');

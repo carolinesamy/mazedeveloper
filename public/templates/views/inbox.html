@@ -97,7 +97,7 @@
                       </div>
                       <ul class="inbox-nav inbox-divider" ng-if=" type == 'inbox' ">
                           <li class="active">
-                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"></span></a>
 
                           </li>
                           <li>
@@ -108,7 +108,7 @@
 
                       <ul class="inbox-nav inbox-divider" ng-if=" type == 'sent' ">
                           <li>
-                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                              <a ng-click="getInboxMsg()"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"></span></a>
 
                           </li>
                           <li class="active">
@@ -128,19 +128,19 @@
                                 <tr>
                                     <th class="inbox-small-cells"></th>
                                     <th class="inbox-small-cells"></th>
-                                    <th class="view-message dont-show">From</th>
+                                    <th class="view-message dont-show" ng-if=" type == 'inbox' " >From</th>
+                                    <th class="view-message dont-show" ng-if=" type == 'sent' ">To</th>
+
                                     <th class="view-message view-message" >Message</th>
-                                    <th class="view-message inbox-small-cells">Details</th>
                                     <th class="view-message text-right">Time</th>
                                 </tr>
-                              <tr ng-repeat="msg in myInboxMsgs">
+                              <tr  ng-click='viewMessage(msg)' ng-repeat="msg in myInboxMsgs">
                                   <td class="inbox-small-cells">
                                      <span class="glyphicon glyphicon-user"></span>
                                   </td>
                                   <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
                                   <td class="view-message dont-show">{{msg.name}}</td>
                                   <td class="view-message view-message"  ng-bind-html='msg.message'></td>
-                                  <td class="view-message inbox-small-cells"><a href="#/message" class="color-blue" ng-click='viewMessage(msg)'>View</a></td>
                                   <td class="view-message text-right">{{msg.time}}</td>
                               </tr>
 

@@ -333,9 +333,6 @@
                                     <th>
                                         maximum points
                                     </th>
-                                    <th>
-                                        category
-                                    </th>
 
                                 </tr>
                                 </thead>
@@ -344,7 +341,6 @@
                                     <tr>
                                         <td>{{$course->course_name}}</td>
                                         <td>{{$course->max_points}}</td>
-                                        <td>{{$course->category_name}}</td>
 
                                         <td>
                                             {{ Form::open(['route' => ['admin.course.destroy', $course->id], 'method' => 'delete']) }}
@@ -495,6 +491,7 @@
                         <div class="table-responsive">
                             <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/track/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
 
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -511,7 +508,7 @@
 
 
                                         <td>
-                                            {{ Form::open(['route' => ['admin.student.destroy', $track->id], 'method' => 'delete']) }}
+                                            {{ Form::open(['route' => ['admin.track.destroy', $track->id], 'method' => 'delete']) }}
                                             <a class="btn btn-primary" href="/admin/track/{{$track->id}}">Show</a>
                                             <a class="btn btn-warning" href="/admin/track/{{$track->id}}/edit">Edit</a>
                                             <button type="submit" class="btn btn-danger">Delete</button>

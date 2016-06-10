@@ -6,35 +6,60 @@
 	<div class="logo">
 		<img src="images/logo.png">
 		<h1 class="color-red">Developer Maze</h1>
-		<h3 class="color-white">Create you own wayout ... </h3>
-		<h4 class="color-white"><p>course-independent website helps the iti students to collaborate with each others </p><p> by asking questions and get answers ,questions and answers are get voted by user votes. </p></h4>
+		<h3 class="color-white">Create you own way out ... </h3>
+		<h4 class="color-blue"><p>Course-independent website helps the iti students to collaborate with each others </p><p> by asking questions and get answers ,questions and answers are get voted by user votes. </p></h4>
 	</div>
 </div>
-<div class="container">
+<div class="container coursesInHome">
 	
+		<h3 class="text-center color-blue margin-bottom">
+			Top Courses
+		</h3>
+<!-- top courses -->
+	<div class="row ">
 		
-<!-- top students -->
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="owl-carousel">
-
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>
+		
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat='c in topCourses' style="padding-bottom: 30px;">
+			    <div class="hovereffect">
+			        
+					<img src="images/courses.jpg" width="280px" height="200px">
+			        <div class="overlay">
+			           <h2>{{c.course_name}}</h2>
+			           <a class="info" href="#/course?name={{c.course_name}}">View Course's Page</a>
+			        </div>
 			    </div>
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>
-			    </div>
-			    <div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>		      	
-			    </div>
-	    		<div class="item" align="center">
-			        <div class="bg-red" style="width: 250px; height: 200px;border-radius: 50%;"></div>		      	
-			    </div>
-
 			</div>
-		</div>
-<!-- top instructors -->
-		<div class="col-sm-6">
+		
+</div>
+</div>
+<div class="container">
+
+<h3 class="text-center color-blue margin-bottom">
+			Top Questions
+		</h3>
+<!-- top questions -->
+<div class="row tagsInHome">
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat='q in topQuestions' style="padding-bottom: 30px;">
+			    <div class="hovereffect">
+					<img src="images/questions.jpg" width="280px" height="200px">
+			        
+			        <div class="overlay">
+			           <h2>{{q.title}}</h2>
+			           <a class="info" href="#/question?id={{q.id}}">View Question's Page</a>
+			        </div>
+			    </div>
+			</div>
+		
+	</div>
+
+	
+</div>
+
+
+<!--Footer-->
+<div ng-include = "'templates/views/footer.html'"></div>
+
+<!-- <div class="col-sm-6">
 			<div class="owl-carousel">
 
 			    <div class="item" align="center">
@@ -52,12 +77,4 @@
 			    
 			</div>
 
-		</div>
-	</div>
-
-	
-</div>
-
-
-<!--Footer-->
-<div ng-include = "'templates/views/footer.html'"></div>
+		</div> 

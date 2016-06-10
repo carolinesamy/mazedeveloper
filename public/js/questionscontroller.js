@@ -129,6 +129,7 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 
 		$scope.course_name = $routeParams.name;
 		$scope.courseQuestions();
+		$scope.length = $scope.coursequestions.length;
 
 	}
 

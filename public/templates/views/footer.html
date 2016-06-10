@@ -1,13 +1,41 @@
 
 <footer class="row bg-red color-white" >
             <div class="container" align="center">
-            
-            
+            <div class="row">
+            	<div class="col-sm-4 text-left">
+                <h4 class="margin-bottom"><b>Courses</b></h4>
+            		<div class="row text-left">
 
+                        <div class="col-sm-6" ng-repeat='c in allCourses | limitTo: 8'>
+                            
+                    <p ><a class="color-white" href="#/course?name={{c.course_name}}">{{c.course_name}}</a></p>
+                        </div>      
+                    </div>
+            		
+            		
+            	</div>
+            	<div class="col-sm-4 text-left">
+                <h4 class="margin-bottom"><b>Tags</b></h4>
+            		<div class="row">
+                        <div class="col-sm-6" ng-repeat='t in allTags | limitTo: 8'>
+                            <p class="color-white" >{{t.tag_name}}</p>
+                        </div>      
+                    </div>
+            	
+            		
+
+            	</div>  
+                <div class="col-sm-4 text-left footer">
+                    <h4 class="margin-bottom"><b>About</b></h4>
+                    <p>Course-independent website helps the iti students to collaborate with each others by asking questions and get answers ,questions and answers are get voted by user votes.</p>
+                </div>   	
+            </div>
+            <hr>
+          	  <div class="row">
                     This website is a cooperation between AMC2 TEAM
                     <br>
                     <span>&copy; AMC2 Team</span>
 
-                
+             </div>   
             </div>
 </footer>

@@ -24,15 +24,20 @@
         <label>Category</label>
         {{ Form::select('category', $categories,null,array('class'=>'form-control')) }}
         </fieldset>
+        {{--<fieldset class="form-group">--}}
+            {{--<label>Course Instructor</label>--}}
+            {{--{{ Form::select('instructor', $instructors,null,array('class'=>'form-control')) }}--}}
+        {{--</fieldset>--}}
+
         <fieldset class="form-group">
             <label>Course Instructor</label>
-            {{ Form::select('instructor', $instructors,null,array('class'=>'form-control')) }}
-        </fieldset>
+            <br/>
 
-        {{--<fieldset class="form-group">--}}
-        {{--<label>track</label>--}}
-        {{--{{ Form::select('track', $tracks,$student->track_id,array('class'=>'form-control')) }}--}}
-        {{--</fieldset>--}}
+            @foreach($instructors as $key=> $value)
+                {!!  Form::checkbox('instructors[]', $key,null,['class' => 'field','id'=>'ins'.$value])  !!}{!! $value !!}
+                <br/>
+            @endforeach
+        </fieldset>
 
         <button type="submit" class="btn btn-primary">Submit</button>
 

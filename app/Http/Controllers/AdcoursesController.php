@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Instructor_courses;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Course;
+
 use DB;
 use App\Instructor;
 
@@ -18,6 +20,7 @@ class AdcoursesController extends Controller
         $title='Create New Course ';
         $categories=Category::lists('category_name','id');
         $instructors=Instructor::lists('ifull_name','id');
+//        $instructors=Instructor::all();
 //        var_dump($instructors);
         return view('courses.create',compact('title','categories','instructors'));
     }
@@ -56,12 +59,22 @@ class AdcoursesController extends Controller
 
     public function store(Request $request)
     {
+
         $course=new Course();
         $course->course_name=$request->input('name');
         $course->description=$request->input('description');
         $course->max_points=$request->input('max_points');
         $course->category_id=$request->input('category');
         $course->save();
+        $instructors=$request->input('instructors');
+//        dd($course->id);
+        foreach($instructors as $instructor)
+        {
+            $instructor_course=new Instructor_courses();
+            $instructor_course->instructor_id=$instructor;
+            $instructor_course->course_id=$course->id;
+            $instructor_course->save();
+        }
 
         return redirect('/admin/tables');
     }
@@ -70,12 +83,42 @@ class AdcoursesController extends Controller
     {
         $course=Course::find($id);
         $course->course_name=$request->input('name');
-        $course->email=$request->input('email');
-        $course->password=$request->input('password');
+        $course->description=$request->input('description');
+        $course->max_points=$request->input('max_points');
         $course->category_id=$request->input('category');
-        $instructors=$request->input('instructors');
-            dd($instructors);
         $course->save();
+        $instructors=$request->input('instructors');
+
+        $course_exist=DB::table('instructor_courses')
+            ->where('course_id','=',$id)
+            ->first();
+        if($course_exist==null)
+        {
+            foreach($instructors as $instructor)
+            {
+                $instructor_course=new Instructor_courses();
+                $instructor_course->instructor_id=$instructor;
+                $instructor_course->course_id=$id;
+                $instructor_course->save();
+            }
+        }
+        else
+        {
+            foreach($instructors as $instructor) {
+                $instructor_exist = DB::table('instructor_courses')
+                    ->where('instructor_id', '=',$instructor)
+                    ->first();
+
+                if($instructor_exist==null){
+                    $instructor_course=new Instructor_courses();
+                    $instructor_course->instructor_id=$instructor;
+                    $instructor_course->course_id=$id;
+                    $instructor_course->save();
+                }
+
+            }
+        }
+
         return redirect('/admin/tables');
     }
 

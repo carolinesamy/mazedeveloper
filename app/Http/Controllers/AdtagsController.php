@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Tag;
+use Session;
+
 
 class AdtagsController extends Controller
 {
@@ -13,56 +15,90 @@ class AdtagsController extends Controller
     //
     public function create()
     {
-        $title='Create New Tag ';
+        if (Session::has('admin_id')) {
+
+            $title='Create New Tag ';
 //        var_dump($instructors);
         return view('tags.create',compact('title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function show($id)
     {
-        $title='Tag information';
+        if (Session::has('admin_id')) {
+
+            $title='Tag information';
         $tag=Tag::findOrFail($id);
 //        var_dump($instructors);
         return view('tags.show',compact('tag','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function edit($id)
     {
-        $title=" Edit Tag data ";
+        if (Session::has('admin_id')) {
+
+            $title=" Edit Tag data ";
         $tag=Tag::find($id);
 //        $intakes = Intake::lists('intake_number', 'id');
 //        $tracks = Track::lists('track_name', 'id');
 
 //        var_dump($instructors);
         return view('tags.edit',compact('tag','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function store(Request $request)
     {
 
+        if (Session::has('admin_id')) {
 
             $tag=new Tag();
             $tag->tag_name=$request->input('name');
             $tag->save();
 
             return redirect('/admin/tables');
-
+        }
+        else{
+            return redirect('/admin');
+        }
         //
 
     }
 
     public function update($id,Request $request)
     {
-        $tag=Tag::find($id);
+        if (Session::has('admin_id')) {
+
+            $tag=Tag::find($id);
         $tag->tag_name=$request->input('name');
         $tag->save();
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function destroy($id)
     {
-        $tag=Tag::find($id);
+        if (Session::has('admin_id')) {
+
+            $tag=Tag::find($id);
         $tag->delete();
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 }

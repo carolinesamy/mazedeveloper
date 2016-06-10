@@ -39,11 +39,16 @@ class AdtagsController extends Controller
 
     public function store(Request $request)
     {
-        $tag=new Tag();
-        $tag->tag_name=$request->input('name');
-        $tag->save();
 
-        return redirect('/admin/tables');
+
+            $tag=new Tag();
+            $tag->tag_name=$request->input('name');
+            $tag->save();
+
+            return redirect('/admin/tables');
+
+        //
+
     }
 
     public function update($id,Request $request)

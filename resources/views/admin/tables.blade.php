@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+    .btn-circle.btn-lg {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+        text-align: center;
+        -webkit-box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow:    0px 3px 0px rgba(0, 0, 0, 0.3);
+        box-shadow:         0px 3px 0px rgba(0, 0, 0, 0.3);
+    }
+</style>
 <head>
 
     <meta charset="utf-8">
@@ -215,7 +228,7 @@
                     <div class="col-md-12">
                         <h2>Students</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/student/create">Create new student</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/student/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -257,7 +270,7 @@
                     <div class="col-md-12">
                         <h2>Instructors</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/instructor/create">Create New Instructor</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right"  href="/admin/instructor/create" ><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -309,7 +322,7 @@
                     <div class="col-md-12">
                         <h2>Courses</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/course/create">Create New Course</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/course/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
 
                             <table class="table table-striped">
                                 <thead>
@@ -357,7 +370,7 @@
                     <div class="col-md-12">
                         <h2>Categories</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/category/create">Create new Category</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/category/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
 
                             <table class="table table-striped">
                                 <thead>
@@ -398,7 +411,7 @@
                     <div class="col-md-12">
                         <h2>Intakes</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/intake/create">Create New Intake</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/intake/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -439,7 +452,7 @@
                     <div class="col-md-12">
                         <h2>Tags</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/tag/create">Create New Tag</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/tag/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
 
                             <table class="table table-striped">
                                 <thead>
@@ -480,7 +493,7 @@
                     <div class="col-md-12">
                         <h2>Tracks</h2>
                         <div class="table-responsive">
-                            <a class="btn btn-primary" href="/admin/track/create">Create New Instructor</a>
+                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/track/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
 
                             <table class="table table-striped">
                                 <thead>

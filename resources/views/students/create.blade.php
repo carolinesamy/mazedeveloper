@@ -12,7 +12,10 @@
 
         <fieldset class="form-group">
             <label>Email</label>
+            <div class="form-group input-group">
+                <span class="input-group-addon">@</span>
             <input class="form-control" placeholder="email" type="email" id="email" name="email">
+            </div>
         </fieldset>
 
         <fieldset class="form-group">

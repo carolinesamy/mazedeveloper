@@ -8,11 +8,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Student_courses;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Input;
 
 use App\Answer;
@@ -22,7 +21,7 @@ use App\Intake;
 use App\Track;
 use DateTime;
 use DB;
-
+use Session;
 use App\Instructor;
 use App\Student;
 
@@ -30,7 +29,9 @@ class AdminController extends Controller
 {
     public function login(Request $request){
 
-        $email=$request->input('email');
+        if (!Session::has('admin_id'))
+        {
+            $email=$request->input('email');
         $password=$request->input('password');
 
         $admin= DB::table('admin')
@@ -46,28 +47,53 @@ class AdminController extends Controller
                         'afull_name'=>$admin->afull_name
 
                 );
-//                session(['user_id'=>$student->id]);
-//                session(['type'=>'student']);
-
+                session(['admin_id'=>$admin->id]);
+                session(['name'=>$admin->afull_name]);
+//                Session::put('key', 'value');
                 return view('adminDashboard',compact('rett'));
 
             }
             elseif($admin->password != $password)
             {
+
                 return view('adminLogin');
             }
 
+        }
+        else{
+            $rett=array
+            (
+                'afull_name'=>session('name')
 
+            );
+            return view('adminDashboard',compact('rett'));
+
+        }
 
     }
 
     public function relogin(){
-        return view('adminLogin');
+
+        if (!Session::has('admin_id'))
+        {
+            return view('adminLogin');
+
+        }
+        else{
+//            redirect('/admin/tables');
+            return redirect('/admin/login');
+        }
+
+
+
 //        Route::post('/login','AuthController@login');
     }
 
     public function index()
     {
+
+        if (Session::has('admin_id'))
+        {
         /*** Students Data ***/
         $students=Student::all();
 
@@ -91,18 +117,34 @@ class AdminController extends Controller
         $tags=DB::table('tags')->get();
 
         return view('admin/tables',compact('students','instructors','courses','categories','intakes','tracks','tags'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function create()
     {
-        $title='Create New Student ';
-        $intakes = Intake::lists('intake_number', 'id');
-        $tracks = Track::lists('track_name', 'id');
-        return view('students.create',compact('title','intakes','tracks'));
+        if (Session::has('admin_id'))
+        {
+            //
+            $title='Create New Student ';
+            $intakes = Intake::lists('intake_number', 'id');
+            $tracks = Track::lists('track_name', 'id');
+            return view('students.create',compact('title','intakes','tracks'));
+        }
+        else{
+            return redirect('/admin');
+        }
+
+
+
     }
 
     public function show($id)
     {
+        if (Session::has('admin_id'))
+        {
         $title='student information';
         $student=Student::findOrFail($id);
         $intake_id=$student->intake_id;
@@ -122,11 +164,17 @@ class AdminController extends Controller
         }
 
         return view('students.show',compact('student','title','intake','track','courses','courses_names'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function edit($id)
     {
-        $title=" Edit student data ";
+        if (Session::has('admin_id'))
+        {
+            $title=" Edit student data ";
         $student=Student::find($id);
 //        $intakes=Intake::all();
         $intakes = Intake::lists('intake_number', 'id');
@@ -135,10 +183,17 @@ class AdminController extends Controller
 
 
         return view('students.edit',compact('student','intakes','tracks','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function store(Request $request)
     {
+
+        if (Session::has('admin_id'))
+        {
         $student=new Student();
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');
@@ -147,12 +202,31 @@ class AdminController extends Controller
         $student->intake_id=$request->input('intake');
         $student->track_id=$request->input('track');
         $student->save();
+        $track_courses=DB::table('track_courses')
+            ->where('track_id','=',$request->input('track'))
+            ->select('course_id')->get(); // array of two objects
+
+        foreach($track_courses as $course){
+            $student_courses=new Student_courses();
+            $student_courses->student_id=$student->id;
+            $student_courses->course_id=$course->course_id;
+            $student_courses->save();
+        }
+
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function update($id,Request $request)
     {
+
+        if (Session::has('admin_id'))
+        {
         $student=Student::find($id);
+        $last_id = $student->track_id;
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');
         $student->password=$request->input('password');
@@ -161,14 +235,57 @@ class AdminController extends Controller
         $student->track_id=$request->input('track');
 
         $student->save();
+
+        $track_courses = DB::table('track_courses')
+            ->where('track_id', '=', $request->input('track'))
+            ->select('course_id')->get(); // array of two objects
+
+        if ($last_id != $request->input('track')) {
+
+            $last_track_courses = DB::table('track_courses')
+                ->where('track_id', '=', $last_id)
+                ->select('course_id')->get();
+
+            foreach ($last_track_courses as $course) {
+                $last_student_courses = DB::table('student_courses')
+                                ->where('course_id','=',$course->course_id)
+                                ->where('student_id','=',$id)
+                                ->delete();
+            }
+
+            foreach ($track_courses as $course) {
+                $student_courses = new Student_courses();
+                $student_courses->student_id = $student->id;
+                $student_courses->course_id = $course->course_id;
+                $student_courses->save();
+            }
+        }
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function destroy($id)
     {
-        $student=Student::find($id);
-        $student->delete();
-        return redirect('admin/tables');
+        if (Session::has('admin_id'))
+        {
+            $student=Student::find($id);
+            $student->delete();
+            return redirect('admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/admin');
+
+    }
+
+
 
 }

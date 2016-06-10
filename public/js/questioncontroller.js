@@ -147,6 +147,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 	$scope.acceptAnswer = function(answer_id,index){
 
+
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/accept',

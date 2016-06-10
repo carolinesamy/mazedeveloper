@@ -20,7 +20,7 @@ class CreateStudentcourseTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
-            $table->enum('privilege', ['notify','dislike','delete']);
+            $table->enum('privilege', ['non','notify','dislike','delete'])->default('non');
 
             $table->timestamps();
         });

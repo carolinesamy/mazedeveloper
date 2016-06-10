@@ -28,7 +28,9 @@ class AdminController extends Controller
 {
     public function login(Request $request){
 
-        $email=$request->input('email');
+        if (!Session::has('admin_id'))
+        {
+            $email=$request->input('email');
         $password=$request->input('password');
 
         $admin= DB::table('admin')
@@ -52,15 +54,37 @@ class AdminController extends Controller
             }
             elseif($admin->password != $password)
             {
+
                 return view('adminLogin');
             }
 
+        }
+        else{
+            $rett=array
+            (
+                'afull_name'=>session('name')
 
+            );
+            return view('adminDashboard',compact('rett'));
+
+        }
 
     }
 
     public function relogin(){
-        return view('adminLogin');
+
+        if (!Session::has('admin_id'))
+        {
+            return view('adminLogin');
+
+        }
+        else{
+//            redirect('/admin/tables');
+            return redirect('/admin/login');
+        }
+
+
+
 //        Route::post('/login','AuthController@login');
     }
 

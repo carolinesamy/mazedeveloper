@@ -76,6 +76,10 @@
 	<link rel="stylesheet" href="css/loading-bar.css">
     <script type="text/javascript" src="js/loading-bar.js"></script>
 
+    <!-- ng-table -->
+    <link rel="stylesheet" href="css/ng-table.css">
+    <script type="text/javascript" src="js/ng-table.js"></script>
+
 
 <style type="text/css">
 	body{

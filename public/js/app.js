@@ -5,7 +5,7 @@
 **dep:
 */
 
-angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io','ngWYSIWYG','angular-loading-bar']);
+angular.module('developerMaze',['ngRoute','ngSanitize','hm.readmore','ui.bootstrap','ui.codemirror','angularTrix','file-model','ui.select','btford.socket-io','ngWYSIWYG','angular-loading-bar',"ngTable"]);
 
 angular.module('developerMaze').config(function($routeProvider,cfpLoadingBarProvider){
 

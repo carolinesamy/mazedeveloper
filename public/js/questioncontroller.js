@@ -147,8 +147,6 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 	$scope.acceptAnswer = function(answer_id,index){
 
-		//this block of code will be in http request success function
-
 		$http({
 			method: 'POST',
 			url: 'http://localhost:8000/accept',

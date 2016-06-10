@@ -1,13 +1,27 @@
 
 <footer class="row bg-red color-white" >
             <div class="container" align="center">
-            
-            
+            <div class="row">
+            	<div class="col-sm-4">
+            		
+            		<h4>Courses:</h4><br/>
+            		<h5 ng-repeat='c in allCourses | limitTo: 8'><a class="color-white" href="#/course?name={{c.course_name}}">{{c.course_name}}</a></h5>
+            		
+            	</div>
+            	<div class="col-sm-4"></div>
+            	<div class="col-sm-4">
+            		
+            	<h4>Tags:</h4><br/>
+            		<h5 class="color-white" ng-repeat='t in allTags | limitTo: 8'>{{t.tag_name}}</h5
 
+            	</div>     	
+            </div>
+            <hr>
+          	  <div class="row">
                     This website is a cooperation between AMC2 TEAM
                     <br>
                     <span>&copy; AMC2 Team</span>
 
-                
+             </div>   
             </div>
 </footer>

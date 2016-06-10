@@ -31,13 +31,12 @@ class AnswerController extends Controller
             $question = Question::find($answer->question_id);
             echo "answer before:".$answer->accepted;
 
-            if ($answer->accepted == 0 && $question->solved <= 3)
+            if ($answer->accepted == 0 && $question->solved=0)
             {
                 $answer->accepted = 1;
                 $answer->save();
-                $question->solved ++;
+                $question->solved=1;
                 $question->save();
-                echo "answer after:".$answer->accepted;
 
                 if($answer->instructor_id==null)
                 {
@@ -76,10 +75,10 @@ class AnswerController extends Controller
             $question = Question::find($answer->question_id);
             echo "answer before:".$answer->accepted;
 
-            if ($answer->accepted == 1 &&($question->solved >0 && $question->solved <=3) ) {
+            if ($answer->accepted == 1 && $question->solved =1 ) {
                 $answer->accepted = 0;
                 $answer->save();
-                $question->solved --;
+                $question->solved =0;
                 $question->save();
                 echo "answer after:".$answer->accepted;
 

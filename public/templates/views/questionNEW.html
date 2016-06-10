@@ -31,7 +31,7 @@
     </nav>
       
       <div class="pull-right">
-        <button ng-if='question.question_student_id == user_id' class="btn bg-brown color-white" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+        <button ng-if='question.question_student_id == user_id && user_type == "student" ' class="btn bg-brown color-white" ng-click="editQuestionData()" data-toggle="modal" data-target="#editQuestionModal"><span class="glyphicon glyphicon-edit"></span> Edit</button>
       </div>
       <h2>{{question.question_title}}  <span ng-if='question.solved == 1' class="glyphicon glyphicon-ok text-success"></span></h2>
       <h5><span class="glyphicon glyphicon-time"></span> <strong>Post by</strong> {{question.student_name}}, {{question.question_time}}</h5><strong>User's Points: <span class="label bg-red">{{question.student_points}}</span></strong>
@@ -75,50 +75,12 @@
         <div class="col-sm-12">
           <h4>By: {{answer.student_name}}{{answer.instructor_name}} <small>{{answer.answer_time}}</small> </h4>
 
-          <div class="pull-right">
-          <br/><br/>
-            
-            <button ng-if='answer.answer_student_id == user_id ' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
-
-            <button ng-if='answer.answer_instructor_id == user_id ' class="btn bg-brown color-white" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
-            
-
-          </div>
-        <div class="pull-left">
-          <!--accepted-->
-            <div ng-if='question.solved == 0'>
-              <div class="radio" ng-if='question.question_student_id == user_id '>
-                  <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)' style="font-size:30px;"></span></h3></label>
-                </div>
-            </div>
-
-            <div ng-if='question.solved == 1' class="pull-right">
-              <div class="radio" ng-if='question.question_student_id == user_id '>
-                  <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)' style="font-size:36px;"></span></h3></label>
-
-
-                </div>
-            </div><!--end of accepted-->
-        </div>
-        <div ng-bind-html='answer.answer_content'></div>
-        <!-- <div hm-read-more
-          hm-text="{{answer.answer_content}}" 
-          hm-dots-class="dots"
-          hm-link-class="links">
-        </div> -->
-
-
-        <!--golden star-->
-          <div class="pull-left">
-            <h1 ng-if='answer.golden == 1'><span class="glyphicon glyphicon-star" style="color: #d9d927"></span></h1>
-
-            <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
-          </div>
+         <div ng-bind-html='answer.answer_content'></div>
           
-          <br><br>
+            <div class="row">
 
-          <!--Likes/DisLikes-->
-          <div ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$index"  ng-if='userCourse == "true" '>
+            <!--Likes/DisLikes-->
+          <div class="col-sm-3" ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$index"  ng-if='userCourse == "true" '>
             <h3>
 
               <div ng-if='obj.empty == 0 && obj.me == 1'>
@@ -138,6 +100,40 @@
               </div>
             </h3>
           </div><!--end of likes/dislike-->
+
+            <!--golden star-->
+            <div class="col-sm-3">
+            <h1 ng-if='answer.golden == 1'><span class="glyphicon glyphicon-star" style="color: #d9d927"></span></h1>
+
+            <h1 ng-if='answer.golden == 0 && user_type == "instructor" ' ><span class="glyphicon glyphicon-star" ng-click='goldenStar(answer.answer_id,$index)'></span></h1>
+            </div>
+            <div class="col-sm-3">
+            <!--accepted-->
+            <div ng-if='question.solved == 0'>
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label><h3 style="color: #cccccc;"><span class="glyphicon glyphicon-ok" ng-click='acceptAnswer(answer.answer_id,$index)' style="font-size:30px; margin-bottom: 0px;margin-top: 0px;"></span></h3></label>
+                </div>
+            </div>
+
+            <div ng-if='question.solved == 1'>
+              <div class="radio" ng-if='question.question_student_id == user_id '>
+                  <label ng-if='answer.accepted == 1'><h3><span class="glyphicon glyphicon-ok text-success" ng-click='unacceptAnswer(answer.answer_id,$index)' style="font-size:36px;"></span></h3></label>
+
+
+                </div>
+            </div><!--end of accepted-->
+            </div>
+
+            <div class="col-sm-3 pull-right">
+            <!--edit answer-->
+              <button ng-if='answer.answer_student_id == user_id && user_type == "student" ' class="btn bg-brown color-white pull-right" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
+
+              <button ng-if='answer.answer_instructor_id == user_id && user_type == "instructor" ' class="btn bg-brown color-white pull-right" ng-click="editAnswerData(answer,$index)" data-toggle="modal" data-target="#editAnswerModal"><span class="glyphicon glyphicon-edit"></span>Edit</button>
+            </div>
+
+          </div>
+            
+          
           
           <!--reply -->
           <div class="row" ng-repeat='reply in replies[$index]'>

@@ -228,3 +228,26 @@ html,body,body>div,div[ng-view]{
 .hovereffect a.info:hover {
   box-shadow: 0 0 5px #fff;
 }
+.margin-bottom{
+  margin-bottom: 20px;
+}
+.coursesInHome{
+  border-bottom: 1px solid #9F1C20;
+  padding-bottom: 20px;
+}
+.tagsInHome{
+  margin-bottom: 50px;
+}
+.search{
+  position: relative;
+}
+.search span{
+  font-size: 20px;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    color: #333;
+}
+.footer img{
+  width: 50px;
+}

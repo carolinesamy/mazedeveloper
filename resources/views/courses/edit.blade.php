@@ -52,6 +52,7 @@ use App\Http\Controllers\AdminController;
                 @if($flag==1)
 
                     {!! Form::checkbox('instructors[]', $key,null,['class' => 'field','checked'=>'checked','id'=>'ins'.$value])!!}{!! $value !!}
+                    <br/>
                 @else
 
 

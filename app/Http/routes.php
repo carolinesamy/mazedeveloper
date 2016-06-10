@@ -56,7 +56,7 @@ Route::post('/replynotification','NotificationController@reply_notification');
 Route::post('/getallinstructors','InboxmessageController@all_instructors');
 Route::post('/getinboxmsg','InboxmessageController@inbox_msg');
 Route::post('/sentinboxmsg','InboxmessageController@send_message');
-Route::post('/getsentmail','InboxmessageController@sent_message');
+Route::post('/getsentmail','InboxmessageController@sent_mail');
 Route::get('/firstfourcourse','CourseController@get_four_courses');
 Route::get('/getallcourse','CourseController@get_all_courses');
 Route::get('/getalltag','TagController@get_all_tags');

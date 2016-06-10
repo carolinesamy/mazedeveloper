@@ -145,6 +145,7 @@ angular.module('developerMaze').controller('inboxCtl',function( socket,$sce,$sco
 
 		$rootScope.specificMessage = msg;
 		console.log('msg',$rootScope.specificMessage);
+		$location.path('/message');
 
 	}
 

@@ -13,13 +13,13 @@
     <a class="logo" href="#/">
       <img  src="images/logo.png">
       </a>
-      <a class="navbar-brand color-white" href="#/" >Developer Maze</a>
+      <!-- <a class="navbar-brand color-white" href="#/" >Developer Maze</a> -->
     </div>
 
       <div class="navbar-form navbar-left" ng-if='currentuser'>
 
-        <div class="form-group" >
-          <input type="text" class="form-control" placeholder="Search for Questions.." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:500}">
+        <div class="form-group search" >
+          <input type="text" class="form-control" placeholder="SEARCH..." ng-model="question.title"  ng-change="autoComplete(question.title)" ng-model-options="{debounce:500}"> <span class="glyphicon glyphicon-search color-white" style="font-size: 20px;"></span>
         </div>
 
         <!--search drop down -->
@@ -28,8 +28,6 @@
             <li><a href="#/question?id={{item.id}}" ng-repeat='item in searchItems'>{{item.title}}</a></li>
           </ul>
         </div>
-
-        <button ng-if='user_type == "student" ' class="btn btn-default" data-toggle="modal" ng-click="requestAsk() " data-target="#askModal">Ask</button>
 
       </div>
 
@@ -43,6 +41,10 @@
 
             <div>
               <ul class="nav navbar-nav">
+              <li><button ng-if='user_type == "student" ' class="btn btn-lg btn-default bg-transparent color-white" data-toggle="modal" ng-click="requestAsk() " data-target="#askModal">Ask-Question</button></li>
+              <li >
+                <a class="color-white" href="#/">Home</a>
+              </li>
               <li><a class="color-white" href="#/questions" ng-click='filterQuestions("all")'>Questions' Page</a></li>
               <li > <a href="#/help" class="color-white"> Help</a></li>
                 
@@ -58,7 +60,7 @@
 
         <li ng-if='currentuser'>
 
-        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:30px;">
+        <button ng-click='messagePage()' class="btn btn-default btn-lg btn-link" style="font-size:25px;">
           <span class="glyphicon glyphicon-comment color-white"></span>
         </button>
 
@@ -68,13 +70,13 @@
 
         <li ng-if='currentuser'>
        
-            <button class="btn btn-default btn-link dropdown-toggle" style="font-size:30px;" ng-click="getNotificationList()" data-toggle="dropdown">
+            <button class="btn btn-default btn-link dropdown-toggle" style="font-size:25px;" ng-click="getNotificationList()" data-toggle="dropdown">
               <span class="glyphicon glyphicon-globe color-white"></span>
             </button>
             <span ng-if='numOfnotification != 0 ' class="badge badge-notify bg-blue">{{numOfnotification}}</span>
 
             <ul class="dropdown-menu">
-              <li ng-repeat='notification in notifications'>
+              <li ng-repeat='notification in notifications' style="width: 300px;">
               <a href="#/question?id={{notification.reference_id}}">
                 <h5 class="list-group-item-heading">{{notification.time}}</h5>
                 <h6 hm-read-more

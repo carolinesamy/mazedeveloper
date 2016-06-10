@@ -5,54 +5,92 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Track;
 use App\Http\Requests;
+use Session;
+
 
 class AdtracksController extends Controller
 {
     //
     public function create()
     {
-        $title='Create New Track ';
+        if (Session::has('admin_id')) {
+
+            $title='Create New Track ';
 
         return view('tracks.create',compact('title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function show($id)
     {
-        $title='Track information';
+        if (Session::has('admin_id')) {
+
+            $title='Track information';
         $track=Track::findOrFail($id);
 
         return view('tracks.show',compact('track','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function edit($id)
     {
-        $title=" Edit Track data ";
+        if (Session::has('admin_id')) {
+
+            $title=" Edit Track data ";
         $track=Track::find($id);
         return view('tracks.edit',compact('track','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function store(Request $request)
     {
-        $track=new Track();
+        if (Session::has('admin_id')) {
+
+            $track=new Track();
         $track->track_name=$request->input('name');
         $track->save();
 
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function update($id,Request $request)
     {
-        $track=Track::find($id);
+        if (Session::has('admin_id')) {
+
+            $track=Track::find($id);
         $track->track_name=$request->input('name');
         $track->save();
 
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function destroy($id)
     {
-        $track=Track::find($id);
+        if (Session::has('admin_id')) {
+
+            $track=Track::find($id);
         $track->delete();
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 }

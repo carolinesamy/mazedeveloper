@@ -63,6 +63,7 @@ Route::get('/getalltag','TagController@get_all_tags');
 Route::get('/getfourquestion','QuestionController@get_four_question');
 Route::resource('/admin/tag','AdtagsController');
 Route::resource('/admin/intake','AdintakesController');
+Route::get('/admin/logout','AdminController@logout');
 
 
 //**by caroline *** routes for edit question && edit answer

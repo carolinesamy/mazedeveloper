@@ -142,7 +142,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="/admin/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
@@ -200,7 +200,7 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li>
-                            <i class="fa fa-dashboard"></i>  <a href="/admin/aindex">Dash</a>
+                            <i class="fa fa-dashboard"></i>  <a href="/admin/aindex">Dashboard</a>
                         </li>
                         <li class="active">
                             <i class="fa fa-table"></i> Tables

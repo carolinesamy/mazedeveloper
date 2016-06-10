@@ -9,10 +9,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Input;
 
 use App\Answer;
@@ -22,7 +20,7 @@ use App\Intake;
 use App\Track;
 use DateTime;
 use DB;
-
+use Session;
 use App\Instructor;
 use App\Student;
 
@@ -68,6 +66,9 @@ class AdminController extends Controller
 
     public function index()
     {
+
+        if (Session::has('admin_id'))
+        {
         /*** Students Data ***/
         $students=Student::all();
 
@@ -91,18 +92,34 @@ class AdminController extends Controller
         $tags=DB::table('tags')->get();
 
         return view('admin/tables',compact('students','instructors','courses','categories','intakes','tracks','tags'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function create()
     {
-        $title='Create New Student ';
-        $intakes = Intake::lists('intake_number', 'id');
-        $tracks = Track::lists('track_name', 'id');
-        return view('students.create',compact('title','intakes','tracks'));
+        if (Session::has('admin_id'))
+        {
+            //
+            $title='Create New Student ';
+            $intakes = Intake::lists('intake_number', 'id');
+            $tracks = Track::lists('track_name', 'id');
+            return view('students.create',compact('title','intakes','tracks'));
+        }
+        else{
+            return redirect('/admin');
+        }
+
+
+
     }
 
     public function show($id)
     {
+        if (Session::has('admin_id'))
+        {
         $title='student information';
         $student=Student::findOrFail($id);
         $intake_id=$student->intake_id;
@@ -122,11 +139,17 @@ class AdminController extends Controller
         }
 
         return view('students.show',compact('student','title','intake','track','courses','courses_names'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function edit($id)
     {
-        $title=" Edit student data ";
+        if (Session::has('admin_id'))
+        {
+            $title=" Edit student data ";
         $student=Student::find($id);
 //        $intakes=Intake::all();
         $intakes = Intake::lists('intake_number', 'id');
@@ -135,11 +158,16 @@ class AdminController extends Controller
 
 
         return view('students.edit',compact('student','intakes','tracks','title'));
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function store(Request $request)
     {
-        $intake_courses=
+        if (Session::has('admin_id'))
+        {
         $student=new Student();
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');
@@ -149,10 +177,16 @@ class AdminController extends Controller
         $student->track_id=$request->input('track');
         $student->save();
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function update($id,Request $request)
     {
+        if (Session::has('admin_id'))
+        {
         $student=Student::find($id);
         $student->sfull_name=$request->input('name');
         $student->email=$request->input('email');
@@ -163,13 +197,31 @@ class AdminController extends Controller
 
         $student->save();
         return redirect('/admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
 
     public function destroy($id)
     {
-        $student=Student::find($id);
-        $student->delete();
-        return redirect('admin/tables');
+        if (Session::has('admin_id'))
+        {
+            $student=Student::find($id);
+            $student->delete();
+            return redirect('admin/tables');
+        }
+        else{
+            return redirect('/admin');
+        }
     }
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/admin');
+
+    }
+
+
 
 }

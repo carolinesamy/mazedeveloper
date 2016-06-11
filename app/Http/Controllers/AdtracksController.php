@@ -6,11 +6,28 @@ use Illuminate\Http\Request;
 use App\Track;
 use App\Http\Requests;
 use Session;
+use DB;
 
 
 class AdtracksController extends Controller
 {
     //
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+            /*** tracks ***/
+            $tracks=DB::table('tracks')->get();
+
+
+            return view('tracks/index',compact('tracks'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
     public function create()
     {
         if (Session::has('admin_id')) {
@@ -59,7 +76,7 @@ class AdtracksController extends Controller
         $track->track_name=$request->input('name');
         $track->save();
 
-        return redirect('/admin/tables');
+        return redirect('/admin/track');
         }
         else{
             return redirect('/admin');
@@ -74,7 +91,7 @@ class AdtracksController extends Controller
         $track->track_name=$request->input('name');
         $track->save();
 
-        return redirect('/admin/tables');
+        return redirect('/admin/track');
         }
         else{
             return redirect('/admin');
@@ -87,7 +104,7 @@ class AdtracksController extends Controller
 
             $track=Track::find($id);
         $track->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/track');
         }
         else{
             return redirect('/admin');

@@ -97,25 +97,6 @@ class AdminController extends Controller
         /*** Students Data ***/
         $students=Student::all();
 
-        /*** instructors Data ***/
-        $instructors=Instructor::all();
-
-        /*** categories Data ***/
-        $categories=DB::table('categories')->get();
-        /*** courses data ***/
-        $courses=DB::table('courses')->get();
-//            ->join('categories','courses.category_id','=','categories.id')
-//            ->get();
-
-        /*** intakes ***/
-        $intakes=DB::table('intakes')->get();
-
-        /*** tracks ***/
-        $tracks=DB::table('tracks')->get();
-
-        /*** tags ***/
-        $tags=DB::table('tags')->get();
-
         return view('admin/tables',compact('students','instructors','courses','categories','intakes','tracks','tags'));
         }
         else{

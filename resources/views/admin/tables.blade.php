@@ -155,39 +155,29 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="/admin/aindex"><i class="fa fa-fw fa-dashboard"></i> Test</a>
+                        <a href="/admin/aindex"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="/admin/charts"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="/admin/instructor"><i class="fa fa-fw fa-bar-chart-o"></i> Instructors</a>
                     </li>
                     <li>
-                        <a href="/admin/tables"><i class="fa fa-fw fa-table"></i> Tables</a>
+                        <a href="/admin/tables"><i class="fa fa-fw fa-table"></i> Students</a>
                     </li>
                     <li>
-                        <a href="/admin/forms"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="/admin/course"><i class="fa fa-fw fa-edit"></i> Courses</a>
                     </li>
                     <li>
-                        <a href="/admin/bootstrapElements"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                        <a href="/admin/category"><i class="fa fa-fw fa-desktop"></i> Categories</a>
                     </li>
                     <li>
-                        <a href="/admin/bootstrapGrid"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                        <a href="/admin/intake"><i class="fa fa-fw fa-wrench"></i> Intakes</a>
+                    </li>
+
+                    <li>
+                        <a href="/admin/tag"><i class="fa fa-fw fa-file"></i> Tags</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="/admin/blankPage"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="/admin/rindex"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                        <a href="/admin/track"><i class="fa fa-fw fa-dashboard"></i> Tracks</a>
                     </li>
                 </ul>
             </div>
@@ -259,265 +249,8 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <h2>Instructors</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right"  href="/admin/instructor/create" ><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Full Name
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-
-                                    <th>
-                                        points
-                                    </th>
-                                    <th>
-                                        type
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($instructors as $instructor)
-                                    <tr>
-                                        <td>{{$instructor->ifull_name }}</td>
-                                        <td>{{$instructor->email }}</td>
-                                        <td>{{$instructor->points }}</td>
-                                        <td>{{$instructor->type }}</td>
-
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.instructor.destroy', $instructor->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/instructor/{{$instructor->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/instructor/{{$instructor->id}}/edit">Edit</a>
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Courses</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/course/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Course Name
-                                    </th>
-                                    <th>
-                                        maximum points
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($courses as $course)
-                                    <tr>
-                                        <td>{{$course->course_name}}</td>
-                                        <td>{{$course->max_points}}</td>
-
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.course.destroy', $course->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/course/{{$course->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a>
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Categories</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/category/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Category Name
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($categories as $category)
-                                    <tr>
-                                        <td>{{$category->category_name}}</td>
 
 
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.category.destroy', $category->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/category/{{$category->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/category/{{$category->id}}/edit">Edit</a>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Intakes</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/intake/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Intake Number
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($intakes as $intake)
-                                    <tr>
-                                        <td>{{$intake->intake_number}}</td>
-
-
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.intake.destroy', $intake->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/intake/{{$intake->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/intake/{{$intake->id}}/edit">Edit</a>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Tags</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/tag/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Tag Name
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($tags as $tag)
-                                    <tr>
-                                        <td>{{$tag->tag_name}}</td>
-
-
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.tag.destroy', $tag->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/tag/{{$tag->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/tag/{{$tag->id}}/edit">Edit</a>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Tracks</h2>
-                        <div class="table-responsive">
-                            <a class="btn btn-success btn-circle btn-lg pull-right" href="/admin/track/create"><span class="glyphicon glyphicon-plus" style="font-size: 30px"></span></a>
-
-
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Track Name
-                                    </th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($tracks as $track)
-                                    <tr>
-                                        <td>{{$track->track_name}}</td>
-
-
-                                        <td>
-                                            {{ Form::open(['route' => ['admin.track.destroy', $track->id], 'method' => 'delete']) }}
-                                            <a class="btn btn-primary" href="/admin/track/{{$track->id}}">Show</a>
-                                            <a class="btn btn-warning" href="/admin/track/{{$track->id}}/edit">Edit</a>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            {{ Form::close() }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.container-fluid -->
 

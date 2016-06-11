@@ -7,12 +7,28 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Tag;
 use Session;
+use DB;
 
 
 class AdtagsController extends Controller
 {
     //
-    //
+
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+            /*** tags ***/
+            $tags=DB::table('tags')->get();
+
+            return view('tags/index',compact('tags'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
     public function create()
     {
         if (Session::has('admin_id')) {
@@ -66,7 +82,7 @@ class AdtagsController extends Controller
             $tag->tag_name=$request->input('name');
             $tag->save();
 
-            return redirect('/admin/tables');
+            return redirect('/admin/tag');
         }
         else{
             return redirect('/admin');
@@ -82,7 +98,7 @@ class AdtagsController extends Controller
             $tag=Tag::find($id);
         $tag->tag_name=$request->input('name');
         $tag->save();
-        return redirect('/admin/tables');
+        return redirect('/admin/tag');
         }
         else{
             return redirect('/admin');
@@ -95,7 +111,7 @@ class AdtagsController extends Controller
 
             $tag=Tag::find($id);
         $tag->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/tag');
         }
         else{
             return redirect('/admin');

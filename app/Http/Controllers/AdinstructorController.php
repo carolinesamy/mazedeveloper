@@ -10,7 +10,24 @@ use Session;
 
 class AdinstructorController extends Controller
 {
-  public function create()
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+            /*** instructors Data ***/
+            $instructors=Instructor::all();
+
+
+            return view('instructors/index',compact('instructors'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
+
+    public function create()
     {
         if (Session::has('admin_id'))
         {
@@ -83,7 +100,7 @@ class AdinstructorController extends Controller
         $instructor->image=$request->input('image');
         $instructor->type=$request->input('type');
         $instructor->save();
-        return redirect('/admin/tables');
+        return redirect('/admin/instructor');
         }
         else{
             return redirect('/admin');
@@ -101,7 +118,7 @@ class AdinstructorController extends Controller
         $instructor->image=$request->input('image');
         $instructor->type=$request->input('type');
         $instructor->save();
-        return redirect('/admin/tables');
+        return redirect('/admin/instructor');
         }
         else{
             return redirect('/admin');
@@ -114,7 +131,7 @@ class AdinstructorController extends Controller
         {
         $instructor=Instructor::find($id);
         $instructor->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/instructor');
         }
         else{
             return redirect('/admin');

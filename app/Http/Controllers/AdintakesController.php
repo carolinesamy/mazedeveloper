@@ -7,11 +7,30 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use App\Intake;
 use Session;
+use DB;
 
 class AdintakesController extends Controller
 {
     //
-    //
+
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+
+            /*** intakes ***/
+            $intakes=DB::table('intakes')->get();
+
+
+            return view('intakes/index',compact('intakes'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
+
     public function create()
     {
         if (Session::has('admin_id'))
@@ -59,21 +78,12 @@ class AdintakesController extends Controller
         if (Session::has('admin_id'))
         {
 
-            $v = Validator::make($request->all(), [
-                'intake_number' => 'required|unique|max:255',
-            ]);
-
-            if ($v->fails())
-            {
-                return redirect()->back()->withErrors('msg','error');
-            }
-            else{
                 $intake=new Intake();
                 $intake->intake_number=$request->input('number');
                 $intake->save();
 
-                return redirect('/admin/tables');
-            }
+                return redirect('/admin/intake');
+
         }
         else{
             return redirect('/admin');
@@ -87,7 +97,7 @@ class AdintakesController extends Controller
             $intake = Intake::find($id);
             $intake->intake_number = $request->input('number');
             $intake->save();
-            return redirect('/admin/tables');
+            return redirect('/admin/intake');
         }
         else{
             return redirect('/admin');
@@ -100,7 +110,7 @@ class AdintakesController extends Controller
 
             $intake=Intake::find($id);
         $intake->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/intake');
         }
         else{
             return redirect('/admin');

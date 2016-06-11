@@ -16,6 +16,23 @@ use App\Instructor;
 class AdcoursesController extends Controller
 {
     //
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+            /*** courses data ***/
+            $courses=DB::table('courses')->get();
+
+
+            return view('courses/index',compact('courses'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
+
     public function create()
     {
         if (Session::has('admin_id'))
@@ -96,7 +113,7 @@ class AdcoursesController extends Controller
             $instructor_course->save();
         }
 
-        return redirect('/admin/tables');
+        return redirect('/admin/course');
         }
         else{
             return redirect('/admin');
@@ -145,7 +162,7 @@ class AdcoursesController extends Controller
             }
         }
 
-        return redirect('/admin/tables');
+        return redirect('/admin/course');
         }
         else{
             return redirect('/admin');
@@ -158,7 +175,7 @@ class AdcoursesController extends Controller
         {
         $course=Course::find($id);
         $course->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/course');
         }
         else{
             return redirect('/admin');

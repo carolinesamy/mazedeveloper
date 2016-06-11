@@ -14,6 +14,23 @@ use DB;
 class AdcategoriesController extends Controller
 {
     //
+    public function index()
+    {
+
+        if (Session::has('admin_id'))
+        {
+
+            /*** categories Data ***/
+            $categories=DB::table('categories')->get();
+
+
+            return view('categories/index',compact('categories'));
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
+
     public function create()
     {
         if (Session::has('admin_id'))
@@ -74,7 +91,7 @@ class AdcategoriesController extends Controller
         $category=new Category();
         $category->category_name=$request->input('name');
         $category->save();
-        return redirect('/admin/tables');
+        return redirect('/admin/category');
         }
         else{
             return redirect('/admin');
@@ -88,7 +105,7 @@ class AdcategoriesController extends Controller
         $category=Category::find($id);
         $category->category_name=$request->input('name');
         $category->save();
-        return redirect('/admin/tables');
+        return redirect('/admin/category');
         }
         else{
             return redirect('/admin');
@@ -101,7 +118,7 @@ class AdcategoriesController extends Controller
         {
         $category=Category::find($id);
         $category->delete();
-        return redirect('/admin/tables');
+        return redirect('/admin/category');
         }
         else{
             return redirect('/admin');

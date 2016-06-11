@@ -100,13 +100,14 @@ Route::resource('/admin/course','AdcoursesController');
 Route::resource('/admin/track','AdtracksController');
 
 Route::get('/home', 'HomeController@index');
-Route::get('/admin/charts',function(){
-    return view('admin/charts');
-});
+//Route::get('/admin/charts',function(){
+//    return view('admin/charts');
+//});
 Route::get('/admin/tables','AdminController@index');
-Route::get('/admin/forms',function(){
-    return view('admin/forms');
-});
+
+//Route::get('/admin/forms',function(){
+//    return view('admin/forms');
+//});
 Route::get('/admin/bootstrapElements',function(){
     return view('admin/bootstrap-elements');
 });

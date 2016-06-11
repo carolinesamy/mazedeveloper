@@ -75,7 +75,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 		}).success(function(res){
 
 			console.log(res);
-
+			
 			$rootScope.question = res.question[0];
 			content = $rootScope.question.question_content;
 			$rootScope.question.question_content = $sce.trustAsHtml(content);

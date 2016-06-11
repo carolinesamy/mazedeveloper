@@ -1,5 +1,5 @@
 
-angular.module('developerMaze').controller('questionsCtl',function( $scope ,$http,$sce, sessionService,$location, $rootScope , server , $routeParams){
+angular.module('developerMaze').controller('questionsCtl',function( $scope,ngTableParams ,$http,$sce, sessionService,$location, $rootScope , server , $routeParams){
 	
 
 //*************************Request Data*******************************
@@ -30,6 +30,30 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 				item.content = $sce.trustAsHtml(item.content)
 				return item;
 				});
+
+				$scope.questionsTable = new ngTableParams({
+                page: 1,
+                count: 6
+	            }, {
+	                total: $rootScope.questions.length, 
+	                getData: function ($defer, params) {
+	                    $scope.data = $rootScope.questions.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	                    $defer.resolve($scope.data);
+	                }
+	            });
+
+
+				$scope.allquestionsTable = new ngTableParams({
+                page: 1,
+                count: 6
+	            }, {
+	                total: $rootScope.allquestions.length, 
+	                getData: function ($defer, params) {
+	                    $scope.alldata = $rootScope.allquestions.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	                    $defer.resolve($scope.alldata);
+	                }
+	            });
+
 			}
 			
 		}).error(function(err){
@@ -73,6 +97,17 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			$rootScope.questions = $rootScope.questionsWithoutFilter;
 
 		}
+
+		$scope.questionsTable = new ngTableParams({
+                page: 1,
+                count: 6
+	            }, {
+	                total: $rootScope.questions.length, 
+	                getData: function ($defer, params) {
+	                    $scope.data = $rootScope.questions.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	                    $defer.resolve($scope.data);
+	                }
+	            });
 	};
 
 	//*************filter ALL questions to (answerd,unanswered,all)***************
@@ -105,6 +140,17 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 			$rootScope.allquestions = $rootScope.allquestionsWithoutFilter;
 
 		}
+
+		$scope.allquestionsTable = new ngTableParams({
+                page: 1,
+                count: 6
+	            }, {
+	                total: $rootScope.allquestions.length, 
+	                getData: function ($defer, params) {
+	                    $scope.alldata = $rootScope.allquestions.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	                    $defer.resolve($scope.alldata);
+	                }
+	            });
 	};
 
 	//*****************get course questions********************
@@ -121,6 +167,16 @@ angular.module('developerMaze').controller('questionsCtl',function( $scope ,$htt
 				}
 				
 			} );
+		$scope.coursesTable = new ngTableParams({
+                page: 1,
+                count: 6
+	            }, {
+	                total: $rootScope.coursequestions.length, 
+	                getData: function ($defer, params) {
+	                    $scope.coursedata = $rootScope.coursequestions.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	                    $defer.resolve($scope.coursedata);
+	                }
+	            });
 
 	}
 

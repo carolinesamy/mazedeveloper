@@ -131,7 +131,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				//$rootScope.ui_likes.push($rootScope.in_likes);
 			});
 
-			//console.log($rootScope.ui_likes);
+			console.log($rootScope.ui_likes);
 		}).error(function(err){
 			console.log(err);
 		});

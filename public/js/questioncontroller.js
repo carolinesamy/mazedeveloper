@@ -378,6 +378,14 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			}
 			}).success(function (res) {
 				console.log(res);
+
+				if($rootScope.user_type == 'student'){
+					res.sfull_name = $rootScope.user_name;
+
+				}else if($rootScope.user_type == 'instructor'){
+					res.instructor_name = $rootScope.user_name;
+
+				}
 				$rootScope.comments.push(res);
 				$scope.newComment.content = '';
 
@@ -524,6 +532,13 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 
 				// console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
 				// console.log('length',$rootScope.replies[index].length);
+				if($rootScope.user_type == 'student'){
+					res.student_name = $rootScope.user_name;
+
+				}else if($rootScope.user_type == 'instructor'){
+					res.instructor_name = $rootScope.user_name;
+
+				}
 
 				$rootScope.replies[index].push(res);
 

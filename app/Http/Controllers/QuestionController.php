@@ -229,11 +229,12 @@ class QuestionController extends Controller
         foreach($ids as $ansid)
         {
             $user_id=DB::table('replies')
-                ->where('replies.answer_id','=',1)
+                ->where('replies.answer_id','=',$ansid)
                 ->select('replies.student_id','replies.instructor_id','replies.answer_id')
                 ->get();
-//
-                if($user_id[0]->student_id!=null)
+                return $user_id;exit;
+
+                if($user_id[0]->student_id != null)
                 {
                     $myreplies[]=DB::table('replies')
                         ->join('students','students.id','=','replies.student_id')
@@ -347,7 +348,7 @@ class QuestionController extends Controller
             'privilege'=>$privilege
 
         );
-        return $response;
+        //return $response;
     }
 
     public function complete(Request $request){

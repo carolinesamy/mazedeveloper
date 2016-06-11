@@ -165,11 +165,14 @@ $rootScope.questionTags={selectedTags:[]};
                 console.log(res);
                 res.content = $sce.trustAsHtml(res.content);
 
-                $rootScope.allquestions.splice(0, 0, res);
-                $rootScope.questions.splice(0, 0, res);
+                $scope.data.splice(0, 0, res);
+                //$scope.alldata.splice(0, 0, res);
 
-                $scope.question= '';
-                
+                $scope.question.titlee= ' ';
+                $scope.question.content= '';
+                $scope.question.courses= '';
+                $scope.questionTags.selectedTags = '';
+
             }).error(function(err){
                 console.log(err);
             });
@@ -303,11 +306,6 @@ $rootScope.questionTags={selectedTags:[]};
         $location.path('/inbox');
     }
 
-    //******************** cancel ask ***********************
-
-    $scope.cancelAsk = function(){
-        $scope.question.title = '';
-    }
 //******************************** get all courses*********************/
     $scope.getallcourse=function(){
 

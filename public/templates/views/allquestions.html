@@ -2,7 +2,7 @@
 <div ng-include = "'templates/views/header.html'"></div>
 
 
-<div class="container" >
+<div class="container" style="margin-top: 20px;">
   <div class="row content">
     <div class="col-sm-3 sidenav">
 
@@ -48,7 +48,7 @@
     <h2><small>RECENT QUESTIONS</small></h2>
       <hr>
       <div class="row">
-      <div ng-repeat='question in allquestions track by $index' >
+      <div  ng-table="allquestionsTable" ng-repeat='question in alldata track by $index' >
 <div class="col-sm-6">
           <div class="questionArchive bg-blue color-white">
       
@@ -65,7 +65,7 @@
       </h4>
       <h5><span class="label bg-red">{{question.course_name}}</span></h5><br>
 
-     <strong> Tags</strong> <span class="badge bg-brown" ng-repeat='tag in question.tags track by $index'> <a  class="color-white" >{{tag.tag_name}}</a> </span> <strong>Answers <span class="badge bg-brown">{{question.answer_number}}</span></strong>
+     <strong> Tags</strong> <span class="badge bg-brown" ng-repeat='tag in question.tags track by $index'> <a  class="color-white" >{{tag.tag_name}}</a> </span>  <br/><strong>Answers <span class="badge bg-brown">{{question.answer_number}}</span></strong>
 
 
       <hr>
@@ -89,8 +89,14 @@
 
           </div>
           </div>
-        </div><!--end of row -->
-      </div><!--end of question -->
+        </div><!--end of  question  -->
+      </div><!--end ofrow-->
+  
+  <!--pagination-->
+  <table ng-table="allquestionsTable" class="table table-striped">
+   <tr ng-repeat="user in data"></tr>
+  </table>
+
     </div>
   </div>
 </div>

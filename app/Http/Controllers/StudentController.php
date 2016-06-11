@@ -165,7 +165,7 @@ class StudentController extends Controller
                     ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved','student_courses.privilege')
                     ->orderBy('questions.time','desc')
                     /*->skip($paginator*10)*/
-                    ->take(10)
+                    //->take(10)
                     ->get();
 
                 $i=0;
@@ -203,7 +203,8 @@ class StudentController extends Controller
                     // ->join('answers','questions.id','=','answers.question_id')
                     ->join('courses','courses.id','=','questions.course_id')
                     ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
-                    ->orderBy('questions.time','desc')->take(10)
+                    ->orderBy('questions.time','desc')
+                    //->take(10)
                     ->get();
                 $i=0;
                 $arr=[];
@@ -270,7 +271,8 @@ class StudentController extends Controller
                     ->join('instructor_courses','questions.course_id','=','instructor_courses.course_id')
                     ->where('instructor_courses.instructor_id','=',$user_id)
                     ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved')
-                    ->orderBy('questions.time','desc')->take(10)
+                    ->orderBy('questions.time','desc')
+                    //->take(10)
                     ->get();
 
                 $i=0;
@@ -305,7 +307,8 @@ class StudentController extends Controller
                     // ->join('answers','questions.id','=','answers.question_id')
                     ->join('courses','courses.id','=','questions.course_id')
                     ->select('questions.id','courses.course_name','questions.content','questions.title','questions.time','questions.solved'/*,DB::raw('count(answers.question_id) as answers_num')*/)
-                    ->orderBy('questions.time','desc')->take(10)
+                    ->orderBy('questions.time','desc')
+                    //->take(10)
                     ->get();
 
                 $i=0;

@@ -56,7 +56,7 @@
         <hr>
       </div>
 
-    <div ng-if='userCourse == "true" '>
+    <div>
       <h4>Leave a Comment:</h4>
       <div role="form">
         <div class="form-group">
@@ -80,7 +80,7 @@
             <div class="row">
 
             <!--Likes/DisLikes-->
-          <div class="col-sm-3" ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$parent.$index"  ng-if='userCourse == "true" '>
+          <div class="col-sm-3" ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$index" >
             <h3>
 
                 <div ng-if='obj.empty == 0 && obj.me == 1'>
@@ -147,7 +147,7 @@
 
             </div>
           </div><!--end of reply-->
-        <div ng-if='userCourse == "true" '>
+        <div>
           <h4>Leave a Reply:</h4>
 
               <div role="form">
@@ -162,7 +162,7 @@
         </div>
         <hr>
       </div><!--end of answers -->
-    <div ng-if='userCourse == "true" '>
+    <div>
      <div  ng-if=' question.question_student_id != user_id || user_type != "student" '>
       <hr>
       <h4>Leave an Answer:</h4>

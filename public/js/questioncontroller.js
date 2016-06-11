@@ -91,12 +91,12 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			$rootScope.dislikes = res.dislikecount;
 			$rootScope.likesCondition = res.likes; // likes object
 			$rootScope.user_type=sessionService.get('type');// user type
-			$rootScope.privilege = res.privilege[0].privilege;
-
-			$rootScope.thisQuestionCourseId = res.question[0].question_course;
-
+			//$rootScope.privilege = res.privilege[0].privilege;
+			console.log('courses:',$rootScope.courses);
 			angular.forEach( $rootScope.courses,function(value,key){                 
-				 	if(value.id == $rootScope.thisQuestionCourseId){
+				 	if(value.id == $rootScope.question_id){
+				 		console.log('value',value);
+				 		console.log('this',$rootScope.question_id);
 				 		$rootScope.userCourse = 'true'
 				 	}
 

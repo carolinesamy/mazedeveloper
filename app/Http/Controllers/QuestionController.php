@@ -229,25 +229,27 @@ class QuestionController extends Controller
         foreach($ids as $ansid)
         {
             $user_id=DB::table('replies')
-                ->where('replies.answer_id','=',1)
+                ->where('replies.answer_id','=',$ansid)
                 ->select('replies.student_id','replies.instructor_id','replies.answer_id')
                 ->get();
 //
-                if($user_id[0]->student_id!=null)
-                {
-                    $myreplies[]=DB::table('replies')
-                        ->join('students','students.id','=','replies.student_id')
+            if($user_id!=null) {
+                if ($user_id[0]->student_id != null) {
+                    $myreplies[] = DB::table('replies')
+                        ->join('students', 'students.id', '=', 'replies.student_id')
                         ->where('replies.answer_id', '=', $ansid)
-                        ->select('replies.id as reply_id','replies.content','replies.time','replies.student_id as reply_student_id','students.sfull_name as student_name')
+                        ->select('replies.id as reply_id', 'replies.content', 'replies.time', 'replies.student_id as reply_student_id', 'students.sfull_name as student_name')
+                        ->get();
+                } else {
+                    $myreplies[] = DB::table('replies')
+                        ->join('instructors', 'instructors.id', '=', 'replies.instructor_id')
+                        ->where('replies.answer_id', '=', $ansid)
+                        ->select('replies.id as reply_id', 'replies.content', 'replies.time', 'replies.instructor_id as reply_instructor_id', 'instructors.ifull_name as instructor_name')
                         ->get();
                 }
-                else{
-                    $myreplies[]=DB::table('replies')
-                        ->join('instructors','instructors.id','=','replies.instructor_id')
-                        ->where('replies.answer_id', '=', $ansid)
-                        ->select('replies.id as reply_id','replies.content','replies.time','replies.instructor_id as reply_instructor_id','instructors.ifull_name as instructor_name')
-                        ->get();
-                }
+            }else{
+                $myreplies[]='';
+            }
         }
         $likesnum=[];
         $dislikesnum=[];

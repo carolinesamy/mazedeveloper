@@ -76,24 +76,24 @@
           <h4>By: {{answer.student_name}}{{answer.instructor_name}} <small>{{answer.answer_time}}</small> </h4>
 
          <div ng-bind-html='answer.answer_content'></div>
-          
             <div class="row">
 
             <!--Likes/DisLikes-->
-          <div class="col-sm-3" ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$index"  ng-if='userCourse == "true" '>
+          <div class="col-sm-3" ng-repeat='obj in ui_likes[$index] track by $index' ng-init="my_index=$parent.$parent.$index"  ng-if='userCourse == "true" '>
             <h3>
 
-              <div ng-if='obj.empty == 0 && obj.me == 1'>
+                <div ng-if='obj.empty == 0 && obj.me == 1'>
                 <!--{{obj.like}}-->
+
                 <a ng-if='obj.like == 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up color-blue" ng-click="removeLike(answer.answer_id,my_index)">{{likes[my_index]}}</a>
                 <a ng-if='obj.like == 1 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down">{{dislikes[my_index]}}</a>
 
                 <a ng-if='obj.like == 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" >{{likes[my_index]}}</a>
                 <a ng-if='obj.like == 0 ' style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down color-blue" ng-click="removeDislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
-
               </div>
                 <div ng-if='obj.empty == 1'>
-                <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id,my_index)">{{likes[my_index]}}</a>
+                    
+                    <a style="text-decoration: none;" class="glyphicon glyphicon-thumbs-up" ng-click="like(answer.answer_id,my_index)">{{likes[my_index]}}</a>
 
                 <a  style="text-decoration: none;" class="glyphicon glyphicon-thumbs-down" ng-click="dislike(answer.answer_id,my_index)">{{dislikes[my_index]}}</a>
 

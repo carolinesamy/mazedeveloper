@@ -22,10 +22,7 @@
             <label>Password</label>
             <input class="form-control" placeholder="password" type="password" id="password" name="password">
         </fieldset>
-        <fieldset class="form-group">
-            <label>Image</label>
-            <input class="form-control" placeholder="image path" type="text" id="image" name="image">
-        </fieldset>
+        
 
         <fieldset class="form-group">
             <label>Intake</label>

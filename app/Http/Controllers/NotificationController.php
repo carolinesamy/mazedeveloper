@@ -113,7 +113,7 @@ class NotificationController extends Controller
                         ['instructor_notifications.instructor_id', '=', $user_id],
                        // ['notifications.time', '>', $last_hit->last_hit]
                     ])
-                    ->select('notifications.type','notifications.content','notifications.time')
+                    ->select('notifications.reference_id','notifications.type','notifications.content','notifications.time')
                     ->orderBy('notifications.time', 'desc')
                     ->take(7)
                     ->get();

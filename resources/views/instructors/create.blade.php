@@ -19,10 +19,7 @@
             <label>Password</label>
             <input class="form-control" placeholder="password" type="password" id="password" name="password">
         </fieldset>
-        <fieldset class="form-group">
-            <label>Image</label>
-            <input class="form-control" placeholder="image" type="text" id="image" name="image">
-        </fieldset>
+        
         <fieldset class="form-group">
             <label>Type</label>
             <input class="form-control" placeholder="type" type="text" id="type" name="type">

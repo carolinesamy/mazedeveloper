@@ -17,7 +17,7 @@
 
         <fieldset class="form-group">
             <label>Maximum Points</label>
-            <input class="form-control" placeholder="password" type="number" id="max_points" name="max_points">
+            <input class="form-control" type="number" id="max_points" name="max_points">
         </fieldset>
 
         <fieldset class="form-group">

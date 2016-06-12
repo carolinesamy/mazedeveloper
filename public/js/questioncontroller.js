@@ -96,12 +96,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			console.log('courses:',$rootScope.courses);
 			angular.forEach( $rootScope.courses,function(value,key){                 
 				 	if(value.id == res.question[0].question_course){
-				 		console.log('true',value);
 				 		$rootScope.userCourse = 'true';
 
-				 	}else{
-				 		console.log('false');
-				 		
 				 	}
 
                 });

@@ -17,7 +17,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
    	$scope.newAnswer = {
    		'content':''
    	};
-
+   	$rootScope.userCourse = 'false';
 
 	$rootScope.question_id=$routeParams.id;
 
@@ -92,15 +92,19 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			$rootScope.likesCondition = res.likes; // likes object
 			$rootScope.user_type=sessionService.get('type');// user type
 			//$rootScope.privilege = res.privilege[0].privilege;
-			// console.log('courses:',$rootScope.courses);
-			// angular.forEach( $rootScope.courses,function(value,key){                 
-			// 	 	if(value.id == $rootScope.question_id){
-			// 	 		console.log('value',value);
-			// 	 		console.log('this',$rootScope.question_id);
-			// 	 		$rootScope.userCourse = 'true'
-			// 	 	}
 
-   //              });
+			console.log('courses:',$rootScope.courses);
+			angular.forEach( $rootScope.courses,function(value,key){                 
+				 	if(value.id == res.question[0].question_course){
+				 		console.log('true',value);
+				 		$rootScope.userCourse = 'true';
+
+				 	}else{
+				 		console.log('false');
+				 		
+				 	}
+
+                });
 
 			var check=0;
 			$rootScope.ui_likes=[];

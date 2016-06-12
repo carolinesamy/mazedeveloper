@@ -7,7 +7,7 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
  //        mode: 'xml',
  //   		};
    	$rootScope.answers ='';
-   	$rootScope.replies = '';
+   	$rootScope.replies = [];
    	$rootScope.comments = '';
    	$rootScope.likes = '';
    	$rootScope.dislikes = '';
@@ -92,15 +92,15 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 			$rootScope.likesCondition = res.likes; // likes object
 			$rootScope.user_type=sessionService.get('type');// user type
 			//$rootScope.privilege = res.privilege[0].privilege;
-			console.log('courses:',$rootScope.courses);
-			angular.forEach( $rootScope.courses,function(value,key){                 
-				 	if(value.id == $rootScope.question_id){
-				 		console.log('value',value);
-				 		console.log('this',$rootScope.question_id);
-				 		$rootScope.userCourse = 'true'
-				 	}
+			// console.log('courses:',$rootScope.courses);
+			// angular.forEach( $rootScope.courses,function(value,key){                 
+			// 	 	if(value.id == $rootScope.question_id){
+			// 	 		console.log('value',value);
+			// 	 		console.log('this',$rootScope.question_id);
+			// 	 		$rootScope.userCourse = 'true'
+			// 	 	}
 
-                });
+   //              });
 
 			var check=0;
 			$rootScope.ui_likes=[];
@@ -516,6 +516,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 	//*******************Add Reply function***************
 
 	$scope.addReply=function(answer_id,reply,index){
+		//console.log('repllllllllly index:',index);
+		//console.log('arraaaaaaaaaaay',$rootScope.replies[0].length);
 		if(reply){
 			$http({
 			method: 'POST',
@@ -530,8 +532,8 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 				}
 			}).success(function(res){
 
-				// console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
-				// console.log('length',$rootScope.replies[index].length);
+				console.log('answer_id:'+answer_id+" reply:"+reply+" index:"+index);
+				console.log('length',$rootScope.replies[index].length);
 				if($rootScope.user_type == 'student'){
 					res.student_name = $rootScope.user_name;
 
@@ -539,9 +541,15 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 					res.instructor_name = $rootScope.user_name;
 
 				}
+				if($rootScope.replies[index].length == 0){
 
-				$rootScope.replies[index].push(res);
+					console.log($rootScope.replies[index]);
+					$rootScope.replies[index][0] = res;
+					
 
+				}else{
+					$rootScope.replies[index].push(res);
+				}
 				$http({
 					method: 'POST',
 					url: 'http://localhost:8000/replynotification',

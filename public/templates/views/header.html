@@ -78,7 +78,7 @@
             <ul class="dropdown-menu">
               <li ng-repeat='notification in notifications' style="width: 300px;">
               <a href="#/question?id={{notification.reference_id}}">
-                <h5 class="list-group-item-heading">id:{{notification.reference_id}},{{notification.time}}</h5>
+                <h5 class="list-group-item-heading">{{notification.reference_id}},{{notification.time}}</h5>
                 <h6 hm-read-more
                   hm-text="{{notification.content}}" 
                   hm-limit="80"

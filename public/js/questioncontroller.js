@@ -541,15 +541,25 @@ angular.module('developerMaze').controller('questionCtl',function( socket,$scope
 					res.instructor_name = $rootScope.user_name;
 
 				}
-				if($rootScope.replies[index].length == 0){
+				// if($rootScope.replies[index].length == 0){
 
-					console.log($rootScope.replies[index]);
-					$rootScope.replies[index][0] = res;
+				// 	console.log($rootScope.replies[index]);
+				// 	$rootScope.replies[index][0] = res;
 					
 
-				}else{
+				// }else{
+				// 	$rootScope.replies[index].push(res);
+				// }
+				if($rootScope.replies[index].length == 0){
+
+					$rootScope.replies[index] = new Array();
+					$rootScope.replies[index].push(res);
+         			console.log($rootScope.replies[index]);
+				}
+				else{
 					$rootScope.replies[index].push(res);
 				}
+
 				$http({
 					method: 'POST',
 					url: 'http://localhost:8000/replynotification',
